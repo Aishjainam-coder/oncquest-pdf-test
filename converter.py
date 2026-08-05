@@ -1,10 +1,11 @@
 """
 Universal Dynamic PDF HTML Renderer & Converter Module
 ======================================================
-Provides two rendering modes:
+Provides rendering modes and export tools:
 1. Exact Position Layout Mode (`render_exact_pdf_layout_html`): Preserves 100% exact 1-to-1 visual
    positions (`top`, `left`, `width`, `height`) of all text, tables, images, banners, and boxes from input PDF.
 2. Standard Flow Template Mode (`generate_dynamic_template_html`): Renders extracted JSON into a responsive web flow.
+3. Microsoft Word Exporter (`convert_json_to_docx`): Generates formatted Word .docx files from extracted JSON.
 """
 
 import os
@@ -129,22 +130,6 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
 
         cleaned = page_html
         cleaned = re.sub(r'font-family:[^;"]+', f'font-family: {font_family}', cleaned)
-
-        # Filter out text overlapping headers
-        def filter_header_p(match):
-            p_tag = match.group(0)
-            top_m = re.search(r'top:([\d\.]+)pt', p_tag)
-            if top_m:
-                try:
-                    top_val = float(top_m.group(1))
-                    for hy0_r, hy1_r in header_y_ranges:
-                        if hy0_r <= top_val <= hy1_r:
-                            return ""
-                except Exception:
-                    pass
-            return p_tag
-
-        cleaned = re.sub(r'<p\s+[^>]*>.*?</p>', filter_header_p, cleaned, flags=re.DOTALL)
 
         # Image matrix positioning fit
         def fit_page_imgs(page_html_str):
@@ -878,20 +863,3 @@ def render_html_to_pdf_and_preview(html_path, output_pdf_path, preview_img_path=
         pass
 
     return output_pdf_path
-
-
-def convert_pdf_to_word(pdf_path, docx_path):
-    """
-    Convert a PDF file to Word (.docx) using pdf2docx.
-    """
-    try:
-        from pdf2docx import Converter as DocxConverter
-        pdf_path = Path(pdf_path).absolute()
-        docx_path = Path(docx_path).absolute()
-        docx_path.parent.mkdir(parents=True, exist_ok=True)
-        cv = DocxConverter(str(pdf_path))
-        cv.convert(str(docx_path), start=0, end=None)
-        cv.close()
-        return docx_path
-    except Exception as e:
-        return None
