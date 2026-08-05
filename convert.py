@@ -9,7 +9,7 @@ import sys
 import shutil
 import json
 from pathlib import Path
-from converter import process_pdf, render_html_to_pdf_and_preview
+from converter import process_pdf, render_html_to_pdf_and_preview, convert_json_to_docx
 from extractor import extract_report_data
 
 output_dir = Path("output")

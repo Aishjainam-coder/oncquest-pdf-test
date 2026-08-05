@@ -20,7 +20,7 @@ import streamlit as st
 import fitz  # PyMuPDF
 import streamlit.components.v1 as components
 
-from converter import process_pdf, generate_dynamic_template_html, render_exact_pdf_layout_html, render_html_to_pdf_and_preview
+from converter import process_pdf, generate_dynamic_template_html, render_exact_pdf_layout_html, render_html_to_pdf_and_preview, convert_json_to_docx
 from extractor import extract_report_data
 
 # Configure Streamlit Page
@@ -116,12 +116,12 @@ st.sidebar.markdown("### 🎨 Theme Customizer")
 
 theme_preset = st.sidebar.selectbox(
     "Theme Color Preset",
-    options=["Oncquest Blue (#1f497d)", "Emerald Green (#059669)", "Dark Charcoal (#1e293b)", "Crimson Red (#b91c1c)", "Royal Purple (#7c3aed)", "Custom Color"],
+    options=["Classic Navy (#1f497d)", "Emerald Green (#059669)", "Dark Charcoal (#1e293b)", "Crimson Red (#b91c1c)", "Royal Purple (#7c3aed)", "Custom Color"],
     index=0
 )
 
 color_map = {
-    "Oncquest Blue (#1f497d)": "#1f497d",
+    "Classic Navy (#1f497d)": "#1f497d",
     "Emerald Green (#059669)": "#059669",
     "Dark Charcoal (#1e293b)": "#1e293b",
     "Crimson Red (#b91c1c)": "#b91c1c",
@@ -155,6 +155,21 @@ show_tables = st.sidebar.checkbox("Show Data Tables", value=True)
 show_sections = st.sidebar.checkbox("Show Content Section Boxes", value=True)
 show_images = st.sidebar.checkbox("Show Extracted Images & Graphs", value=True)
 
+st.sidebar.markdown("---")
+st.sidebar.markdown("### 🖊️ Document-Type Adaptations")
+show_footer_signatures = st.sidebar.checkbox(
+    "Show Footer Signature Boxes", value=True,
+    help="Turn off for document types (e.g. invoices, certificates) that don't need sign-off boxes."
+)
+show_badges = st.sidebar.checkbox(
+    "Highlight Status Keywords in Tables", value=True,
+    help="Colors table cells matching status words (danger/warning/success). Vocabulary is generic across document types, not lab-report-only."
+)
+banner_font_size_pt = st.sidebar.slider(
+    "Banner Heading Min Font Size (pt) — Exact Layout Mode", min_value=9.0, max_value=20.0, value=12.5, step=0.5,
+    help="Any white-on-color text at or above this size is treated as a banner heading. Tune per source PDF instead of assuming a fixed 13-14pt."
+)
+
 preview_height = st.sidebar.slider("Live HTML Preview Height (px)", min_value=500, max_value=1200, value=850, step=50)
 
 # Build active theme config dictionary
@@ -167,7 +182,10 @@ theme_config = {
     "show_kv": show_kv,
     "show_tables": show_tables,
     "show_sections": show_sections,
-    "show_images": show_images
+    "show_images": show_images,
+    "show_footer_signatures": show_footer_signatures,
+    "show_badges": show_badges,
+    "banner_font_size_pt": banner_font_size_pt
 }
 if custom_title.strip():
     theme_config["header_title"] = custom_title.strip()
@@ -176,7 +194,7 @@ if custom_title.strip():
 st.markdown("""
 <div class="header-card">
     <div class="header-title">⚡ Universal Dynamic PDF & JSON Converter</div>
-    <div class="header-subtitle">Upload ANY PDF format (lab report, invoice, certificate, bill, tax form, tech spec) to extract complete structured JSON data (key-values, tables, content boxes, images, graphs) and render custom-designed HTML & PDF documents.</div>
+    <div class="header-subtitle">Upload ANY PDF format (lab report, invoice, certificate, bill, tax form, tech spec) to extract complete structured JSON data (key-values, tables, content boxes, images, graphs) and render custom-designed HTML, Word (.docx) & PDF documents.</div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -293,7 +311,7 @@ if st.session_state.converted and st.session_state.extracted_data and st.session
 
     # Tab 1: Live HTML Preview & Downloads
     with tab_preview:
-        col_d1, col_d2, col_d3 = st.columns(3)
+        col_d1, col_d2, col_d3, col_d4 = st.columns(4)
         with col_d1:
             st.download_button(
                 label="📥 Download HTML (`target.html`)",
@@ -309,6 +327,17 @@ if st.session_state.converted and st.session_state.extracted_data and st.session
                 mime="application/json"
             )
         with col_d3:
+            try:
+                docx_bytes = convert_json_to_docx(extracted_data, theme_config=theme_config)
+                st.download_button(
+                    label="📥 Download Word (`report.docx`)",
+                    data=docx_bytes,
+                    file_name=f"{Path(st.session_state.file_name).stem}_report.docx",
+                    mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                )
+            except Exception as e_docx:
+                st.warning(f"Word export error: {e_docx}")
+        with col_d4:
             st.info("💡 PDF output can be saved directly from browser print or CLI (`convert.py`)")
 
         st.markdown(f"**Rendered Dynamic HTML Preview (`Mode: {'Exact Original PDF Layout' if not use_template else 'Standardized Flow Template'}`, Theme Accent: `{primary_color}`):**")

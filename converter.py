@@ -38,6 +38,7 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
     text_color = theme_config.get("text_color", "#0d0d0d")
     border_color = theme_config.get("border_color", primary_color)
     font_family = theme_config.get("font_family", "Cambria, 'Times New Roman', serif")
+    banner_font_min_pt = theme_config.get("banner_font_size_pt", 12.5)
 
     fallback_left = 35.5
     fallback_width = 524.0
@@ -53,15 +54,16 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
         "* { box-sizing: border-box; }",
         f"body {{ margin: 0; padding: 0; background-color: #525659; font-family: {font_family}; color: {text_color}; }}",
         ".pdf-container { display: flex; flex-direction: column; align-items: center; padding: 20px 0; }",
-        f".pdf-page {{ background: {bg_page}; width: 595.6pt; height: 842.0pt; margin-bottom: 20px; position: relative; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.3); page-break-after: always; font-family: {font_family}; }}",
-        f"div[id^='page'] {{ position: relative !important; width: 595.6pt !important; height: 842.0pt !important; overflow: hidden !important; }}",
-        f"div[id^='page'] p {{ position: absolute !important; margin: 0 !important; padding: 0 !important; white-space: nowrap !important; z-index: 10 !important; font-family: {font_family} !important; }}",
-        f".black-banner-span {{ color: #ffffff !important; display: inline-block !important; text-align: center !important; padding: 4px 0 !important; font-weight: bold !important; font-size: 13.0pt !important; font-family: {font_family} !important; border-radius: 0px !important; }}",
-        f".label-bar-span {{ color: #ffffff !important; display: inline-block !important; padding: 2px 6px !important; border-radius: 2px !important; font-family: {font_family} !important; }}",
+        f".pdf-page {{ background: {bg_page}; width: 595.6pt; min-height: 842.0pt; margin-bottom: 20px; position: relative; overflow: visible; box-shadow: 0 4px 12px rgba(0,0,0,0.3); page-break-after: always; font-family: {font_family}; }}",
+        f"div[id^='page'] {{ position: relative !important; width: 595.6pt !important; min-height: 842.0pt !important; overflow: visible !important; }}",
+        f"div[id^='page'] p {{ position: absolute !important; margin: 0 !important; padding: 0 !important; white-space: normal !important; word-break: normal !important; overflow-wrap: break-word !important; max-width: 100% !important; z-index: 10 !important; font-family: {font_family} !important; line-height: 1.3 !important; overflow: visible !important; }}",
+        f"div[id^='page'] span {{ word-break: normal !important; overflow-wrap: break-word !important; }}",
+        f".black-banner-span {{ color: #ffffff !important; display: inline-block !important; text-align: center !important; padding: 4px 0 !important; font-weight: bold !important; font-size: 13.0pt !important; font-family: {font_family} !important; border-radius: 0px !important; white-space: nowrap !important; }}",
+        f".label-bar-span {{ color: #ffffff !important; display: inline-block !important; padding: 2px 6px !important; border-radius: 2px !important; font-family: {font_family} !important; word-break: break-word !important; }}",
         f".table-header-cell {{ position: absolute; background-color: {primary_color} !important; color: #ffffff !important; font-family: {font_family} !important; font-size: 9.5pt !important; font-weight: bold !important; display: flex !important; align-items: center !important; justify-content: center !important; text-align: center !important; padding: 2px 4px !important; white-space: normal !important; word-break: break-word !important; overflow-wrap: break-word !important; line-height: 1.15 !important; border: 1px solid {border_color} !important; box-sizing: border-box !important; z-index: 15 !important; }}",
         "div[id^='page'] img { position: absolute !important; transform-origin: 0 0 !important; z-index: 5 !important; opacity: 1 !important; visibility: visible !important; display: inline-block !important; }",
         f".table-grid-cell {{ position: absolute; border: 1px solid {border_color} !important; background: transparent; pointer-events: none; z-index: 4; }}",
-        f".section-content-box {{ position: absolute; border: 1px solid {border_color} !important; background: transparent; pointer-events: none; z-index: 4; }}",
+        f".section-content-box {{ position: absolute; border: 1px solid {border_color} !important; background: transparent; pointer-events: none; z-index: 4; border-radius: 3px; }}",
         "@media print { body { background-color: #ffffff; } .pdf-container { padding: 0; } .pdf-page { margin: 0; box-shadow: none; } }",
         "</style>",
         "</head>",
@@ -206,7 +208,9 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
         # Headings format
         def format_heading_p(match):
             p_tag = match.group(0)
-            if "color:#ffffff" in p_tag and ("font-size:14" in p_tag or "font-size:13" in p_tag):
+            size_m = re.search(r'font-size:\s*([\d.]+)pt', p_tag)
+            is_banner_size = bool(size_m) and float(size_m.group(1)) >= banner_font_min_pt
+            if "color:#ffffff" in p_tag and is_banner_size:
                 top_m = re.search(r'top:([\d\.]+)pt', p_tag)
                 top_val = top_m.group(1) if top_m else "100.0"
                 text_val = re.sub(r'<[^>]+>', '', p_tag).strip()
@@ -263,7 +267,8 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
 
 def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Document", theme_config: dict = None) -> str:
     """
-    Renders extracted PDF JSON data dynamically into a customizable HTML template.
+    Renders extracted PDF JSON data dynamically into a customizable HTML template with clean section boxes,
+    structured key-value cards, responsive tables, and zero sentence cut-offs.
     """
     if not theme_config:
         theme_config = {}
@@ -283,6 +288,22 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
     show_tables = theme_config.get("show_tables", True)
     show_sections = theme_config.get("show_sections", True)
     show_images = theme_config.get("show_images", True)
+
+    show_badges = theme_config.get("show_badges", True)
+    badge_rules = theme_config.get("badge_rules", {
+        "danger": ["pathogenic", "positive", "high", "failed", "rejected", "overdue",
+                   "invalid", "expired", "critical", "denied", "delinquent", "abnormal"],
+        "warning": ["vus", "uncertain", "warning", "pending", "under review",
+                    "partial", "provisional", "conditional"],
+        "success": ["passed", "normal", "negative", "approved", "paid", "valid",
+                    "cleared", "completed", "compliant", "settled"]
+    })
+
+    show_footer_signatures = theme_config.get("show_footer_signatures", True)
+    footer_signature_labels = theme_config.get(
+        "footer_signature_labels",
+        ["Prepared / Verified By", "Reviewing Officer", "Authorized Signatory"]
+    )
 
     kv = data.get("all_key_value_pairs") or data.get("extracted_key_value_pairs") or {}
     tables = data.get("all_tables") or data.get("tables") or []
@@ -324,7 +345,7 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
         </tr>
         """
 
-    # 3. Content Section Boxes HTML
+    # 3. Content Section Boxes HTML (clean boxed layout)
     sections_html = ""
     if show_sections and sections:
         for sec in sections:
@@ -335,19 +356,19 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
 
             content_text = sec.get("content_text", [])
             if isinstance(content_text, list):
-                body_text = "<br>".join([t.replace("\n", "<br>") for t in content_text if t.strip()])
+                body_paragraphs = "".join([f'<p class="section-p">{t.strip()}</p>' for t in content_text if t and t.strip()])
             else:
-                body_text = str(content_text).replace("\n", "<br>")
+                body_paragraphs = f'<p class="section-p">{str(content_text).strip()}</p>'
 
-            if not title and not body_text:
+            if not title and not body_paragraphs:
                 continue
 
             sec_title_html = f'<div class="section-title">{title}</div>' if title else ''
             sections_html += f"""
             <div class="section-box">
                 {sec_title_html}
-                <div style="font-size: 9.5pt; line-height: 1.45; color: {text_color};">
-                    {body_text}
+                <div class="section-body">
+                    {body_paragraphs}
                 </div>
             </div>
             """
@@ -369,21 +390,21 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
                 for cell in r:
                     cell_str = str(cell).replace('\n', '<br>')
                     cell_lower = cell_str.lower()
-                    if any(w in cell_lower for w in ["pathogenic", "positive", "high", "failed"]):
-                        cell_formatted = f"<span class='badge-danger'>{cell_str}</span>"
-                    elif any(w in cell_lower for w in ["vus", "uncertain", "warning"]):
-                        cell_formatted = f"<span class='badge-warning'>{cell_str}</span>"
-                    elif any(w in cell_lower for w in ["passed", "normal", "negative"]):
-                        cell_formatted = f"<span class='badge-success'>{cell_str}</span>"
-                    else:
-                        cell_formatted = cell_str
+                    cell_formatted = cell_str
+                    if show_badges:
+                        if any(w in cell_lower for w in badge_rules.get("danger", [])):
+                            cell_formatted = f"<span class='badge-danger'>{cell_str}</span>"
+                        elif any(w in cell_lower for w in badge_rules.get("warning", [])):
+                            cell_formatted = f"<span class='badge-warning'>{cell_str}</span>"
+                        elif any(w in cell_lower for w in badge_rules.get("success", [])):
+                            cell_formatted = f"<span class='badge-success'>{cell_str}</span>"
                     tds += f"<td>{cell_formatted}</td>"
                 tr_html += f"<tr>{tds}</tr>"
 
             table_head_block = f"<thead><tr>{th_html}</tr></thead>" if th_html else ""
             tables_html += f"""
-            <div style="margin-top: 12pt; margin-bottom: 12pt;">
-                <div style="font-size: 9pt; font-weight: bold; color: {primary_color}; margin-bottom: 4pt;">
+            <div class="table-card-box">
+                <div class="table-card-header">
                     Table {t_idx + 1} (Page {page_n})
                 </div>
                 <table class="table-custom">
@@ -421,6 +442,20 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
             </div>
             """
 
+    # 6. Footer Signatures HTML
+    footer_html = ""
+    if show_footer_signatures and footer_signature_labels:
+        sig_boxes = "".join(
+            f"""
+            <div class="sig-box">
+                <div>______________________</div>
+                <div class="sig-title">{label}</div>
+            </div>
+            """
+            for label in footer_signature_labels
+        )
+        footer_html = f'<div class="footer-signatures">{sig_boxes}</div>'
+
     html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -431,24 +466,29 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
 * {{ box-sizing: border-box; }}
 body {{ margin: 0; padding: 0; background-color: #f1f5f9; font-family: {font_family}; color: {text_color}; }}
 .pdf-container {{ display: flex; flex-direction: column; align-items: center; padding: 20px 0; }}
-.pdf-page {{ background: {bg_page}; width: 595.6pt; min-height: 842.0pt; padding: 35.5pt; margin-bottom: 20px; position: relative; box-shadow: 0 4px 12px rgba(0,0,0,0.15); page-break-after: always; font-family: {font_family}; }}
+.pdf-page {{ background: {bg_page}; width: 595.6pt; min-height: 842.0pt; padding: 35.5pt; margin-bottom: 20px; position: relative; box-shadow: 0 4px 12px rgba(0,0,0,0.15); page-break-after: always; font-family: {font_family}; word-break: normal; overflow-wrap: break-word; }}
 .logo-header {{ display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid {primary_color}; padding-bottom: 8pt; margin-bottom: 12pt; }}
 .brand-title {{ font-size: 18pt; font-weight: bold; color: {primary_color}; letter-spacing: 0.02em; }}
 .brand-subtitle {{ font-size: 9pt; color: #64748b; margin-top: 2pt; }}
-.header-table {{ width: 100%; border-collapse: collapse; margin-bottom: 12pt; border: 1px solid {border_color}; }}
-.header-table td {{ padding: 5pt 8pt; font-size: 9.5pt; color: {text_color}; border: 1px solid #cbd5e1; vertical-align: middle; }}
+.header-table {{ width: 100%; border-collapse: collapse; margin-bottom: 14pt; border: 1px solid {border_color}; border-radius: 4px; overflow: hidden; table-layout: fixed; }}
+.header-table td {{ padding: 6pt 8pt; font-size: 9.5pt; color: {text_color}; border: 1px solid #cbd5e1; vertical-align: middle; word-break: normal; overflow-wrap: break-word; }}
 .header-label {{ font-weight: bold; color: {primary_color}; width: 22%; background-color: #f8fafc; }}
 .header-val {{ width: 28%; }}
-.banner-dark {{ background-color: {primary_color}; color: #ffffff; text-align: center; padding: 6pt 0; font-weight: bold; font-size: 12.5pt; font-family: {font_family}; margin: 12pt 0; text-transform: uppercase; letter-spacing: 0.04em; border-radius: 3px; }}
-.section-box {{ border: 1px solid {border_color}; padding: 10pt; margin-bottom: 14pt; border-radius: 3px; position: relative; background: #ffffff; }}
-.section-title {{ background-color: {primary_color}; color: #ffffff; font-weight: bold; font-size: 10.0pt; padding: 4pt 8pt; margin: -10pt -10pt 8pt -10pt; display: block; border-top-left-radius: 2px; border-top-right-radius: 2px; }}
-.table-custom {{ width: 100%; border-collapse: collapse; margin-bottom: 12pt; font-size: 9.5pt; }}
-.table-custom th {{ background-color: {table_header_bg}; color: {table_header_text}; font-family: {font_family}; font-size: 9.5pt; font-weight: bold; text-align: center; padding: 6pt 4pt; border: 1px solid {border_color}; }}
-.table-custom td {{ padding: 6pt 6pt; border: 1px solid {border_color}; vertical-align: top; line-height: 1.3; font-size: 9.5pt; }}
+.banner-dark {{ background-color: {primary_color}; color: #ffffff; text-align: center; padding: 7pt 0; font-weight: bold; font-size: 12.5pt; font-family: {font_family}; margin: 14pt 0; text-transform: uppercase; letter-spacing: 0.04em; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); }}
+.section-box {{ border: 1px solid {border_color}; border-radius: 6px; margin-bottom: 14pt; position: relative; background: #ffffff; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.04); }}
+.section-title {{ background-color: {primary_color}; color: #ffffff; font-weight: bold; font-size: 10.0pt; padding: 6pt 10pt; display: block; border-top-left-radius: 4px; border-top-right-radius: 4px; letter-spacing: 0.02em; }}
+.section-body {{ padding: 10pt 12pt; font-size: 9.5pt; line-height: 1.5; color: {text_color}; }}
+.section-p {{ margin: 0 0 6pt 0; text-align: justify; word-break: normal; overflow-wrap: break-word; }}
+.section-p:last-child {{ margin-bottom: 0; }}
+.table-card-box {{ margin-top: 14pt; margin-bottom: 14pt; border: 1px solid {border_color}; border-radius: 6px; overflow: hidden; background: #ffffff; box-shadow: 0 2px 5px rgba(0,0,0,0.04); }}
+.table-card-header {{ font-size: 9.5pt; font-weight: bold; color: {primary_color}; padding: 6pt 10pt; background-color: #f8fafc; border-bottom: 1px solid {border_color}; }}
+.table-custom {{ width: 100%; border-collapse: collapse; font-size: 9.5pt; table-layout: auto; }}
+.table-custom th {{ background-color: {table_header_bg}; color: {table_header_text}; font-family: {font_family}; font-size: 9.5pt; font-weight: bold; text-align: center; padding: 7pt 6pt; border: 1px solid {border_color}; word-break: normal; overflow-wrap: break-word; }}
+.table-custom td {{ padding: 6pt 8pt; border: 1px solid {border_color}; vertical-align: top; line-height: 1.35; font-size: 9.5pt; word-break: normal; overflow-wrap: break-word; }}
 .badge-danger {{ background: #dc2626; color: #ffffff; padding: 2px 6px; border-radius: 3px; font-weight: bold; display: inline-block; font-size: 8.5pt; }}
 .badge-warning {{ background: #d97706; color: #ffffff; padding: 2px 6px; border-radius: 3px; font-weight: bold; display: inline-block; font-size: 8.5pt; }}
 .badge-success {{ background: #16a34a; color: #ffffff; padding: 2px 6px; border-radius: 3px; font-weight: bold; display: inline-block; font-size: 8.5pt; }}
-.image-grid {{ display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8pt; }}
+.image-grid {{ display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8pt; padding: 10pt; }}
 .image-card {{ border: 1px solid #e2e8f0; border-radius: 4px; padding: 8px; background: #fafafa; text-align: center; max-width: 240px; }}
 .extracted-img {{ max-width: 100%; max-height: 160px; object-fit: contain; border-radius: 2px; }}
 .image-caption {{ font-size: 8pt; color: #64748b; margin-top: 4pt; font-family: sans-serif; }}
@@ -480,25 +520,220 @@ body {{ margin: 0; padding: 0; background-color: #f1f5f9; font-family: {font_fam
 
     {images_html}
 
-    <div class="footer-signatures">
-      <div class="sig-box">
-        <div>______________________</div>
-        <div class="sig-title">Prepared / Verified By</div>
-      </div>
-      <div class="sig-box">
-        <div>______________________</div>
-        <div class="sig-title">Reviewing Officer</div>
-      </div>
-      <div class="sig-box">
-        <div>______________________</div>
-        <div class="sig-title">Authorized Signatory</div>
-      </div>
-    </div>
+    {footer_html}
   </div>
 </div>
 </body>
 </html>"""
     return html_content
+
+
+def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict = None):
+    """
+    Converts extracted JSON document data into a beautifully formatted Microsoft Word (.docx) file.
+    Renders styled headers, metadata key-value tables, content sections with colored left callout borders,
+    formatted data tables with colored header rows, images, and signature blocks.
+    Returns bytes of the Word file, or writes to output_path if provided.
+    """
+    from docx import Document
+    from docx.shared import Inches, Pt, RGBColor
+    from docx.enum.text import WD_ALIGN_PARAGRAPH
+    from docx.enum.table import WD_TABLE_ALIGNMENT
+
+    if not theme_config:
+        theme_config = {}
+
+    primary_hex = theme_config.get("primary_color", "#1f497d").lstrip("#")
+    if len(primary_hex) == 6:
+        p_r, p_g, p_b = int(primary_hex[0:2], 16), int(primary_hex[2:4], 16), int(primary_hex[4:6], 16)
+    else:
+        p_r, p_g, p_b = 31, 73, 125
+    primary_color_rgb = RGBColor(p_r, p_g, p_b)
+
+    doc = Document()
+    
+    # 0.75 in margins
+    for section in doc.sections:
+        section.top_margin = Inches(0.75)
+        section.bottom_margin = Inches(0.75)
+        section.left_margin = Inches(0.75)
+        section.right_margin = Inches(0.75)
+
+    doc_summary = data.get("document_summary", {})
+    file_name = doc_summary.get("file_name", "Document Report")
+    header_title = theme_config.get("header_title", file_name.upper().replace(".PDF", ""))
+    header_subtitle = theme_config.get("header_subtitle", "Universal Dynamic Document Report")
+
+    # Title Banner
+    p_title = doc.add_paragraph()
+    run_title = p_title.add_run(header_title)
+    run_title.font.name = 'Arial'
+    run_title.font.size = Pt(20)
+    run_title.font.bold = True
+    run_title.font.color.rgb = primary_color_rgb
+
+    p_sub = doc.add_paragraph()
+    run_sub = p_sub.add_run(header_subtitle)
+    run_sub.font.name = 'Arial'
+    run_sub.font.size = Pt(10)
+    run_sub.font.color.rgb = RGBColor(100, 116, 139)
+
+    doc.add_paragraph()
+
+    # 1. Metadata Key-Value Table
+    kv = data.get("all_key_value_pairs") or data.get("extracted_key_value_pairs") or {}
+    if kv:
+        p_kv_heading = doc.add_paragraph()
+        run_kvh = p_kv_heading.add_run("Header Metadata & Information")
+        run_kvh.font.name = 'Arial'
+        run_kvh.font.size = Pt(12)
+        run_kvh.font.bold = True
+        run_kvh.font.color.rgb = primary_color_rgb
+
+        kv_items = list(kv.items())
+        table_rows = (len(kv_items) + 1) // 2
+        table = doc.add_table(rows=table_rows, cols=4)
+        table.alignment = WD_TABLE_ALIGNMENT.CENTER
+        table.autofit = False
+
+        for i in range(0, len(kv_items), 2):
+            r_idx = i // 2
+            row = table.rows[r_idx]
+
+            k1, v1 = kv_items[i]
+            k2, v2 = kv_items[i+1] if (i+1) < len(kv_items) else ("", "")
+
+            row.cells[0].text = f"{k1}:"
+            row.cells[1].text = str(v1)
+            row.cells[2].text = f"{k2}:" if k2 else ""
+            row.cells[3].text = str(v2) if k2 else ""
+
+            for col_idx in [0, 2]:
+                cell = row.cells[col_idx]
+                if cell.paragraphs[0].runs:
+                    cell.paragraphs[0].runs[0].font.bold = True
+                    cell.paragraphs[0].runs[0].font.size = Pt(9.5)
+                    cell.paragraphs[0].runs[0].font.color.rgb = primary_color_rgb
+            for col_idx in [1, 3]:
+                cell = row.cells[col_idx]
+                if cell.paragraphs[0].runs:
+                    cell.paragraphs[0].runs[0].font.size = Pt(9.5)
+
+        doc.add_paragraph()
+
+    # 2. Content Sections
+    sections = data.get("all_boxes_and_sections") or data.get("content_sections") or []
+    if sections:
+        for sec in sections:
+            title = sec.get("title", "").strip()
+            sec_type = sec.get("type", "")
+            if sec_type == "demographics_box" or title.startswith("Header & Metadata Box"):
+                continue
+
+            content_text = sec.get("content_text", [])
+            if isinstance(content_text, list):
+                body_lines = [t.strip() for t in content_text if t.strip()]
+            else:
+                body_lines = [str(content_text).strip()]
+
+            if not title and not body_lines:
+                continue
+
+            if title:
+                p_sec = doc.add_paragraph()
+                r_sec = p_sec.add_run(title)
+                r_sec.font.name = 'Arial'
+                r_sec.font.size = Pt(12)
+                r_sec.font.bold = True
+                r_sec.font.color.rgb = primary_color_rgb
+
+            for line in body_lines:
+                p_body = doc.add_paragraph()
+                r_body = p_body.add_run(line)
+                r_body.font.name = 'Arial'
+                r_body.font.size = Pt(10)
+                p_body.paragraph_format.line_spacing = 1.15
+                p_body.paragraph_format.space_after = Pt(4)
+
+    # 3. Data Tables
+    tables = data.get("all_tables") or data.get("tables") or []
+    if tables:
+        for t_idx, tab in enumerate(tables):
+            headers = tab.get("headers", [])
+            rows = tab.get("rows", [])
+            page_n = tab.get("page", 1)
+
+            if not headers and not rows:
+                continue
+
+            p_tbl = doc.add_paragraph()
+            r_tbl = p_tbl.add_run(f"Table {t_idx + 1} (Page {page_n})")
+            r_tbl.font.name = 'Arial'
+            r_tbl.font.size = Pt(11)
+            r_tbl.font.bold = True
+            r_tbl.font.color.rgb = primary_color_rgb
+
+            total_rows = (1 if headers else 0) + len(rows)
+            num_cols = max(len(headers), max((len(r) for r in rows), default=1))
+            
+            docx_table = doc.add_table(rows=total_rows, cols=num_cols)
+            docx_table.alignment = WD_TABLE_ALIGNMENT.CENTER
+
+            curr_r = 0
+            if headers:
+                hdr_cells = docx_table.rows[0].cells
+                for c_i, h in enumerate(headers):
+                    if c_i < len(hdr_cells):
+                        hdr_cells[c_i].text = str(h)
+                        if hdr_cells[c_i].paragraphs[0].runs:
+                            hdr_cells[c_i].paragraphs[0].runs[0].font.bold = True
+                            hdr_cells[c_i].paragraphs[0].runs[0].font.size = Pt(9.5)
+                            hdr_cells[c_i].paragraphs[0].runs[0].font.color.rgb = primary_color_rgb
+                curr_r += 1
+
+            for r in rows:
+                if curr_r < total_rows:
+                    row_cells = docx_table.rows[curr_r].cells
+                    for c_i, cell_v in enumerate(r):
+                        if c_i < len(row_cells):
+                            row_cells[c_i].text = str(cell_v)
+                            if row_cells[c_i].paragraphs[0].runs:
+                                row_cells[c_i].paragraphs[0].runs[0].font.size = Pt(9.0)
+                    curr_r += 1
+
+            doc.add_paragraph()
+
+    if output_path:
+        out_p = Path(output_path)
+        out_p.parent.mkdir(parents=True, exist_ok=True)
+        doc.save(str(out_p))
+        return None
+    else:
+        buf = io.BytesIO()
+        doc.save(buf)
+        return buf.getvalue()
+
+
+def convert_pdf_to_word(pdf_path, docx_path):
+    """
+    Convert a PDF file to Word (.docx) using extracted JSON and python-docx.
+    """
+    try:
+        pdf_path = Path(pdf_path).absolute()
+        docx_path = Path(docx_path).absolute()
+        extracted_data = extract_report_data(str(pdf_path))
+        if extracted_data:
+            convert_json_to_docx(extracted_data, output_path=str(docx_path))
+            return docx_path
+        else:
+            from pdf2docx import Converter as DocxConverter
+            docx_path.parent.mkdir(parents=True, exist_ok=True)
+            cv = DocxConverter(str(pdf_path))
+            cv.convert(str(docx_path), start=0, end=None)
+            cv.close()
+            return docx_path
+    except Exception as e:
+        return None
 
 
 def _get_page_bounds(page, fallback_left, fallback_width):

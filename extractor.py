@@ -30,51 +30,51 @@ logger = logging.getLogger("UniversalPDFExtractor")
 
 def parse_header_key_value_pairs(full_text: str) -> dict:
     """
-    Extracts key-value header metadata pairs from document text dynamically.
-    Handles colon/equals separation on same line or spaced columns.
-    Filters out sentence fragments and common disclaimers.
+    Extracts structured key-value header metadata pairs from document text dynamically.
+    Enforces strict criteria for keys (short labels, no prose sentences) to ensure accuracy.
     """
     kv_dict = {}
     lines = full_text.split('\n')
     
-    # Common disclaimer keywords to ignore as keys
     ignore_keywords = [
         'received from', 'responsibility', 'presumed that', 'http', 'www',
-        'copyright', 'printed on', 'page', 'all rights reserved', 'disclaimer'
+        'copyright', 'printed on', 'page', 'all rights reserved', 'disclaimer',
+        'classified as', 'predicted to', 'evidence', 'database', 'population'
     ]
+
+    prose_verbs = [' is ', ' are ', ' was ', ' were ', ' to ', ' by ', ' from ', ' with ', ' that ', ' which ']
 
     for line in lines:
         line_str = line.strip()
-        if not line_str or len(line_str) > 300:
+        if not line_str or len(line_str) > 250:
             continue
-        
-        # Match lines with explicit colon separators
-        if ':' in line_str:
-            parts = line_str.split(':', 1)
-            k = parts[0].strip()
-            v = parts[1].strip()
-            
-            # Clean key candidate
-            if k and 2 <= len(k) <= 45 and not k.startswith('#') and not any(kw in k.lower() for kw in ignore_keywords):
-                # Clean value if multiple key-value pairs exist on same line (separated by 3+ spaces)
-                if '   ' in v:
-                    sub_parts = re.split(r'\s{3,}', v)
-                    v = sub_parts[0].strip()
-                    # Optionally capture second pair if present
-                    if len(sub_parts) > 1 and ':' in sub_parts[1]:
-                        pair2 = sub_parts[1].split(':', 1)
-                        k2_cand = pair2[0].strip()
-                        v2_cand = pair2[1].strip()
-                        if k2_cand and 2 <= len(k2_cand) <= 45 and not any(kw in k2_cand.lower() for kw in ignore_keywords):
-                            kv_dict[k2_cand] = v2_cand
 
-                if v and len(v) < 200:
-                    kv_dict[k] = v
-        elif '=' in line_str and not line_str.startswith('='):
-            parts = line_str.split('=', 1)
-            k = parts[0].strip()
-            v = parts[1].strip()
-            if k and 2 <= len(k) <= 35 and v and len(v) < 150:
+        # Find key-value patterns like "Label: Value" or "Label: Value    Label2: Value2"
+        # Regex captures keys starting with Alphanumeric (2-35 chars), avoiding full prose sentences
+        matches = re.findall(r'([A-Za-z0-9][A-Za-z0-9\s/&#\-_]{1,35}):\s*([^\n\t:]{1,120})', line_str)
+        for k_cand, v_cand in matches:
+            k = k_cand.strip()
+            v = v_cand.strip()
+
+            # Clean key validation
+            if not k or len(k) < 2 or len(k) > 35:
+                continue
+            if k.count(' ') > 4:  # Keys shouldn't be full sentences
+                continue
+            if any(char in k for char in ['.', ',', ';', '(', ')', '"', '?', '!']):
+                continue
+            if any(verb in f" {k.lower()} " for verb in prose_verbs):
+                continue
+            if any(kw in k.lower() for kw in ignore_keywords):
+                continue
+            if k.startswith('#') or k.lower().startswith('page'):
+                continue
+            
+            # Clean value validation
+            if v and len(v) < 150:
+                # Truncate if next pair was concatenated in value
+                if '   ' in v:
+                    v = re.split(r'\s{3,}', v)[0].strip()
                 kv_dict[k] = v
 
     return kv_dict
@@ -103,7 +103,6 @@ def extract_page_images_and_graphs(doc, page_num: int, page) -> list:
                 width = base_img.get("width", 0)
                 height = base_img.get("height", 0)
                 
-                # Filter out tiny 1x1 or trivial bullet icon images
                 if width < 8 or height < 8:
                     continue
 
@@ -111,7 +110,6 @@ def extract_page_images_and_graphs(doc, page_num: int, page) -> list:
                 mime_type = f"image/{img_ext}"
                 data_uri = f"data:{mime_type};base64,{b64_str}"
 
-                # Calculate bounding box if available
                 bbox = None
                 try:
                     rects = page.get_image_rects(xref)
@@ -144,18 +142,30 @@ def extract_page_images_and_graphs(doc, page_num: int, page) -> list:
     return images_list
 
 
+def is_inside_table_bbox(bbox, table_bboxes):
+    """Check if a text block's bounding box falls inside any extracted table bounding box."""
+    if not bbox or not table_bboxes:
+        return False
+    bx0, by0, bx1, by1 = bbox
+    cx, cy = (bx0 + bx1) / 2.0, (by0 + by1) / 2.0
+    for tx0, ty0, tx1, ty1 in table_bboxes:
+        if (tx0 - 5) <= cx <= (tx1 + 5) and (ty0 - 5) <= cy <= (ty1 + 5):
+            return True
+    return False
+
+
 def extract_report_data(pdf_path: str) -> dict:
     """
     Universal extraction engine for ANY PDF document format.
 
     Extracts:
-        - document_metadata: file_name, total_pages, total_tables, total_boxes, total_key_value_pairs, total_images_and_graphs
-        - extracted_key_value_pairs: dict of key-value pairs
-        - content_sections: list of section boxes with titles, text, bbox, and page numbers
+        - document_summary: file_name, total_pages, total_tables, total_boxes, total_key_value_pairs, total_images_and_graphs
+        - extracted_key_value_pairs: dict of clean key-value pairs
+        - content_sections: list of clean content section boxes (excluding table text)
         - tables: list of extracted tables (headers, rows, bbox)
         - images_and_graphs: list of extracted raster images, charts, and logos (Base64 URIs)
-        - pages: page-by-page breakdown of text, blocks, tables, images
-        - raw_full_text: entire string text of the document
+        - pages: page-by-page breakdown
+        - raw_full_text: entire document text
     """
     if not os.path.exists(pdf_path):
         logger.error(f"PDF file not found: {pdf_path}")
@@ -186,11 +196,48 @@ def extract_report_data(pdf_path: str) -> dict:
         page_text = page.get_text("text")
         full_text_pages.append(page_text)
 
-        # 1. Parse text blocks, positions, and styling
+        # 1. Extract Key-Value pairs on this page
+        page_kv = parse_header_key_value_pairs(page_text)
+        for k, v in page_kv.items():
+            all_kv_pairs[k] = v
+
+        # 2. Extract Tables on this page FIRST (so we get table bounding boxes)
+        page_tables = []
+        table_bboxes = []
+        try:
+            if hasattr(page, "find_tables"):
+                tf = page.find_tables()
+                table_list = list(tf)
+                for t_idx, table in enumerate(table_list):
+                    table_data = table.extract()
+                    if table_data and len(table_data) > 0:
+                        headers = [str(c).strip().replace("\n", " ") if c else "" for c in table_data[0]]
+                        rows = [[str(cell).strip().replace("\n", " ") if cell else "" for cell in row] for row in table_data[1:]]
+                        t_bbox = [round(c, 2) for c in table.bbox]
+                        table_bboxes.append(t_bbox)
+
+                        table_obj = {
+                            "page": page_num + 1,
+                            "table_index": t_idx + 1,
+                            "bbox": t_bbox,
+                            "headers": headers,
+                            "rows": rows
+                        }
+                        page_tables.append(table_obj)
+                        all_tables_list.append(table_obj)
+        except Exception as t_err:
+            logger.debug(f"Page {page_num + 1} table error: {t_err}")
+
+        # 3. Parse text blocks outside tables
         text_page_dict = page.get_text("dict")
         page_blocks = []
         for block in text_page_dict.get("blocks", []):
             if "lines" in block:
+                b_bbox = [round(c, 2) for c in block["bbox"]]
+                # Skip text blocks inside tables
+                if is_inside_table_bbox(b_bbox, table_bboxes):
+                    continue
+
                 b_text = ""
                 is_bold = False
                 max_size = 0.0
@@ -210,7 +257,7 @@ def extract_report_data(pdf_path: str) -> dict:
                 if clean_b_text:
                     block_obj = {
                         "page": page_num + 1,
-                        "bbox": [round(c, 2) for c in block["bbox"]],
+                        "bbox": b_bbox,
                         "text": clean_b_text,
                         "max_font_size": round(max_size, 2),
                         "is_bold": is_bold,
@@ -219,65 +266,37 @@ def extract_report_data(pdf_path: str) -> dict:
                     page_blocks.append(block_obj)
                     text_blocks_with_style.append(block_obj)
 
-        # 2. Extract Key-Value pairs on this page
-        page_kv = parse_header_key_value_pairs(page_text)
-        for k, v in page_kv.items():
-            all_kv_pairs[k] = v
-
-        # 3. Extract Tables on this page
-        page_tables = []
-        try:
-            if hasattr(page, "find_tables"):
-                tf = page.find_tables()
-                table_list = list(tf)
-                for t_idx, table in enumerate(table_list):
-                    table_data = table.extract()
-                    if table_data and len(table_data) > 0:
-                        headers = [str(c).strip().replace("\n", " ") if c else "" for c in table_data[0]]
-                        rows = [[str(cell).strip().replace("\n", " ") if cell else "" for cell in row] for row in table_data[1:]]
-
-                        table_obj = {
-                            "page": page_num + 1,
-                            "table_index": t_idx + 1,
-                            "bbox": [round(c, 2) for c in table.bbox],
-                            "headers": headers,
-                            "rows": rows
-                        }
-                        page_tables.append(table_obj)
-                        all_tables_list.append(table_obj)
-        except Exception as t_err:
-            logger.debug(f"Page {page_num + 1} table error: {t_err}")
-
         # 4. Extract Images & Graphs on this page
         page_images = extract_page_images_and_graphs(doc, page_num, page)
         all_images_list.extend(page_images)
 
-        # 5. Extract Content Boxes & Sections on this page
+        # 5. Extract Content Boxes & Sections on this page cleanly
         page_boxes = []
 
         # Demographics / Header Box if key-values present on top of page
-        if page_kv:
+        if page_kv and page_num == 0:
             page_boxes.append({
                 "page": page_num + 1,
-                "title": f"Header & Metadata Box (Page {page_num + 1})",
+                "title": f"Document Header & Patient Metadata",
                 "type": "demographics_box",
                 "bbox": [round(rect.x0, 2), round(rect.y0, 2), round(rect.x1, 2), round(rect.y0 + 150, 2)],
                 "key_value_pairs": page_kv
             })
 
-        # Dynamic Section grouping based on headings and font sizes
         current_box = None
         for b in page_blocks:
             t = b["text"]
+            
+            # Heading candidate check: prominent font, bold short title, not ending with sentence punctuation
             is_heading_candidate = (
-                b["is_bold"] or
-                b["max_font_size"] >= 11.0 or
-                t.isupper() and len(t) < 80 or
-                t.endswith(":") and len(t) < 60
+                (b["max_font_size"] >= 11.5 or (b["is_bold"] and len(t) < 70)) and
+                not t.endswith(('.', ',', ';', '?')) and
+                not any(verb in f" {t.lower()} " for verb in [' is ', ' are ', ' was ', ' were ', ' should ']) and
+                len(t) < 90
             )
 
-            if is_heading_candidate and len(t) < 120:
-                if current_box:
+            if is_heading_candidate:
+                if current_box and current_box.get("content_text"):
                     page_boxes.append(current_box)
                 current_box = {
                     "page": page_num + 1,
@@ -287,19 +306,18 @@ def extract_report_data(pdf_path: str) -> dict:
                     "content_text": []
                 }
             else:
-                if current_box:
-                    current_box["content_text"].append(t)
-                else:
-                    # Fallback general block box if no heading set yet
+                if current_box is None:
                     current_box = {
                         "page": page_num + 1,
-                        "title": "General Content",
+                        "title": "General Content / Notes",
                         "type": "content_section_box",
                         "bbox": b["bbox"],
                         "content_text": [t]
                     }
+                else:
+                    current_box["content_text"].append(t)
 
-        if current_box:
+        if current_box and current_box.get("content_text"):
             page_boxes.append(current_box)
 
         for box in page_boxes:
@@ -362,3 +380,4 @@ if __name__ == "__main__":
             print(f"[+] Key-Value Pairs: {len(res['extracted_key_value_pairs'])}")
             print(f"[+] Data Tables: {len(res['tables'])}")
             print(f"[+] Images & Graphs: {len(res['images_and_graphs'])}")
+
