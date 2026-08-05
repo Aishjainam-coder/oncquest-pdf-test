@@ -1,0 +1,179 @@
+{
+  "colors": {
+    "primary": "#1f497d",
+    "secondary": "#008080",
+    "accent_orange": "#ed7d31",
+    "accent_red": "#ff0000",
+    "banner_dark": "#404040",
+    "text": {
+      "primary": "#000000",
+      "secondary": "#242729",
+      "dark": "#0d0d0d",
+      "white": "#ffffff",
+      "teal": "#008080",
+      "orange": "#ed7d31",
+      "red": "#ff0000"
+    },
+    "background": {
+      "page": "#ffffff",
+      "container": "#525659",
+      "primary_blue": "#1f497d",
+      "banner_dark": "#404040",
+      "transparent": "transparent"
+    },
+    "border": {
+      "primary": "#1f497d"
+    },
+    "status": {
+      "warning": "#ff0000",
+      "highlight": "#ed7d31",
+      "info": "#008080"
+    }
+  },
+  "fonts": {
+    "families": {
+      "primary": "Cambria, serif",
+      "primary_bold": "Cambria, Bold, serif",
+      "primary_italic": "Cambria, Italic, serif",
+      "primary_bold_italic": "Cambria, BoldItalic, serif",
+      "table_header": "Cambria, 'Times New Roman', serif",
+      "system": "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+      "symbol": "Symbol, sans-serif",
+      "calibri": "Calibri, sans-serif"
+    },
+    "sizes": {
+      "body_pt": 10.0,
+      "banner_pt": 13.0,
+      "title_pt": 14.0,
+      "table_header_pt": 9.5,
+      "superscript_pt": 6.5
+    },
+    "line_heights": {
+      "body_pt": 10.0,
+      "title_pt": 14.0,
+      "table_header_ratio": 1.15
+    }
+  },
+  "layout": {
+    "page": {
+      "width_pt": 595.6,
+      "height_pt": 842.0,
+      "margin_pt": 0.0,
+      "page_gap_px": 20,
+      "shadow": "0 4px 12px rgba(0,0,0,0.3)"
+    },
+    "content": {
+      "left_offset_pt": 35.5,
+      "right_boundary_pt": 559.5,
+      "width_pt": 524.0,
+      "indented_left_pt": 53.5,
+      "bullet_indent_pt": 18.0,
+      "header_region_end_pt": 205.0,
+      "table_left_offset_pt": 30.1
+    }
+  },
+  "components": {
+    "blue_section_banner": {
+      "background_color": "#1f497d",
+      "text_color": "#ffffff",
+      "padding": "2px 6px",
+      "width_pt": 524.0,
+      "border_radius_px": 2,
+      "display": "inline-block",
+      "font_family": "Cambria, serif",
+      "font_size_pt": 10.0
+    },
+    "black_banner": {
+      "background_color": "#404040",
+      "text_color": "#ffffff",
+      "padding": "4px 0",
+      "width_pt": 524.0,
+      "font_family": "Cambria, serif",
+      "font_size_pt": 13.0,
+      "font_weight": "bold",
+      "text_align": "center",
+      "border_radius_px": 0
+    },
+    "table_header_cell": {
+      "background_color": "#1f497d",
+      "text_color": "#ffffff",
+      "font_family": "Cambria, 'Times New Roman', serif",
+      "font_size_pt": 9.5,
+      "font_weight": "bold",
+      "border": "1px solid #1f497d",
+      "padding": "2px 4px",
+      "line_height_ratio": 1.15,
+      "text_align": "center",
+      "display": "flex",
+      "align_items": "center",
+      "justify_content": "center",
+      "z_index": 15
+    },
+    "table_grid_cell": {
+      "border": "1px solid #1f497d",
+      "background_color": "transparent",
+      "z_index": 4
+    },
+    "section_content_box": {
+      "border": "1px solid #1f497d",
+      "background_color": "transparent",
+      "z_index": 4
+    },
+    "bullet_list_item": {
+      "bullet_char": "&#xf0b7;",
+      "bullet_font_family": "Symbol, sans-serif",
+      "bullet_left_pt": 35.4,
+      "text_left_pt": 53.4,
+      "indent_pt": 18.0,
+      "font_size_pt": 10.0
+    },
+    "end_of_report_marker": {
+      "font_family": "Calibri, sans-serif",
+      "font_size_pt": 10.0,
+      "text_color": "#000000",
+      "text_align": "center",
+      "text_pattern": "------------------ End Of Report ------------------"
+    }
+  },
+  "table_styles": {
+    "key_findings": {
+      "type": "6-column variant table",
+      "header_background": "#1f497d",
+      "header_text_color": "#ffffff",
+      "border_color": "#1f497d",
+      "start_left_pt": 30.1,
+      "total_width_pt": 535.1,
+      "columns": [
+        { "name": "Gene & Transcript", "width_pt": 97.9 },
+        { "name": "Location", "width_pt": 58.1 },
+        { "name": "Variant", "width_pt": 98.1 },
+        { "name": "Zygosity / Inheritance", "width_pt": 83.8 },
+        { "name": "Phenotype", "width_pt": 108.3 },
+        { "name": "Clinical Significance", "width_pt": 88.9 }
+      ]
+    },
+    "sample_statistics": {
+      "type": "2-column key-value table",
+      "header_background": "#1f497d",
+      "header_text_color": "#ffffff",
+      "border_color": "#1f497d",
+      "columns": [
+        { "name": "Title", "width_pt": 242.8 },
+        { "name": "Data", "width_pt": 292.4 }
+      ]
+    },
+    "gene_coverage_grid": {
+      "type": "6-column repeating gene grid",
+      "column_width_pt": 89.0,
+      "row_height_pt": 13.2,
+      "header_height_pt": 32.0,
+      "gene_font": "Cambria, Italic, serif",
+      "percentage_font": "Cambria, serif"
+    },
+    "acmg_classification": {
+      "type": "2-column classification definition table",
+      "column_1_width_pt": 104.8,
+      "column_2_width_pt": 430.4
+    }
+  }
+}

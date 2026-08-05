@@ -1,0 +1,1124 @@
+{
+  "patient_name": "MR. AGATAMUDI VENKATA KAMANA",
+  "patient_age": "1",
+  "patient_gender": null,
+  "sample_id": "Type",
+  "referring_doctor": null,
+  "collection_date": null,
+  "reporting_date": "based on the recomme",
+  "lab_id": "enib",
+  "report_title": "Brainseq Genomic Profiling Panel – Advance",
+  "clinical_indication": "Reviewed by\nPRAKASH PATEL\nDr. Salil Vaniawala\nDr.Nirmal A. Vaniawala\nDr. Salil Vaniawala\nM.Sc Ph.D.(Human Genetics)\nConsulting Geneticist\nMD (Path. & Bact.)\nPh.D.(Human Genetics)\nConsulting Geneticist\nBrainseq Genomic Profiling Panel – Advance\nOn Illumina Novaseq 6000 Platform\nClinical Indication:\nFeatures are consistent with recurrent astrocytoma, IDH - mutant, CNS WHO grade 4\nBlock No.: 24-4733-B2\nPositive\n(Clinically significant Variant detected)\nReport Highlights:\nTier I\nTier II\nTier III\nMSI\nTherapies\nClinical Trials\n2\n0\n0\nStable\n2\n18",
+  "sample_description": null,
+  "key_findings": [
+    {
+      "gene_transcript": "IA",
+      "location": "IDH1\nNM 005896.4\n_",
+      "variant": "c.395G>A\np.(R132H)",
+      "zygosity": "4",
+      "phenotype": "890x / 47.19%",
+      "clinical_significance": ""
+    },
+    {
+      "gene_transcript": "IA",
+      "location": "TERT\nNM 198253.3\n_",
+      "variant": "c.-124C>T\n(Upstream Mutation)",
+      "zygosity": "-",
+      "phenotype": "410x / 36.36%",
+      "clinical_significance": ""
+    },
+    {
+      "gene_transcript": "",
+      "location": "In This Cancer",
+      "variant": "In Other Cancer",
+      "zygosity": "",
+      "phenotype": "",
+      "clinical_significance": ""
+    },
+    {
+      "gene_transcript": "IA\nIDH1\np.(R132H)",
+      "location": "▪ivosidenib\n▪vorasidenib",
+      "variant": "▪ivosidenib\n▪vorasidenib",
+      "zygosity": "",
+      "phenotype": "",
+      "clinical_significance": ""
+    },
+    {
+      "gene_transcript": "IDH1\np.(R132H)",
+      "location": "Page 3 of 15\nAstrocytoma IDH-mutant (Grade 4)",
+      "variant": "NCCN: Favorable",
+      "zygosity": "",
+      "phenotype": "",
+      "clinical_significance": ""
+    },
+    {
+      "gene_transcript": "IDH1\nNM 005896.4\n_\nchr2:209113112\nc.395G>A\np.(R132H)",
+      "location": "The IDH1 and IDH2 genes encode homologous isocitrate dehydrogenase enzymes that catalyze the\nconversion of isocitrate to α-ketoglutarate (α-KG)[1]. The IDH1 gene encodes the NADP+ dependent\ncytoplasmic isocitrate dehydrogenase enzyme; IDH2 encodes the mitochondrial isoform[1].\nRecurrent somatic mutations in IDH1 and IDH2 are mutually exclusive and observed in several\nmalignancies, including glioma, chondrosarcoma, intrahepatic cholangiocarcinoma, acute myeloid\nleukemia (AML), and myelodysplastic syndrome (MDS)[2]. Recurrent IDH1 variants include\npredominantly R132H/C plus other substitutions at lower frequencies[3]. These gain-of-function\nvariants confer neomorphic enzyme activity[4]. Although wild-type enzymatic activity is ablated,\nrecurrent IDH1 variants catalyze the conversion of α-KG to D-2-hydroxyglutarate, an oncometabolite\nwith diverse effects on cellular metabolism, epigenetic regulation, redox states, and DNA repair[1,5].\nRecurrent IDH1 mutations are present in 5-10% of patients with AML and 5% of patients with\nMDS[6,7,8]. Recurrent IDH1 mutations are present in nearly 80% of lower-grade diffuse\ngliomas[9,10]. Alterations in IDH1 are rare in pediatric cancers[9,10]. Somatic mutations in IDH1 are\nobserved in 2% of glioma and less than 1% of leukemia (2 in 311 cases), B-lymphoblastic\nleukemia/lymphoma (1 in 252 cases), embryonal tumor (1 in 332 cases), and Wilms tumor (1 in 710\ncases)[9,10].\nThe IDH1 and IDH2 inhibitor vorasidenib[11] is FDA-approved (2024) for the treatment of adults\nand children with Grade 2 astrocytoma and oligodendroglioma with IDH1 R132C/G/H/L/S\nmutations. Additionally, olutasidenib[12] (2022) and ivosidenib[13] (2018) are FDA-approved for\ntreating IDH1 R132C/G/H/L/S variants in AML. Ivosidenib is also approved for treating\nmyelodysplastic syndrome (MDS) and cholangiocarcinoma patients with the same IDH1\nvariants[14]. IDH1 mutations are associated with favorable outcome in lower-grade gliomas,\nastrocytoma, and oligodendroglioma with 1p/19 codeletion[15,16,17]. Conversely, IDH1 mutations\nare associated with inferior leukemia-free survival in primary myelofibrosis (PMF)[18,19].\nMutations in IDH1 are diagnostic of IDH-mutated astrocytoma and oligodendroglioma with 1p/19q-\ncodeletion subtypes of central nervous system (CNS) tumors[15,20].\nivosidenib\nTIBSOVO® is an isocitrate dehydrogenase-1 (IDH1) inhibitor indicated for the treatment of adult\npatients with a susceptible IDH1 mutation as detected by an FDA-approved test with:\nNewly Diagnosed Acute Myeloid Leukemia (AML)\nPage 5 of 15\n• In combination with azacitidine or as monotherapy for the treatment of newly diagnosed AML in\nadults 75 years or older, or who have comorbidities that preclude use of intensive induction",
+      "variant": "",
+      "zygosity": "",
+      "phenotype": "",
+      "clinical_significance": ""
+    },
+    {
+      "gene_transcript": "AKT1",
+      "location": "APC",
+      "variant": "ATRX",
+      "zygosity": "BAP1",
+      "phenotype": "BCOR",
+      "clinical_significance": ""
+    },
+    {
+      "gene_transcript": "BCORL1",
+      "location": "BRAF",
+      "variant": "CDK6",
+      "zygosity": "CDKN2A",
+      "phenotype": "CDKN2B",
+      "clinical_significance": ""
+    },
+    {
+      "gene_transcript": "CIC",
+      "location": "CTNNB1",
+      "variant": "DICER1",
+      "zygosity": "EED",
+      "phenotype": "EGFR",
+      "clinical_significance": ""
+    },
+    {
+      "gene_transcript": "EPCAM",
+      "location": "ERBB2",
+      "variant": "ERBB4",
+      "zygosity": "FGFR1",
+      "phenotype": "FGFR2",
+      "clinical_significance": ""
+    },
+    {
+      "gene_transcript": "FGFR3",
+      "location": "FUBP1",
+      "variant": "GNA11",
+      "zygosity": "GNAQ",
+      "phenotype": "H3F3A",
+      "clinical_significance": ""
+    },
+    {
+      "gene_transcript": "HIST1H3C",
+      "location": "HRAS",
+      "variant": "IDH1",
+      "zygosity": "IDH2",
+      "phenotype": "KDM6A",
+      "clinical_significance": ""
+    },
+    {
+      "gene_transcript": "KRAS",
+      "location": "MAP2K1",
+      "variant": "MET",
+      "zygosity": "MLH1",
+      "phenotype": "MSH2",
+      "clinical_significance": ""
+    },
+    {
+      "gene_transcript": "MSH6",
+      "location": "MYC",
+      "variant": "MYCN",
+      "zygosity": "NF1",
+      "phenotype": "NF2",
+      "clinical_significance": ""
+    },
+    {
+      "gene_transcript": "NOTCH1",
+      "location": "NRAS",
+      "variant": "PDGFRA",
+      "zygosity": "PIK3CA",
+      "phenotype": "PMS2",
+      "clinical_significance": ""
+    },
+    {
+      "gene_transcript": "PTCH1",
+      "location": "PTEN",
+      "variant": "RB1",
+      "zygosity": "SETD2",
+      "phenotype": "SF3B1",
+      "clinical_significance": ""
+    },
+    {
+      "gene_transcript": "SMAD4",
+      "location": "SMARCA4",
+      "variant": "SMARCB1",
+      "zygosity": "SMO",
+      "phenotype": "SRC",
+      "clinical_significance": ""
+    },
+    {
+      "gene_transcript": "SUFU",
+      "location": "SUZ12",
+      "variant": "TERT",
+      "zygosity": "TP53",
+      "phenotype": "TSC1",
+      "clinical_significance": ""
+    },
+    {
+      "gene_transcript": "TSC2",
+      "location": "VHL",
+      "variant": "",
+      "zygosity": "",
+      "phenotype": "",
+      "clinical_significance": ""
+    },
+    {
+      "gene_transcript": "ALK",
+      "location": "BRAF",
+      "variant": "CIC",
+      "zygosity": "EGFR",
+      "phenotype": "EML4",
+      "clinical_significance": ""
+    },
+    {
+      "gene_transcript": "ETV6",
+      "location": "EWSR1",
+      "variant": "FGFR1",
+      "zygosity": "FGFR2",
+      "phenotype": "FGFR3",
+      "clinical_significance": ""
+    },
+    {
+      "gene_transcript": "FUS",
+      "location": "KIAA1549",
+      "variant": "MAML2",
+      "zygosity": "MET",
+      "phenotype": "MN1",
+      "clinical_significance": ""
+    },
+    {
+      "gene_transcript": "MYB",
+      "location": "MYBL1",
+      "variant": "NTRK1",
+      "zygosity": "NTRK2",
+      "phenotype": "NTRK3",
+      "clinical_significance": ""
+    },
+    {
+      "gene_transcript": "PRKCA",
+      "location": "RAF1",
+      "variant": "ROS1",
+      "zygosity": "STAT6",
+      "phenotype": "TACC3",
+      "clinical_significance": ""
+    },
+    {
+      "gene_transcript": "TFG",
+      "location": "YAP1",
+      "variant": "",
+      "zygosity": "",
+      "phenotype": "",
+      "clinical_significance": ""
+    }
+  ],
+  "test_results": [
+    {
+      "page": 1,
+      "table_index": 1,
+      "headers": [
+        "Tier I",
+        "Tier II",
+        "Tier III",
+        "MSI",
+        "Therapies",
+        "Clinical Trials"
+      ],
+      "rows": [
+        [
+          "2",
+          "0",
+          "0",
+          "Stable",
+          "2",
+          "18"
+        ]
+      ]
+    },
+    {
+      "page": 1,
+      "table_index": 2,
+      "headers": [
+        "Tier",
+        "Gene & Transcript",
+        "Variant",
+        "Exon",
+        "Coverage/VAF"
+      ],
+      "rows": [
+        [
+          "IA",
+          "IDH1\nNM 005896.4\n_",
+          "c.395G>A\np.(R132H)",
+          "4",
+          "890x / 47.19%"
+        ],
+        [
+          "IA",
+          "TERT\nNM 198253.3\n_",
+          "c.-124C>T\n(Upstream Mutation)",
+          "-",
+          "410x / 36.36%"
+        ]
+      ]
+    },
+    {
+      "page": 1,
+      "table_index": 3,
+      "headers": [
+        "Dr.",
+        "Salil",
+        "Vaniawala"
+      ],
+      "rows": []
+    },
+    {
+      "page": 1,
+      "table_index": 4,
+      "headers": [
+        "Dr.Nirmal",
+        "A.",
+        "Vaniawala"
+      ],
+      "rows": []
+    },
+    {
+      "page": 2,
+      "table_index": 1,
+      "headers": [
+        "Assay Biomarker",
+        "Result",
+        "Interpretation"
+      ],
+      "rows": [
+        [
+          "Microsatellite Instability (MSI)",
+          "Stable",
+          "Stable Microsatellite detected"
+        ],
+        [
+          "MGMT Methylation Status",
+          "Positive",
+          "MGMT Methylation and TERT C228T, IDH1 R132H Mutation\nDetected"
+        ],
+        [
+          "FISH 1p19q Co-Deletion",
+          "Positive",
+          "nuc ish(1p36×1,1q25×2)[45] / nuc ish(1p36×2,1q25×2)[05]\nnuc ish(19q13×1,19p13×2)[48] / nuc ish(19q13×2,19p13×2)[03]"
+        ]
+      ]
+    },
+    {
+      "page": 2,
+      "table_index": 2,
+      "headers": [
+        "Dr.",
+        "Salil",
+        "Vaniawala"
+      ],
+      "rows": []
+    },
+    {
+      "page": 2,
+      "table_index": 3,
+      "headers": [
+        "Dr.Nirmal",
+        "A.",
+        "Vaniawala"
+      ],
+      "rows": []
+    },
+    {
+      "page": 3,
+      "table_index": 1,
+      "headers": [
+        "Variant",
+        "Therapy",
+        ""
+      ],
+      "rows": [
+        [
+          "",
+          "In This Cancer",
+          "In Other Cancer"
+        ],
+        [
+          "IA\nIDH1\np.(R132H)",
+          "▪ivosidenib\n▪vorasidenib",
+          "▪ivosidenib\n▪vorasidenib"
+        ]
+      ]
+    },
+    {
+      "page": 3,
+      "table_index": 2,
+      "headers": [
+        "Variant",
+        "Diagnostic Significance",
+        "Prognostic Significance"
+      ],
+      "rows": [
+        [
+          "IDH1\np.(R132H)",
+          "Page 3 of 15\nAstrocytoma IDH-mutant (Grade 4)",
+          "NCCN: Favorable"
+        ]
+      ]
+    },
+    {
+      "page": 3,
+      "table_index": 3,
+      "headers": [
+        "Dr.",
+        "Salil",
+        "Vaniawala"
+      ],
+      "rows": []
+    },
+    {
+      "page": 3,
+      "table_index": 4,
+      "headers": [
+        "Dr.Nirmal",
+        "A.",
+        "Vaniawala"
+      ],
+      "rows": []
+    },
+    {
+      "page": 4,
+      "table_index": 1,
+      "headers": [
+        "Dr.",
+        "Salil",
+        "Vaniawala"
+      ],
+      "rows": []
+    },
+    {
+      "page": 4,
+      "table_index": 2,
+      "headers": [
+        "Dr.Nirmal",
+        "A.",
+        "Vaniawala"
+      ],
+      "rows": []
+    },
+    {
+      "page": 5,
+      "table_index": 1,
+      "headers": [
+        "Variant",
+        "Biomarker Description"
+      ],
+      "rows": [
+        [
+          "IDH1\nNM 005896.4\n_\nchr2:209113112\nc.395G>A\np.(R132H)",
+          "The IDH1 and IDH2 genes encode homologous isocitrate dehydrogenase enzymes that catalyze the\nconversion of isocitrate to α-ketoglutarate (α-KG)[1]. The IDH1 gene encodes the NADP+ dependent\ncytoplasmic isocitrate dehydrogenase enzyme; IDH2 encodes the mitochondrial isoform[1].\nRecurrent somatic mutations in IDH1 and IDH2 are mutually exclusive and observed in several\nmalignancies, including glioma, chondrosarcoma, intrahepatic cholangiocarcinoma, acute myeloid\nleukemia (AML), and myelodysplastic syndrome (MDS)[2]. Recurrent IDH1 variants include\npredominantly R132H/C plus other substitutions at lower frequencies[3]. These gain-of-function\nvariants confer neomorphic enzyme activity[4]. Although wild-type enzymatic activity is ablated,\nrecurrent IDH1 variants catalyze the conversion of α-KG to D-2-hydroxyglutarate, an oncometabolite\nwith diverse effects on cellular metabolism, epigenetic regulation, redox states, and DNA repair[1,5].\nRecurrent IDH1 mutations are present in 5-10% of patients with AML and 5% of patients with\nMDS[6,7,8]. Recurrent IDH1 mutations are present in nearly 80% of lower-grade diffuse\ngliomas[9,10]. Alterations in IDH1 are rare in pediatric cancers[9,10]. Somatic mutations in IDH1 are\nobserved in 2% of glioma and less than 1% of leukemia (2 in 311 cases), B-lymphoblastic\nleukemia/lymphoma (1 in 252 cases), embryonal tumor (1 in 332 cases), and Wilms tumor (1 in 710\ncases)[9,10].\nThe IDH1 and IDH2 inhibitor vorasidenib[11] is FDA-approved (2024) for the treatment of adults\nand children with Grade 2 astrocytoma and oligodendroglioma with IDH1 R132C/G/H/L/S\nmutations. Additionally, olutasidenib[12] (2022) and ivosidenib[13] (2018) are FDA-approved for\ntreating IDH1 R132C/G/H/L/S variants in AML. Ivosidenib is also approved for treating\nmyelodysplastic syndrome (MDS) and cholangiocarcinoma patients with the same IDH1\nvariants[14]. IDH1 mutations are associated with favorable outcome in lower-grade gliomas,\nastrocytoma, and oligodendroglioma with 1p/19 codeletion[15,16,17]. Conversely, IDH1 mutations\nare associated with inferior leukemia-free survival in primary myelofibrosis (PMF)[18,19].\nMutations in IDH1 are diagnostic of IDH-mutated astrocytoma and oligodendroglioma with 1p/19q-\ncodeletion subtypes of central nervous system (CNS) tumors[15,20].\nivosidenib\nTIBSOVO® is an isocitrate dehydrogenase-1 (IDH1) inhibitor indicated for the treatment of adult\npatients with a susceptible IDH1 mutation as detected by an FDA-approved test with:\nNewly Diagnosed Acute Myeloid Leukemia (AML)\nPage 5 of 15\n• In combination with azacitidine or as monotherapy for the treatment of newly diagnosed AML in\nadults 75 years or older, or who have comorbidities that preclude use of intensive induction"
+        ]
+      ]
+    },
+    {
+      "page": 5,
+      "table_index": 2,
+      "headers": [
+        "Dr.",
+        "Salil",
+        "Vaniawala"
+      ],
+      "rows": []
+    },
+    {
+      "page": 5,
+      "table_index": 3,
+      "headers": [
+        "Dr.Nirmal",
+        "A.",
+        "Vaniawala"
+      ],
+      "rows": []
+    },
+    {
+      "page": 6,
+      "table_index": 1,
+      "headers": [
+        "",
+        "chemotherapy.\nRelapsed or refractory AML\n• For the treatment of adult patients with relapsed or refractory AML.\nRelapsed or refractory Myelodysplastic Syndromes (MDS)\n• For the treatment of adult patients with relapsed or refractory myelodysplastic syndromes.\nLocally Advanced or Metastatic Cholangiocarcinoma\n• For the treatment of adult patients with locally advanced or metastatic cholangiocarcinoma who\nhave been previously treated.\nCancer type: Cholangiocarcinoma"
+      ],
+      "rows": [
+        [
+          "TERT\nNM 198253.3\n_\nchr5:1295228\nc.-124C>T\n(Upstream\nMutation)",
+          "The TERT gene encodes telomerase reverse transcriptase, a component of the telomerase core\nenzyme along with the internal telomerase RNA template (TERC)[21]. TERT is repressed in most\ndifferentiated cells, resulting in telomerase silencing[21]. In cancer, telomerase reactivation is\nknown to contribute to cellular immortalization[21,22]. Increased TERT expression results in\ntelomerase activation, allowing for unlimited cancer cell proliferation through telomere\nstabilization[21]. In addition to its role in telomere maintenance, TERT has RNA-dependent RNA\npolymerase activity, which, when deregulated, can promote oncogenesis by facilitating mitotic\nprogression and cancer cell stemness[21].\nAlterations and prevalence Somatic mutations are observed in 4% of skin cutaneous\nmelanoma and uterine corpus endometrial carcinoma, 3% of kidney renal papillary cell carcinoma,\nand 2% of pancreatic adenocarcinoma, stomach adenocarcinoma, and sarcoma[9,10]. Additionally,\nTERT promoter mutations causing upregulation are observed in many cancer types, especially non-\naural cutaneous melanoma (80% of cases), and glioblastoma (70% of cases)[22]. Specifically, TERT\npromoter mutations at C228T and C250T are recurrent and result in de novo binding sites for ETS\ntranscription factors, leading to enhanced TERT transcription[21]. Amplification of TERT is observed\nin 15% of lung squamous cell carcinoma, 14% of esophageal adenocarcinoma, 13% of adrenocortical\ncarcinoma and lung adenocarcinoma, and 10% of bladder urothelial carcinoma, 9% of ovarian\nserous cystadenocarcinoma, 6% of cervical squamous cell carcinoma, 5% of liver hepatocellular\ncarcinoma, sarcoma, skin cutaneous melanoma, stomach adenocarcinoma, head and neck squamous\ncell carcinoma, 4% of uterine carcinosarcoma, 3% of uterine corpus endometrial carcinoma, breast\ninvasive carcinoma, and 2% of diffuse large B-cell lymphoma[9,10]. TERT is overexpressed in over\n85% of tumors and is considered a universal tumor associated antigen[23]. Alterations in TERT are\nrare in pediatric cancers[9,10]. Somatic mutations are observed in less than 1% of B-lymphoblastic\nleukemia/lymphoma (2 in 252 cases)P,a ggeli o6m ofa 1 5(2 in 297 cases), bone cancer (1 in 327 cases), and\nWilms tumor (1 in 710 cases)[9,10]. TERT amplification is observed in 1-2% of peripheral nervous"
+        ]
+      ]
+    },
+    {
+      "page": 6,
+      "table_index": 2,
+      "headers": [
+        "Dr.",
+        "Salil",
+        "Vaniawala"
+      ],
+      "rows": []
+    },
+    {
+      "page": 6,
+      "table_index": 3,
+      "headers": [
+        "Dr.Nirmal",
+        "A.",
+        "Vaniawala"
+      ],
+      "rows": []
+    },
+    {
+      "page": 7,
+      "table_index": 1,
+      "headers": [
+        "",
+        "system cancers (2 in 91 cases), leukemia (2 in 250 cases), and B-lymphoblastic leukemia/lymphoma\n(5 in 731 cases)[9,10].\nPotential relevance Currently, no therapies are approved for TERT aberrations. TERT promoter\nmutations are diagnostic of oligodendroglioma IDH-mutant with 1p/19q co-deletion, while the\nabsence of promoter mutations combined with an IDH mutation is characteristic of\nastrocytoma[15,24]. Due to its immunogenicity and near-universal expression on cancer cells, TERT\nhas been a focus of immunotherapy research, including peptide, dendritic, and DNA vaccines as well\nas T-cell therapy[23]."
+      ],
+      "rows": []
+    },
+    {
+      "page": 7,
+      "table_index": 2,
+      "headers": [
+        "Therapy",
+        "FDA",
+        "NCCN",
+        "EMA",
+        "ESMO",
+        "Trials"
+      ],
+      "rows": [
+        [
+          "ivosidenib",
+          "✓",
+          "✓✓",
+          "✓",
+          "✓",
+          ""
+        ],
+        [
+          "vorasidenib",
+          "✓",
+          "✓✓",
+          "X",
+          "X",
+          ""
+        ],
+        [
+          "olaparib, durvalumab",
+          "X",
+          "X",
+          "X",
+          "X",
+          "II"
+        ],
+        [
+          "olutasidenib, chemotherapy",
+          "X",
+          "X",
+          "X",
+          "X",
+          "II"
+        ],
+        [
+          "supplement, retifanlimab",
+          "X",
+          "X",
+          "X",
+          "X",
+          "II"
+        ],
+        [
+          "talazoparib",
+          "X",
+          "X",
+          "X",
+          "X",
+          "II"
+        ],
+        [
+          "avutometinib, defactinib",
+          "X",
+          "X",
+          "X",
+          "X",
+          "I/II"
+        ],
+        [
+          "AZD-9574, chemotherapy",
+          "X",
+          "X",
+          "X",
+          "X",
+          "I/II"
+        ],
+        [
+          "NEO-212",
+          "X",
+          "X",
+          "X",
+          "X",
+          "I/II"
+        ],
+        [
+          "ribociclib, chemotherapy",
+          "X",
+          "X",
+          "X",
+          "X",
+          "I/II"
+        ],
+        [
+          "vorasidenib, chemotherapy",
+          "X",
+          "X",
+          "X",
+          "X",
+          "I/II"
+        ],
+        [
+          "zotiraciclib",
+          "X",
+          "X",
+          "X",
+          "X",
+          "I/II"
+        ],
+        [
+          "ABBV-706 Pag",
+          "e 7 of X15",
+          "X",
+          "X",
+          "X",
+          "I"
+        ]
+      ]
+    },
+    {
+      "page": 7,
+      "table_index": 3,
+      "headers": [
+        "Dr.",
+        "Salil",
+        "Vaniawala"
+      ],
+      "rows": []
+    },
+    {
+      "page": 7,
+      "table_index": 4,
+      "headers": [
+        "Dr.Nirmal",
+        "A.",
+        "Vaniawala"
+      ],
+      "rows": []
+    },
+    {
+      "page": 8,
+      "table_index": 1,
+      "headers": [
+        "amivantamab",
+        "X",
+        "X",
+        "X",
+        "X",
+        "I"
+      ],
+      "rows": [
+        [
+          "ASKC-202",
+          "X",
+          "X",
+          "X",
+          "X",
+          "I"
+        ],
+        [
+          "chemotherapy, pamiparib",
+          "X",
+          "X",
+          "X",
+          "X",
+          "I"
+        ],
+        [
+          "MT-001 (Meton Pharmaceuticals)",
+          "X",
+          "X",
+          "X",
+          "X",
+          "I"
+        ],
+        [
+          "MVR-C5252",
+          "X",
+          "X",
+          "X",
+          "X",
+          "I"
+        ],
+        [
+          "tasadenoturev",
+          "X",
+          "X",
+          "X",
+          "X",
+          "I"
+        ],
+        [
+          "TGFβR2KO/IL13Rα2 CAR T-cells",
+          "X",
+          "X",
+          "X",
+          "X",
+          "I"
+        ]
+      ]
+    },
+    {
+      "page": 8,
+      "table_index": 2,
+      "headers": [
+        "Dr.",
+        "Salil",
+        "Vaniawala"
+      ],
+      "rows": []
+    },
+    {
+      "page": 8,
+      "table_index": 3,
+      "headers": [
+        "Dr.Nirmal",
+        "A.",
+        "Vaniawala"
+      ],
+      "rows": []
+    },
+    {
+      "page": 9,
+      "table_index": 1,
+      "headers": [
+        "Dr.",
+        "Salil",
+        "Vaniawala"
+      ],
+      "rows": []
+    },
+    {
+      "page": 9,
+      "table_index": 2,
+      "headers": [
+        "Dr.Nirmal",
+        "A.",
+        "Vaniawala"
+      ],
+      "rows": []
+    },
+    {
+      "page": 10,
+      "table_index": 1,
+      "headers": [
+        "Dr.",
+        "Salil",
+        "Vaniawala"
+      ],
+      "rows": []
+    },
+    {
+      "page": 10,
+      "table_index": 2,
+      "headers": [
+        "Dr.Nirmal",
+        "A.",
+        "Vaniawala"
+      ],
+      "rows": []
+    },
+    {
+      "page": 11,
+      "table_index": 1,
+      "headers": [
+        "Dr.",
+        "Salil",
+        "Vaniawala"
+      ],
+      "rows": []
+    },
+    {
+      "page": 11,
+      "table_index": 2,
+      "headers": [
+        "Dr.Nirmal",
+        "A.",
+        "Vaniawala"
+      ],
+      "rows": []
+    },
+    {
+      "page": 12,
+      "table_index": 1,
+      "headers": [
+        "DNA Gene List",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "rows": [
+        [
+          "AKT1",
+          "APC",
+          "ATRX",
+          "BAP1",
+          "BCOR"
+        ],
+        [
+          "BCORL1",
+          "BRAF",
+          "CDK6",
+          "CDKN2A",
+          "CDKN2B"
+        ],
+        [
+          "CIC",
+          "CTNNB1",
+          "DICER1",
+          "EED",
+          "EGFR"
+        ],
+        [
+          "EPCAM",
+          "ERBB2",
+          "ERBB4",
+          "FGFR1",
+          "FGFR2"
+        ],
+        [
+          "FGFR3",
+          "FUBP1",
+          "GNA11",
+          "GNAQ",
+          "H3F3A"
+        ],
+        [
+          "HIST1H3C",
+          "HRAS",
+          "IDH1",
+          "IDH2",
+          "KDM6A"
+        ],
+        [
+          "KRAS",
+          "MAP2K1",
+          "MET",
+          "MLH1",
+          "MSH2"
+        ],
+        [
+          "MSH6",
+          "MYC",
+          "MYCN",
+          "NF1",
+          "NF2"
+        ],
+        [
+          "NOTCH1",
+          "NRAS",
+          "PDGFRA",
+          "PIK3CA",
+          "PMS2"
+        ],
+        [
+          "PTCH1",
+          "PTEN",
+          "RB1",
+          "SETD2",
+          "SF3B1"
+        ],
+        [
+          "SMAD4",
+          "SMARCA4",
+          "SMARCB1",
+          "SMO",
+          "SRC"
+        ],
+        [
+          "SUFU",
+          "SUZ12",
+          "TERT",
+          "TP53",
+          "TSC1"
+        ],
+        [
+          "TSC2",
+          "VHL",
+          "",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "page": 12,
+      "table_index": 2,
+      "headers": [
+        "RNA Gene List",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "rows": [
+        [
+          "ALK",
+          "BRAF",
+          "CIC",
+          "EGFR",
+          "EML4"
+        ],
+        [
+          "ETV6",
+          "EWSR1",
+          "FGFR1",
+          "FGFR2",
+          "FGFR3"
+        ],
+        [
+          "FUS",
+          "KIAA1549",
+          "MAML2",
+          "MET",
+          "MN1"
+        ],
+        [
+          "MYB",
+          "MYBL1",
+          "NTRK1",
+          "NTRK2",
+          "NTRK3"
+        ],
+        [
+          "PRKCA",
+          "RAF1",
+          "ROS1",
+          "STAT6",
+          "TACC3"
+        ],
+        [
+          "TFG",
+          "YAP1",
+          "",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "page": 12,
+      "table_index": 3,
+      "headers": [
+        "MSI",
+        "% of Unstable Loci"
+      ],
+      "rows": [
+        [
+          "MSI - Stable",
+          "0-19%"
+        ],
+        [
+          "MSI - Low / Intermediate",
+          "20-30%"
+        ],
+        [
+          "MSI - High",
+          ">30%"
+        ]
+      ]
+    },
+    {
+      "page": 12,
+      "table_index": 4,
+      "headers": [
+        "MGMT Methylation",
+        ""
+      ],
+      "rows": [
+        [
+          "Methylation ratio of a probe in test sample > baseline",
+          "Methylation is increased"
+        ],
+        [
+          "Methylation ratio of a probe in test sample ≤baseline",
+          "Methylation is not increased"
+        ]
+      ]
+    },
+    {
+      "page": 12,
+      "table_index": 5,
+      "headers": [
+        "FISH 1p19q Co-Deletion",
+        "Page 12 of 15"
+      ],
+      "rows": [
+        [
+          "Negative",
+          "If ratio is >0.80"
+        ]
+      ]
+    },
+    {
+      "page": 12,
+      "table_index": 6,
+      "headers": [
+        "Dr.",
+        "Salil",
+        "Vaniawala"
+      ],
+      "rows": []
+    },
+    {
+      "page": 12,
+      "table_index": 7,
+      "headers": [
+        "Dr.Nirmal",
+        "A.",
+        "Vaniawala"
+      ],
+      "rows": []
+    },
+    {
+      "page": 13,
+      "table_index": 1,
+      "headers": [
+        "Positive",
+        "If ratio is <0.80"
+      ],
+      "rows": []
+    },
+    {
+      "page": 13,
+      "table_index": 2,
+      "headers": [
+        "Tier",
+        "Interpretation"
+      ],
+      "rows": [
+        [
+          "Tier IA",
+          "Variants of Strong Clinical Significance: Biomarkers that predict response or resistance to\nUS FDA-approved therapies for a specific type of tumor or have been included in\nprofessional guidelines as therapeutic, diagnostic, and/or prognostic biomarkers for\nspecific types of tumors."
+        ],
+        [
+          "Tier IB",
+          "Variants of Strong Clinical Significance: Biomarkers that predict response or resistance to\na therapy based on well-powered studies with consensus from experts in the field, or\nhave diagnostic and/or prognostic significance of certain diseases based on well-powered\nstudies with expert consensus."
+        ],
+        [
+          "Tier IIC",
+          "Variants of Potential Clinical Significance: biomarkers that predict response or resistance\nto therapies approved by FDA or professional societies for a different tumor type (i.e., off-\nlabel use of a drug), serve as inclusion criteria for clinical trials, or have diagnostic and/or\nprognostic significance based on the results of multiple small studies."
+        ],
+        [
+          "Tier IID",
+          "Variants of Potential Clinical Significance: Biomarkers that show plausible therapeutic\nsignificance based on preclinical studies or may assist disease diagnosis and/or prognosis\nthemselves or along with other biomarkers based on small studies or multiple case\nreports with no consensus."
+        ],
+        [
+          "Tier III",
+          "Variants of Unknown clinical significance (VUS): Not observed at a significant allele\nfrequency in the general or specific subpopulation or pancancer or tumor specific variant\ndatabases. No convincing published evidence of cancer Association"
+        ]
+      ]
+    },
+    {
+      "page": 13,
+      "table_index": 3,
+      "headers": [
+        "Dr.",
+        "Salil",
+        "Vaniawala"
+      ],
+      "rows": []
+    },
+    {
+      "page": 13,
+      "table_index": 4,
+      "headers": [
+        "Dr.Nirmal",
+        "A.",
+        "Vaniawala"
+      ],
+      "rows": []
+    },
+    {
+      "page": 14,
+      "table_index": 1,
+      "headers": [
+        "Dr.",
+        "Salil",
+        "Vaniawala"
+      ],
+      "rows": []
+    },
+    {
+      "page": 14,
+      "table_index": 2,
+      "headers": [
+        "Dr.Nirmal",
+        "A.",
+        "Vaniawala"
+      ],
+      "rows": []
+    },
+    {
+      "page": 15,
+      "table_index": 1,
+      "headers": [
+        "Dr.",
+        "Salil",
+        "Vaniawala"
+      ],
+      "rows": []
+    },
+    {
+      "page": 15,
+      "table_index": 2,
+      "headers": [
+        "Dr.Nirmal",
+        "A.",
+        "Vaniawala"
+      ],
+      "rows": []
+    }
+  ],
+  "recommendations": [
+    "of AMP-ASCO-CAP guidelines.",
+    "Public data sources included in relevant targeted therapies, guidelines: EMA, FDA, ESMO, NCCN.",
+    "Page 1 of 15",
+    "QR Code for",
+    "report verification",
+    "Case ID",
+    ": 2600130362",
+    "Sample Type",
+    ": FFPE TISSUE BLOCK",
+    ": MR. AGATAMUDI VENKATA KAMANA"
+  ],
+  "methodology": [
+    "Extraction & Library Preparation: DNA & RNA extracted from FFPE tissue block sample is used for",
+    "targeted gene capture using a custom designed hybrid capture panel. In process quality controls were",
+    "determined for prepared library.",
+    "Sequencing: The libraries were sequenced at mean depth: >1000x on Illumina Novaseq- next generation",
+    "sequencing platform.",
+    "Page 8 of 15",
+    "QR Code for",
+    "report verification",
+    "Case ID",
+    ": 2600130362"
+  ],
+  "limitations": [],
+  "remarks": "✓: In this Cancer Type, ✓: In Other Cancer Type, ✓✓: both In this and Other Cancer Type, X : No\nEvidence.⚠️: Caution for Use\nTest Description\nBrainseq Genomic Profiling Panel - Advance is advancing precision oncology research through the\nanalysis of multiple relevant biomarkers in a single next-generation sequencing (NGS) test.\nThe Brainseq Genomic Profiling Panel – Advance assay analyses 89 unique genes (62 DNA + 27 RNA) for\nsingle gene and multiple gene biomarker insights, detects single gene biomarkers from all variant types\nincluding SNVs, indels, CNVs, known and novel fusions, and splice variants, analyze complex multi-gene\nbiomarkers for mutational signatures, microsatellite instability (MSI) for immunotherapy research, MGMT\nmethylation status & FISH for 1p19q co-deletion.\nThe performance of the panel was verified using both commercially sourced reference controls and FFPE\nsamples.\nTest Methodology\nExtraction & Library Preparation: DNA & RNA extracted from FFPE tissue block sample is used for\ntargeted gene capture using a custom designed hybrid capture panel. In process quality controls were\ndetermined for prepared library.\nSequencing: The libraries were sequenced at mean depth: >1000x on Illumina Novaseq- next generation\nsequencing platform.\nPage 8 of 15"
+}

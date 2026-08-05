@@ -1,0 +1,3271 @@
+{
+  "patient_name": "Ms. BASANTI DEVI 10078040",
+  "patient_age": "50 Years",
+  "patient_gender": "Female",
+  "sample_id": "60400127778",
+  "lab_id": null,
+  "referring_doctor": null,
+  "collection_date": null,
+  "reporting_date": null,
+  "report_title": "performed.",
+  "clinical_indication": null,
+  "sample_description": "Whole Blood EDTA",
+  "key_findings": [
+    {
+      "gene_transcript": "Next Generation Sequencing (Massively Parallel Sequencing)",
+      "location": "Next Generation Sequencing (Massively Parallel Sequencing)",
+      "variant": "Next Generation Sequencing (Massively Parallel Sequencing)",
+      "zygosity": "",
+      "phenotype": "Next Generation Sequencing (Massively Parallel Sequencing)",
+      "clinical_significance": ""
+    },
+    {
+      "gene_transcript": "EDTA Blood",
+      "location": "EDTA Blood",
+      "variant": "EDTA Blood",
+      "zygosity": "",
+      "phenotype": "EDTA Blood",
+      "clinical_significance": ""
+    }
+  ],
+  "test_results": [
+    {
+      "page": 1,
+      "table_index": 1,
+      "bbox": [
+        35.64,
+        258.18,
+        508.66,
+        494.87
+      ],
+      "headers": [
+        "Test Description:",
+        "Chronic myeloid leukemia (CML) is characterized by the presence of the Philadelphia chromosome, the product of t(9;22)(q34;q11) translocation. This translocation results in BCR-ABL1 fusion protein with constitutive ABL1 tyrosine kinase activity. The kinase inhibitor imatinib (STI571, Gleevec®) inhibits ABL1 kinase activity and is now the standard of care for early phase CML. Prolonged treatment with imatinib can lead to drug resistance, especially in patients with advanced disease. A large portion of resistant patients have acquired point mutations in the ABL1 kinase domain that renders the kinase resistant to the drug. Sites of point mutations in ABL1 associated with imatinib resistance span the entire kinase domain but often cluster in important hotspots.(1,2) Total RNA was extracted and nested reverse transcription PCR was performed to detect the BCR-ABL1 transcript and ABL1 kinase domain (KD) region was thereafter sequenced by Next Generation Sequencing for detection of mutant alleles."
+      ],
+      "rows": [
+        [
+          "Methodology:",
+          "Next Generation Sequencing (Massively Parallel Sequencing)"
+        ],
+        [
+          "Sample:",
+          "EDTA Blood"
+        ]
+      ]
+    },
+    {
+      "page": 1,
+      "table_index": 2,
+      "bbox": [
+        35.64,
+        531.0,
+        508.66,
+        609.56
+      ],
+      "headers": [
+        "Test results and Interpretation:",
+        "PATHOGENIC MUTATION DETECTED"
+      ],
+      "rows": [
+        [
+          "Mutation Nomenclature:",
+          "L248V"
+        ],
+        [
+          "Coverage:",
+          ">500x"
+        ]
+      ]
+    },
+    {
+      "page": 3,
+      "table_index": 1,
+      "bbox": [
+        15.28,
+        445.61,
+        576.19,
+        606.41
+      ],
+      "headers": [
+        "Sr. No.",
+        "Mutations covered",
+        "Mutation Result",
+        "Sensitivity to Imatinib",
+        "Mean fold Increase in IC50 (Imatinib)2",
+        "Sr. No.",
+        "Mutations covered",
+        "Mutation Result",
+        "Sensitivity to Imatinib",
+        "Mean fold Increase in IC50 (Imatinib)2"
+      ],
+      "rows": [
+        [
+          "1",
+          "T315I",
+          "Negative",
+          "R",
+          "50.8",
+          "19",
+          "E275K",
+          "Negative",
+          "NA",
+          ""
+        ],
+        [
+          "2",
+          "E255V",
+          "Negative",
+          "R",
+          "44.3",
+          "20",
+          "F359C",
+          "Negative",
+          "NA",
+          "4.3"
+        ],
+        [
+          "3",
+          "Y253H",
+          "Negative",
+          "R",
+          "36.3",
+          "21",
+          "E450K",
+          "Negative",
+          "NA",
+          "3.9"
+        ],
+        [
+          "4",
+          "E255K",
+          "Negative",
+          "R",
+          "30.7",
+          "22",
+          "M351T",
+          "Negative",
+          "S",
+          "3.8"
+        ],
+        [
+          "5",
+          "Y253F",
+          "Negative",
+          "R",
+          "25.2",
+          "23",
+          "M244V",
+          "Negative",
+          "I",
+          "3.8"
+        ],
+        [
+          "6",
+          "E373G",
+          "Negative",
+          "NA",
+          "20.6",
+          "24",
+          "E355G",
+          "Negative",
+          "I",
+          "3.4"
+        ],
+        [
+          "7",
+          "L248V",
+          "Positive",
+          "NA",
+          "19.9",
+          "25",
+          "V379I",
+          "Negative",
+          "I",
+          "3.1"
+        ],
+        [
+          "8",
+          "G321E",
+          "Negative",
+          "NA",
+          "18.1",
+          "26",
+          "E355A",
+          "Negative",
+          "NA",
+          "3.0"
+        ]
+      ]
+    },
+    {
+      "page": 4,
+      "table_index": 1,
+      "bbox": [
+        15.28,
+        226.9,
+        576.19,
+        371.44
+      ],
+      "headers": [
+        "9",
+        "E279K",
+        "Negative",
+        "NA",
+        "16.5",
+        "27",
+        "M388L",
+        "Negative",
+        "NA",
+        "2.7"
+      ],
+      "rows": [
+        [
+          "10",
+          "G250E",
+          "Negative",
+          "I",
+          "11.7",
+          "28",
+          "T315A",
+          "Negative",
+          "S",
+          "2.4"
+        ],
+        [
+          "11",
+          "D276G",
+          "Negative",
+          "NA",
+          "11.2",
+          "29",
+          "M237I",
+          "Negative",
+          "NA",
+          "2.4"
+        ],
+        [
+          "12",
+          "F486S",
+          "Negative",
+          "NA",
+          "8.4",
+          "30",
+          "F311L",
+          "Negative",
+          "S",
+          "2.2"
+        ],
+        [
+          "13",
+          "H396P",
+          "Negative",
+          "S",
+          "7.1",
+          "31",
+          "L387F",
+          "Negative",
+          "NA",
+          "2.0"
+        ],
+        [
+          "14",
+          "H396R",
+          "Negative",
+          "I",
+          "6.7",
+          "32",
+          "V299L",
+          "Negative",
+          "S",
+          "1.7"
+        ],
+        [
+          "15",
+          "F359V",
+          "Negative",
+          "I",
+          "5.8",
+          "33",
+          "F317V",
+          "Negative",
+          "S",
+          "1.4"
+        ],
+        [
+          "16",
+          "F317L",
+          "Negative",
+          "I",
+          "4.8",
+          "34",
+          "G250A",
+          "Negative",
+          "NA",
+          "1.3"
+        ],
+        [
+          "17",
+          "Q252H",
+          "Negative",
+          "I",
+          "4.8",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "18",
+          "L387M",
+          "Negative",
+          "S",
+          "4.3",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "page": 4,
+      "table_index": 2,
+      "bbox": [
+        35.88,
+        497.5,
+        559.95,
+        566.72
+      ],
+      "headers": [
+        "Novel Mutation",
+        "Nomenclature",
+        "Computationally Predicted Effect",
+        ""
+      ],
+      "rows": [
+        [
+          "-",
+          "-",
+          "-",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "REFERENCES:",
+          "",
+          "",
+          ""
+        ]
+      ]
+    }
+  ],
+  "recommendations": [
+    "from an expert panel on behalf of European",
+    "LeukemiaNet. Blood. 2011;118(5):1208-1215.",
+    "von Bubnoff N, Schneller F, Peschel C, Duyster J. BCR-ABL gene mutations in relation to clinical resistance of",
+    "Philadelphia-chromosome-positive leukaemia to STI571: a prospective study. Lancet. 2002;359(9305):487-491.",
+    "De Benedittis, Caterina (2015) Next-Generation Sequencing-Based Mutations Scanning Strategy of the BCR-ABL",
+    "Kinase Domain in Patients with PhiladelPhia-Chromosome Positive Leukemias Treated with Tyrosine Kinase",
+    "Inhibitors."
+  ],
+  "methodology": [
+    "Next Generation Sequencing (Massively Parallel Sequencing)",
+    "Sample:",
+    "EDTA Blood",
+    "Test results and",
+    "Interpretation:",
+    "PATHOGENIC MUTATION DETECTED",
+    "Mutation Nomenclature:",
+    "Coverage:",
+    "MC-6200",
+    "LABORATORY REPORT",
+    ":Ms. BASANTI DEVI 10078040",
+    "OQG2604170493",
+    "Sex/Age",
+    ": Female/50 Years",
+    ":60400127778",
+    "Ref By",
+    "Dis.Loc.",
+    "Bill. Loc.",
+    ":Oncquest Laboratories Ltd.",
+    "Pt. Loc."
+  ],
+  "limitations": [
+    "Please note that only the variants relevant to the patient’s clinical presentation were reported. A report on all variants present is available",
+    "upon request, please contact the laboratory.",
+    "Predisposition to disease may be affected by non genetic factors.",
+    "This test has not been approved by external accrediting bodies and has been validated according to internal laboratory criteria. Accreditation is",
+    "not required for the reporting of these test results.",
+    "For Accurate detection of mutation, at least 1000 BCR-ABL1 Fusion copies/ml should be present in the sample.",
+    "In cases where the BCR ABL1 load is very low, cases may be released as ‘No Mutation Detected’ with a comment ‘Repeated sequencing revealed",
+    "no sequenceable Amplicons due to low transcript levels’",
+    "All laboratory tests are associated with an error rate of ~1%. These could be due to sample mismatch, inappropriate labeling, processing or",
+    "technological limitations. Please correlate with clinical features and other investigations for final conclusion and send a repeat sample for",
+    "analysis if necessary.",
+    "Rare false positive or negative results may occur due to inherent limitations of the technique involved.",
+    "Large insertions and deletions may be missed.",
+    "Mutations having VAF (variant allele frequency) less than 5% are not reported.",
+    "For test performed on specimens received or collected from non-STMPL locations, it is presumed that the specimen belongs to the patient",
+    "named or identified as labeled on the container/test request and such verification has been carried out at the point of generation of the said",
+    "specimen by the sender.",
+    "MC-6200",
+    "LABORATORY REPORT",
+    ":Ms. BASANTI DEVI 10078040"
+  ],
+  "remarks": "Ref Id 2\n:\n# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the\ncontainer/Test Requisition Formand it has been verified as per GCLP (Good Clinical Lab Practices) by the referrer atthe time of\ncollection of the specimen. NCGM’s responsibility is limited to theanalytical part of the assay performed.\nDr. Arpan K. Mehta\nMD Path, PDF Lab. Haemat.,\nPDF Mol. Haemonc.\nPrinted On\n:09-May-2026 14:13\nBCR::ABL1 KINASE DOMAIN MUTATION ANALYSIS (IRMA) BY NEXT GENERATION SEQUENCING\nTest Description:\nChronic myeloid leukemia (CML) is characterized by the presence of the\nPhiladelphia chromosome, the product of t(9;22)(q34;q11) translocation.\nThis translocation results in BCR-ABL1 fusion protein with constitutive ABL1\ntyrosine kinase activity. The kinase inhibitor imatinib (STI571, Gleevec®)\ninhibits ABL1 kinase activity and is now the standard of care for early phase\nCML. Prolonged treatment with imatinib can lead to drug resistance,\nespecially in patients with advanced disease.\nA large portion of resistant patients have acquired point mutations in the\nABL1 kinase domain that renders the kinase resistant to the drug. Sites of\npoint mutations in ABL1 associated with imatinib resistance span the entire\nkinase domain but often cluster in important hotspots.(1,2)\nTotal RNA was extracted and nested reverse transcription PCR was\nperformed to detect the BCR-ABL1 transcript and ABL1 kinase domain (KD)\nregion was thereafter sequenced by Next Generation Sequencing for\ndetection of mutant alleles.",
+  "document_summary": {
+    "total_pages": 6,
+    "total_tables": 5,
+    "total_boxes": 12,
+    "total_key_value_pairs": 17
+  },
+  "all_key_value_pairs": {
+    "Name": "Ms. BASANTI DEVI 10078040",
+    "Sex/Age": "Female/50 Years",
+    "Case ID": "60400127778",
+    "Ref By": "Dis.Loc.",
+    "Dis.Loc.": "Pt ID",
+    "Pt ID": "Bill. Loc.",
+    "Bill. Loc.": "Oncquest Laboratories Ltd.",
+    "Pt. Loc.": "Registration Date & Time",
+    "Registration Date & Time": "17-Apr-2026 16:42",
+    "Sample Type": "Whole Blood EDTA",
+    "Sample Date & Time": "17-Apr-2026 16:42",
+    "Sample Coll.By": "Ref Id",
+    "Ref Id": "Report Date & Time",
+    "Report Date & Time": "09-May-2026",
+    "Acc. Remarks": "Ref Id 2",
+    "Ref Id 2": "# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the",
+    "Printed On": "09-May-2026 14:13"
+  },
+  "all_boxes_and_sections": [
+    {
+      "page": 1,
+      "title": "Patient Demographics & Header Box",
+      "type": "demographics_box",
+      "bbox": [
+        0.0,
+        0.0,
+        595.3,
+        150.0
+      ],
+      "key_value_pairs": {
+        "Name": "Ms. BASANTI DEVI 10078040",
+        "Sex/Age": "Female/50 Years",
+        "Case ID": "60400127778",
+        "Ref By": "Dis.Loc.",
+        "Dis.Loc.": "Pt ID",
+        "Pt ID": "Bill. Loc.",
+        "Bill. Loc.": "Oncquest Laboratories Ltd.",
+        "Pt. Loc.": "Registration Date & Time",
+        "Registration Date & Time": "17-Apr-2026 16:42",
+        "Sample Type": "Whole Blood EDTA",
+        "Sample Date & Time": "17-Apr-2026 16:42",
+        "Sample Coll.By": "Ref Id",
+        "Ref Id": "Report Date & Time",
+        "Report Date & Time": "09-May-2026",
+        "Acc. Remarks": "Ref Id 2",
+        "Ref Id 2": "# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the",
+        "Printed On": "09-May-2026 14:13"
+      }
+    },
+    {
+      "page": 1,
+      "title": "BCR::ABL1 KINASE DOMAIN MUTATION ANALYSIS (IRMA) BY NEXT GENERATION SEQUENCING",
+      "type": "content_section_box",
+      "bbox": [
+        35.45,
+        226.67,
+        510.24,
+        239.56
+      ],
+      "content_text": []
+    },
+    {
+      "page": 1,
+      "title": "Test Description:",
+      "type": "content_section_box",
+      "bbox": [
+        41.1,
+        346.44,
+        119.86,
+        358.16
+      ],
+      "content_text": [
+        "Chronic myeloid leukemia (CML) is characterized by the presence of the Philadelphia chromosome, the product of t(9;22)(q34;q11) translocation. This translocation results in BCR-ABL1 fusion protein with constitutive ABL1 tyrosine kinase activity. The kinase inhibitor imatinib (STI571, Gleevec®) inhibits ABL1 kinase activity and is now the standard of care for early phase CML. Prolonged treatment with imatinib can lead to drug resistance, especially in patients with advanced disease. A large portion of resistant patients have acquired point mutations in the ABL1 kinase domain that renders the kinase resistant to the drug. Sites of point mutations in ABL1 associated with imatinib resistance span the entire kinase domain but often cluster in important hotspots.(1,2)",
+        "Total RNA was extracted and nested reverse transcription PCR was performed to detect the BCR-ABL1 transcript and ABL1 kinase domain (KD) region was thereafter sequenced by Next Generation Sequencing for detection of mutant alleles."
+      ]
+    },
+    {
+      "page": 1,
+      "title": "Methodology: Next Generation Sequencing (Massively Parallel Sequencing)",
+      "type": "content_section_box",
+      "bbox": [
+        41.1,
+        452.59,
+        431.1,
+        464.31
+      ],
+      "content_text": [
+        "Sample: EDTA Blood"
+      ]
+    },
+    {
+      "page": 1,
+      "title": "Test results and Interpretation: PATHOGENIC MUTATION DETECTED",
+      "type": "content_section_box",
+      "bbox": [
+        41.1,
+        534.33,
+        339.97,
+        557.78
+      ],
+      "content_text": [
+        "Mutation Nomenclature: L248V",
+        "Coverage: >500x",
+        "Page 1 of 6"
+      ]
+    },
+    {
+      "page": 2,
+      "title": "Patient Demographics & Header Box",
+      "type": "demographics_box",
+      "bbox": [
+        0.0,
+        0.0,
+        595.3,
+        150.0
+      ],
+      "key_value_pairs": {
+        "Name": "Ms. BASANTI DEVI 10078040",
+        "Sex/Age": "Female/50 Years",
+        "Case ID": "60400127778",
+        "Ref By": "Dis.Loc.",
+        "Dis.Loc.": "Pt ID",
+        "Pt ID": "Bill. Loc.",
+        "Bill. Loc.": "Oncquest Laboratories Ltd.",
+        "Pt. Loc.": "Registration Date & Time",
+        "Registration Date & Time": "17-Apr-2026 16:42",
+        "Sample Type": "Whole Blood EDTA",
+        "Sample Date & Time": "17-Apr-2026 16:42",
+        "Sample Coll.By": "Ref Id",
+        "Ref Id": "Report Date & Time",
+        "Report Date & Time": "09-May-2026",
+        "Acc. Remarks": "Ref Id 2",
+        "Ref Id 2": "# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the",
+        "Printed On": "09-May-2026 14:13"
+      }
+    },
+    {
+      "page": 3,
+      "title": "Patient Demographics & Header Box",
+      "type": "demographics_box",
+      "bbox": [
+        0.0,
+        0.0,
+        595.3,
+        150.0
+      ],
+      "key_value_pairs": {
+        "Name": "Ms. BASANTI DEVI 10078040",
+        "Sex/Age": "Female/50 Years",
+        "Case ID": "60400127778",
+        "Ref By": "Dis.Loc.",
+        "Dis.Loc.": "Pt ID",
+        "Pt ID": "Bill. Loc.",
+        "Bill. Loc.": "Oncquest Laboratories Ltd.",
+        "Pt. Loc.": "Registration Date & Time",
+        "Registration Date & Time": "17-Apr-2026 16:42",
+        "Sample Type": "Whole Blood EDTA",
+        "Sample Date & Time": "17-Apr-2026 16:42",
+        "Sample Coll.By": "Ref Id",
+        "Ref Id": "Report Date & Time",
+        "Report Date & Time": "09-May-2026",
+        "Acc. Remarks": "Ref Id 2",
+        "Ref Id 2": "# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the",
+        "Printed On": "09-May-2026 14:13"
+      }
+    },
+    {
+      "page": 3,
+      "title": "Interpretation:",
+      "type": "content_section_box",
+      "bbox": [
+        41.1,
+        230.17,
+        110.36,
+        241.89
+      ],
+      "content_text": [
+        "L248V [VAF: 99.81%]",
+        "HGVS genomic change:  9:g.133738342C>G HGVS protein change:  ENSP00000323315:p.Leu248Val HGVS coding DNA change:  ENST00000318560.5:c.742C>G Mutation type:  Pathogenic",
+        "The detection of p.  Leu248Val  (p.L248V) mutation has been described in association with resistance to Imatinib (PMID: 21562040)",
+        "Final conclusion: The patient is found to have L248V mutation.",
+        "Sr. No.",
+        "Mutations",
+        "covered",
+        "Mutation",
+        "Result",
+        "Sensitivity to Imatinib",
+        "Mean fold Increase in",
+        "IC50 (Imatinib)2",
+        "Sr. No.",
+        "Mutations",
+        "covered",
+        "Mutation",
+        "Result",
+        "Sensitivity to Imatinib",
+        "Mean fold Increase in",
+        "IC50 (Imatinib)2 1 T315I Negative R 50.8 19 E275K Negative NA 2 E255V Negative R 44.3 20 F359C Negative NA 4.3",
+        "3 Y253H Negative R 36.3 21 E450K Negative NA 3.9",
+        "4 E255K Negative R 30.7 22 M351T Negative S 3.8",
+        "5 Y253F Negative R 25.2 23 M244V Negative I 3.8",
+        "6 E373G Negative NA 20.6 24 E355G Negative I 3.4",
+        "7 L248V Positive NA 19.9 25 V379I Negative I 3.1",
+        "8 G321E Negative NA 18.1 26 E355A Negative NA 3.0",
+        "Page 3 of 6"
+      ]
+    },
+    {
+      "page": 4,
+      "title": "Patient Demographics & Header Box",
+      "type": "demographics_box",
+      "bbox": [
+        0.0,
+        0.0,
+        595.3,
+        150.0
+      ],
+      "key_value_pairs": {
+        "Name": "Ms. BASANTI DEVI 10078040",
+        "Sex/Age": "Female/50 Years",
+        "Case ID": "60400127778",
+        "Ref By": "Dis.Loc.",
+        "Dis.Loc.": "Pt ID",
+        "Pt ID": "Bill. Loc.",
+        "Bill. Loc.": "Oncquest Laboratories Ltd.",
+        "Pt. Loc.": "Registration Date & Time",
+        "Registration Date & Time": "17-Apr-2026 16:42",
+        "Sample Type": "Whole Blood EDTA",
+        "Sample Date & Time": "17-Apr-2026 16:42",
+        "Sample Coll.By": "Ref Id",
+        "Ref Id": "Report Date & Time",
+        "Report Date & Time": "09-May-2026",
+        "Acc. Remarks": "Ref Id 2",
+        "Ref Id 2": "# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the",
+        "Printed On": "09-May-2026 14:13"
+      }
+    },
+    {
+      "page": 5,
+      "title": "Patient Demographics & Header Box",
+      "type": "demographics_box",
+      "bbox": [
+        0.0,
+        0.0,
+        595.3,
+        150.0
+      ],
+      "key_value_pairs": {
+        "Name": "Ms. BASANTI DEVI 10078040",
+        "Sex/Age": "Female/50 Years",
+        "Case ID": "60400127778",
+        "Ref By": "Dis.Loc.",
+        "Dis.Loc.": "Pt ID",
+        "Pt ID": "Bill. Loc.",
+        "Bill. Loc.": "Oncquest Laboratories Ltd.",
+        "Pt. Loc.": "Registration Date & Time",
+        "Registration Date & Time": "17-Apr-2026 16:42",
+        "Sample Type": "Whole Blood EDTA",
+        "Sample Date & Time": "17-Apr-2026 16:42",
+        "Sample Coll.By": "Ref Id",
+        "Ref Id": "Report Date & Time",
+        "Report Date & Time": "09-May-2026",
+        "Acc. Remarks": "Ref Id 2",
+        "Ref Id 2": "# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the",
+        "Printed On": "09-May-2026 14:13"
+      }
+    },
+    {
+      "page": 5,
+      "title": "Limitations:",
+      "type": "content_section_box",
+      "bbox": [
+        35.45,
+        367.62,
+        85.45,
+        378.16
+      ],
+      "content_text": [
+        "- Please note that only the variants relevant to the patient’s clinical presentation were reported. A report on all variants present is available upon request, please contact the laboratory. - Predisposition to disease may be affected by non genetic factors. - This test has not been approved by external accrediting bodies and has been validated according to internal laboratory criteria. Accreditation is not required for the reporting of these test results. - For Accurate detection of mutation, at least 1000 BCR-ABL1 Fusion copies/ml should be present in the sample. - In cases where the BCR ABL1 load is very low, cases may be released as ‘No Mutation Detected’ with a comment ‘Repeated sequencing revealed no sequenceable Amplicons due to low transcript levels’ - All laboratory tests are associated with an error rate of ~1%. These could be due to sample mismatch, inappropriate labeling, processing or technological limitations. Please correlate with clinical features and other investigations for final conclusion and send a repeat sample for analysis if necessary. - Rare false positive or negative results may occur due to inherent limitations of the technique involved. - Large insertions and deletions may be missed. - Mutations having VAF (variant allele frequency) less than 5% are not reported. - For test performed on specimens received or collected from non-STMPL locations, it is presumed that the specimen belongs to the patient named or identified as labeled on the container/test request and such verification has been carried out at the point of generation of the said specimen by the sender.",
+        "Page 5 of 6"
+      ]
+    },
+    {
+      "page": 6,
+      "title": "Patient Demographics & Header Box",
+      "type": "demographics_box",
+      "bbox": [
+        0.0,
+        0.0,
+        595.3,
+        150.0
+      ],
+      "key_value_pairs": {
+        "Name": "Ms. BASANTI DEVI 10078040",
+        "Sex/Age": "Female/50 Years",
+        "Case ID": "60400127778",
+        "Ref By": "Dis.Loc.",
+        "Dis.Loc.": "Pt ID",
+        "Pt ID": "Bill. Loc.",
+        "Bill. Loc.": "Oncquest Laboratories Ltd.",
+        "Pt. Loc.": "Registration Date & Time",
+        "Registration Date & Time": "17-Apr-2026 16:42",
+        "Sample Type": "Whole Blood EDTA",
+        "Sample Date & Time": "17-Apr-2026 16:42",
+        "Sample Coll.By": "Ref Id",
+        "Ref Id": "Report Date & Time",
+        "Report Date & Time": "09-May-2026",
+        "Acc. Remarks": "Ref Id 2",
+        "Ref Id 2": "# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the",
+        "Printed On": "09-May-2026 14:13"
+      }
+    }
+  ],
+  "all_tables": [
+    {
+      "page": 1,
+      "table_index": 1,
+      "bbox": [
+        35.64,
+        258.18,
+        508.66,
+        494.87
+      ],
+      "headers": [
+        "Test Description:",
+        "Chronic myeloid leukemia (CML) is characterized by the presence of the Philadelphia chromosome, the product of t(9;22)(q34;q11) translocation. This translocation results in BCR-ABL1 fusion protein with constitutive ABL1 tyrosine kinase activity. The kinase inhibitor imatinib (STI571, Gleevec®) inhibits ABL1 kinase activity and is now the standard of care for early phase CML. Prolonged treatment with imatinib can lead to drug resistance, especially in patients with advanced disease. A large portion of resistant patients have acquired point mutations in the ABL1 kinase domain that renders the kinase resistant to the drug. Sites of point mutations in ABL1 associated with imatinib resistance span the entire kinase domain but often cluster in important hotspots.(1,2) Total RNA was extracted and nested reverse transcription PCR was performed to detect the BCR-ABL1 transcript and ABL1 kinase domain (KD) region was thereafter sequenced by Next Generation Sequencing for detection of mutant alleles."
+      ],
+      "rows": [
+        [
+          "Methodology:",
+          "Next Generation Sequencing (Massively Parallel Sequencing)"
+        ],
+        [
+          "Sample:",
+          "EDTA Blood"
+        ]
+      ]
+    },
+    {
+      "page": 1,
+      "table_index": 2,
+      "bbox": [
+        35.64,
+        531.0,
+        508.66,
+        609.56
+      ],
+      "headers": [
+        "Test results and Interpretation:",
+        "PATHOGENIC MUTATION DETECTED"
+      ],
+      "rows": [
+        [
+          "Mutation Nomenclature:",
+          "L248V"
+        ],
+        [
+          "Coverage:",
+          ">500x"
+        ]
+      ]
+    },
+    {
+      "page": 3,
+      "table_index": 1,
+      "bbox": [
+        15.28,
+        445.61,
+        576.19,
+        606.41
+      ],
+      "headers": [
+        "Sr. No.",
+        "Mutations covered",
+        "Mutation Result",
+        "Sensitivity to Imatinib",
+        "Mean fold Increase in IC50 (Imatinib)2",
+        "Sr. No.",
+        "Mutations covered",
+        "Mutation Result",
+        "Sensitivity to Imatinib",
+        "Mean fold Increase in IC50 (Imatinib)2"
+      ],
+      "rows": [
+        [
+          "1",
+          "T315I",
+          "Negative",
+          "R",
+          "50.8",
+          "19",
+          "E275K",
+          "Negative",
+          "NA",
+          ""
+        ],
+        [
+          "2",
+          "E255V",
+          "Negative",
+          "R",
+          "44.3",
+          "20",
+          "F359C",
+          "Negative",
+          "NA",
+          "4.3"
+        ],
+        [
+          "3",
+          "Y253H",
+          "Negative",
+          "R",
+          "36.3",
+          "21",
+          "E450K",
+          "Negative",
+          "NA",
+          "3.9"
+        ],
+        [
+          "4",
+          "E255K",
+          "Negative",
+          "R",
+          "30.7",
+          "22",
+          "M351T",
+          "Negative",
+          "S",
+          "3.8"
+        ],
+        [
+          "5",
+          "Y253F",
+          "Negative",
+          "R",
+          "25.2",
+          "23",
+          "M244V",
+          "Negative",
+          "I",
+          "3.8"
+        ],
+        [
+          "6",
+          "E373G",
+          "Negative",
+          "NA",
+          "20.6",
+          "24",
+          "E355G",
+          "Negative",
+          "I",
+          "3.4"
+        ],
+        [
+          "7",
+          "L248V",
+          "Positive",
+          "NA",
+          "19.9",
+          "25",
+          "V379I",
+          "Negative",
+          "I",
+          "3.1"
+        ],
+        [
+          "8",
+          "G321E",
+          "Negative",
+          "NA",
+          "18.1",
+          "26",
+          "E355A",
+          "Negative",
+          "NA",
+          "3.0"
+        ]
+      ]
+    },
+    {
+      "page": 4,
+      "table_index": 1,
+      "bbox": [
+        15.28,
+        226.9,
+        576.19,
+        371.44
+      ],
+      "headers": [
+        "9",
+        "E279K",
+        "Negative",
+        "NA",
+        "16.5",
+        "27",
+        "M388L",
+        "Negative",
+        "NA",
+        "2.7"
+      ],
+      "rows": [
+        [
+          "10",
+          "G250E",
+          "Negative",
+          "I",
+          "11.7",
+          "28",
+          "T315A",
+          "Negative",
+          "S",
+          "2.4"
+        ],
+        [
+          "11",
+          "D276G",
+          "Negative",
+          "NA",
+          "11.2",
+          "29",
+          "M237I",
+          "Negative",
+          "NA",
+          "2.4"
+        ],
+        [
+          "12",
+          "F486S",
+          "Negative",
+          "NA",
+          "8.4",
+          "30",
+          "F311L",
+          "Negative",
+          "S",
+          "2.2"
+        ],
+        [
+          "13",
+          "H396P",
+          "Negative",
+          "S",
+          "7.1",
+          "31",
+          "L387F",
+          "Negative",
+          "NA",
+          "2.0"
+        ],
+        [
+          "14",
+          "H396R",
+          "Negative",
+          "I",
+          "6.7",
+          "32",
+          "V299L",
+          "Negative",
+          "S",
+          "1.7"
+        ],
+        [
+          "15",
+          "F359V",
+          "Negative",
+          "I",
+          "5.8",
+          "33",
+          "F317V",
+          "Negative",
+          "S",
+          "1.4"
+        ],
+        [
+          "16",
+          "F317L",
+          "Negative",
+          "I",
+          "4.8",
+          "34",
+          "G250A",
+          "Negative",
+          "NA",
+          "1.3"
+        ],
+        [
+          "17",
+          "Q252H",
+          "Negative",
+          "I",
+          "4.8",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "18",
+          "L387M",
+          "Negative",
+          "S",
+          "4.3",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "page": 4,
+      "table_index": 2,
+      "bbox": [
+        35.88,
+        497.5,
+        559.95,
+        566.72
+      ],
+      "headers": [
+        "Novel Mutation",
+        "Nomenclature",
+        "Computationally Predicted Effect",
+        ""
+      ],
+      "rows": [
+        [
+          "-",
+          "-",
+          "-",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "REFERENCES:",
+          "",
+          "",
+          ""
+        ]
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "page_number": 1,
+      "dimensions": {
+        "width": 595.3,
+        "height": 841.9
+      },
+      "key_value_pairs": {
+        "Name": "Ms. BASANTI DEVI 10078040",
+        "Sex/Age": "Female/50 Years",
+        "Case ID": "60400127778",
+        "Ref By": "Dis.Loc.",
+        "Dis.Loc.": "Pt ID",
+        "Pt ID": "Bill. Loc.",
+        "Bill. Loc.": "Oncquest Laboratories Ltd.",
+        "Pt. Loc.": "Registration Date & Time",
+        "Registration Date & Time": "17-Apr-2026 16:42",
+        "Sample Type": "Whole Blood EDTA",
+        "Sample Date & Time": "17-Apr-2026 16:42",
+        "Sample Coll.By": "Ref Id",
+        "Ref Id": "Report Date & Time",
+        "Report Date & Time": "09-May-2026",
+        "Acc. Remarks": "Ref Id 2",
+        "Ref Id 2": "# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the",
+        "Printed On": "09-May-2026 14:13"
+      },
+      "boxes_and_sections": [
+        {
+          "page": 1,
+          "title": "Patient Demographics & Header Box",
+          "type": "demographics_box",
+          "bbox": [
+            0.0,
+            0.0,
+            595.3,
+            150.0
+          ],
+          "key_value_pairs": {
+            "Name": "Ms. BASANTI DEVI 10078040",
+            "Sex/Age": "Female/50 Years",
+            "Case ID": "60400127778",
+            "Ref By": "Dis.Loc.",
+            "Dis.Loc.": "Pt ID",
+            "Pt ID": "Bill. Loc.",
+            "Bill. Loc.": "Oncquest Laboratories Ltd.",
+            "Pt. Loc.": "Registration Date & Time",
+            "Registration Date & Time": "17-Apr-2026 16:42",
+            "Sample Type": "Whole Blood EDTA",
+            "Sample Date & Time": "17-Apr-2026 16:42",
+            "Sample Coll.By": "Ref Id",
+            "Ref Id": "Report Date & Time",
+            "Report Date & Time": "09-May-2026",
+            "Acc. Remarks": "Ref Id 2",
+            "Ref Id 2": "# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the",
+            "Printed On": "09-May-2026 14:13"
+          }
+        },
+        {
+          "page": 1,
+          "title": "BCR::ABL1 KINASE DOMAIN MUTATION ANALYSIS (IRMA) BY NEXT GENERATION SEQUENCING",
+          "type": "content_section_box",
+          "bbox": [
+            35.45,
+            226.67,
+            510.24,
+            239.56
+          ],
+          "content_text": []
+        },
+        {
+          "page": 1,
+          "title": "Test Description:",
+          "type": "content_section_box",
+          "bbox": [
+            41.1,
+            346.44,
+            119.86,
+            358.16
+          ],
+          "content_text": [
+            "Chronic myeloid leukemia (CML) is characterized by the presence of the Philadelphia chromosome, the product of t(9;22)(q34;q11) translocation. This translocation results in BCR-ABL1 fusion protein with constitutive ABL1 tyrosine kinase activity. The kinase inhibitor imatinib (STI571, Gleevec®) inhibits ABL1 kinase activity and is now the standard of care for early phase CML. Prolonged treatment with imatinib can lead to drug resistance, especially in patients with advanced disease. A large portion of resistant patients have acquired point mutations in the ABL1 kinase domain that renders the kinase resistant to the drug. Sites of point mutations in ABL1 associated with imatinib resistance span the entire kinase domain but often cluster in important hotspots.(1,2)",
+            "Total RNA was extracted and nested reverse transcription PCR was performed to detect the BCR-ABL1 transcript and ABL1 kinase domain (KD) region was thereafter sequenced by Next Generation Sequencing for detection of mutant alleles."
+          ]
+        },
+        {
+          "page": 1,
+          "title": "Methodology: Next Generation Sequencing (Massively Parallel Sequencing)",
+          "type": "content_section_box",
+          "bbox": [
+            41.1,
+            452.59,
+            431.1,
+            464.31
+          ],
+          "content_text": [
+            "Sample: EDTA Blood"
+          ]
+        },
+        {
+          "page": 1,
+          "title": "Test results and Interpretation: PATHOGENIC MUTATION DETECTED",
+          "type": "content_section_box",
+          "bbox": [
+            41.1,
+            534.33,
+            339.97,
+            557.78
+          ],
+          "content_text": [
+            "Mutation Nomenclature: L248V",
+            "Coverage: >500x",
+            "Page 1 of 6"
+          ]
+        }
+      ],
+      "tables": [
+        {
+          "page": 1,
+          "table_index": 1,
+          "bbox": [
+            35.64,
+            258.18,
+            508.66,
+            494.87
+          ],
+          "headers": [
+            "Test Description:",
+            "Chronic myeloid leukemia (CML) is characterized by the presence of the Philadelphia chromosome, the product of t(9;22)(q34;q11) translocation. This translocation results in BCR-ABL1 fusion protein with constitutive ABL1 tyrosine kinase activity. The kinase inhibitor imatinib (STI571, Gleevec®) inhibits ABL1 kinase activity and is now the standard of care for early phase CML. Prolonged treatment with imatinib can lead to drug resistance, especially in patients with advanced disease. A large portion of resistant patients have acquired point mutations in the ABL1 kinase domain that renders the kinase resistant to the drug. Sites of point mutations in ABL1 associated with imatinib resistance span the entire kinase domain but often cluster in important hotspots.(1,2) Total RNA was extracted and nested reverse transcription PCR was performed to detect the BCR-ABL1 transcript and ABL1 kinase domain (KD) region was thereafter sequenced by Next Generation Sequencing for detection of mutant alleles."
+          ],
+          "rows": [
+            [
+              "Methodology:",
+              "Next Generation Sequencing (Massively Parallel Sequencing)"
+            ],
+            [
+              "Sample:",
+              "EDTA Blood"
+            ]
+          ]
+        },
+        {
+          "page": 1,
+          "table_index": 2,
+          "bbox": [
+            35.64,
+            531.0,
+            508.66,
+            609.56
+          ],
+          "headers": [
+            "Test results and Interpretation:",
+            "PATHOGENIC MUTATION DETECTED"
+          ],
+          "rows": [
+            [
+              "Mutation Nomenclature:",
+              "L248V"
+            ],
+            [
+              "Coverage:",
+              ">500x"
+            ]
+          ]
+        }
+      ],
+      "text_blocks": [
+        {
+          "page": 1,
+          "bbox": [
+            509.09,
+            67.32,
+            542.54,
+            78.3
+          ],
+          "text": "MC-6200",
+          "max_font_size": 9.0,
+          "is_bold": false,
+          "font": "Calibri"
+        },
+        {
+          "page": 1,
+          "bbox": [
+            187.44,
+            85.52,
+            288.96,
+            98.95
+          ],
+          "text": "LABORATORY REPORT",
+          "max_font_size": 11.0,
+          "is_bold": true,
+          "font": "Calibri,Bold"
+        },
+        {
+          "page": 1,
+          "bbox": [
+            32.75,
+            99.44,
+            200.57,
+            123.86
+          ],
+          "text": "Name :Ms. BASANTI DEVI 10078040 OQG2604170493",
+          "max_font_size": 10.0,
+          "is_bold": false,
+          "font": "Calibri"
+        },
+        {
+          "page": 1,
+          "bbox": [
+            245.06,
+            99.44,
+            570.57,
+            111.65
+          ],
+          "text": "Sex/Age : Female / 50 Years Case ID :60400127778",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Calibri"
+        },
+        {
+          "page": 1,
+          "bbox": [
+            32.75,
+            123.86,
+            567.77,
+            199.27
+          ],
+          "text": "Ref By : Dis.Loc. : Pt ID : Bill. Loc. :Oncquest Laboratories Ltd. Pt. Loc. : Registration Date & Time : 17-Apr-2026 16:42 Sample Type : Whole Blood EDTA Ph # : 7830215230 Sample Date & Time : 17-Apr-2026 16:42 Sample Coll.By : Ref Id : Report Date & Time : 09-May-2026 14:08 Acc. Remarks : Ref Id 2 :",
+          "max_font_size": 10.0,
+          "is_bold": false,
+          "font": "Calibri"
+        },
+        {
+          "page": 1,
+          "bbox": [
+            40.97,
+            617.79,
+            511.36,
+            651.25
+          ],
+          "text": "# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the container/Test Requisition Formand it has been verified as per GCLP (Good Clinical Lab Practices) by the referrer atthe time of collection of the specimen. NCGM’s responsibility is limited to theanalytical part of the assay performed.",
+          "max_font_size": 9.0,
+          "is_bold": false,
+          "font": "Calibri"
+        },
+        {
+          "page": 1,
+          "bbox": [
+            40.97,
+            708.42,
+            559.65,
+            741.63
+          ],
+          "text": "Dr. Arpan K. Mehta MD Path, PDF Lab. Haemat., PDF Mol. Haemonc. Printed On :09-May-2026 14:13",
+          "max_font_size": 11.0,
+          "is_bold": true,
+          "font": "Calibri"
+        },
+        {
+          "page": 1,
+          "bbox": [
+            35.45,
+            226.67,
+            510.24,
+            239.56
+          ],
+          "text": "BCR::ABL1 KINASE DOMAIN MUTATION ANALYSIS (IRMA) BY NEXT GENERATION SEQUENCING",
+          "max_font_size": 11.0,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 1,
+          "bbox": [
+            41.1,
+            346.44,
+            119.86,
+            358.16
+          ],
+          "text": "Test Description:",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 1,
+          "bbox": [
+            172.41,
+            258.51,
+            503.18,
+            387.47
+          ],
+          "text": "Chronic myeloid leukemia (CML) is characterized by the presence of the Philadelphia chromosome, the product of t(9;22)(q34;q11) translocation. This translocation results in BCR-ABL1 fusion protein with constitutive ABL1 tyrosine kinase activity. The kinase inhibitor imatinib (STI571, Gleevec®) inhibits ABL1 kinase activity and is now the standard of care for early phase CML. Prolonged treatment with imatinib can lead to drug resistance, especially in patients with advanced disease. A large portion of resistant patients have acquired point mutations in the ABL1 kinase domain that renders the kinase resistant to the drug. Sites of point mutations in ABL1 associated with imatinib resistance span the entire kinase domain but often cluster in important hotspots.(1,2)",
+          "max_font_size": 10.0,
+          "is_bold": false,
+          "font": "Cambria"
+        },
+        {
+          "page": 1,
+          "bbox": [
+            172.41,
+            399.2,
+            503.18,
+            446.09
+          ],
+          "text": "Total RNA was extracted and nested reverse transcription PCR was performed to detect the BCR-ABL1 transcript and ABL1 kinase domain (KD) region was thereafter sequenced by Next Generation Sequencing for detection of mutant alleles.",
+          "max_font_size": 10.0,
+          "is_bold": false,
+          "font": "Cambria"
+        },
+        {
+          "page": 1,
+          "bbox": [
+            41.1,
+            452.59,
+            431.1,
+            464.31
+          ],
+          "text": "Methodology: Next Generation Sequencing (Massively Parallel Sequencing)",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria"
+        },
+        {
+          "page": 1,
+          "bbox": [
+            41.1,
+            476.82,
+            224.1,
+            488.54
+          ],
+          "text": "Sample: EDTA Blood",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria"
+        },
+        {
+          "page": 1,
+          "bbox": [
+            41.1,
+            534.33,
+            339.97,
+            557.78
+          ],
+          "text": "Test results and Interpretation: PATHOGENIC MUTATION DETECTED",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 1,
+          "bbox": [
+            41.1,
+            567.28,
+            202.02,
+            579.0
+          ],
+          "text": "Mutation Nomenclature: L248V",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 1,
+          "bbox": [
+            41.1,
+            591.5,
+            201.35,
+            603.22
+          ],
+          "text": "Coverage: >500x",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 1,
+          "bbox": [
+            48.19,
+            742.38,
+            90.38,
+            751.31
+          ],
+          "text": "Page 1 of 6",
+          "max_font_size": 8.0,
+          "is_bold": true,
+          "font": "Arial,Bold"
+        }
+      ],
+      "page_text": "MC-6200\nLABORATORY REPORT\nName\n:Ms. BASANTI DEVI 10078040\nOQG2604170493\nSex/Age\n: Female/50 Years\nCase ID\n:60400127778\nRef By\n:\nDis.Loc.\n:\nPt ID\n:\nBill. Loc.\n:Oncquest Laboratories Ltd.\nPt. Loc.\n:\nRegistration Date & Time\n: 17-Apr-2026 16:42\nSample Type\n: Whole Blood EDTA\nPh #\n: 7830215230\nSample Date & Time\n: 17-Apr-2026 16:42\nSample Coll.By\n:\nRef Id\n:\nReport Date & Time\n: 09-May-2026\n14:08\nAcc. Remarks\n:\nRef Id 2\n:\n# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the\ncontainer/Test Requisition Formand it has been verified as per GCLP (Good Clinical Lab Practices) by the referrer atthe time of\ncollection of the specimen. NCGM’s responsibility is limited to theanalytical part of the assay performed.\nDr. Arpan K. Mehta\nMD Path, PDF Lab. Haemat.,\nPDF Mol. Haemonc.\nPrinted On\n:09-May-2026 14:13\nBCR::ABL1 KINASE DOMAIN MUTATION ANALYSIS (IRMA) BY NEXT GENERATION SEQUENCING\nTest Description:\nChronic myeloid leukemia (CML) is characterized by the presence of the\nPhiladelphia chromosome, the product of t(9;22)(q34;q11) translocation.\nThis translocation results in BCR-ABL1 fusion protein with constitutive ABL1\ntyrosine kinase activity. The kinase inhibitor imatinib (STI571, Gleevec®)\ninhibits ABL1 kinase activity and is now the standard of care for early phase\nCML. Prolonged treatment with imatinib can lead to drug resistance,\nespecially in patients with advanced disease.\nA large portion of resistant patients have acquired point mutations in the\nABL1 kinase domain that renders the kinase resistant to the drug. Sites of\npoint mutations in ABL1 associated with imatinib resistance span the entire\nkinase domain but often cluster in important hotspots.(1,2)\nTotal RNA was extracted and nested reverse transcription PCR was\nperformed to detect the BCR-ABL1 transcript and ABL1 kinase domain (KD)\nregion was thereafter sequenced by Next Generation Sequencing for\ndetection of mutant alleles.\nMethodology:\nNext Generation Sequencing (Massively Parallel Sequencing)\nSample:\nEDTA Blood\nTest results and\nInterpretation:\nPATHOGENIC MUTATION DETECTED\nMutation Nomenclature:\nL248V\nCoverage:\n>500x\nPage 1 of 6\n"
+    },
+    {
+      "page_number": 2,
+      "dimensions": {
+        "width": 595.3,
+        "height": 841.9
+      },
+      "key_value_pairs": {
+        "Name": "Ms. BASANTI DEVI 10078040",
+        "Sex/Age": "Female/50 Years",
+        "Case ID": "60400127778",
+        "Ref By": "Dis.Loc.",
+        "Dis.Loc.": "Pt ID",
+        "Pt ID": "Bill. Loc.",
+        "Bill. Loc.": "Oncquest Laboratories Ltd.",
+        "Pt. Loc.": "Registration Date & Time",
+        "Registration Date & Time": "17-Apr-2026 16:42",
+        "Sample Type": "Whole Blood EDTA",
+        "Sample Date & Time": "17-Apr-2026 16:42",
+        "Sample Coll.By": "Ref Id",
+        "Ref Id": "Report Date & Time",
+        "Report Date & Time": "09-May-2026",
+        "Acc. Remarks": "Ref Id 2",
+        "Ref Id 2": "# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the",
+        "Printed On": "09-May-2026 14:13"
+      },
+      "boxes_and_sections": [
+        {
+          "page": 2,
+          "title": "Patient Demographics & Header Box",
+          "type": "demographics_box",
+          "bbox": [
+            0.0,
+            0.0,
+            595.3,
+            150.0
+          ],
+          "key_value_pairs": {
+            "Name": "Ms. BASANTI DEVI 10078040",
+            "Sex/Age": "Female/50 Years",
+            "Case ID": "60400127778",
+            "Ref By": "Dis.Loc.",
+            "Dis.Loc.": "Pt ID",
+            "Pt ID": "Bill. Loc.",
+            "Bill. Loc.": "Oncquest Laboratories Ltd.",
+            "Pt. Loc.": "Registration Date & Time",
+            "Registration Date & Time": "17-Apr-2026 16:42",
+            "Sample Type": "Whole Blood EDTA",
+            "Sample Date & Time": "17-Apr-2026 16:42",
+            "Sample Coll.By": "Ref Id",
+            "Ref Id": "Report Date & Time",
+            "Report Date & Time": "09-May-2026",
+            "Acc. Remarks": "Ref Id 2",
+            "Ref Id 2": "# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the",
+            "Printed On": "09-May-2026 14:13"
+          }
+        }
+      ],
+      "tables": [],
+      "text_blocks": [
+        {
+          "page": 2,
+          "bbox": [
+            509.09,
+            67.32,
+            542.54,
+            78.3
+          ],
+          "text": "MC-6200",
+          "max_font_size": 9.0,
+          "is_bold": false,
+          "font": "Calibri"
+        },
+        {
+          "page": 2,
+          "bbox": [
+            187.44,
+            85.52,
+            288.96,
+            98.95
+          ],
+          "text": "LABORATORY REPORT",
+          "max_font_size": 11.0,
+          "is_bold": true,
+          "font": "Calibri,Bold"
+        },
+        {
+          "page": 2,
+          "bbox": [
+            32.75,
+            99.44,
+            200.57,
+            123.86
+          ],
+          "text": "Name :Ms. BASANTI DEVI 10078040 OQG2604170493",
+          "max_font_size": 10.0,
+          "is_bold": false,
+          "font": "Calibri"
+        },
+        {
+          "page": 2,
+          "bbox": [
+            245.06,
+            99.44,
+            570.57,
+            111.65
+          ],
+          "text": "Sex/Age : Female / 50 Years Case ID :60400127778",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Calibri"
+        },
+        {
+          "page": 2,
+          "bbox": [
+            32.75,
+            123.86,
+            567.77,
+            199.27
+          ],
+          "text": "Ref By : Dis.Loc. : Pt ID : Bill. Loc. :Oncquest Laboratories Ltd. Pt. Loc. : Registration Date & Time : 17-Apr-2026 16:42 Sample Type : Whole Blood EDTA Ph # : 7830215230 Sample Date & Time : 17-Apr-2026 16:42 Sample Coll.By : Ref Id : Report Date & Time : 09-May-2026 14:08 Acc. Remarks : Ref Id 2 :",
+          "max_font_size": 10.0,
+          "is_bold": false,
+          "font": "Calibri"
+        },
+        {
+          "page": 2,
+          "bbox": [
+            40.97,
+            617.79,
+            511.36,
+            651.25
+          ],
+          "text": "# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the container/Test Requisition Formand it has been verified as per GCLP (Good Clinical Lab Practices) by the referrer atthe time of collection of the specimen. NCGM’s responsibility is limited to theanalytical part of the assay performed.",
+          "max_font_size": 9.0,
+          "is_bold": false,
+          "font": "Calibri"
+        },
+        {
+          "page": 2,
+          "bbox": [
+            40.97,
+            708.42,
+            559.65,
+            741.63
+          ],
+          "text": "Dr. Arpan K. Mehta MD Path, PDF Lab. Haemat., PDF Mol. Haemonc. Printed On :09-May-2026 14:13",
+          "max_font_size": 11.0,
+          "is_bold": true,
+          "font": "Calibri"
+        },
+        {
+          "page": 2,
+          "bbox": [
+            48.19,
+            742.38,
+            90.38,
+            751.31
+          ],
+          "text": "Page 2 of 6",
+          "max_font_size": 8.0,
+          "is_bold": true,
+          "font": "Arial,Bold"
+        }
+      ],
+      "page_text": "MC-6200\nLABORATORY REPORT\nName\n:Ms. BASANTI DEVI 10078040\nOQG2604170493\nSex/Age\n: Female/50 Years\nCase ID\n:60400127778\nRef By\n:\nDis.Loc.\n:\nPt ID\n:\nBill. Loc.\n:Oncquest Laboratories Ltd.\nPt. Loc.\n:\nRegistration Date & Time\n: 17-Apr-2026 16:42\nSample Type\n: Whole Blood EDTA\nPh #\n: 7830215230\nSample Date & Time\n: 17-Apr-2026 16:42\nSample Coll.By\n:\nRef Id\n:\nReport Date & Time\n: 09-May-2026\n14:08\nAcc. Remarks\n:\nRef Id 2\n:\n# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the\ncontainer/Test Requisition Formand it has been verified as per GCLP (Good Clinical Lab Practices) by the referrer atthe time of\ncollection of the specimen. NCGM’s responsibility is limited to theanalytical part of the assay performed.\nDr. Arpan K. Mehta\nMD Path, PDF Lab. Haemat.,\nPDF Mol. Haemonc.\nPrinted On\n:09-May-2026 14:13\nPage 2 of 6\n"
+    },
+    {
+      "page_number": 3,
+      "dimensions": {
+        "width": 595.3,
+        "height": 841.9
+      },
+      "key_value_pairs": {
+        "Name": "Ms. BASANTI DEVI 10078040",
+        "Sex/Age": "Female/50 Years",
+        "Case ID": "60400127778",
+        "Ref By": "Dis.Loc.",
+        "Dis.Loc.": "Pt ID",
+        "Pt ID": "Bill. Loc.",
+        "Bill. Loc.": "Oncquest Laboratories Ltd.",
+        "Pt. Loc.": "Registration Date & Time",
+        "Registration Date & Time": "17-Apr-2026 16:42",
+        "Sample Type": "Whole Blood EDTA",
+        "Sample Date & Time": "17-Apr-2026 16:42",
+        "Sample Coll.By": "Ref Id",
+        "Ref Id": "Report Date & Time",
+        "Report Date & Time": "09-May-2026",
+        "Acc. Remarks": "Ref Id 2",
+        "Ref Id 2": "# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the",
+        "Printed On": "09-May-2026 14:13"
+      },
+      "boxes_and_sections": [
+        {
+          "page": 3,
+          "title": "Patient Demographics & Header Box",
+          "type": "demographics_box",
+          "bbox": [
+            0.0,
+            0.0,
+            595.3,
+            150.0
+          ],
+          "key_value_pairs": {
+            "Name": "Ms. BASANTI DEVI 10078040",
+            "Sex/Age": "Female/50 Years",
+            "Case ID": "60400127778",
+            "Ref By": "Dis.Loc.",
+            "Dis.Loc.": "Pt ID",
+            "Pt ID": "Bill. Loc.",
+            "Bill. Loc.": "Oncquest Laboratories Ltd.",
+            "Pt. Loc.": "Registration Date & Time",
+            "Registration Date & Time": "17-Apr-2026 16:42",
+            "Sample Type": "Whole Blood EDTA",
+            "Sample Date & Time": "17-Apr-2026 16:42",
+            "Sample Coll.By": "Ref Id",
+            "Ref Id": "Report Date & Time",
+            "Report Date & Time": "09-May-2026",
+            "Acc. Remarks": "Ref Id 2",
+            "Ref Id 2": "# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the",
+            "Printed On": "09-May-2026 14:13"
+          }
+        },
+        {
+          "page": 3,
+          "title": "Interpretation:",
+          "type": "content_section_box",
+          "bbox": [
+            41.1,
+            230.17,
+            110.36,
+            241.89
+          ],
+          "content_text": [
+            "L248V [VAF: 99.81%]",
+            "HGVS genomic change:  9:g.133738342C>G HGVS protein change:  ENSP00000323315:p.Leu248Val HGVS coding DNA change:  ENST00000318560.5:c.742C>G Mutation type:  Pathogenic",
+            "The detection of p.  Leu248Val  (p.L248V) mutation has been described in association with resistance to Imatinib (PMID: 21562040)",
+            "Final conclusion: The patient is found to have L248V mutation.",
+            "Sr. No.",
+            "Mutations",
+            "covered",
+            "Mutation",
+            "Result",
+            "Sensitivity to Imatinib",
+            "Mean fold Increase in",
+            "IC50 (Imatinib)2",
+            "Sr. No.",
+            "Mutations",
+            "covered",
+            "Mutation",
+            "Result",
+            "Sensitivity to Imatinib",
+            "Mean fold Increase in",
+            "IC50 (Imatinib)2 1 T315I Negative R 50.8 19 E275K Negative NA 2 E255V Negative R 44.3 20 F359C Negative NA 4.3",
+            "3 Y253H Negative R 36.3 21 E450K Negative NA 3.9",
+            "4 E255K Negative R 30.7 22 M351T Negative S 3.8",
+            "5 Y253F Negative R 25.2 23 M244V Negative I 3.8",
+            "6 E373G Negative NA 20.6 24 E355G Negative I 3.4",
+            "7 L248V Positive NA 19.9 25 V379I Negative I 3.1",
+            "8 G321E Negative NA 18.1 26 E355A Negative NA 3.0",
+            "Page 3 of 6"
+          ]
+        }
+      ],
+      "tables": [
+        {
+          "page": 3,
+          "table_index": 1,
+          "bbox": [
+            15.28,
+            445.61,
+            576.19,
+            606.41
+          ],
+          "headers": [
+            "Sr. No.",
+            "Mutations covered",
+            "Mutation Result",
+            "Sensitivity to Imatinib",
+            "Mean fold Increase in IC50 (Imatinib)2",
+            "Sr. No.",
+            "Mutations covered",
+            "Mutation Result",
+            "Sensitivity to Imatinib",
+            "Mean fold Increase in IC50 (Imatinib)2"
+          ],
+          "rows": [
+            [
+              "1",
+              "T315I",
+              "Negative",
+              "R",
+              "50.8",
+              "19",
+              "E275K",
+              "Negative",
+              "NA",
+              ""
+            ],
+            [
+              "2",
+              "E255V",
+              "Negative",
+              "R",
+              "44.3",
+              "20",
+              "F359C",
+              "Negative",
+              "NA",
+              "4.3"
+            ],
+            [
+              "3",
+              "Y253H",
+              "Negative",
+              "R",
+              "36.3",
+              "21",
+              "E450K",
+              "Negative",
+              "NA",
+              "3.9"
+            ],
+            [
+              "4",
+              "E255K",
+              "Negative",
+              "R",
+              "30.7",
+              "22",
+              "M351T",
+              "Negative",
+              "S",
+              "3.8"
+            ],
+            [
+              "5",
+              "Y253F",
+              "Negative",
+              "R",
+              "25.2",
+              "23",
+              "M244V",
+              "Negative",
+              "I",
+              "3.8"
+            ],
+            [
+              "6",
+              "E373G",
+              "Negative",
+              "NA",
+              "20.6",
+              "24",
+              "E355G",
+              "Negative",
+              "I",
+              "3.4"
+            ],
+            [
+              "7",
+              "L248V",
+              "Positive",
+              "NA",
+              "19.9",
+              "25",
+              "V379I",
+              "Negative",
+              "I",
+              "3.1"
+            ],
+            [
+              "8",
+              "G321E",
+              "Negative",
+              "NA",
+              "18.1",
+              "26",
+              "E355A",
+              "Negative",
+              "NA",
+              "3.0"
+            ]
+          ]
+        }
+      ],
+      "text_blocks": [
+        {
+          "page": 3,
+          "bbox": [
+            509.09,
+            67.32,
+            542.54,
+            78.3
+          ],
+          "text": "MC-6200",
+          "max_font_size": 9.0,
+          "is_bold": false,
+          "font": "Calibri"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            187.44,
+            85.52,
+            288.96,
+            98.95
+          ],
+          "text": "LABORATORY REPORT",
+          "max_font_size": 11.0,
+          "is_bold": true,
+          "font": "Calibri,Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            32.75,
+            99.44,
+            200.57,
+            123.86
+          ],
+          "text": "Name :Ms. BASANTI DEVI 10078040 OQG2604170493",
+          "max_font_size": 10.0,
+          "is_bold": false,
+          "font": "Calibri"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            245.06,
+            99.44,
+            570.57,
+            111.65
+          ],
+          "text": "Sex/Age : Female / 50 Years Case ID :60400127778",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Calibri"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            32.75,
+            123.86,
+            567.77,
+            199.27
+          ],
+          "text": "Ref By : Dis.Loc. : Pt ID : Bill. Loc. :Oncquest Laboratories Ltd. Pt. Loc. : Registration Date & Time : 17-Apr-2026 16:42 Sample Type : Whole Blood EDTA Ph # : 7830215230 Sample Date & Time : 17-Apr-2026 16:42 Sample Coll.By : Ref Id : Report Date & Time : 09-May-2026 14:08 Acc. Remarks : Ref Id 2 :",
+          "max_font_size": 10.0,
+          "is_bold": false,
+          "font": "Calibri"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            40.97,
+            617.79,
+            511.36,
+            651.25
+          ],
+          "text": "# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the container/Test Requisition Formand it has been verified as per GCLP (Good Clinical Lab Practices) by the referrer atthe time of collection of the specimen. NCGM’s responsibility is limited to theanalytical part of the assay performed.",
+          "max_font_size": 9.0,
+          "is_bold": false,
+          "font": "Calibri"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            40.97,
+            708.42,
+            559.65,
+            741.63
+          ],
+          "text": "Dr. Arpan K. Mehta MD Path, PDF Lab. Haemat., PDF Mol. Haemonc. Printed On :09-May-2026 14:13",
+          "max_font_size": 11.0,
+          "is_bold": true,
+          "font": "Calibri"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            41.1,
+            230.17,
+            110.36,
+            241.89
+          ],
+          "text": "Interpretation:",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            41.1,
+            248.39,
+            139.38,
+            260.11
+          ],
+          "text": "L248V [VAF: 99.81%]",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            63.6,
+            263.88,
+            294.83,
+            312.08
+          ],
+          "text": "HGVS genomic change:  9:g.133738342C>G HGVS protein change:  ENSP00000323315:p.Leu248Val HGVS coding DNA change:  ENST00000318560.5:c.742C>G Mutation type:  Pathogenic",
+          "max_font_size": 9.0,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            41.1,
+            325.8,
+            493.81,
+            349.25
+          ],
+          "text": "The detection of p.  Leu248Val  (p.L248V) mutation has been described in association with resistance to Imatinib (PMID: 21562040)",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            41.1,
+            360.98,
+            247.55,
+            386.42
+          ],
+          "text": "Final conclusion: The patient is found to have L248V mutation.",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            22.68,
+            457.52,
+            36.73,
+            479.8
+          ],
+          "text": "Sr. No.",
+          "max_font_size": 9.5,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            53.07,
+            457.52,
+            97.27,
+            468.66
+          ],
+          "text": "Mutations",
+          "max_font_size": 9.5,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            57.66,
+            468.66,
+            92.67,
+            479.8
+          ],
+          "text": "covered",
+          "max_font_size": 9.5,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            114.97,
+            457.52,
+            154.82,
+            468.66
+          ],
+          "text": "Mutation",
+          "max_font_size": 9.5,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            121.03,
+            468.66,
+            148.76,
+            479.8
+          ],
+          "text": "Result",
+          "max_font_size": 9.5,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            170.76,
+            457.52,
+            219.36,
+            479.8
+          ],
+          "text": "Sensitivity to Imatinib",
+          "max_font_size": 9.5,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            237.13,
+            446.39,
+            285.35,
+            468.66
+          ],
+          "text": "Mean fold Increase in",
+          "max_font_size": 9.5,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            235.73,
+            468.66,
+            286.73,
+            490.93
+          ],
+          "text": "IC50 (Imatinib)2",
+          "max_font_size": 9.5,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            303.22,
+            457.52,
+            317.27,
+            479.8
+          ],
+          "text": "Sr. No.",
+          "max_font_size": 9.5,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            333.51,
+            457.52,
+            377.7,
+            468.66
+          ],
+          "text": "Mutations",
+          "max_font_size": 9.5,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            338.1,
+            468.66,
+            373.1,
+            479.8
+          ],
+          "text": "covered",
+          "max_font_size": 9.5,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            395.35,
+            457.52,
+            435.19,
+            468.66
+          ],
+          "text": "Mutation",
+          "max_font_size": 9.5,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            401.4,
+            468.66,
+            429.14,
+            479.8
+          ],
+          "text": "Result",
+          "max_font_size": 9.5,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            451.14,
+            457.52,
+            499.74,
+            479.8
+          ],
+          "text": "Sensitivity to Imatinib",
+          "max_font_size": 9.5,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            517.45,
+            446.39,
+            565.67,
+            468.66
+          ],
+          "text": "Mean fold Increase in",
+          "max_font_size": 9.5,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            27.08,
+            468.66,
+            567.05,
+            518.35
+          ],
+          "text": "IC50 (Imatinib)2 1 T315I Negative R 50.8 19 E275K Negative NA 2 E255V Negative R 44.3 20 F359C Negative NA 4.3",
+          "max_font_size": 9.5,
+          "is_bold": true,
+          "font": "Cambria"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            27.08,
+            520.24,
+            547.79,
+            532.75
+          ],
+          "text": "3 Y253H Negative R 36.3 21 E450K Negative NA 3.9",
+          "max_font_size": 9.5,
+          "is_bold": false,
+          "font": "Cambria"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            27.08,
+            534.64,
+            547.79,
+            547.15
+          ],
+          "text": "4 E255K Negative R 30.7 22 M351T Negative S 3.8",
+          "max_font_size": 9.5,
+          "is_bold": false,
+          "font": "Cambria"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            27.08,
+            549.04,
+            547.79,
+            561.55
+          ],
+          "text": "5 Y253F Negative R 25.2 23 M244V Negative I 3.8",
+          "max_font_size": 9.5,
+          "is_bold": false,
+          "font": "Cambria"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            27.08,
+            563.44,
+            547.79,
+            575.95
+          ],
+          "text": "6 E373G Negative NA 20.6 24 E355G Negative I 3.4",
+          "max_font_size": 9.5,
+          "is_bold": false,
+          "font": "Cambria"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            26.9,
+            577.84,
+            547.79,
+            590.35
+          ],
+          "text": "7 L248V Positive NA 19.9 25 V379I Negative I 3.1",
+          "max_font_size": 9.5,
+          "is_bold": true,
+          "font": "Cambria"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            27.08,
+            592.24,
+            547.79,
+            604.75
+          ],
+          "text": "8 G321E Negative NA 18.1 26 E355A Negative NA 3.0",
+          "max_font_size": 9.5,
+          "is_bold": false,
+          "font": "Cambria"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            48.19,
+            742.38,
+            90.38,
+            751.31
+          ],
+          "text": "Page 3 of 6",
+          "max_font_size": 8.0,
+          "is_bold": true,
+          "font": "Arial,Bold"
+        }
+      ],
+      "page_text": "MC-6200\nLABORATORY REPORT\nName\n:Ms. BASANTI DEVI 10078040\nOQG2604170493\nSex/Age\n: Female/50 Years\nCase ID\n:60400127778\nRef By\n:\nDis.Loc.\n:\nPt ID\n:\nBill. Loc.\n:Oncquest Laboratories Ltd.\nPt. Loc.\n:\nRegistration Date & Time\n: 17-Apr-2026 16:42\nSample Type\n: Whole Blood EDTA\nPh #\n: 7830215230\nSample Date & Time\n: 17-Apr-2026 16:42\nSample Coll.By\n:\nRef Id\n:\nReport Date & Time\n: 09-May-2026\n14:08\nAcc. Remarks\n:\nRef Id 2\n:\n# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the\ncontainer/Test Requisition Formand it has been verified as per GCLP (Good Clinical Lab Practices) by the referrer atthe time of\ncollection of the specimen. NCGM’s responsibility is limited to theanalytical part of the assay performed.\nDr. Arpan K. Mehta\nMD Path, PDF Lab. Haemat.,\nPDF Mol. Haemonc.\nPrinted On\n:09-May-2026 14:13\nInterpretation:\nL248V [VAF: 99.81%]\nHGVS genomic change: 9:g.133738342C>G\nHGVS protein change: ENSP00000323315:p.Leu248Val\nHGVS coding DNA change: ENST00000318560.5:c.742C>G\nMutation type: Pathogenic\nThe detection of p. Leu248Val (p.L248V) mutation has been described in association with resistance\nto Imatinib (PMID: 21562040)\nFinal conclusion:\nThe patient is found to have L248V mutation.\nSr.\nNo.\nMutations\ncovered\nMutation\nResult\nSensitivity\nto Imatinib\nMean fold\nIncrease in\nIC50\n(Imatinib)2\nSr.\nNo.\nMutations\ncovered\nMutation\nResult\nSensitivity\nto Imatinib\nMean fold\nIncrease in\nIC50\n(Imatinib)2\n1\nT315I\nNegative\nR\n50.8\n19\nE275K\nNegative\nNA\n2\nE255V\nNegative\nR\n44.3\n20\nF359C\nNegative\nNA\n4.3\n3\nY253H\nNegative\nR\n36.3\n21\nE450K\nNegative\nNA\n3.9\n4\nE255K\nNegative\nR\n30.7\n22\nM351T\nNegative\nS\n3.8\n5\nY253F\nNegative\nR\n25.2\n23\nM244V\nNegative\nI\n3.8\n6\nE373G\nNegative\nNA\n20.6\n24\nE355G\nNegative\nI\n3.4\n7\nL248V\nPositive\nNA\n19.9\n25\nV379I\nNegative\nI\n3.1\n8\nG321E\nNegative\nNA\n18.1\n26\nE355A\nNegative\nNA\n3.0\nPage 3 of 6\n"
+    },
+    {
+      "page_number": 4,
+      "dimensions": {
+        "width": 595.3,
+        "height": 841.9
+      },
+      "key_value_pairs": {
+        "Name": "Ms. BASANTI DEVI 10078040",
+        "Sex/Age": "Female/50 Years",
+        "Case ID": "60400127778",
+        "Ref By": "Dis.Loc.",
+        "Dis.Loc.": "Pt ID",
+        "Pt ID": "Bill. Loc.",
+        "Bill. Loc.": "Oncquest Laboratories Ltd.",
+        "Pt. Loc.": "Registration Date & Time",
+        "Registration Date & Time": "17-Apr-2026 16:42",
+        "Sample Type": "Whole Blood EDTA",
+        "Sample Date & Time": "17-Apr-2026 16:42",
+        "Sample Coll.By": "Ref Id",
+        "Ref Id": "Report Date & Time",
+        "Report Date & Time": "09-May-2026",
+        "Acc. Remarks": "Ref Id 2",
+        "Ref Id 2": "# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the",
+        "Printed On": "09-May-2026 14:13"
+      },
+      "boxes_and_sections": [
+        {
+          "page": 4,
+          "title": "Patient Demographics & Header Box",
+          "type": "demographics_box",
+          "bbox": [
+            0.0,
+            0.0,
+            595.3,
+            150.0
+          ],
+          "key_value_pairs": {
+            "Name": "Ms. BASANTI DEVI 10078040",
+            "Sex/Age": "Female/50 Years",
+            "Case ID": "60400127778",
+            "Ref By": "Dis.Loc.",
+            "Dis.Loc.": "Pt ID",
+            "Pt ID": "Bill. Loc.",
+            "Bill. Loc.": "Oncquest Laboratories Ltd.",
+            "Pt. Loc.": "Registration Date & Time",
+            "Registration Date & Time": "17-Apr-2026 16:42",
+            "Sample Type": "Whole Blood EDTA",
+            "Sample Date & Time": "17-Apr-2026 16:42",
+            "Sample Coll.By": "Ref Id",
+            "Ref Id": "Report Date & Time",
+            "Report Date & Time": "09-May-2026",
+            "Acc. Remarks": "Ref Id 2",
+            "Ref Id 2": "# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the",
+            "Printed On": "09-May-2026 14:13"
+          }
+        }
+      ],
+      "tables": [
+        {
+          "page": 4,
+          "table_index": 1,
+          "bbox": [
+            15.28,
+            226.9,
+            576.19,
+            371.44
+          ],
+          "headers": [
+            "9",
+            "E279K",
+            "Negative",
+            "NA",
+            "16.5",
+            "27",
+            "M388L",
+            "Negative",
+            "NA",
+            "2.7"
+          ],
+          "rows": [
+            [
+              "10",
+              "G250E",
+              "Negative",
+              "I",
+              "11.7",
+              "28",
+              "T315A",
+              "Negative",
+              "S",
+              "2.4"
+            ],
+            [
+              "11",
+              "D276G",
+              "Negative",
+              "NA",
+              "11.2",
+              "29",
+              "M237I",
+              "Negative",
+              "NA",
+              "2.4"
+            ],
+            [
+              "12",
+              "F486S",
+              "Negative",
+              "NA",
+              "8.4",
+              "30",
+              "F311L",
+              "Negative",
+              "S",
+              "2.2"
+            ],
+            [
+              "13",
+              "H396P",
+              "Negative",
+              "S",
+              "7.1",
+              "31",
+              "L387F",
+              "Negative",
+              "NA",
+              "2.0"
+            ],
+            [
+              "14",
+              "H396R",
+              "Negative",
+              "I",
+              "6.7",
+              "32",
+              "V299L",
+              "Negative",
+              "S",
+              "1.7"
+            ],
+            [
+              "15",
+              "F359V",
+              "Negative",
+              "I",
+              "5.8",
+              "33",
+              "F317V",
+              "Negative",
+              "S",
+              "1.4"
+            ],
+            [
+              "16",
+              "F317L",
+              "Negative",
+              "I",
+              "4.8",
+              "34",
+              "G250A",
+              "Negative",
+              "NA",
+              "1.3"
+            ],
+            [
+              "17",
+              "Q252H",
+              "Negative",
+              "I",
+              "4.8",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "18",
+              "L387M",
+              "Negative",
+              "S",
+              "4.3",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ]
+          ]
+        },
+        {
+          "page": 4,
+          "table_index": 2,
+          "bbox": [
+            35.88,
+            497.5,
+            559.95,
+            566.72
+          ],
+          "headers": [
+            "Novel Mutation",
+            "Nomenclature",
+            "Computationally Predicted Effect",
+            ""
+          ],
+          "rows": [
+            [
+              "-",
+              "-",
+              "-",
+              ""
+            ],
+            [
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "REFERENCES:",
+              "",
+              "",
+              ""
+            ]
+          ]
+        }
+      ],
+      "text_blocks": [
+        {
+          "page": 4,
+          "bbox": [
+            509.09,
+            67.32,
+            542.54,
+            78.3
+          ],
+          "text": "MC-6200",
+          "max_font_size": 9.0,
+          "is_bold": false,
+          "font": "Calibri"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            187.44,
+            85.52,
+            288.96,
+            98.95
+          ],
+          "text": "LABORATORY REPORT",
+          "max_font_size": 11.0,
+          "is_bold": true,
+          "font": "Calibri,Bold"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            32.75,
+            99.44,
+            200.57,
+            123.86
+          ],
+          "text": "Name :Ms. BASANTI DEVI 10078040 OQG2604170493",
+          "max_font_size": 10.0,
+          "is_bold": false,
+          "font": "Calibri"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            245.06,
+            99.44,
+            570.57,
+            111.65
+          ],
+          "text": "Sex/Age : Female / 50 Years Case ID :60400127778",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Calibri"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            32.75,
+            123.86,
+            567.77,
+            199.27
+          ],
+          "text": "Ref By : Dis.Loc. : Pt ID : Bill. Loc. :Oncquest Laboratories Ltd. Pt. Loc. : Registration Date & Time : 17-Apr-2026 16:42 Sample Type : Whole Blood EDTA Ph # : 7830215230 Sample Date & Time : 17-Apr-2026 16:42 Sample Coll.By : Ref Id : Report Date & Time : 09-May-2026 14:08 Acc. Remarks : Ref Id 2 :",
+          "max_font_size": 10.0,
+          "is_bold": false,
+          "font": "Calibri"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            40.97,
+            617.79,
+            511.36,
+            651.25
+          ],
+          "text": "# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the container/Test Requisition Formand it has been verified as per GCLP (Good Clinical Lab Practices) by the referrer atthe time of collection of the specimen. NCGM’s responsibility is limited to theanalytical part of the assay performed.",
+          "max_font_size": 9.0,
+          "is_bold": false,
+          "font": "Calibri"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            40.97,
+            708.42,
+            559.65,
+            741.63
+          ],
+          "text": "Dr. Arpan K. Mehta MD Path, PDF Lab. Haemat., PDF Mol. Haemonc. Printed On :09-May-2026 14:13",
+          "max_font_size": 11.0,
+          "is_bold": true,
+          "font": "Calibri"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            27.08,
+            227.17,
+            547.79,
+            239.69
+          ],
+          "text": "9 E279K Negative NA 16.5 27 M388L Negative NA 2.7",
+          "max_font_size": 9.5,
+          "is_bold": false,
+          "font": "Cambria"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            24.45,
+            241.57,
+            547.79,
+            254.09
+          ],
+          "text": "10 G250E Negative I 11.7 28 T315A Negative S 2.4",
+          "max_font_size": 9.5,
+          "is_bold": false,
+          "font": "Cambria"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            24.45,
+            255.97,
+            547.79,
+            268.49
+          ],
+          "text": "11 D276G Negative NA 11.2 29 M237I Negative NA 2.4",
+          "max_font_size": 9.5,
+          "is_bold": false,
+          "font": "Cambria"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            24.45,
+            270.37,
+            547.79,
+            282.89
+          ],
+          "text": "12 F486S Negative NA 8.4 30 F311L Negative S 2.2",
+          "max_font_size": 9.5,
+          "is_bold": false,
+          "font": "Cambria"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            24.45,
+            284.77,
+            547.79,
+            297.29
+          ],
+          "text": "13 H396P Negative S 7.1 31 L387F Negative NA 2.0",
+          "max_font_size": 9.5,
+          "is_bold": false,
+          "font": "Cambria"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            24.45,
+            299.17,
+            547.79,
+            311.69
+          ],
+          "text": "14 H396R Negative I 6.7 32 V299L Negative S 1.7",
+          "max_font_size": 9.5,
+          "is_bold": false,
+          "font": "Cambria"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            24.45,
+            313.57,
+            547.79,
+            326.09
+          ],
+          "text": "15 F359V Negative I 5.8 33 F317V Negative S 1.4",
+          "max_font_size": 9.5,
+          "is_bold": false,
+          "font": "Cambria"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            24.45,
+            327.97,
+            547.79,
+            340.49
+          ],
+          "text": "16 F317L Negative I 4.8 34 G250A Negative NA 1.3",
+          "max_font_size": 9.5,
+          "is_bold": false,
+          "font": "Cambria"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            24.45,
+            342.37,
+            267.47,
+            354.89
+          ],
+          "text": "17 Q252H Negative I 4.8",
+          "max_font_size": 9.5,
+          "is_bold": false,
+          "font": "Cambria"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            24.45,
+            356.77,
+            267.47,
+            369.29
+          ],
+          "text": "18 L387M Negative S 4.3",
+          "max_font_size": 9.5,
+          "is_bold": false,
+          "font": "Cambria"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            35.45,
+            400.93,
+            146.1,
+            410.3
+          ],
+          "text": "SENSITIVE- S",
+          "max_font_size": 8.0,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            35.45,
+            421.71,
+            148.65,
+            431.09
+          ],
+          "text": "RESISTANT- R",
+          "max_font_size": 8.0,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            35.45,
+            442.5,
+            149.0,
+            451.88
+          ],
+          "text": "INTERMEDIATE REPSPONE- I",
+          "max_font_size": 8.0,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            35.45,
+            463.28,
+            153.45,
+            472.66
+          ],
+          "text": "NOT APPLICABLE- NA",
+          "max_font_size": 8.0,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            35.45,
+            497.86,
+            451.1,
+            530.92
+          ],
+          "text": "Novel Mutation Nomenclature Computationally Predicted Effect - - -",
+          "max_font_size": 9.0,
+          "is_bold": true,
+          "font": "Cambria"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            35.45,
+            550.89,
+            91.47,
+            561.44
+          ],
+          "text": "REFERENCES:",
+          "max_font_size": 9.0,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            89.45,
+            576.72,
+            559.92,
+            598.31
+          ],
+          "text": " O’Hare T, Eide CA, Deininger MWN BCR-ABL kinase domain mutations, drug resistance and the road to a cure of chronic myeloid leukemia. Blood 2007; 110: 2242-9.*",
+          "max_font_size": 9.0,
+          "is_bold": false,
+          "font": "Cambria"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            48.19,
+            742.38,
+            90.38,
+            751.31
+          ],
+          "text": "Page 4 of 6",
+          "max_font_size": 8.0,
+          "is_bold": true,
+          "font": "Arial,Bold"
+        }
+      ],
+      "page_text": "MC-6200\nLABORATORY REPORT\nName\n:Ms. BASANTI DEVI 10078040\nOQG2604170493\nSex/Age\n: Female/50 Years\nCase ID\n:60400127778\nRef By\n:\nDis.Loc.\n:\nPt ID\n:\nBill. Loc.\n:Oncquest Laboratories Ltd.\nPt. Loc.\n:\nRegistration Date & Time\n: 17-Apr-2026 16:42\nSample Type\n: Whole Blood EDTA\nPh #\n: 7830215230\nSample Date & Time\n: 17-Apr-2026 16:42\nSample Coll.By\n:\nRef Id\n:\nReport Date & Time\n: 09-May-2026\n14:08\nAcc. Remarks\n:\nRef Id 2\n:\n# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the\ncontainer/Test Requisition Formand it has been verified as per GCLP (Good Clinical Lab Practices) by the referrer atthe time of\ncollection of the specimen. NCGM’s responsibility is limited to theanalytical part of the assay performed.\nDr. Arpan K. Mehta\nMD Path, PDF Lab. Haemat.,\nPDF Mol. Haemonc.\nPrinted On\n:09-May-2026 14:13\n9\nE279K\nNegative\nNA\n16.5\n27\nM388L\nNegative\nNA\n2.7\n10\nG250E\nNegative\nI\n11.7\n28\nT315A\nNegative\nS\n2.4\n11\nD276G\nNegative\nNA\n11.2\n29\nM237I\nNegative\nNA\n2.4\n12\nF486S\nNegative\nNA\n8.4\n30\nF311L\nNegative\nS\n2.2\n13\nH396P\nNegative\nS\n7.1\n31\nL387F\nNegative\nNA\n2.0\n14\nH396R\nNegative\nI\n6.7\n32\nV299L\nNegative\nS\n1.7\n15\nF359V\nNegative\nI\n5.8\n33\nF317V\nNegative\nS\n1.4\n16\nF317L\nNegative\nI\n4.8\n34\nG250A\nNegative\nNA\n1.3\n17\nQ252H\nNegative\nI\n4.8\n18\nL387M\nNegative\nS\n4.3\nSENSITIVE-\nS\nRESISTANT-\nR\nINTERMEDIATE REPSPONE-\nI\nNOT APPLICABLE-\nNA\n Novel Mutation\nNomenclature\nComputationally Predicted Effect\n-\n-\n-\n \nREFERENCES:\n\nO’Hare T, Eide CA, Deininger MWN BCR-ABL kinase domain mutations, drug resistance and the road to a cure of\nchronic myeloid leukemia. Blood 2007; 110: 2242-9.*\nPage 4 of 6\n"
+    },
+    {
+      "page_number": 5,
+      "dimensions": {
+        "width": 595.3,
+        "height": 841.9
+      },
+      "key_value_pairs": {
+        "Name": "Ms. BASANTI DEVI 10078040",
+        "Sex/Age": "Female/50 Years",
+        "Case ID": "60400127778",
+        "Ref By": "Dis.Loc.",
+        "Dis.Loc.": "Pt ID",
+        "Pt ID": "Bill. Loc.",
+        "Bill. Loc.": "Oncquest Laboratories Ltd.",
+        "Pt. Loc.": "Registration Date & Time",
+        "Registration Date & Time": "17-Apr-2026 16:42",
+        "Sample Type": "Whole Blood EDTA",
+        "Sample Date & Time": "17-Apr-2026 16:42",
+        "Sample Coll.By": "Ref Id",
+        "Ref Id": "Report Date & Time",
+        "Report Date & Time": "09-May-2026",
+        "Acc. Remarks": "Ref Id 2",
+        "Ref Id 2": "# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the",
+        "Printed On": "09-May-2026 14:13"
+      },
+      "boxes_and_sections": [
+        {
+          "page": 5,
+          "title": "Patient Demographics & Header Box",
+          "type": "demographics_box",
+          "bbox": [
+            0.0,
+            0.0,
+            595.3,
+            150.0
+          ],
+          "key_value_pairs": {
+            "Name": "Ms. BASANTI DEVI 10078040",
+            "Sex/Age": "Female/50 Years",
+            "Case ID": "60400127778",
+            "Ref By": "Dis.Loc.",
+            "Dis.Loc.": "Pt ID",
+            "Pt ID": "Bill. Loc.",
+            "Bill. Loc.": "Oncquest Laboratories Ltd.",
+            "Pt. Loc.": "Registration Date & Time",
+            "Registration Date & Time": "17-Apr-2026 16:42",
+            "Sample Type": "Whole Blood EDTA",
+            "Sample Date & Time": "17-Apr-2026 16:42",
+            "Sample Coll.By": "Ref Id",
+            "Ref Id": "Report Date & Time",
+            "Report Date & Time": "09-May-2026",
+            "Acc. Remarks": "Ref Id 2",
+            "Ref Id 2": "# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the",
+            "Printed On": "09-May-2026 14:13"
+          }
+        },
+        {
+          "page": 5,
+          "title": "Limitations:",
+          "type": "content_section_box",
+          "bbox": [
+            35.45,
+            367.62,
+            85.45,
+            378.16
+          ],
+          "content_text": [
+            "- Please note that only the variants relevant to the patient’s clinical presentation were reported. A report on all variants present is available upon request, please contact the laboratory. - Predisposition to disease may be affected by non genetic factors. - This test has not been approved by external accrediting bodies and has been validated according to internal laboratory criteria. Accreditation is not required for the reporting of these test results. - For Accurate detection of mutation, at least 1000 BCR-ABL1 Fusion copies/ml should be present in the sample. - In cases where the BCR ABL1 load is very low, cases may be released as ‘No Mutation Detected’ with a comment ‘Repeated sequencing revealed no sequenceable Amplicons due to low transcript levels’ - All laboratory tests are associated with an error rate of ~1%. These could be due to sample mismatch, inappropriate labeling, processing or technological limitations. Please correlate with clinical features and other investigations for final conclusion and send a repeat sample for analysis if necessary. - Rare false positive or negative results may occur due to inherent limitations of the technique involved. - Large insertions and deletions may be missed. - Mutations having VAF (variant allele frequency) less than 5% are not reported. - For test performed on specimens received or collected from non-STMPL locations, it is presumed that the specimen belongs to the patient named or identified as labeled on the container/test request and such verification has been carried out at the point of generation of the said specimen by the sender.",
+            "Page 5 of 6"
+          ]
+        }
+      ],
+      "tables": [],
+      "text_blocks": [
+        {
+          "page": 5,
+          "bbox": [
+            509.09,
+            67.32,
+            542.54,
+            78.3
+          ],
+          "text": "MC-6200",
+          "max_font_size": 9.0,
+          "is_bold": false,
+          "font": "Calibri"
+        },
+        {
+          "page": 5,
+          "bbox": [
+            187.44,
+            85.52,
+            288.96,
+            98.95
+          ],
+          "text": "LABORATORY REPORT",
+          "max_font_size": 11.0,
+          "is_bold": true,
+          "font": "Calibri,Bold"
+        },
+        {
+          "page": 5,
+          "bbox": [
+            32.75,
+            99.44,
+            200.57,
+            123.86
+          ],
+          "text": "Name :Ms. BASANTI DEVI 10078040 OQG2604170493",
+          "max_font_size": 10.0,
+          "is_bold": false,
+          "font": "Calibri"
+        },
+        {
+          "page": 5,
+          "bbox": [
+            245.06,
+            99.44,
+            570.57,
+            111.65
+          ],
+          "text": "Sex/Age : Female / 50 Years Case ID :60400127778",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Calibri"
+        },
+        {
+          "page": 5,
+          "bbox": [
+            32.75,
+            123.86,
+            567.77,
+            199.27
+          ],
+          "text": "Ref By : Dis.Loc. : Pt ID : Bill. Loc. :Oncquest Laboratories Ltd. Pt. Loc. : Registration Date & Time : 17-Apr-2026 16:42 Sample Type : Whole Blood EDTA Ph # : 7830215230 Sample Date & Time : 17-Apr-2026 16:42 Sample Coll.By : Ref Id : Report Date & Time : 09-May-2026 14:08 Acc. Remarks : Ref Id 2 :",
+          "max_font_size": 10.0,
+          "is_bold": false,
+          "font": "Calibri"
+        },
+        {
+          "page": 5,
+          "bbox": [
+            40.97,
+            617.79,
+            511.36,
+            651.25
+          ],
+          "text": "# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the container/Test Requisition Formand it has been verified as per GCLP (Good Clinical Lab Practices) by the referrer atthe time of collection of the specimen. NCGM’s responsibility is limited to theanalytical part of the assay performed.",
+          "max_font_size": 9.0,
+          "is_bold": false,
+          "font": "Calibri"
+        },
+        {
+          "page": 5,
+          "bbox": [
+            40.97,
+            708.42,
+            559.65,
+            741.63
+          ],
+          "text": "Dr. Arpan K. Mehta MD Path, PDF Lab. Haemat., PDF Mol. Haemonc. Printed On :09-May-2026 14:13",
+          "max_font_size": 11.0,
+          "is_bold": true,
+          "font": "Calibri"
+        },
+        {
+          "page": 5,
+          "bbox": [
+            89.45,
+            226.67,
+            559.93,
+            334.17
+          ],
+          "text": " Guidelines for mutation analysis of BCR/ABL kinase domain: Interpreting TKI-Resistance Mutations in CML Patients West Midlands Regional Genetics Laboratory March 2007; Revised December 2007.  Soverini S, Hochhaus A, Nicolini FE, et al. BCR-ABL kinase domain mutation analysis in chronic myeloid leukemia patients treated with tyrosine kinase inhibitors: recommendations from an expert panel on behalf of European LeukemiaNet. Blood. 2011;118(5):1208-1215.  von Bubnoff N, Schneller F, Peschel C, Duyster J. BCR-ABL gene mutations in relation to clinical resistance of Philadelphia-chromosome-positive leukaemia to STI571: a prospective study. Lancet. 2002;359(9305):487-491.  De Benedittis, Caterina (2015) Next-Generation Sequencing-Based Mutations Scanning Strategy of the BCR-ABL Kinase Domain in Patients with PhiladelPhia-Chromosome Positive Leukemias Treated with Tyrosine Kinase Inhibitors.",
+          "max_font_size": 9.0,
+          "is_bold": false,
+          "font": "Cambria"
+        },
+        {
+          "page": 5,
+          "bbox": [
+            35.45,
+            367.62,
+            85.45,
+            378.16
+          ],
+          "text": "Limitations:",
+          "max_font_size": 9.0,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 5,
+          "bbox": [
+            53.45,
+            393.44,
+            559.92,
+            552.88
+          ],
+          "text": "- Please note that only the variants relevant to the patient’s clinical presentation were reported. A report on all variants present is available upon request, please contact the laboratory. - Predisposition to disease may be affected by non genetic factors. - This test has not been approved by external accrediting bodies and has been validated according to internal laboratory criteria. Accreditation is not required for the reporting of these test results. - For Accurate detection of mutation, at least 1000 BCR-ABL1 Fusion copies/ml should be present in the sample. - In cases where the BCR ABL1 load is very low, cases may be released as ‘No Mutation Detected’ with a comment ‘Repeated sequencing revealed no sequenceable Amplicons due to low transcript levels’ - All laboratory tests are associated with an error rate of ~1%. These could be due to sample mismatch, inappropriate labeling, processing or technological limitations. Please correlate with clinical features and other investigations for final conclusion and send a repeat sample for analysis if necessary. - Rare false positive or negative results may occur due to inherent limitations of the technique involved. - Large insertions and deletions may be missed. - Mutations having VAF (variant allele frequency) less than 5% are not reported. - For test performed on specimens received or collected from non-STMPL locations, it is presumed that the specimen belongs to the patient named or identified as labeled on the container/test request and such verification has been carried out at the point of generation of the said specimen by the sender.",
+          "max_font_size": 8.0,
+          "is_bold": false,
+          "font": "Cambria"
+        },
+        {
+          "page": 5,
+          "bbox": [
+            48.19,
+            742.38,
+            90.38,
+            751.31
+          ],
+          "text": "Page 5 of 6",
+          "max_font_size": 8.0,
+          "is_bold": true,
+          "font": "Arial,Bold"
+        }
+      ],
+      "page_text": "MC-6200\nLABORATORY REPORT\nName\n:Ms. BASANTI DEVI 10078040\nOQG2604170493\nSex/Age\n: Female/50 Years\nCase ID\n:60400127778\nRef By\n:\nDis.Loc.\n:\nPt ID\n:\nBill. Loc.\n:Oncquest Laboratories Ltd.\nPt. Loc.\n:\nRegistration Date & Time\n: 17-Apr-2026 16:42\nSample Type\n: Whole Blood EDTA\nPh #\n: 7830215230\nSample Date & Time\n: 17-Apr-2026 16:42\nSample Coll.By\n:\nRef Id\n:\nReport Date & Time\n: 09-May-2026\n14:08\nAcc. Remarks\n:\nRef Id 2\n:\n# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the\ncontainer/Test Requisition Formand it has been verified as per GCLP (Good Clinical Lab Practices) by the referrer atthe time of\ncollection of the specimen. NCGM’s responsibility is limited to theanalytical part of the assay performed.\nDr. Arpan K. Mehta\nMD Path, PDF Lab. Haemat.,\nPDF Mol. Haemonc.\nPrinted On\n:09-May-2026 14:13\n\nGuidelines for mutation analysis of BCR/ABL kinase domain: Interpreting TKI-Resistance Mutations in CML Patients\nWest Midlands Regional Genetics Laboratory March 2007; Revised December 2007.\n\nSoverini S, Hochhaus A, Nicolini FE, et al. BCR-ABL kinase domain mutation analysis in chronic myeloid leukemia\npatients treated with tyrosine kinase inhibitors: recommendations from an expert panel on behalf of European\nLeukemiaNet. Blood. 2011;118(5):1208-1215.\n\nvon Bubnoff N, Schneller F, Peschel C, Duyster J. BCR-ABL gene mutations in relation to clinical resistance of\nPhiladelphia-chromosome-positive leukaemia to STI571: a prospective study. Lancet. 2002;359(9305):487-491.\n\nDe Benedittis, Caterina (2015) Next-Generation Sequencing-Based Mutations Scanning Strategy of the BCR-ABL\nKinase Domain in Patients with PhiladelPhia-Chromosome Positive Leukemias Treated with Tyrosine Kinase\nInhibitors.\nLimitations:\n-\nPlease note that only the variants relevant to the patient’s clinical presentation were reported. A report on all variants present is available\nupon request, please contact the laboratory.\n-\nPredisposition to disease may be affected by non genetic factors.\n-\nThis test has not been approved by external accrediting bodies and has been validated according to internal laboratory criteria. Accreditation is\nnot required for the reporting of these test results.\n-\nFor Accurate detection of mutation, at least 1000 BCR-ABL1 Fusion copies/ml should be present in the sample.\n-\nIn cases where the BCR ABL1 load is very low, cases may be released as ‘No Mutation Detected’ with a comment ‘Repeated sequencing revealed\nno sequenceable Amplicons due to low transcript levels’\n-\nAll laboratory tests are associated with an error rate of ~1%. These could be due to sample mismatch, inappropriate labeling, processing or\ntechnological limitations. Please correlate with clinical features and other investigations for final conclusion and send a repeat sample for\nanalysis if necessary.\n-\nRare false positive or negative results may occur due to inherent limitations of the technique involved.\n-\nLarge insertions and deletions may be missed.\n-\nMutations having VAF (variant allele frequency) less than 5% are not reported.\n-\nFor test performed on specimens received or collected from non-STMPL locations, it is presumed that the specimen belongs to the patient\nnamed or identified as labeled on the container/test request and such verification has been carried out at the point of generation of the said\nspecimen by the sender.\nPage 5 of 6\n"
+    },
+    {
+      "page_number": 6,
+      "dimensions": {
+        "width": 595.3,
+        "height": 841.9
+      },
+      "key_value_pairs": {
+        "Name": "Ms. BASANTI DEVI 10078040",
+        "Sex/Age": "Female/50 Years",
+        "Case ID": "60400127778",
+        "Ref By": "Dis.Loc.",
+        "Dis.Loc.": "Pt ID",
+        "Pt ID": "Bill. Loc.",
+        "Bill. Loc.": "Oncquest Laboratories Ltd.",
+        "Pt. Loc.": "Registration Date & Time",
+        "Registration Date & Time": "17-Apr-2026 16:42",
+        "Sample Type": "Whole Blood EDTA",
+        "Sample Date & Time": "17-Apr-2026 16:42",
+        "Sample Coll.By": "Ref Id",
+        "Ref Id": "Report Date & Time",
+        "Report Date & Time": "09-May-2026",
+        "Acc. Remarks": "Ref Id 2",
+        "Ref Id 2": "# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the",
+        "Printed On": "09-May-2026 14:13"
+      },
+      "boxes_and_sections": [
+        {
+          "page": 6,
+          "title": "Patient Demographics & Header Box",
+          "type": "demographics_box",
+          "bbox": [
+            0.0,
+            0.0,
+            595.3,
+            150.0
+          ],
+          "key_value_pairs": {
+            "Name": "Ms. BASANTI DEVI 10078040",
+            "Sex/Age": "Female/50 Years",
+            "Case ID": "60400127778",
+            "Ref By": "Dis.Loc.",
+            "Dis.Loc.": "Pt ID",
+            "Pt ID": "Bill. Loc.",
+            "Bill. Loc.": "Oncquest Laboratories Ltd.",
+            "Pt. Loc.": "Registration Date & Time",
+            "Registration Date & Time": "17-Apr-2026 16:42",
+            "Sample Type": "Whole Blood EDTA",
+            "Sample Date & Time": "17-Apr-2026 16:42",
+            "Sample Coll.By": "Ref Id",
+            "Ref Id": "Report Date & Time",
+            "Report Date & Time": "09-May-2026",
+            "Acc. Remarks": "Ref Id 2",
+            "Ref Id 2": "# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the",
+            "Printed On": "09-May-2026 14:13"
+          }
+        }
+      ],
+      "tables": [],
+      "text_blocks": [
+        {
+          "page": 6,
+          "bbox": [
+            509.09,
+            67.32,
+            542.54,
+            78.3
+          ],
+          "text": "MC-6200",
+          "max_font_size": 9.0,
+          "is_bold": false,
+          "font": "Calibri"
+        },
+        {
+          "page": 6,
+          "bbox": [
+            187.44,
+            85.52,
+            288.96,
+            98.95
+          ],
+          "text": "LABORATORY REPORT",
+          "max_font_size": 11.0,
+          "is_bold": true,
+          "font": "Calibri,Bold"
+        },
+        {
+          "page": 6,
+          "bbox": [
+            32.75,
+            99.44,
+            200.57,
+            123.86
+          ],
+          "text": "Name :Ms. BASANTI DEVI 10078040 OQG2604170493",
+          "max_font_size": 10.0,
+          "is_bold": false,
+          "font": "Calibri"
+        },
+        {
+          "page": 6,
+          "bbox": [
+            245.06,
+            99.44,
+            570.57,
+            111.65
+          ],
+          "text": "Sex/Age : Female / 50 Years Case ID :60400127778",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Calibri"
+        },
+        {
+          "page": 6,
+          "bbox": [
+            32.75,
+            123.86,
+            567.77,
+            199.27
+          ],
+          "text": "Ref By : Dis.Loc. : Pt ID : Bill. Loc. :Oncquest Laboratories Ltd. Pt. Loc. : Registration Date & Time : 17-Apr-2026 16:42 Sample Type : Whole Blood EDTA Ph # : 7830215230 Sample Date & Time : 17-Apr-2026 16:42 Sample Coll.By : Ref Id : Report Date & Time : 09-May-2026 14:08 Acc. Remarks : Ref Id 2 :",
+          "max_font_size": 10.0,
+          "is_bold": false,
+          "font": "Calibri"
+        },
+        {
+          "page": 6,
+          "bbox": [
+            40.97,
+            617.79,
+            511.36,
+            651.25
+          ],
+          "text": "# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the container/Test Requisition Formand it has been verified as per GCLP (Good Clinical Lab Practices) by the referrer atthe time of collection of the specimen. NCGM’s responsibility is limited to theanalytical part of the assay performed.",
+          "max_font_size": 9.0,
+          "is_bold": false,
+          "font": "Calibri"
+        },
+        {
+          "page": 6,
+          "bbox": [
+            40.97,
+            708.42,
+            559.65,
+            741.63
+          ],
+          "text": "Dr. Arpan K. Mehta MD Path, PDF Lab. Haemat., PDF Mol. Haemonc. Printed On :09-May-2026 14:13",
+          "max_font_size": 11.0,
+          "is_bold": true,
+          "font": "Calibri"
+        },
+        {
+          "page": 6,
+          "bbox": [
+            203.05,
+            277.55,
+            392.35,
+            290.98
+          ],
+          "text": "------------------ End Of Report ------------------",
+          "max_font_size": 11.0,
+          "is_bold": false,
+          "font": "Calibri"
+        },
+        {
+          "page": 6,
+          "bbox": [
+            48.19,
+            742.38,
+            90.38,
+            751.31
+          ],
+          "text": "Page 6 of 6",
+          "max_font_size": 8.0,
+          "is_bold": true,
+          "font": "Arial,Bold"
+        }
+      ],
+      "page_text": "MC-6200\nLABORATORY REPORT\nName\n:Ms. BASANTI DEVI 10078040\nOQG2604170493\nSex/Age\n: Female/50 Years\nCase ID\n:60400127778\nRef By\n:\nDis.Loc.\n:\nPt ID\n:\nBill. Loc.\n:Oncquest Laboratories Ltd.\nPt. Loc.\n:\nRegistration Date & Time\n: 17-Apr-2026 16:42\nSample Type\n: Whole Blood EDTA\nPh #\n: 7830215230\nSample Date & Time\n: 17-Apr-2026 16:42\nSample Coll.By\n:\nRef Id\n:\nReport Date & Time\n: 09-May-2026\n14:08\nAcc. Remarks\n:\nRef Id 2\n:\n# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the\ncontainer/Test Requisition Formand it has been verified as per GCLP (Good Clinical Lab Practices) by the referrer atthe time of\ncollection of the specimen. NCGM’s responsibility is limited to theanalytical part of the assay performed.\nDr. Arpan K. Mehta\nMD Path, PDF Lab. Haemat.,\nPDF Mol. Haemonc.\nPrinted On\n:09-May-2026 14:13\n------------------ End Of Report ------------------\nPage 6 of 6\n"
+    }
+  ],
+  "raw_full_text": "MC-6200\nLABORATORY REPORT\nName\n:Ms. BASANTI DEVI 10078040\nOQG2604170493\nSex/Age\n: Female/50 Years\nCase ID\n:60400127778\nRef By\n:\nDis.Loc.\n:\nPt ID\n:\nBill. Loc.\n:Oncquest Laboratories Ltd.\nPt. Loc.\n:\nRegistration Date & Time\n: 17-Apr-2026 16:42\nSample Type\n: Whole Blood EDTA\nPh #\n: 7830215230\nSample Date & Time\n: 17-Apr-2026 16:42\nSample Coll.By\n:\nRef Id\n:\nReport Date & Time\n: 09-May-2026\n14:08\nAcc. Remarks\n:\nRef Id 2\n:\n# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the\ncontainer/Test Requisition Formand it has been verified as per GCLP (Good Clinical Lab Practices) by the referrer atthe time of\ncollection of the specimen. NCGM’s responsibility is limited to theanalytical part of the assay performed.\nDr. Arpan K. Mehta\nMD Path, PDF Lab. Haemat.,\nPDF Mol. Haemonc.\nPrinted On\n:09-May-2026 14:13\nBCR::ABL1 KINASE DOMAIN MUTATION ANALYSIS (IRMA) BY NEXT GENERATION SEQUENCING\nTest Description:\nChronic myeloid leukemia (CML) is characterized by the presence of the\nPhiladelphia chromosome, the product of t(9;22)(q34;q11) translocation.\nThis translocation results in BCR-ABL1 fusion protein with constitutive ABL1\ntyrosine kinase activity. The kinase inhibitor imatinib (STI571, Gleevec®)\ninhibits ABL1 kinase activity and is now the standard of care for early phase\nCML. Prolonged treatment with imatinib can lead to drug resistance,\nespecially in patients with advanced disease.\nA large portion of resistant patients have acquired point mutations in the\nABL1 kinase domain that renders the kinase resistant to the drug. Sites of\npoint mutations in ABL1 associated with imatinib resistance span the entire\nkinase domain but often cluster in important hotspots.(1,2)\nTotal RNA was extracted and nested reverse transcription PCR was\nperformed to detect the BCR-ABL1 transcript and ABL1 kinase domain (KD)\nregion was thereafter sequenced by Next Generation Sequencing for\ndetection of mutant alleles.\nMethodology:\nNext Generation Sequencing (Massively Parallel Sequencing)\nSample:\nEDTA Blood\nTest results and\nInterpretation:\nPATHOGENIC MUTATION DETECTED\nMutation Nomenclature:\nL248V\nCoverage:\n>500x\nPage 1 of 6\n\nMC-6200\nLABORATORY REPORT\nName\n:Ms. BASANTI DEVI 10078040\nOQG2604170493\nSex/Age\n: Female/50 Years\nCase ID\n:60400127778\nRef By\n:\nDis.Loc.\n:\nPt ID\n:\nBill. Loc.\n:Oncquest Laboratories Ltd.\nPt. Loc.\n:\nRegistration Date & Time\n: 17-Apr-2026 16:42\nSample Type\n: Whole Blood EDTA\nPh #\n: 7830215230\nSample Date & Time\n: 17-Apr-2026 16:42\nSample Coll.By\n:\nRef Id\n:\nReport Date & Time\n: 09-May-2026\n14:08\nAcc. Remarks\n:\nRef Id 2\n:\n# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the\ncontainer/Test Requisition Formand it has been verified as per GCLP (Good Clinical Lab Practices) by the referrer atthe time of\ncollection of the specimen. NCGM’s responsibility is limited to theanalytical part of the assay performed.\nDr. Arpan K. Mehta\nMD Path, PDF Lab. Haemat.,\nPDF Mol. Haemonc.\nPrinted On\n:09-May-2026 14:13\nPage 2 of 6\n\nMC-6200\nLABORATORY REPORT\nName\n:Ms. BASANTI DEVI 10078040\nOQG2604170493\nSex/Age\n: Female/50 Years\nCase ID\n:60400127778\nRef By\n:\nDis.Loc.\n:\nPt ID\n:\nBill. Loc.\n:Oncquest Laboratories Ltd.\nPt. Loc.\n:\nRegistration Date & Time\n: 17-Apr-2026 16:42\nSample Type\n: Whole Blood EDTA\nPh #\n: 7830215230\nSample Date & Time\n: 17-Apr-2026 16:42\nSample Coll.By\n:\nRef Id\n:\nReport Date & Time\n: 09-May-2026\n14:08\nAcc. Remarks\n:\nRef Id 2\n:\n# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the\ncontainer/Test Requisition Formand it has been verified as per GCLP (Good Clinical Lab Practices) by the referrer atthe time of\ncollection of the specimen. NCGM’s responsibility is limited to theanalytical part of the assay performed.\nDr. Arpan K. Mehta\nMD Path, PDF Lab. Haemat.,\nPDF Mol. Haemonc.\nPrinted On\n:09-May-2026 14:13\nInterpretation:\nL248V [VAF: 99.81%]\nHGVS genomic change: 9:g.133738342C>G\nHGVS protein change: ENSP00000323315:p.Leu248Val\nHGVS coding DNA change: ENST00000318560.5:c.742C>G\nMutation type: Pathogenic\nThe detection of p. Leu248Val (p.L248V) mutation has been described in association with resistance\nto Imatinib (PMID: 21562040)\nFinal conclusion:\nThe patient is found to have L248V mutation.\nSr.\nNo.\nMutations\ncovered\nMutation\nResult\nSensitivity\nto Imatinib\nMean fold\nIncrease in\nIC50\n(Imatinib)2\nSr.\nNo.\nMutations\ncovered\nMutation\nResult\nSensitivity\nto Imatinib\nMean fold\nIncrease in\nIC50\n(Imatinib)2\n1\nT315I\nNegative\nR\n50.8\n19\nE275K\nNegative\nNA\n2\nE255V\nNegative\nR\n44.3\n20\nF359C\nNegative\nNA\n4.3\n3\nY253H\nNegative\nR\n36.3\n21\nE450K\nNegative\nNA\n3.9\n4\nE255K\nNegative\nR\n30.7\n22\nM351T\nNegative\nS\n3.8\n5\nY253F\nNegative\nR\n25.2\n23\nM244V\nNegative\nI\n3.8\n6\nE373G\nNegative\nNA\n20.6\n24\nE355G\nNegative\nI\n3.4\n7\nL248V\nPositive\nNA\n19.9\n25\nV379I\nNegative\nI\n3.1\n8\nG321E\nNegative\nNA\n18.1\n26\nE355A\nNegative\nNA\n3.0\nPage 3 of 6\n\nMC-6200\nLABORATORY REPORT\nName\n:Ms. BASANTI DEVI 10078040\nOQG2604170493\nSex/Age\n: Female/50 Years\nCase ID\n:60400127778\nRef By\n:\nDis.Loc.\n:\nPt ID\n:\nBill. Loc.\n:Oncquest Laboratories Ltd.\nPt. Loc.\n:\nRegistration Date & Time\n: 17-Apr-2026 16:42\nSample Type\n: Whole Blood EDTA\nPh #\n: 7830215230\nSample Date & Time\n: 17-Apr-2026 16:42\nSample Coll.By\n:\nRef Id\n:\nReport Date & Time\n: 09-May-2026\n14:08\nAcc. Remarks\n:\nRef Id 2\n:\n# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the\ncontainer/Test Requisition Formand it has been verified as per GCLP (Good Clinical Lab Practices) by the referrer atthe time of\ncollection of the specimen. NCGM’s responsibility is limited to theanalytical part of the assay performed.\nDr. Arpan K. Mehta\nMD Path, PDF Lab. Haemat.,\nPDF Mol. Haemonc.\nPrinted On\n:09-May-2026 14:13\n9\nE279K\nNegative\nNA\n16.5\n27\nM388L\nNegative\nNA\n2.7\n10\nG250E\nNegative\nI\n11.7\n28\nT315A\nNegative\nS\n2.4\n11\nD276G\nNegative\nNA\n11.2\n29\nM237I\nNegative\nNA\n2.4\n12\nF486S\nNegative\nNA\n8.4\n30\nF311L\nNegative\nS\n2.2\n13\nH396P\nNegative\nS\n7.1\n31\nL387F\nNegative\nNA\n2.0\n14\nH396R\nNegative\nI\n6.7\n32\nV299L\nNegative\nS\n1.7\n15\nF359V\nNegative\nI\n5.8\n33\nF317V\nNegative\nS\n1.4\n16\nF317L\nNegative\nI\n4.8\n34\nG250A\nNegative\nNA\n1.3\n17\nQ252H\nNegative\nI\n4.8\n18\nL387M\nNegative\nS\n4.3\nSENSITIVE-\nS\nRESISTANT-\nR\nINTERMEDIATE REPSPONE-\nI\nNOT APPLICABLE-\nNA\n Novel Mutation\nNomenclature\nComputationally Predicted Effect\n-\n-\n-\n \nREFERENCES:\n\nO’Hare T, Eide CA, Deininger MWN BCR-ABL kinase domain mutations, drug resistance and the road to a cure of\nchronic myeloid leukemia. Blood 2007; 110: 2242-9.*\nPage 4 of 6\n\nMC-6200\nLABORATORY REPORT\nName\n:Ms. BASANTI DEVI 10078040\nOQG2604170493\nSex/Age\n: Female/50 Years\nCase ID\n:60400127778\nRef By\n:\nDis.Loc.\n:\nPt ID\n:\nBill. Loc.\n:Oncquest Laboratories Ltd.\nPt. Loc.\n:\nRegistration Date & Time\n: 17-Apr-2026 16:42\nSample Type\n: Whole Blood EDTA\nPh #\n: 7830215230\nSample Date & Time\n: 17-Apr-2026 16:42\nSample Coll.By\n:\nRef Id\n:\nReport Date & Time\n: 09-May-2026\n14:08\nAcc. Remarks\n:\nRef Id 2\n:\n# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the\ncontainer/Test Requisition Formand it has been verified as per GCLP (Good Clinical Lab Practices) by the referrer atthe time of\ncollection of the specimen. NCGM’s responsibility is limited to theanalytical part of the assay performed.\nDr. Arpan K. Mehta\nMD Path, PDF Lab. Haemat.,\nPDF Mol. Haemonc.\nPrinted On\n:09-May-2026 14:13\n\nGuidelines for mutation analysis of BCR/ABL kinase domain: Interpreting TKI-Resistance Mutations in CML Patients\nWest Midlands Regional Genetics Laboratory March 2007; Revised December 2007.\n\nSoverini S, Hochhaus A, Nicolini FE, et al. BCR-ABL kinase domain mutation analysis in chronic myeloid leukemia\npatients treated with tyrosine kinase inhibitors: recommendations from an expert panel on behalf of European\nLeukemiaNet. Blood. 2011;118(5):1208-1215.\n\nvon Bubnoff N, Schneller F, Peschel C, Duyster J. BCR-ABL gene mutations in relation to clinical resistance of\nPhiladelphia-chromosome-positive leukaemia to STI571: a prospective study. Lancet. 2002;359(9305):487-491.\n\nDe Benedittis, Caterina (2015) Next-Generation Sequencing-Based Mutations Scanning Strategy of the BCR-ABL\nKinase Domain in Patients with PhiladelPhia-Chromosome Positive Leukemias Treated with Tyrosine Kinase\nInhibitors.\nLimitations:\n-\nPlease note that only the variants relevant to the patient’s clinical presentation were reported. A report on all variants present is available\nupon request, please contact the laboratory.\n-\nPredisposition to disease may be affected by non genetic factors.\n-\nThis test has not been approved by external accrediting bodies and has been validated according to internal laboratory criteria. Accreditation is\nnot required for the reporting of these test results.\n-\nFor Accurate detection of mutation, at least 1000 BCR-ABL1 Fusion copies/ml should be present in the sample.\n-\nIn cases where the BCR ABL1 load is very low, cases may be released as ‘No Mutation Detected’ with a comment ‘Repeated sequencing revealed\nno sequenceable Amplicons due to low transcript levels’\n-\nAll laboratory tests are associated with an error rate of ~1%. These could be due to sample mismatch, inappropriate labeling, processing or\ntechnological limitations. Please correlate with clinical features and other investigations for final conclusion and send a repeat sample for\nanalysis if necessary.\n-\nRare false positive or negative results may occur due to inherent limitations of the technique involved.\n-\nLarge insertions and deletions may be missed.\n-\nMutations having VAF (variant allele frequency) less than 5% are not reported.\n-\nFor test performed on specimens received or collected from non-STMPL locations, it is presumed that the specimen belongs to the patient\nnamed or identified as labeled on the container/test request and such verification has been carried out at the point of generation of the said\nspecimen by the sender.\nPage 5 of 6\n\nMC-6200\nLABORATORY REPORT\nName\n:Ms. BASANTI DEVI 10078040\nOQG2604170493\nSex/Age\n: Female/50 Years\nCase ID\n:60400127778\nRef By\n:\nDis.Loc.\n:\nPt ID\n:\nBill. Loc.\n:Oncquest Laboratories Ltd.\nPt. Loc.\n:\nRegistration Date & Time\n: 17-Apr-2026 16:42\nSample Type\n: Whole Blood EDTA\nPh #\n: 7830215230\nSample Date & Time\n: 17-Apr-2026 16:42\nSample Coll.By\n:\nRef Id\n:\nReport Date & Time\n: 09-May-2026\n14:08\nAcc. Remarks\n:\nRef Id 2\n:\n# For specimens received from non NCGM locations, it is presumed that it belongsto the patient as identified on the labels of the\ncontainer/Test Requisition Formand it has been verified as per GCLP (Good Clinical Lab Practices) by the referrer atthe time of\ncollection of the specimen. NCGM’s responsibility is limited to theanalytical part of the assay performed.\nDr. Arpan K. Mehta\nMD Path, PDF Lab. Haemat.,\nPDF Mol. Haemonc.\nPrinted On\n:09-May-2026 14:13\n------------------ End Of Report ------------------\nPage 6 of 6\n"
+}

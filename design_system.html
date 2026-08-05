@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oncquest Lab Report — Design System</title>
+  <meta name="description" content="Complete reusable design system extracted from the Oncquest laboratory report. Visual reference for typography, colors, components, tables, and layout tokens.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* ═══════════════════════════════════════════════════════════════════
+       DESIGN SYSTEM TOKENS (Extracted from cleaned_target.html)
+       ═══════════════════════════════════════════════════════════════════ */
+    :root {
+      /* ─── Core Colors ─── */
+      --color-primary:             #1f497d;
+      --color-secondary:           #008080;
+      --color-accent-orange:       #ed7d31;
+      --color-accent-red:          #ff0000;
+      --color-banner-dark:         #404040;
+      --color-bg-page:             #ffffff;
+      --color-bg-container:        #525659;
+
+      /* ─── Text Colors ─── */
+      --text-primary:              #000000;
+      --text-secondary:            #242729;
+      --text-dark:                 #0d0d0d;
+      --text-white:                #ffffff;
+      --text-teal:                 #008080;
+      --text-orange:               #ed7d31;
+      --text-red:                  #ff0000;
+
+      /* ─── Border ─── */
+      --border-color:              #1f497d;
+      --border-width:              1px;
+      --border-style:              solid;
+      --border-radius-banner:      2px;
+      --border-radius-banner-dark: 0px;
+
+      /* ─── Typography — Font Families ─── */
+      --font-primary:              Cambria, serif;
+      --font-primary-bold:         Cambria, Bold, serif;
+      --font-primary-italic:       Cambria, Italic, serif;
+      --font-primary-bold-italic:  Cambria, BoldItalic, serif;
+      --font-table-header:         Cambria, 'Times New Roman', serif;
+      --font-system:               system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-symbol:               Symbol, sans-serif;
+      --font-calibri:              Calibri, sans-serif;
+
+      /* ─── Typography — Font Sizes ─── */
+      --font-size-body:            10.0pt;
+      --font-size-banner:          13.0pt;
+      --font-size-title:           14.0pt;
+      --font-size-table-header:    9.5pt;
+      --font-size-superscript:     6.5pt;
+
+      /* ─── Typography — Line Heights ─── */
+      --line-height-body:          10.0pt;
+      --line-height-title:         14.0pt;
+      --line-height-table-header:  1.15;
+
+      /* ─── Page Layout ─── */
+      --page-width:                595.6pt;
+      --page-height:               842.0pt;
+      --page-margin:               0;
+      --content-left:              35.5pt;
+      --content-width:             524.0pt;
+      --content-indent:            53.5pt;
+      --table-left:                30.1pt;
+
+      /* ─── Shadows ─── */
+      --page-shadow:               0 4px 12px rgba(0, 0, 0, 0.3);
+      --page-gap:                  20px;
+
+      /* ─── Table Tokens ─── */
+      --table-header-bg:           var(--color-primary);
+      --table-header-color:        var(--text-white);
+      --table-header-padding:      2px 4px;
+      --table-cell-bg:             transparent;
+      --table-cell-border:         var(--border-width) var(--border-style) var(--border-color);
+
+      /* ─── Blue Banner Tokens ─── */
+      --banner-blue-bg:            var(--color-primary);
+      --banner-blue-color:         var(--text-white);
+      --banner-blue-padding:       2px 6px;
+      --banner-blue-width:         var(--content-width);
+      --banner-blue-radius:        var(--border-radius-banner);
+
+      /* ─── Dark Banner Tokens ─── */
+      --banner-dark-bg:            var(--color-banner-dark);
+      --banner-dark-color:         var(--text-white);
+      --banner-dark-padding:       4px 0;
+      --banner-dark-width:         var(--content-width);
+      --banner-dark-align:         center;
+      --banner-dark-font-size:     var(--font-size-banner);
+      --banner-dark-font-weight:   bold;
+
+      /* ─── Design System Page Styling ─── */
+      --ds-bg:                     #0c111d;
+      --ds-surface:                #151b2b;
+      --ds-surface-2:              #1c2438;
+      --ds-surface-3:              #232d45;
+      --ds-border:                 #2a3553;
+      --ds-text:                   #e2e8f0;
+      --ds-text-muted:             #8892a8;
+      --ds-accent:                 #3b82f6;
+      --ds-radius:                 12px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       DESIGN SYSTEM PAGE STYLES
+       ═══════════════════════════════════════════════════════════════════ */
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--ds-bg);
+      color: var(--ds-text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Hero Header ─── */
+    .hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 40%, var(--color-primary) 100%);
+      padding: 4rem 2rem 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 70%, rgba(0,128,128,0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 30%, rgba(31,73,125,0.12) 0%, transparent 50%);
+      animation: heroGlow 15s ease-in-out infinite;
+    }
+    @keyframes heroGlow {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      50% { transform: translate(-2%, 2%) rotate(3deg); }
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(0,128,128,0.15);
+      border: 1px solid rgba(0,128,128,0.3);
+      color: var(--color-secondary);
+      padding: 0.35rem 1rem;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+    .hero h1 span { color: var(--color-secondary); }
+    .hero p {
+      font-size: 1.1rem;
+      color: #94a3b8;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ─── Navigation ─── */
+    .nav-bar {
+      background: var(--ds-surface);
+      border-bottom: 1px solid var(--ds-border);
+      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav-inner::-webkit-scrollbar { display: none; }
+    .nav-link {
+      padding: 0.85rem 1.2rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--ds-text-muted);
+      text-decoration: none;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s ease;
+    }
+    .nav-link:hover {
+      color: var(--ds-text);
+      border-bottom-color: var(--color-secondary);
+    }
+
+    /* ─── Main Content ─── */
+    .content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* ─── Section ─── */
+    .section {
+      margin-bottom: 3rem;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--ds-border);
+    }
+    .section-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .section-icon.blue { background: rgba(31,73,125,0.15); }
+    .section-icon.teal { background: rgba(0,128,128,0.15); }
+    .section-icon.orange { background: rgba(237,125,49,0.15); }
+    .section-icon.red { background: rgba(255,0,0,0.1); }
+    .section-icon.gray { background: rgba(100,116,139,0.15); }
+
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .section-subtitle {
+      font-size: 0.85rem;
+      color: var(--ds-text-muted);
+      margin-top: 0.15rem;
+    }
+
+    /* ─── Card ─── */
+    .card {
+      background: var(--ds-surface);
+      border: 1px solid var(--ds-border);
+      border-radius: var(--ds-radius);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      transition: border-color 0.2s ease;
+    }
+    .card:hover { border-color: rgba(0,128,128,0.3); }
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--ds-text);
+    }
+    .card-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ds-text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    /* ─── Grid ─── */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    .grid-auto { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+
+    @media (max-width: 768px) {
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 2rem; }
+    }
+
+    /* ─── Color Swatch ─── */
+    .swatch {
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--ds-surface-2);
+      border: 1px solid var(--ds-border);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .swatch:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+    .swatch-color {
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.02em;
+    }
+    .swatch-info {
+      padding: 0.75rem 1rem;
+    }
+    .swatch-name {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--ds-text);
+      margin-bottom: 0.2rem;
+    }
+    .swatch-hex {
+      font-size: 0.72rem;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      color: var(--ds-text-muted);
+    }
+    .swatch-usage {
+      font-size: 0.7rem;
+      color: var(--ds-text-muted);
+      margin-top: 0.3rem;
+      line-height: 1.4;
+    }
+
+    /* ─── Typography Specimen ─── */
+    .type-specimen {
+      padding: 1.25rem 1.5rem;
+      background: var(--ds-surface-2);
+      border-radius: 8px;
+      margin-bottom: 0.75rem;
+      border-left: 3px solid var(--color-secondary);
+    }
+    .type-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-secondary);
+      margin-bottom: 0.5rem;
+    }
+    .type-meta {
+      font-size: 0.72rem;
+      color: var(--ds-text-muted);
+      margin-top: 0.5rem;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+    }
+
+    /* ─── Component Preview (in a white box) ─── */
+    .preview-box {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 1.5rem;
+      position: relative;
+    }
+    .preview-label {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #94a3b8;
+      background: #f1f5f9;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    /* ─── Token Table ─── */
+    .token-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+    .token-table th {
+      text-align: left;
+      padding: 0.65rem 1rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ds-text-muted);
+      border-bottom: 1px solid var(--ds-border);
+      background: var(--ds-surface-2);
+    }
+    .token-table td {
+      padding: 0.65rem 1rem;
+      border-bottom: 1px solid rgba(42,53,83,0.4);
+      vertical-align: top;
+    }
+    .token-table tr:hover td { background: rgba(0,128,128,0.03); }
+    .token-table code {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 0.78rem;
+      color: var(--color-secondary);
+      background: rgba(0,128,128,0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* ─── Hierarchy Tree ─── */
+    .tree {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 0.82rem;
+      line-height: 1.8;
+      color: var(--ds-text-muted);
+      padding: 1.5rem;
+      background: var(--ds-surface-2);
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+    .tree .node { color: var(--ds-text); font-weight: 500; }
+    .tree .dynamic { color: var(--color-accent-orange); }
+    .tree .static { color: var(--color-secondary); }
+
+    /* ─── Placeholder Badge ─── */
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      border-radius: 4px;
+      line-height: 1.4;
+    }
+    .badge-dynamic { background: rgba(237,125,49,0.12); color: var(--color-accent-orange); border: 1px solid rgba(237,125,49,0.25); }
+    .badge-static { background: rgba(0,128,128,0.12); color: var(--color-secondary); border: 1px solid rgba(0,128,128,0.25); }
+    .badge-blue { background: rgba(31,73,125,0.12); color: #5b8bc9; border: 1px solid rgba(31,73,125,0.25); }
+
+    /* ─── Layout Preview ─── */
+    .layout-preview {
+      background: var(--ds-surface-2);
+      border-radius: 8px;
+      padding: 1rem;
+      display: flex;
+      justify-content: center;
+    }
+    .page-mini {
+      width: 200px;
+      height: 283px;
+      background: #ffffff;
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-mini .pm-header {
+      height: 55px;
+      background: linear-gradient(180deg, #e8eef5 0%, #f4f6f9 100%);
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      align-items: center;
+      padding: 6px 8px;
+      gap: 4px;
+    }
+    .page-mini .pm-logo {
+      width: 18px;
+      height: 18px;
+      background: var(--color-primary);
+      border-radius: 3px;
+    }
+    .page-mini .pm-info {
+      flex: 1;
+    }
+    .page-mini .pm-info-line {
+      height: 3px;
+      background: #ccc;
+      border-radius: 2px;
+      margin-bottom: 3px;
+    }
+    .page-mini .pm-info-line:nth-child(2) { width: 60%; }
+    .page-mini .pm-content { padding: 6px 8px; }
+    .page-mini .pm-title {
+      height: 5px;
+      width: 70%;
+      background: var(--color-secondary);
+      border-radius: 2px;
+      margin-bottom: 6px;
+    }
+    .page-mini .pm-banner-blue {
+      height: 8px;
+      background: var(--color-primary);
+      border-radius: 1px;
+      margin-bottom: 4px;
+    }
+    .page-mini .pm-banner-dark {
+      height: 10px;
+      background: var(--color-banner-dark);
+      border-radius: 1px;
+      margin-bottom: 4px;
+    }
+    .page-mini .pm-text-line {
+      height: 3px;
+      background: #e0e0e0;
+      border-radius: 2px;
+      margin-bottom: 3px;
+    }
+    .page-mini .pm-text-line:nth-child(even) { width: 85%; }
+    .page-mini .pm-table-header {
+      display: flex;
+      gap: 1px;
+      margin-bottom: 2px;
+    }
+    .page-mini .pm-th {
+      flex: 1;
+      height: 8px;
+      background: var(--color-primary);
+      border-radius: 1px;
+    }
+    .page-mini .pm-table-row {
+      display: flex;
+      gap: 1px;
+      margin-bottom: 1px;
+    }
+    .page-mini .pm-td {
+      flex: 1;
+      height: 6px;
+      border: 1px solid var(--color-primary);
+      border-radius: 1px;
+    }
+
+    /* ─── Dimension Annotation ─── */
+    .dim-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.5rem 0;
+    }
+    .dim-bar {
+      height: 8px;
+      background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+      border-radius: 4px;
+      position: relative;
+    }
+    .dim-label {
+      font-size: 0.78rem;
+      font-weight: 500;
+      white-space: nowrap;
+      min-width: 120px;
+    }
+    .dim-value {
+      font-size: 0.72rem;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      color: var(--color-secondary);
+      white-space: nowrap;
+    }
+
+    /* ─── CSS Code Block ─── */
+    .code-block {
+      background: var(--ds-surface-3);
+      border: 1px solid var(--ds-border);
+      border-radius: 8px;
+      padding: 1.25rem;
+      overflow-x: auto;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 0.78rem;
+      line-height: 1.7;
+      color: var(--ds-text-muted);
+    }
+    .code-block .kw { color: #c084fc; }
+    .code-block .prop { color: #67e8f9; }
+    .code-block .val { color: #86efac; }
+    .code-block .comment { color: #4b5f7a; font-style: italic; }
+
+    /* ─── Footer ─── */
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--ds-border);
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: var(--ds-text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════ HERO ═══════════════ -->
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">Design System v1.0</div>
+      <h1>Oncquest Lab Report<br><span>Design System</span></h1>
+      <p>Complete visual design tokens extracted from the laboratory report reference. A reusable system for rendering any future report with identical visual fidelity.</p>
+    </div>
+  </header>
+
+  <!-- ═══════════════ NAVIGATION ═══════════════ -->
+  <nav class="nav-bar">
+    <div class="nav-inner">
+      <a href="#colors" class="nav-link">Colors</a>
+      <a href="#typography" class="nav-link">Typography</a>
+      <a href="#layout" class="nav-link">Layout</a>
+      <a href="#components" class="nav-link">Components</a>
+      <a href="#tables" class="nav-link">Tables</a>
+      <a href="#hierarchy" class="nav-link">Hierarchy</a>
+      <a href="#variables" class="nav-link">CSS Variables</a>
+      <a href="#placeholders" class="nav-link">Placeholders</a>
+    </div>
+  </nav>
+
+  <main class="content">
+
+    <!-- ═══════════════ 1. COLOR PALETTE ═══════════════ -->
+    <section class="section" id="colors">
+      <div class="section-header">
+        <div class="section-icon blue">🎨</div>
+        <div>
+          <div class="section-title">Color Palette</div>
+          <div class="section-subtitle">7 unique colors extracted — primary blue, teal, orange, red, dark gray, and text shades</div>
+        </div>
+      </div>
+
+      <div class="card-label">Core Brand Colors</div>
+      <div class="grid-4" style="margin-bottom:1.5rem">
+        <div class="swatch">
+          <div class="swatch-color" style="background:#1f497d;color:#fff">#1f497d</div>
+          <div class="swatch-info">
+            <div class="swatch-name">Primary Blue</div>
+            <div class="swatch-hex">--color-primary</div>
+            <div class="swatch-usage">Table headers, blue banners, borders</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#008080;color:#fff">#008080</div>
+          <div class="swatch-info">
+            <div class="swatch-name">Secondary Teal</div>
+            <div class="swatch-hex">--color-secondary</div>
+            <div class="swatch-usage">Report title, section headings, appendix labels</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#ed7d31;color:#fff">#ed7d31</div>
+          <div class="swatch-info">
+            <div class="swatch-name">Accent Orange</div>
+            <div class="swatch-hex">--color-accent-orange</div>
+            <div class="swatch-usage">Gene variant name highlights</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#ff0000;color:#fff">#ff0000</div>
+          <div class="swatch-info">
+            <div class="swatch-name">Accent Red</div>
+            <div class="swatch-hex">--color-accent-red</div>
+            <div class="swatch-usage">VUS significance, critical notes</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-label">Background &amp; Surface Colors</div>
+      <div class="grid-4" style="margin-bottom:1.5rem">
+        <div class="swatch">
+          <div class="swatch-color" style="background:#ffffff;color:#333;border-bottom:1px solid #e0e0e0">#ffffff</div>
+          <div class="swatch-info">
+            <div class="swatch-name">Page White</div>
+            <div class="swatch-hex">--color-bg-page</div>
+            <div class="swatch-usage">PDF page background</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#525659;color:#fff">#525659</div>
+          <div class="swatch-info">
+            <div class="swatch-name">Container Gray</div>
+            <div class="swatch-hex">--color-bg-container</div>
+            <div class="swatch-usage">Browser viewing background</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#404040;color:#fff">#404040</div>
+          <div class="swatch-info">
+            <div class="swatch-name">Banner Dark</div>
+            <div class="swatch-hex">--color-banner-dark</div>
+            <div class="swatch-usage">Black banner section dividers</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:transparent;color:#666;border:2px dashed #ccc">transparent</div>
+          <div class="swatch-info">
+            <div class="swatch-name">Transparent</div>
+            <div class="swatch-hex">--table-cell-bg</div>
+            <div class="swatch-usage">Table grid cells, content boxes</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-label">Text Colors</div>
+      <div class="grid-4">
+        <div class="swatch">
+          <div class="swatch-color" style="background:#000000;color:#fff">#000000</div>
+          <div class="swatch-info"><div class="swatch-name">Primary Text</div><div class="swatch-hex">--text-primary</div></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#242729;color:#fff">#242729</div>
+          <div class="swatch-info"><div class="swatch-name">Secondary Text</div><div class="swatch-hex">--text-secondary</div></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#0d0d0d;color:#fff">#0d0d0d</div>
+          <div class="swatch-info"><div class="swatch-name">Dark Text</div><div class="swatch-hex">--text-dark</div></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#1f497d;color:#fff">white on blue</div>
+          <div class="swatch-info"><div class="swatch-name">White Text</div><div class="swatch-hex">--text-white → #ffffff</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 2. TYPOGRAPHY ═══════════════ -->
+    <section class="section" id="typography">
+      <div class="section-header">
+        <div class="section-icon teal">Aa</div>
+        <div>
+          <div class="section-title">Typography</div>
+          <div class="section-subtitle">Cambria serif as the primary family — 4 font sizes, 4 weight/style variants</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Heading Hierarchy</div>
+
+        <div class="type-specimen">
+          <div class="type-label">H1 — Report Title</div>
+          <div style="font-family:Cambria,serif;font-size:14pt;font-weight:bold;color:#008080;line-height:1.3">
+            Whole Exome Sequencing on the Illumina Novaseq X NGS Platform
+          </div>
+          <div class="type-meta">Cambria Bold · 14.0pt · color: #008080 · line-height: 14.0pt</div>
+        </div>
+
+        <div class="type-specimen" style="border-left-color:var(--color-banner-dark)">
+          <div class="type-label" style="color:var(--color-banner-dark)">H2 — Black Banner Section Divider</div>
+          <div style="background:#404040;color:#fff;font-family:Cambria,serif;font-size:13pt;font-weight:bold;text-align:center;padding:4px 0;border-radius:0;width:100%">
+            Variants of Uncertain Significance identified in relation to phenotype
+          </div>
+          <div class="type-meta">Cambria Bold · 13.0pt · color: #ffffff · bg: #404040 · text-align: center</div>
+        </div>
+
+        <div class="type-specimen" style="border-left-color:var(--color-primary)">
+          <div class="type-label" style="color:var(--color-primary)">H3 — Blue Section Banner</div>
+          <div style="background:#1f497d;color:#fff;font-family:Cambria,serif;font-size:10pt;padding:2px 6px;border-radius:2px;display:inline-block">
+            Clinical Indication:
+          </div>
+          <div class="type-meta">Cambria · 10.0pt · color: #ffffff · bg: #1f497d · padding: 2px 6px · border-radius: 2px</div>
+        </div>
+
+        <div class="type-specimen">
+          <div class="type-label">H4 — Teal Subsection Heading</div>
+          <div style="font-family:Cambria,serif;font-size:10pt;font-weight:bold;color:#008080">
+            Key Findings:
+          </div>
+          <div class="type-meta">Cambria Bold · 10.0pt · color: #008080</div>
+        </div>
+
+        <div class="type-specimen" style="border-left-color:var(--color-accent-orange)">
+          <div class="type-label" style="color:var(--color-accent-orange)">H5 — Gene Variant Highlight</div>
+          <div style="font-family:Cambria,serif;font-size:10pt;font-weight:bold;font-style:italic;color:#ed7d31">
+            KIF26A<span style="font-style:normal">:c.1326+2T&gt;A;</span>
+          </div>
+          <div class="type-meta">Cambria BoldItalic · 10.0pt · color: #ed7d31</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Body Text Styles</div>
+        <div class="grid-2">
+          <div>
+            <div class="type-specimen">
+              <div class="type-label">Body — Regular</div>
+              <div style="font-family:Cambria,serif;font-size:10pt;color:#000;background:#fff;padding:8px;border-radius:4px">
+                The submitted sample shows Heterozygous variant in Intron 6 of gene KIF26A.
+              </div>
+              <div class="type-meta">Cambria · 10.0pt · #000000 · line-height: 10.0pt</div>
+            </div>
+            <div class="type-specimen">
+              <div class="type-label">Body — Bold</div>
+              <div style="font-family:Cambria,serif;font-size:10pt;font-weight:bold;color:#000;background:#fff;padding:8px;border-radius:4px">
+                For questions about this report, please contact the Laboratory.
+              </div>
+              <div class="type-meta">Cambria Bold · 10.0pt · #000000</div>
+            </div>
+          </div>
+          <div>
+            <div class="type-specimen">
+              <div class="type-label">Body — Italic (Gene names, References)</div>
+              <div style="font-family:Cambria,serif;font-size:10pt;font-style:italic;color:#000;background:#fff;padding:8px;border-radius:4px">
+                Richards S, Aziz N, Bale S, et al. Standards and guidelines for the interpretation of sequence variants.
+              </div>
+              <div class="type-meta">Cambria Italic · 10.0pt · #000000</div>
+            </div>
+            <div class="type-specimen" style="border-left-color:var(--color-accent-red)">
+              <div class="type-label" style="color:var(--color-accent-red)">Warning Note (Red Italic)</div>
+              <div style="font-family:Cambria,serif;font-size:10pt;font-style:italic;color:#ff0000;background:#fff;padding:8px;border-radius:4px">
+                Note: The variant KIF26A:c.1326+2T&gt;A to be confirmed by sanger due to low depth.
+              </div>
+              <div class="type-meta">Cambria Italic · 10.0pt · #ff0000</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Font Families Used</div>
+        <table class="token-table">
+          <thead>
+            <tr><th>Token</th><th>Value</th><th>Usage</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>--font-primary</code></td><td style="font-family:Cambria,serif">Cambria, serif</td><td>All body text, tables, main content</td></tr>
+            <tr><td><code>--font-primary-bold</code></td><td style="font-family:Cambria,serif;font-weight:bold">Cambria, Bold, serif</td><td>Bold headings, section titles</td></tr>
+            <tr><td><code>--font-primary-italic</code></td><td style="font-family:Cambria,serif;font-style:italic">Cambria, Italic, serif</td><td>Gene names, references, footnotes</td></tr>
+            <tr><td><code>--font-table-header</code></td><td style="font-family:Cambria,'Times New Roman',serif;font-weight:bold">Cambria, 'Times New Roman', serif</td><td>Table header cells</td></tr>
+            <tr><td><code>--font-system</code></td><td style="font-family:system-ui,sans-serif">system-ui, -apple-system, ...</td><td>Browser/container body fallback</td></tr>
+            <tr><td><code>--font-symbol</code></td><td style="font-family:Symbol,sans-serif">Symbol, sans-serif</td><td>Bullet point characters (•)</td></tr>
+            <tr><td><code>--font-calibri</code></td><td style="font-family:Calibri,sans-serif">Calibri, sans-serif</td><td>End-of-report marker text</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Font Sizes</div>
+        <table class="token-table">
+          <thead>
+            <tr><th>Token</th><th>Value</th><th>Usage</th><th>Preview</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>--font-size-title</code></td><td>14.0pt</td><td>Report title</td>
+              <td style="font-family:Cambria,serif;font-size:14pt;font-weight:bold;color:#008080">Title</td>
+            </tr>
+            <tr>
+              <td><code>--font-size-banner</code></td><td>13.0pt</td><td>Black banner text</td>
+              <td style="font-family:Cambria,serif;font-size:13pt;font-weight:bold;color:var(--ds-text)">Banner</td>
+            </tr>
+            <tr>
+              <td><code>--font-size-body</code></td><td>10.0pt</td><td>All body text, table cells</td>
+              <td style="font-family:Cambria,serif;font-size:10pt">Body text</td>
+            </tr>
+            <tr>
+              <td><code>--font-size-table-header</code></td><td>9.5pt</td><td>Table column headers</td>
+              <td style="font-family:Cambria,serif;font-size:9.5pt;font-weight:bold">Table Header</td>
+            </tr>
+            <tr>
+              <td><code>--font-size-superscript</code></td><td>6.5pt</td><td>Footnote markers</td>
+              <td style="font-family:Cambria,serif;font-size:10pt">Text<sup style="font-size:6.5pt">#</sup></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 3. LAYOUT ═══════════════ -->
+    <section class="section" id="layout">
+      <div class="section-header">
+        <div class="section-icon gray">📐</div>
+        <div>
+          <div class="section-title">Layout &amp; Page Structure</div>
+          <div class="section-subtitle">A4 portrait pages with absolute positioning — every element placed precisely</div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Page Dimensions</div>
+          <div style="margin-bottom:1rem">
+            <div class="dim-row">
+              <div class="dim-label">Page Width</div>
+              <div class="dim-bar" style="width:100%"></div>
+              <div class="dim-value">595.6pt (A4)</div>
+            </div>
+            <div class="dim-row">
+              <div class="dim-label">Page Height</div>
+              <div class="dim-bar" style="width:100%;background:linear-gradient(90deg, var(--color-secondary), var(--color-primary))"></div>
+              <div class="dim-value">842.0pt (A4)</div>
+            </div>
+            <div class="dim-row">
+              <div class="dim-label">Content Width</div>
+              <div class="dim-bar" style="width:88%"></div>
+              <div class="dim-value">524.0pt</div>
+            </div>
+            <div class="dim-row">
+              <div class="dim-label">Content Left</div>
+              <div class="dim-bar" style="width:6%;background:var(--color-accent-orange)"></div>
+              <div class="dim-value">35.5pt</div>
+            </div>
+            <div class="dim-row">
+              <div class="dim-label">Indent Left</div>
+              <div class="dim-bar" style="width:9%;background:var(--color-accent-orange)"></div>
+              <div class="dim-value">53.5pt</div>
+            </div>
+            <div class="dim-row">
+              <div class="dim-label">Table Left</div>
+              <div class="dim-bar" style="width:5%;background:var(--color-accent-orange)"></div>
+              <div class="dim-value">30.1pt</div>
+            </div>
+          </div>
+          <table class="token-table">
+            <thead><tr><th>Property</th><th>Value</th></tr></thead>
+            <tbody>
+              <tr><td>Page margin</td><td><code>0</code></td></tr>
+              <tr><td>Box sizing</td><td><code>border-box</code></td></tr>
+              <tr><td>Positioning model</td><td><code>absolute</code> (all text)</td></tr>
+              <tr><td>Page gap</td><td><code>20px</code></td></tr>
+              <tr><td>Header region end</td><td><code>~205pt</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Page Preview</div>
+          <div class="layout-preview">
+            <div class="page-mini">
+              <div class="pm-header">
+                <div class="pm-logo"></div>
+                <div class="pm-info">
+                  <div class="pm-info-line" style="width:80%"></div>
+                  <div class="pm-info-line" style="width:50%"></div>
+                </div>
+              </div>
+              <div class="pm-content">
+                <div class="pm-title"></div>
+                <div class="pm-banner-blue"></div>
+                <div class="pm-text-line"></div>
+                <div class="pm-text-line" style="width:75%"></div>
+                <div style="height:4px"></div>
+                <div class="pm-banner-dark"></div>
+                <div style="height:3px"></div>
+                <div class="pm-table-header">
+                  <div class="pm-th"></div><div class="pm-th"></div><div class="pm-th"></div>
+                  <div class="pm-th"></div><div class="pm-th"></div><div class="pm-th"></div>
+                </div>
+                <div class="pm-table-row"><div class="pm-td"></div><div class="pm-td"></div><div class="pm-td"></div><div class="pm-td"></div><div class="pm-td"></div><div class="pm-td"></div></div>
+                <div class="pm-table-row"><div class="pm-td"></div><div class="pm-td"></div><div class="pm-td"></div><div class="pm-td"></div><div class="pm-td"></div><div class="pm-td"></div></div>
+                <div style="height:4px"></div>
+                <div class="pm-text-line" style="width:90%"></div>
+                <div class="pm-text-line" style="width:95%"></div>
+                <div style="height:3px"></div>
+                <div class="pm-banner-blue"></div>
+                <div class="pm-text-line"></div>
+                <div class="pm-text-line" style="width:80%"></div>
+                <div class="pm-text-line" style="width:88%"></div>
+                <div class="pm-text-line" style="width:65%"></div>
+              </div>
+            </div>
+          </div>
+          <div style="text-align:center;margin-top:0.75rem;font-size:0.72rem;color:var(--ds-text-muted)">
+            Miniature page layout preview · Not to scale
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 4. COMPONENTS ═══════════════ -->
+    <section class="section" id="components">
+      <div class="section-header">
+        <div class="section-icon blue">🧩</div>
+        <div>
+          <div class="section-title">Components</div>
+          <div class="section-subtitle">11 reusable components — live previews rendered with actual design tokens</div>
+        </div>
+      </div>
+
+      <!-- Blue Banner -->
+      <div class="card">
+        <div class="card-title">Blue Section Banner <span class="badge badge-static">Static Design</span></div>
+        <div class="preview-box" style="margin-bottom:1rem">
+          <div class="preview-label">Live Preview</div>
+          <div style="padding-top:16px">
+            <span style="background:#1f497d;color:#fff;font-family:Cambria,serif;font-size:10pt;padding:2px 6px;display:inline-block;width:100%;border-radius:2px">
+              Sample Description:
+            </span>
+            <div style="font-family:Cambria,serif;font-size:10pt;color:#000;padding:8px 0 0 0">
+              Sample quality is optimum for the test.
+            </div>
+          </div>
+        </div>
+        <table class="token-table">
+          <thead><tr><th>Property</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>Background</td><td><code>#1f497d</code></td></tr>
+            <tr><td>Text color</td><td><code>#ffffff</code></td></tr>
+            <tr><td>Padding</td><td><code>2px 6px</code></td></tr>
+            <tr><td>Width</td><td><code>524.0pt</code> (full content)</td></tr>
+            <tr><td>Border radius</td><td><code>2px</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Black Banner -->
+      <div class="card">
+        <div class="card-title">Black Banner (Section Divider) <span class="badge badge-static">Static Design</span></div>
+        <div class="preview-box" style="margin-bottom:1rem">
+          <div class="preview-label">Live Preview</div>
+          <div style="padding-top:16px">
+            <div style="background:#404040;color:#fff;font-family:Cambria,serif;font-size:13pt;font-weight:bold;text-align:center;padding:4px 0;width:100%">
+              Variants of Uncertain Significance identified in relation to phenotype
+            </div>
+          </div>
+        </div>
+        <table class="token-table">
+          <thead><tr><th>Property</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>Background</td><td><code>#404040</code></td></tr>
+            <tr><td>Font</td><td><code>Cambria, serif</code> · <code>13.0pt</code> · Bold</td></tr>
+            <tr><td>Text align</td><td><code>center</code></td></tr>
+            <tr><td>Padding</td><td><code>4px 0</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Table Header -->
+      <div class="card">
+        <div class="card-title">Table Header Cell <span class="badge badge-static">Static Design</span></div>
+        <div class="preview-box" style="margin-bottom:1rem">
+          <div class="preview-label">Live Preview</div>
+          <div style="display:flex;gap:1px;padding-top:16px">
+            <div style="background:#1f497d;color:#fff;font-family:Cambria,'Times New Roman',serif;font-size:9.5pt;font-weight:bold;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px 4px;border:1px solid #1f497d;flex:1;line-height:1.15">Gene &amp; Transcript</div>
+            <div style="background:#1f497d;color:#fff;font-family:Cambria,'Times New Roman',serif;font-size:9.5pt;font-weight:bold;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px 4px;border:1px solid #1f497d;flex:0.6;line-height:1.15">Location</div>
+            <div style="background:#1f497d;color:#fff;font-family:Cambria,'Times New Roman',serif;font-size:9.5pt;font-weight:bold;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px 4px;border:1px solid #1f497d;flex:1;line-height:1.15">Variant</div>
+            <div style="background:#1f497d;color:#fff;font-family:Cambria,'Times New Roman',serif;font-size:9.5pt;font-weight:bold;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px 4px;border:1px solid #1f497d;flex:0.85;line-height:1.15">Zygosity / Inheritance</div>
+            <div style="background:#1f497d;color:#fff;font-family:Cambria,'Times New Roman',serif;font-size:9.5pt;font-weight:bold;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px 4px;border:1px solid #1f497d;flex:1.1;line-height:1.15">Phenotype</div>
+            <div style="background:#1f497d;color:#fff;font-family:Cambria,'Times New Roman',serif;font-size:9.5pt;font-weight:bold;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px 4px;border:1px solid #1f497d;flex:0.9;line-height:1.15">Clinical Significance</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Table with Data -->
+      <div class="card">
+        <div class="card-title">Key Findings Table (Full Example) <span class="badge badge-dynamic">Dynamic Content</span></div>
+        <div class="preview-box" style="margin-bottom:1rem;overflow-x:auto">
+          <div class="preview-label">Live Preview</div>
+          <table style="width:100%;border-collapse:collapse;font-family:Cambria,serif;font-size:10pt;margin-top:16px" cellpadding="0" cellspacing="0">
+            <thead>
+              <tr>
+                <th style="background:#1f497d;color:#fff;font-family:Cambria,'Times New Roman',serif;font-size:9.5pt;font-weight:bold;padding:8px 4px;border:1px solid #1f497d;text-align:center;line-height:1.15">Gene &amp; Transcript</th>
+                <th style="background:#1f497d;color:#fff;font-family:Cambria,'Times New Roman',serif;font-size:9.5pt;font-weight:bold;padding:8px 4px;border:1px solid #1f497d;text-align:center;line-height:1.15">Location</th>
+                <th style="background:#1f497d;color:#fff;font-family:Cambria,'Times New Roman',serif;font-size:9.5pt;font-weight:bold;padding:8px 4px;border:1px solid #1f497d;text-align:center;line-height:1.15">Variant</th>
+                <th style="background:#1f497d;color:#fff;font-family:Cambria,'Times New Roman',serif;font-size:9.5pt;font-weight:bold;padding:8px 4px;border:1px solid #1f497d;text-align:center;line-height:1.15">Zygosity / Inheritance</th>
+                <th style="background:#1f497d;color:#fff;font-family:Cambria,'Times New Roman',serif;font-size:9.5pt;font-weight:bold;padding:8px 4px;border:1px solid #1f497d;text-align:center;line-height:1.15">Phenotype</th>
+                <th style="background:#1f497d;color:#fff;font-family:Cambria,'Times New Roman',serif;font-size:9.5pt;font-weight:bold;padding:8px 4px;border:1px solid #1f497d;text-align:center;line-height:1.15">Clinical Significance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="border:1px solid #1f497d;padding:6px 4px;vertical-align:top"><i style="color:#242729">KIF26A</i> (+)<br><span style="font-size:9pt;color:#242729">NM_015656.2</span></td>
+                <td style="border:1px solid #1f497d;padding:6px 4px;text-align:center;vertical-align:top">Intron 6</td>
+                <td style="border:1px solid #1f497d;padding:6px 4px;vertical-align:top">c.1326+2T&gt;A<br>(Splice donor variant)</td>
+                <td style="border:1px solid #1f497d;padding:6px 4px;text-align:center;vertical-align:top">Likely Compound<br>Heterozygous<br>/Autosomal Recessive</td>
+                <td style="border:1px solid #1f497d;padding:6px 4px;vertical-align:top">Cortical dysplasia, complex, with other brain malformations 11</td>
+                <td style="border:1px solid #1f497d;padding:6px 4px;vertical-align:top;color:#ff0000">Uncertain significance<sup style="font-size:6.5pt">#</sup><br>(PM2, PVS1)</td>
+              </tr>
+              <tr>
+                <td style="border:1px solid #1f497d;padding:6px 4px;vertical-align:top"><i style="color:#242729">KIF26A</i> (+)<br><span style="font-size:9pt;color:#242729">NM_015656.2</span></td>
+                <td style="border:1px solid #1f497d;padding:6px 4px;text-align:center;vertical-align:top">Exon 3</td>
+                <td style="border:1px solid #1f497d;padding:6px 4px;vertical-align:top">c.371G&gt;A<br>(p.Arg124His)</td>
+                <td style="border:1px solid #1f497d;padding:6px 4px;text-align:center;vertical-align:top">—</td>
+                <td style="border:1px solid #1f497d;padding:6px 4px;vertical-align:top">—</td>
+                <td style="border:1px solid #1f497d;padding:6px 4px;vertical-align:top;color:#ff0000">Uncertain significance<sup style="font-size:6.5pt">#</sup><br>(PM2)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Bullet List -->
+      <div class="card">
+        <div class="card-title">Bullet List Items <span class="badge badge-static">Static Design</span></div>
+        <div class="preview-box" style="margin-bottom:1rem">
+          <div class="preview-label">Live Preview</div>
+          <div style="padding-top:16px;font-family:Cambria,serif;font-size:10pt;color:#000">
+            <div style="padding-left:18pt;text-indent:-18pt;margin-bottom:4px">
+              <span style="font-family:Symbol,sans-serif">&#x2022;</span>&nbsp;&nbsp;
+              Genetic counseling is advised for interpretation on the consequences of the variant(s).
+            </div>
+            <div style="padding-left:18pt;text-indent:-18pt;margin-bottom:4px">
+              <span style="font-family:Symbol,sans-serif">&#x2022;</span>&nbsp;&nbsp;
+              We recommend confirming the presence of these variants by Sanger Sequencing / MLPA.
+            </div>
+            <div style="padding-left:18pt;text-indent:-18pt;margin-bottom:4px">
+              <span style="font-family:Symbol,sans-serif">&#x2022;</span>&nbsp;&nbsp;
+              <b>For questions about this report, please contact the Laboratory: contact@sngenelab.com.</b>
+            </div>
+          </div>
+        </div>
+        <table class="token-table">
+          <thead><tr><th>Property</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>Bullet char</td><td>• (Symbol font <code>&#38;#xf0b7;</code>)</td></tr>
+            <tr><td>Bullet left</td><td><code>35.4pt</code></td></tr>
+            <tr><td>Text left</td><td><code>53.4pt</code></td></tr>
+            <tr><td>Indent</td><td><code>18pt</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Section Content Box -->
+      <div class="card">
+        <div class="card-title">Section Content Box <span class="badge badge-static">Static Design</span></div>
+        <div class="preview-box" style="margin-bottom:1rem">
+          <div class="preview-label">Live Preview</div>
+          <div style="padding-top:16px">
+            <div style="border:1px solid #1f497d;padding:8px 10px;font-family:Cambria,serif;font-size:10pt;color:#000;background:transparent">
+              Sample quality is optimum for the test.
+            </div>
+          </div>
+        </div>
+        <table class="token-table">
+          <thead><tr><th>Property</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>Border</td><td><code>1px solid #1f497d</code></td></tr>
+            <tr><td>Background</td><td><code>transparent</code></td></tr>
+            <tr><td>Pointer events</td><td><code>none</code></td></tr>
+            <tr><td>Z-index</td><td><code>4</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- VUS / Warning Text -->
+      <div class="card">
+        <div class="card-title">Warning / VUS Text <span class="badge badge-dynamic">Dynamic Content</span></div>
+        <div class="preview-box" style="margin-bottom:1rem">
+          <div class="preview-label">Live Preview</div>
+          <div style="padding-top:16px">
+            <div style="font-family:Cambria,serif;font-size:10pt;color:#ff0000;margin-bottom:4px">
+              Uncertain significance<sup style="font-size:6.5pt">#</sup>
+            </div>
+            <div style="font-family:Cambria,serif;font-size:10pt;color:#ff0000">(PM2, PVS1)</div>
+            <div style="margin-top:12px;font-family:Cambria,serif;font-size:10pt;font-style:italic;color:#ff0000">
+              Note: The variant KIF26A:c.1326+2T&gt;A to be confirmed by sanger due to low depth of the variant.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- End of Report -->
+      <div class="card">
+        <div class="card-title">End of Report Marker <span class="badge badge-static">Static Design</span></div>
+        <div class="preview-box" style="margin-bottom:1rem">
+          <div class="preview-label">Live Preview</div>
+          <div style="padding-top:16px;text-align:center;font-family:Calibri,sans-serif;font-size:10pt;color:#000">
+            ------------------ End Of Report ------------------
+          </div>
+        </div>
+        <table class="token-table">
+          <thead><tr><th>Property</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>Font</td><td><code>Calibri, sans-serif</code> · <code>10.0pt</code></td></tr>
+            <tr><td>Color</td><td><code>#000000</code></td></tr>
+            <tr><td>Alignment</td><td>Centered</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 5. TABLES ═══════════════ -->
+    <section class="section" id="tables">
+      <div class="section-header">
+        <div class="section-icon blue">📊</div>
+        <div>
+          <div class="section-title">Table Types</div>
+          <div class="section-subtitle">5 distinct table layouts used across the report</div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Sample Data &amp; Statistics (2-col)</div>
+          <div class="preview-box" style="overflow-x:auto">
+            <table style="width:100%;border-collapse:collapse;font-family:Cambria,serif;font-size:10pt" cellpadding="0" cellspacing="0">
+              <thead>
+                <tr>
+                  <th style="background:#1f497d;color:#fff;font-size:10pt;font-weight:bold;padding:6px 8px;border:1px solid #1f497d;text-align:left">Title</th>
+                  <th style="background:#1f497d;color:#fff;font-size:10pt;font-weight:bold;padding:6px 8px;border:1px solid #1f497d;text-align:left">Data</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td style="border:1px solid #1f497d;padding:5px 8px">Total data generated (Gb)</td><td style="border:1px solid #1f497d;padding:5px 8px">{{value}}</td></tr>
+                <tr><td style="border:1px solid #1f497d;padding:5px 8px">Total Reads (%)</td><td style="border:1px solid #1f497d;padding:5px 8px">{{value}}</td></tr>
+                <tr><td style="border:1px solid #1f497d;padding:5px 8px">Total reads aligned (%)</td><td style="border:1px solid #1f497d;padding:5px 8px">{{value}}</td></tr>
+                <tr><td style="border:1px solid #1f497d;padding:5px 8px">Data &gt;Q30 (%)</td><td style="border:1px solid #1f497d;padding:5px 8px">{{value}}</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Gene Coverage Grid (6-col)</div>
+          <div class="preview-box" style="overflow-x:auto">
+            <table style="width:100%;border-collapse:collapse;font-family:Cambria,serif;font-size:10pt" cellpadding="0" cellspacing="0">
+              <thead>
+                <tr>
+                  <th style="background:#1f497d;color:#fff;font-size:9.5pt;font-weight:bold;padding:6px 4px;border:1px solid #1f497d;text-align:center" colspan="2">Column 1</th>
+                  <th style="background:#1f497d;color:#fff;font-size:9.5pt;font-weight:bold;padding:6px 4px;border:1px solid #1f497d;text-align:center" colspan="2">Column 2</th>
+                  <th style="background:#1f497d;color:#fff;font-size:9.5pt;font-weight:bold;padding:6px 4px;border:1px solid #1f497d;text-align:center" colspan="2">Column 3</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="border:1px solid #1f497d;padding:4px;font-style:italic">{{gene}}</td>
+                  <td style="border:1px solid #1f497d;padding:4px">{{%}}</td>
+                  <td style="border:1px solid #1f497d;padding:4px;font-style:italic">{{gene}}</td>
+                  <td style="border:1px solid #1f497d;padding:4px">{{%}}</td>
+                  <td style="border:1px solid #1f497d;padding:4px;font-style:italic">{{gene}}</td>
+                  <td style="border:1px solid #1f497d;padding:4px">{{%}}</td>
+                </tr>
+                <tr>
+                  <td style="border:1px solid #1f497d;padding:4px;font-style:italic">{{gene}}</td>
+                  <td style="border:1px solid #1f497d;padding:4px">{{%}}</td>
+                  <td style="border:1px solid #1f497d;padding:4px;font-style:italic">{{gene}}</td>
+                  <td style="border:1px solid #1f497d;padding:4px">{{%}}</td>
+                  <td style="border:1px solid #1f497d;padding:4px;font-style:italic">{{gene}}</td>
+                  <td style="border:1px solid #1f497d;padding:4px">{{%}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 6. PAGE HIERARCHY ═══════════════ -->
+    <section class="section" id="hierarchy">
+      <div class="section-header">
+        <div class="section-icon teal">🗂️</div>
+        <div>
+          <div class="section-title">Page Hierarchy</div>
+          <div class="section-subtitle">Full document structure — static design vs dynamic content</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="tree">
+<span class="node">📄 Page</span> (A4: 595.6pt × 842.0pt)
+ ├── <span class="static">🖼️ Header Image</span> — <span class="badge badge-dynamic">Dynamic</span> logo, patient info, page numbers
+ │    ├── Company Logo
+ │    ├── Lab Name &amp; Address
+ │    ├── Patient Info Box (Name, Age, Gender, Sample ID, Dates)
+ │    └── Page Number
+ │
+ ├── <span class="node">📝 Report Title</span> — <span class="badge badge-dynamic">Dynamic</span> <span style="color:#008080">teal bold 14pt</span>
+ │
+ ├── <span class="static">🔵 Blue Banner</span> "Clinical Indication:" — <span class="badge badge-static">Static Design</span>
+ │    └── <span class="dynamic">Content text</span> — <span class="badge badge-dynamic">Dynamic</span>
+ │
+ ├── <span class="static">🔵 Blue Banner</span> "Sample Description:" — <span class="badge badge-static">Static Design</span>
+ │    └── <span class="dynamic">Content text</span> — <span class="badge badge-dynamic">Dynamic</span>
+ │
+ ├── <span class="static">⬛ Black Banner</span> — <span class="badge badge-static">Static Design</span> <span class="badge badge-dynamic">Dynamic Text</span>
+ │
+ ├── <span class="node">📊 Key Findings Table</span> — <span class="badge badge-static">Static Design</span> <span class="badge badge-dynamic">Dynamic Rows</span>
+ │    ├── <span class="static">Header Row (6 blue cols)</span>
+ │    └── <span class="dynamic">Data Rows (variant data)</span>
+ │
+ ├── <span class="dynamic">📝 Footnotes / Notes</span> — <span class="badge badge-dynamic">Dynamic</span>
+ │
+ ├── <span class="static">🔵 Blue Banner</span> "Variant Interpretation" — <span class="badge badge-static">Static Design</span>
+ │    ├── <span class="dynamic">Gene variant header (orange)</span>
+ │    └── <span class="dynamic">Interpretation body text</span>
+ │
+ ├── <span class="static">🔵 Blue Banner</span> "Recommendations" — <span class="badge badge-static">Static Design</span>
+ │    └── <span class="dynamic">Bullet list items</span>
+ │
+ ├── <span class="static">🔵 Blue Banner</span> "Methodology:" — <span class="badge badge-static">Static Design</span>
+ │    └── <span class="dynamic">Bullet list items</span>
+ │
+ ├── <span class="static">🔵 Blue Banner</span> "Limitations/Disclaimer:" — <span class="badge badge-static">Static Design</span>
+ │    └── <span class="dynamic">Bullet list items</span>
+ │
+ ├── <span class="node">📊 ACMG Classification Table</span> — <span class="badge badge-static">Static</span>
+ │
+ ├── <span class="static">References</span> — <span class="badge badge-static">Static Design</span> <span class="badge badge-dynamic">Dynamic List</span>
+ │
+ ├── <span class="node">Appendix 1: Sample Data</span> — <span class="badge badge-dynamic">Dynamic Table</span>
+ ├── <span class="node">Appendix 2: Coverage Summary</span> — <span class="badge badge-dynamic">Dynamic Table</span>
+ ├── <span class="node">Appendix 3: MTDNA Genes</span> — <span class="badge badge-dynamic">Dynamic Grid</span>
+ ├── <span class="node">Appendix 4: Gene List</span> (34 pages) — <span class="badge badge-dynamic">Dynamic Grid</span>
+ │
+ └── <span class="static">🏁 End Of Report</span> — <span class="badge badge-static">Static</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 7. CSS VARIABLES ═══════════════ -->
+    <section class="section" id="variables">
+      <div class="section-header">
+        <div class="section-icon teal">💻</div>
+        <div>
+          <div class="section-title">CSS Variables</div>
+          <div class="section-subtitle">40+ custom properties — copy-paste ready for any stylesheet</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="code-block">
+<span class="kw">:root</span> {
+  <span class="comment">/* ─── Core Colors ─── */</span>
+  <span class="prop">--color-primary</span>:             <span class="val">#1f497d</span>;
+  <span class="prop">--color-secondary</span>:           <span class="val">#008080</span>;
+  <span class="prop">--color-accent-orange</span>:       <span class="val">#ed7d31</span>;
+  <span class="prop">--color-accent-red</span>:          <span class="val">#ff0000</span>;
+  <span class="prop">--color-banner-dark</span>:         <span class="val">#404040</span>;
+  <span class="prop">--color-bg-page</span>:             <span class="val">#ffffff</span>;
+  <span class="prop">--color-bg-container</span>:        <span class="val">#525659</span>;
+
+  <span class="comment">/* ─── Text Colors ─── */</span>
+  <span class="prop">--text-primary</span>:              <span class="val">#000000</span>;
+  <span class="prop">--text-secondary</span>:            <span class="val">#242729</span>;
+  <span class="prop">--text-dark</span>:                 <span class="val">#0d0d0d</span>;
+  <span class="prop">--text-white</span>:                <span class="val">#ffffff</span>;
+  <span class="prop">--text-teal</span>:                 <span class="val">#008080</span>;
+  <span class="prop">--text-orange</span>:               <span class="val">#ed7d31</span>;
+  <span class="prop">--text-red</span>:                  <span class="val">#ff0000</span>;
+
+  <span class="comment">/* ─── Typography ─── */</span>
+  <span class="prop">--font-primary</span>:              <span class="val">Cambria, serif</span>;
+  <span class="prop">--font-size-body</span>:            <span class="val">10.0pt</span>;
+  <span class="prop">--font-size-banner</span>:          <span class="val">13.0pt</span>;
+  <span class="prop">--font-size-title</span>:           <span class="val">14.0pt</span>;
+  <span class="prop">--font-size-table-header</span>:    <span class="val">9.5pt</span>;
+  <span class="prop">--line-height-body</span>:          <span class="val">10.0pt</span>;
+
+  <span class="comment">/* ─── Border ─── */</span>
+  <span class="prop">--border-color</span>:              <span class="val">#1f497d</span>;
+  <span class="prop">--border-radius-banner</span>:      <span class="val">2px</span>;
+
+  <span class="comment">/* ─── Page Layout ─── */</span>
+  <span class="prop">--page-width</span>:                <span class="val">595.6pt</span>;
+  <span class="prop">--page-height</span>:               <span class="val">842.0pt</span>;
+  <span class="prop">--content-width</span>:             <span class="val">524.0pt</span>;
+  <span class="prop">--content-left</span>:              <span class="val">35.5pt</span>;
+  <span class="prop">--content-indent</span>:            <span class="val">53.5pt</span>;
+
+  <span class="comment">/* ─── Shadows ─── */</span>
+  <span class="prop">--page-shadow</span>:               <span class="val">0 4px 12px rgba(0,0,0,0.3)</span>;
+}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 8. DYNAMIC PLACEHOLDERS ═══════════════ -->
+    <section class="section" id="placeholders">
+      <div class="section-header">
+        <div class="section-icon orange">🔄</div>
+        <div>
+          <div class="section-title">Dynamic Placeholders</div>
+          <div class="section-subtitle">30+ template variables — inject patient data, keep design fixed</div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Header / Patient Data</div>
+          <table class="token-table">
+            <thead><tr><th>Placeholder</th><th>Type</th></tr></thead>
+            <tbody>
+              <tr><td><code>{{patient_name}}</code></td><td><span class="badge badge-dynamic">Dynamic</span></td></tr>
+              <tr><td><code>{{patient_age}}</code></td><td><span class="badge badge-dynamic">Dynamic</span></td></tr>
+              <tr><td><code>{{patient_gender}}</code></td><td><span class="badge badge-dynamic">Dynamic</span></td></tr>
+              <tr><td><code>{{sample_id}}</code></td><td><span class="badge badge-dynamic">Dynamic</span></td></tr>
+              <tr><td><code>{{referring_doctor}}</code></td><td><span class="badge badge-dynamic">Dynamic</span></td></tr>
+              <tr><td><code>{{collection_date}}</code></td><td><span class="badge badge-dynamic">Dynamic</span></td></tr>
+              <tr><td><code>{{reporting_date}}</code></td><td><span class="badge badge-dynamic">Dynamic</span></td></tr>
+              <tr><td><code>{{lab_id}}</code></td><td><span class="badge badge-dynamic">Dynamic</span></td></tr>
+              <tr><td><code>{{page_number}}</code></td><td><span class="badge badge-dynamic">Dynamic</span></td></tr>
+              <tr><td><code>{{total_pages}}</code></td><td><span class="badge badge-dynamic">Dynamic</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Report Content</div>
+          <table class="token-table">
+            <thead><tr><th>Placeholder</th><th>Type</th></tr></thead>
+            <tbody>
+              <tr><td><code>{{report_title}}</code></td><td><span class="badge badge-dynamic">Dynamic</span></td></tr>
+              <tr><td><code>{{clinical_indication}}</code></td><td><span class="badge badge-dynamic">Dynamic</span></td></tr>
+              <tr><td><code>{{sample_description}}</code></td><td><span class="badge badge-dynamic">Dynamic</span></td></tr>
+              <tr><td><code>{{variants[]}}</code></td><td><span class="badge badge-dynamic">Dynamic Array</span></td></tr>
+              <tr><td><code>{{variant_interpretations[]}}</code></td><td><span class="badge badge-dynamic">Dynamic Array</span></td></tr>
+              <tr><td><code>{{recommendations[]}}</code></td><td><span class="badge badge-dynamic">Dynamic Array</span></td></tr>
+              <tr><td><code>{{references[]}}</code></td><td><span class="badge badge-dynamic">Dynamic Array</span></td></tr>
+              <tr><td><code>{{gene_list[]}}</code></td><td><span class="badge badge-dynamic">Dynamic Array</span></td></tr>
+              <tr><td><code>{{sample_statistics[]}}</code></td><td><span class="badge badge-dynamic">Dynamic Array</span></td></tr>
+              <tr><td><code>{{coverage_summary}}</code></td><td><span class="badge badge-dynamic">Dynamic Object</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:1rem">
+        <div class="card-title">Static vs Dynamic Summary</div>
+        <div class="grid-2">
+          <div>
+            <div class="card-label">Always Static (Design Only)</div>
+            <ul style="list-style:none;padding:0;margin:0;font-size:0.85rem;line-height:2">
+              <li><span class="badge badge-static">Static</span> Blue Section Banner styling (#1f497d)</li>
+              <li><span class="badge badge-static">Static</span> Black Banner styling (#404040)</li>
+              <li><span class="badge badge-static">Static</span> Table header colors &amp; fonts</li>
+              <li><span class="badge badge-static">Static</span> Table border color (#1f497d)</li>
+              <li><span class="badge badge-static">Static</span> A4 page dimensions</li>
+              <li><span class="badge badge-static">Static</span> Bullet point indent &amp; style</li>
+              <li><span class="badge badge-static">Static</span> Font family (Cambria)</li>
+              <li><span class="badge badge-static">Static</span> Color palette (all hex values)</li>
+              <li><span class="badge badge-static">Static</span> End of Report marker style</li>
+            </ul>
+          </div>
+          <div>
+            <div class="card-label">Always Dynamic (Content Only)</div>
+            <ul style="list-style:none;padding:0;margin:0;font-size:0.85rem;line-height:2">
+              <li><span class="badge badge-dynamic">Dynamic</span> Patient name, age, gender</li>
+              <li><span class="badge badge-dynamic">Dynamic</span> Sample ID, dates, lab ID</li>
+              <li><span class="badge badge-dynamic">Dynamic</span> Report title text</li>
+              <li><span class="badge badge-dynamic">Dynamic</span> Clinical indication text</li>
+              <li><span class="badge badge-dynamic">Dynamic</span> Variant table rows</li>
+              <li><span class="badge badge-dynamic">Dynamic</span> Interpretation paragraphs</li>
+              <li><span class="badge badge-dynamic">Dynamic</span> Footnotes &amp; warning notes</li>
+              <li><span class="badge badge-dynamic">Dynamic</span> Gene coverage grid data</li>
+              <li><span class="badge badge-dynamic">Dynamic</span> Sample statistics values</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <footer class="footer">
+    <p>Oncquest Lab Report Design System v1.0 · Extracted from <code>cleaned_target.html</code></p>
+    <p style="margin-top:0.3rem">This design system is content-agnostic. No patient values are hardcoded.</p>
+  </footer>
+
+</body>
+</html>
