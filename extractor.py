@@ -366,6 +366,19 @@ def extract_report_data(pdf_path: str) -> dict:
 
     logger.info(f"=== Universal Extraction Complete for {os.path.basename(pdf_path)} ===")
     logger.info(f"Extracted {len(all_kv_pairs)} KV pairs, {len(all_tables_list)} Tables, {len(all_images_list)} Images/Graphs across {len(pages_list)} Pages.")
+
+    # Automatically save JSON file into extracted_jsons/ directory
+    try:
+        json_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "extracted_jsons")
+        os.makedirs(json_dir, exist_ok=True)
+        pdf_stem = os.path.splitext(os.path.basename(pdf_path))[0]
+        json_save_path = os.path.join(json_dir, f"{pdf_stem}.json")
+        with open(json_save_path, "w", encoding="utf-8") as f_out:
+            json.dump(extracted_data, f_out, indent=2, ensure_ascii=False)
+        logger.info(f"Saved extracted JSON payload to: {json_save_path}")
+    except Exception as e_save:
+        logger.warning(f"Could not auto-save JSON to extracted_jsons/: {e_save}")
+
     return extracted_data
 
 

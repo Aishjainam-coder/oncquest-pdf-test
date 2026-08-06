@@ -39,7 +39,7 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
     text_color = theme_config.get("text_color", "#0d0d0d")
     border_color = theme_config.get("border_color", primary_color)
     font_family = theme_config.get("font_family", "Cambria, 'Times New Roman', serif")
-    banner_font_min_pt = theme_config.get("banner_font_size_pt", 12.5)
+    banner_font_min_pt = theme_config.get("banner_font_size_pt", 12.0)
 
     fallback_left = 35.5
     fallback_width = 524.0
@@ -57,14 +57,16 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
         ".pdf-container { display: flex; flex-direction: column; align-items: center; padding: 20px 0; }",
         f".pdf-page {{ background: {bg_page}; width: 595.6pt; min-height: 842.0pt; margin-bottom: 20px; position: relative; overflow: visible; box-shadow: 0 4px 12px rgba(0,0,0,0.3); page-break-after: always; font-family: {font_family}; }}",
         f"div[id^='page'] {{ position: relative !important; width: 595.6pt !important; min-height: 842.0pt !important; overflow: visible !important; }}",
-        f"div[id^='page'] p {{ position: absolute !important; margin: 0 !important; padding: 0 !important; white-space: normal !important; word-break: normal !important; overflow-wrap: break-word !important; max-width: 100% !important; z-index: 10 !important; font-family: {font_family} !important; line-height: 1.3 !important; overflow: visible !important; }}",
+        f"div[id^='page'] p {{ position: absolute !important; margin: 0 !important; padding: 0 !important; white-space: normal !important; word-break: normal !important; overflow-wrap: break-word !important; max-width: 100% !important; z-index: 10 !important; font-family: {font_family} !important; line-height: 1.2 !important; overflow: visible !important; }}",
         f"div[id^='page'] span {{ word-break: normal !important; overflow-wrap: break-word !important; }}",
-        f".black-banner-span {{ color: #ffffff !important; display: inline-block !important; text-align: center !important; padding: 4px 0 !important; font-weight: bold !important; font-size: 13.0pt !important; font-family: {font_family} !important; border-radius: 0px !important; white-space: nowrap !important; }}",
-        f".label-bar-span {{ color: #ffffff !important; display: inline-block !important; padding: 2px 6px !important; border-radius: 2px !important; font-family: {font_family} !important; word-break: break-word !important; }}",
-        f".table-header-cell {{ position: absolute; background-color: {primary_color} !important; color: #ffffff !important; font-family: {font_family} !important; font-size: 9.5pt !important; font-weight: bold !important; display: flex !important; align-items: center !important; justify-content: center !important; text-align: center !important; padding: 2px 4px !important; white-space: normal !important; word-break: break-word !important; overflow-wrap: break-word !important; line-height: 1.15 !important; border: 1px solid {border_color} !important; box-sizing: border-box !important; z-index: 15 !important; }}",
+        f".black-banner-span {{ color: #ffffff !important; display: block !important; width: 100% !important; text-align: center !important; padding: 4px 0 !important; line-height: 1.2 !important; font-weight: bold !important; font-size: 13.0pt !important; font-family: {font_family} !important; border-radius: 0px !important; white-space: normal !important; margin: 0 !important; background-color: #404040 !important; box-sizing: border-box !important; z-index: 15 !important; }}",
+        f".label-bar-span {{ color: #ffffff !important; display: inline-block !important; padding: 2px 6px !important; line-height: 1.2 !important; border-radius: 2px !important; font-family: {font_family} !important; word-break: break-word !important; margin: 0 !important; background-color: {primary_color} !important; z-index: 15 !important; }}",
+        f".table-header-cell {{ position: absolute; background-color: {primary_color} !important; color: #ffffff !important; font-family: {font_family} !important; font-size: 9.5pt !important; font-weight: bold !important; display: flex !important; align-items: center !important; justify-content: center !important; text-align: center !important; padding: 2px 4px !important; white-space: normal !important; word-break: break-word !important; overflow-wrap: break-word !important; line-height: 1.15 !important; border: 1px solid {border_color} !important; box-sizing: border-box !important; z-index: 15 !important; pointer-events: none !important; }}",
         "div[id^='page'] img { position: absolute !important; transform-origin: 0 0 !important; z-index: 5 !important; opacity: 1 !important; visibility: visible !important; display: inline-block !important; }",
-        f".table-grid-cell {{ position: absolute; border: 1px solid {border_color} !important; background: transparent; pointer-events: none; z-index: 4; }}",
-        f".section-content-box {{ position: absolute; border: 1px solid {border_color} !important; background: transparent; pointer-events: none; z-index: 4; border-radius: 3px; }}",
+        f".table-grid-cell {{ position: absolute; border: 1px solid {border_color} !important; background: transparent; pointer-events: none; z-index: 2 !important; }}",
+        f".vector-box {{ position: absolute; border: 1px solid {border_color} !important; background: transparent; pointer-events: none; z-index: 2 !important; border-radius: 2px; box-sizing: border-box !important; }}",
+        f".vector-fill-box {{ position: absolute; background-color: {primary_color} !important; pointer-events: none; z-index: 2 !important; border-radius: 2px; box-sizing: border-box !important; }}",
+        f".section-content-box {{ position: absolute; border: 1px solid {border_color} !important; background: transparent; pointer-events: none; z-index: 2 !important; border-radius: 3px; }}",
         "@media print { body { background-color: #ffffff; } .pdf-container { padding: 0; } .pdf-page { margin: 0; box-shadow: none; } }",
         "</style>",
         "</head>",
@@ -77,12 +79,11 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
         page_left_val, page_width_val = _get_page_bounds(page, fallback_left, fallback_width)
         page_left_str = f"{page_left_val:.1f}pt"
         page_width_str = f"{page_width_val:.1f}pt"
-        page_right_val = page_left_val + page_width_val
 
         html_parts.append("<div class='pdf-page'>")
         page_html = page.get_text("html")
 
-        # Extract PyMuPDF table headers & grid coordinates for exact alignment
+        # 1. Extract PyMuPDF table headers & grid coordinates
         tabs = page.find_tables()
         table_header_html_divs = []
         table_grid_html_divs = []
@@ -97,7 +98,7 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
                 if len(header_cells) >= 2:
                     hy0 = min(c[1] for c in header_cells)
                     hy1 = max(c[3] for c in header_cells)
-                    header_y_ranges.append((hy0 - 1.0, hy1 + 1.0))
+                    header_y_ranges.append((hy0 - 3.0, hy1 + 3.0))
 
                     for c in header_cells:
                         x0, y0, x1, y1 = c
@@ -128,122 +129,145 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
                         f"width:{cw:.1f}pt;height:{ch:.1f}pt;'></div>"
                     )
 
+        # 2. Extract Vector Drawings for Exact Section Boxes and Banners
+        vector_html_divs = []
+        try:
+            drawings = page.get_drawings()
+            for d in drawings:
+                rect = d.get('rect')
+                if not rect or rect.width < 40 or rect.height < 6:
+                    continue
+                # Skip full-page background bounding boxes
+                if rect.width > 550 and rect.height > 800:
+                    continue
+                rx0, ry0, rx1, ry1 = rect.x0, rect.y0, rect.x1, rect.y1
+                rw, rh = rx1 - rx0, ry1 - ry0
+                
+                # Check if this rect is already covered by a table header or cell
+                if any(abs(ry0 - hy0_r) < 5.0 for hy0_r, _ in header_y_ranges):
+                    continue
+
+                fill_col = d.get('fill')
+                stroke_col = d.get('color')
+
+                if fill_col:
+                    # Dark blue/teal or gray banner fill
+                    if fill_col[0] < 0.3 and fill_col[1] > 0.4:  # Teal/Blue fill
+                        vector_html_divs.append(
+                            f"<div class='vector-fill-box' style='left:{rx0:.1f}pt;top:{ry0:.1f}pt;width:{rw:.1f}pt;height:{rh:.1f}pt;background-color:{primary_color};'></div>"
+                        )
+                    elif fill_col[0] < 0.3 and fill_col[1] < 0.3 and fill_col[2] < 0.3: # Dark gray fill
+                        vector_html_divs.append(
+                            f"<div class='vector-fill-box' style='left:{rx0:.1f}pt;top:{ry0:.1f}pt;width:{rw:.1f}pt;height:{rh:.1f}pt;background-color:#404040;'></div>"
+                        )
+                elif stroke_col and d.get('width', 0) > 0.3:
+                    vector_html_divs.append(
+                        f"<div class='vector-box' style='left:{rx0:.1f}pt;top:{ry0:.1f}pt;width:{rw:.1f}pt;height:{rh:.1f}pt;'></div>"
+                    )
+        except Exception:
+            pass
+
+        # 3. Clean raw HTML & suppress raw <p> tags inside table headers
         cleaned = page_html
+        cleaned = re.sub(r'<img\s+[^>]*>', '', cleaned)
         cleaned = re.sub(r'font-family:[^;"]+', f'font-family: {font_family}', cleaned)
 
-        # Image matrix positioning fit
-        def fit_page_imgs(page_html_str):
-            img_matches = list(re.finditer(r'<img\s+([^>]*style=["\']([^"\']+)["\'][^>]*)>', page_html_str))
-            if not img_matches:
-                return page_html_str
+        # HIDE raw <p> tags that fall inside table header Y ranges so raw text doesn't collide with table headers
+        def filter_header_p(match):
+            p_tag = match.group(0)
+            top_m = re.search(r'top:\s*([\d.]+)pt', p_tag)
+            if top_m:
+                y_val = float(top_m.group(1))
+                if any(hy0_r <= y_val <= hy1_r for hy0_r, hy1_r in header_y_ranges):
+                    # Hide text content of raw table header <p> tag
+                    return re.sub(r'>([^<]+)<', '><', p_tag)
+            return p_tag
 
-            img_infos = []
-            for m in img_matches:
-                full_tag = m.group(0)
-                style_str = m.group(2)
-                src_m = re.search(r'src=["\']data:image/png;base64,([^"\']+)["\']', full_tag)
-                b64_data = src_m.group(1) if src_m else None
+        cleaned = re.sub(r'<p\s+[^>]*>.*?</p>', filter_header_p, cleaned, flags=re.DOTALL)
 
-                pw, ph = 0, 0
-                if b64_data:
-                    try:
-                        im = Image.open(io.BytesIO(base64.b64decode(b64_data)))
-                        pw, ph = im.size
-                    except Exception:
-                        pass
-
-                matrix_m = re.search(r'matrix\(([^)]+)\)', style_str)
-                if matrix_m:
-                    parts = [float(x.strip()) for x in matrix_m.group(1).split(',')]
-                    sx, sy, tx, ty = parts[0], parts[3], parts[4], parts[5]
-                else:
-                    sx, sy, tx, ty = 1.0, 1.0, page_left_val, 0.0
-
-                img_infos.append({
-                    'tag': full_tag, 'style': style_str,
-                    'pw': pw, 'ph': ph,
-                    'sx': sx, 'sy': sy, 'tx': tx, 'ty': ty
-                })
-
-            valid_imgs = [info for info in img_infos if (-100 <= info['tx'] <= 595.6)]
-            for info in img_infos:
-                if info not in valid_imgs:
-                    page_html_str = page_html_str.replace(info['tag'], '')
-
-            for info in valid_imgs:
-                new_tx = max(page_left_val, info['tx']) if info['tx'] < page_left_val else info['tx']
-                pw = info['pw'] if info['pw'] > 0 else 500
-                rw = pw * info['sx']
-                new_sx = info['sx']
-                new_sy = info['sy']
-                if new_tx + rw > page_right_val:
-                    avail_w = page_right_val - new_tx
-                    new_sx = avail_w / pw
-                    new_sy = new_sx
-                if new_tx != info['tx'] or new_sx != info['sx']:
-                    new_matrix = f"matrix({new_sx:.6f},0,0,{new_sy:.6f},{new_tx:.2f},{info['ty']:.2f})"
-                    new_style = re.sub(r'matrix\([^)]+\)', new_matrix, info['style'])
-                    new_tag = info['tag'].replace(info['style'], new_style)
-                    page_html_str = page_html_str.replace(info['tag'], new_tag)
-
-            return page_html_str
-
-        cleaned = fit_page_imgs(cleaned)
-
-        # Headings format
+        # 4. Format Black Banners & Blue Section Label Bars
         def format_heading_p(match):
             p_tag = match.group(0)
+            is_white_text = bool(re.search(r'color:\s*(?:#ffffff|#fff|rgb\(\s*255\s*,\s*255\s*,\s*255\s*\))', p_tag, re.IGNORECASE))
             size_m = re.search(r'font-size:\s*([\d.]+)pt', p_tag)
-            is_banner_size = bool(size_m) and float(size_m.group(1)) >= banner_font_min_pt
-            if "color:#ffffff" in p_tag and is_banner_size:
-                top_m = re.search(r'top:([\d\.]+)pt', p_tag)
-                top_val = top_m.group(1) if top_m else "100.0"
+            font_sz = float(size_m.group(1)) if size_m else 10.0
+            
+            top_m = re.search(r'top:\s*([\d.]+)pt', p_tag)
+            top_val = top_m.group(1) if top_m else "100.0"
+
+            # Check if this is a full-width Black Banner (high font size or bold title with white text on dark)
+            if is_white_text and font_sz >= 12.0:
                 text_val = re.sub(r'<[^>]+>', '', p_tag).strip()
-                return (
-                    f'<p style="top:{top_val}pt;left:{page_left_str};'
-                    f'width:{page_width_str};margin:0;padding:0;z-index:12;">'
-                    f'<span class="black-banner-span" '
-                    f'style="width:{page_width_str};background-color:#404040;">'
-                    f'{text_val}</span></p>'
-                )
+                if len(text_val) > 15:
+                    return (
+                        f'<p style="top:{top_val}pt;left:{page_left_str};'
+                        f'width:{page_width_str};margin:0;padding:0;z-index:15;">'
+                        f'<span class="black-banner-span" '
+                        f'style="width:{page_width_str};background-color:#404040;">'
+                        f'{text_val}</span></p>'
+                    )
             return p_tag
 
         cleaned = re.sub(r'<p\s+[^>]*>.*?</p>', format_heading_p, cleaned, flags=re.DOTALL)
 
-        # Label bars format
         def format_labelbar_p(match):
             p_tag = match.group(0)
-            if ("color:#ffffff" in p_tag and "black-banner-span" not in p_tag and "table-header-cell" not in p_tag):
-                top_m = re.search(r'top:([\d\.]+)pt', p_tag)
-                if top_m:
-                    p_tag_mod = re.sub(r'left:[\d\.]+pt', f'left:{page_left_str}', p_tag)
-                    if 'left:' not in p_tag:
-                        p_tag_mod = p_tag_mod.replace('style="', f'style="left:{page_left_str};')
-                    p_tag_mod = re.sub(r'width:[\d\.]+pt', f'width:{page_width_str}', p_tag_mod)
-
-                    def fix_span(sm):
-                        span = sm.group(0)
+            is_white_text = bool(re.search(r'color:\s*(?:#ffffff|#fff|rgb\(\s*255\s*,\s*255\s*,\s*255\s*\))', p_tag, re.IGNORECASE))
+            if is_white_text and "black-banner-span" not in p_tag and "background-color:#404040" not in p_tag and "table-header-cell" not in p_tag:
+                def fix_span(sm):
+                    span = sm.group(0)
+                    if 'background-color' not in span:
+                        span = span.replace('style="', f'style="background-color:{primary_color};')
+                    else:
                         span = re.sub(r'background-color:\s*[^;"]+', f'background-color:{primary_color}', span)
-                        if 'background-color' not in span:
-                            span = span.replace('style="', f'style="background-color:{primary_color};')
-                        span = re.sub(r'width:\s*[^;"]+', f'width:{page_width_str}', span)
-                        if 'width:' not in span:
-                            span = span.replace('style="', f'style="width:{page_width_str};')
-                        if 'display:' not in span:
-                            span = span.replace('style="', 'style="display:inline-block;')
-                        return span
-
-                    return re.sub(r'<span\s+[^>]*>.*?</span>', fix_span, p_tag_mod, flags=re.DOTALL)
+                    if 'display:' not in span:
+                        span = span.replace('style="', 'style="display:inline-block;padding:2px 6px;border-radius:2px;')
+                    return span
+                return re.sub(r'<span\s+[^>]*>.*?</span>', fix_span, p_tag, flags=re.DOTALL)
             return p_tag
 
         cleaned = re.sub(r'<p\s+[^>]*>.*?</p>', format_labelbar_p, cleaned, flags=re.DOTALL)
 
+        # 5. Extract exact images
+        exact_image_html_divs = []
+        try:
+            img_infos = page.get_image_info(xrefs=True)
+            for info in img_infos:
+                xref = info.get("xref")
+                bbox = info.get("bbox")
+                if not xref or not bbox:
+                    continue
+                x0, y0, x1, y1 = bbox
+                w_pt = max(1.0, x1 - x0)
+                h_pt = max(1.0, y1 - y0)
+                try:
+                    base_img = doc.extract_image(xref)
+                    if not base_img:
+                        continue
+                    img_bytes = base_img.get("image")
+                    img_ext = base_img.get("ext", "png").lower()
+                    b64_str = base64.b64encode(img_bytes).decode("utf-8")
+                    img_tag = (
+                        f'<img src="data:image/{img_ext};base64,{b64_str}" '
+                        f'style="position:absolute !important; left:{x0:.1f}pt !important; '
+                        f'top:{y0:.1f}pt !important; width:{w_pt:.1f}pt !important; '
+                        f'height:{h_pt:.1f}pt !important; z-index:5 !important; '
+                        f'object-fit:contain !important;" />'
+                    )
+                    exact_image_html_divs.append(img_tag)
+                except Exception:
+                    pass
+        except Exception:
+            pass
+
         section_overlays = get_page_section_overlays(page, page_left_str, page_width_str)
 
         html_parts.append(cleaned)
+        html_parts.extend(vector_html_divs)
         html_parts.extend(section_overlays)
         html_parts.extend(table_header_html_divs)
         html_parts.extend(table_grid_html_divs)
+        html_parts.extend(exact_image_html_divs)
         html_parts.append("</div>")
 
     html_parts.append("</div></body></html>")
@@ -513,11 +537,37 @@ body {{ margin: 0; padding: 0; background-color: #f1f5f9; font-family: {font_fam
     return html_content
 
 
+def _set_cell_background(cell, hex_color: str):
+    """Utility to set XML background shading of a python-docx table cell."""
+    from docx.oxml import parse_xml
+    from docx.oxml.ns import nsdecls
+    hex_clean = hex_color.lstrip("#")
+    shd = parse_xml(f'<w:shd {nsdecls("w")} w:fill="{hex_clean}"/>')
+    cell._tc.get_or_add_tcPr().append(shd)
+
+
+def _set_cell_borders(cell, border_color: str = "CBD5E1", border_size: str = "4"):
+    """Utility to set XML cell borders of a python-docx table cell."""
+    from docx.oxml import parse_xml
+    from docx.oxml.ns import nsdecls
+    hex_clean = border_color.lstrip("#")
+    tcPr = cell._tc.get_or_add_tcPr()
+    borders = parse_xml(
+        f'<w:tcBorders {nsdecls("w")}>'
+        f'<w:top w:val="single" w:sz="{border_size}" w:space="0" w:color="{hex_clean}"/>'
+        f'<w:left w:val="single" w:sz="{border_size}" w:space="0" w:color="{hex_clean}"/>'
+        f'<w:bottom w:val="single" w:sz="{border_size}" w:space="0" w:color="{hex_clean}"/>'
+        f'<w:right w:val="single" w:sz="{border_size}" w:space="0" w:color="{hex_clean}"/>'
+        f'</w:tcBorders>'
+    )
+    tcPr.append(borders)
+
+
 def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict = None):
     """
     Converts extracted JSON document data into a beautifully formatted Microsoft Word (.docx) file.
-    Renders styled headers, metadata key-value tables, content sections with colored left callout borders,
-    formatted data tables with colored header rows, images, and signature blocks.
+    Renders styled headers, metadata key-value tables, content sections with colored callouts,
+    formatted data tables with colored header rows and cell borders, images, and signature blocks.
     Returns bytes of the Word file, or writes to output_path if provided.
     """
     from docx import Document
@@ -533,11 +583,12 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
         p_r, p_g, p_b = int(primary_hex[0:2], 16), int(primary_hex[2:4], 16), int(primary_hex[4:6], 16)
     else:
         p_r, p_g, p_b = 31, 73, 125
+        primary_hex = "1F497D"
     primary_color_rgb = RGBColor(p_r, p_g, p_b)
 
     doc = Document()
-    
-    # 0.75 in margins
+
+    # Set 0.75 in margins
     for section in doc.sections:
         section.top_margin = Inches(0.75)
         section.bottom_margin = Inches(0.75)
@@ -553,27 +604,28 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
     p_title = doc.add_paragraph()
     run_title = p_title.add_run(header_title)
     run_title.font.name = 'Arial'
-    run_title.font.size = Pt(20)
+    run_title.font.size = Pt(18)
     run_title.font.bold = True
     run_title.font.color.rgb = primary_color_rgb
+    p_title.paragraph_format.space_after = Pt(2)
 
     p_sub = doc.add_paragraph()
     run_sub = p_sub.add_run(header_subtitle)
     run_sub.font.name = 'Arial'
-    run_sub.font.size = Pt(10)
+    run_sub.font.size = Pt(9.5)
     run_sub.font.color.rgb = RGBColor(100, 116, 139)
-
-    doc.add_paragraph()
+    p_sub.paragraph_format.space_after = Pt(12)
 
     # 1. Metadata Key-Value Table
     kv = data.get("all_key_value_pairs") or data.get("extracted_key_value_pairs") or {}
     if kv:
         p_kv_heading = doc.add_paragraph()
-        run_kvh = p_kv_heading.add_run("Header Metadata & Information")
+        run_kvh = p_kv_heading.add_run("📋 Header Metadata & Key Information")
         run_kvh.font.name = 'Arial'
-        run_kvh.font.size = Pt(12)
+        run_kvh.font.size = Pt(11)
         run_kvh.font.bold = True
         run_kvh.font.color.rgb = primary_color_rgb
+        p_kv_heading.paragraph_format.space_after = Pt(4)
 
         kv_items = list(kv.items())
         table_rows = (len(kv_items) + 1) // 2
@@ -595,16 +647,22 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
 
             for col_idx in [0, 2]:
                 cell = row.cells[col_idx]
+                _set_cell_background(cell, "F1F5F9")
+                _set_cell_borders(cell, border_color="CBD5E1")
                 if cell.paragraphs[0].runs:
                     cell.paragraphs[0].runs[0].font.bold = True
-                    cell.paragraphs[0].runs[0].font.size = Pt(9.5)
+                    cell.paragraphs[0].runs[0].font.size = Pt(9.0)
+                    cell.paragraphs[0].runs[0].font.name = 'Arial'
                     cell.paragraphs[0].runs[0].font.color.rgb = primary_color_rgb
             for col_idx in [1, 3]:
                 cell = row.cells[col_idx]
+                _set_cell_background(cell, "FFFFFF")
+                _set_cell_borders(cell, border_color="CBD5E1")
                 if cell.paragraphs[0].runs:
-                    cell.paragraphs[0].runs[0].font.size = Pt(9.5)
+                    cell.paragraphs[0].runs[0].font.size = Pt(9.0)
+                    cell.paragraphs[0].runs[0].font.name = 'Arial'
 
-        doc.add_paragraph()
+        doc.add_paragraph().paragraph_format.space_after = Pt(8)
 
     # 2. Content Sections
     sections = data.get("all_boxes_and_sections") or data.get("content_sections") or []
@@ -626,19 +684,23 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
 
             if title:
                 p_sec = doc.add_paragraph()
-                r_sec = p_sec.add_run(title)
+                r_sec = p_sec.add_run(f"📌 {title}")
                 r_sec.font.name = 'Arial'
-                r_sec.font.size = Pt(12)
+                r_sec.font.size = Pt(11)
                 r_sec.font.bold = True
                 r_sec.font.color.rgb = primary_color_rgb
+                p_sec.paragraph_format.space_before = Pt(8)
+                p_sec.paragraph_format.space_after = Pt(4)
 
             for line in body_lines:
                 p_body = doc.add_paragraph()
                 r_body = p_body.add_run(line)
                 r_body.font.name = 'Arial'
-                r_body.font.size = Pt(10)
+                r_body.font.size = Pt(9.5)
                 p_body.paragraph_format.line_spacing = 1.15
-                p_body.paragraph_format.space_after = Pt(4)
+                p_body.paragraph_format.space_after = Pt(3)
+
+        doc.add_paragraph().paragraph_format.space_after = Pt(8)
 
     # 3. Data Tables
     tables = data.get("all_tables") or data.get("tables") or []
@@ -652,17 +714,20 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
                 continue
 
             p_tbl = doc.add_paragraph()
-            r_tbl = p_tbl.add_run(f"Table {t_idx + 1} (Page {page_n})")
+            r_tbl = p_tbl.add_run(f"📊 Table {t_idx + 1} (Page {page_n})")
             r_tbl.font.name = 'Arial'
             r_tbl.font.size = Pt(11)
             r_tbl.font.bold = True
             r_tbl.font.color.rgb = primary_color_rgb
+            p_tbl.paragraph_format.space_before = Pt(8)
+            p_tbl.paragraph_format.space_after = Pt(4)
 
             total_rows = (1 if headers else 0) + len(rows)
             num_cols = max(len(headers), max((len(r) for r in rows), default=1))
-            
+
             docx_table = doc.add_table(rows=total_rows, cols=num_cols)
             docx_table.alignment = WD_TABLE_ALIGNMENT.CENTER
+            docx_table.autofit = False
 
             curr_r = 0
             if headers:
@@ -670,23 +735,62 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
                 for c_i, h in enumerate(headers):
                     if c_i < len(hdr_cells):
                         hdr_cells[c_i].text = str(h)
+                        _set_cell_background(hdr_cells[c_i], primary_hex)
+                        _set_cell_borders(hdr_cells[c_i], border_color=primary_hex)
                         if hdr_cells[c_i].paragraphs[0].runs:
                             hdr_cells[c_i].paragraphs[0].runs[0].font.bold = True
                             hdr_cells[c_i].paragraphs[0].runs[0].font.size = Pt(9.5)
-                            hdr_cells[c_i].paragraphs[0].runs[0].font.color.rgb = primary_color_rgb
+                            hdr_cells[c_i].paragraphs[0].runs[0].font.name = 'Arial'
+                            hdr_cells[c_i].paragraphs[0].runs[0].font.color.rgb = RGBColor(255, 255, 255)
                 curr_r += 1
 
-            for r in rows:
+            for r_idx, r in enumerate(rows):
                 if curr_r < total_rows:
                     row_cells = docx_table.rows[curr_r].cells
+                    bg_color = "F8FAFC" if (r_idx % 2 == 1) else "FFFFFF"
                     for c_i, cell_v in enumerate(r):
                         if c_i < len(row_cells):
                             row_cells[c_i].text = str(cell_v)
+                            _set_cell_background(row_cells[c_i], bg_color)
+                            _set_cell_borders(row_cells[c_i], border_color="CBD5E1")
                             if row_cells[c_i].paragraphs[0].runs:
                                 row_cells[c_i].paragraphs[0].runs[0].font.size = Pt(9.0)
+                                row_cells[c_i].paragraphs[0].runs[0].font.name = 'Arial'
                     curr_r += 1
 
-            doc.add_paragraph()
+            p_sp = doc.add_paragraph()
+            p_sp.paragraph_format.space_after = Pt(8)
+
+    # 4. Footer / Signatures
+    show_footer_signatures = theme_config.get("show_footer_signatures", True)
+    if show_footer_signatures:
+        p_sig_head = doc.add_paragraph()
+        p_sig_head.paragraph_format.space_before = Pt(16)
+        
+        sig_labels = theme_config.get("footer_signature_labels", ["Prepared / Verified By", "Reviewing Officer", "Authorized Signatory"])
+        sig_table = doc.add_table(rows=2, cols=len(sig_labels))
+        sig_table.alignment = WD_TABLE_ALIGNMENT.CENTER
+        sig_table.autofit = False
+
+        for c_idx, label in enumerate(sig_labels):
+            cell_top = sig_table.rows[0].cells[c_idx]
+            cell_top.text = "_______________________\n(Signature / Stamp)"
+            _set_cell_borders(cell_top, border_color="FFFFFF")
+            if cell_top.paragraphs[0].runs:
+                cell_top.paragraphs[0].runs[0].font.size = Pt(8.5)
+                cell_top.paragraphs[0].runs[0].font.name = 'Arial'
+                cell_top.paragraphs[0].runs[0].font.color.rgb = RGBColor(148, 163, 184)
+            cell_top.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+
+            cell_bot = sig_table.rows[1].cells[c_idx]
+            cell_bot.text = label
+            _set_cell_borders(cell_bot, border_color="FFFFFF")
+            if cell_bot.paragraphs[0].runs:
+                cell_bot.paragraphs[0].runs[0].font.bold = True
+                cell_bot.paragraphs[0].runs[0].font.size = Pt(9.0)
+                cell_bot.paragraphs[0].runs[0].font.name = 'Arial'
+                cell_bot.paragraphs[0].runs[0].font.color.rgb = primary_color_rgb
+            cell_bot.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
 
     if output_path:
         out_p = Path(output_path)
@@ -697,6 +801,336 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
         buf = io.BytesIO()
         doc.save(buf)
         return buf.getvalue()
+
+
+def render_json_file_to_html(json_path, output_path: str = None, theme_config: dict = None) -> str:
+    """
+    Renders an extracted document JSON file (containing page text_blocks, drawings, images)
+    directly into an HTML document template matching the Oncquest design system.
+    Saves to output_path if provided, and returns the full HTML string.
+    """
+    import html
+    json_p = Path(json_path)
+    with open(json_p, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    source_file = data.get("source_file", json_p.stem + ".pdf")
+    doc_title = Path(source_file).stem
+    pages = data.get("pages", [])
+
+    if not theme_config:
+        theme_config = {}
+
+    primary_color = theme_config.get("primary_color", "#124b82")
+    secondary_color = theme_config.get("secondary_color", "#009966")
+
+    def sanitize_text(text: str) -> str:
+        if not text:
+            return ""
+        text = text.replace("\ufb01", "fi").replace("\ufb02", "fl").replace("\xa0", " ")
+        return html.escape(text)
+
+    def get_font_family(font_name: str) -> str:
+        if not font_name:
+            return "Calibri, sans-serif"
+        fn = font_name.lower()
+        if "calibri" in fn:
+            return "Calibri, Arial, sans-serif"
+        elif "tahoma" in fn:
+            return "Tahoma, Geneva, sans-serif"
+        elif "verdana" in fn:
+            return "Verdana, Geneva, sans-serif"
+        elif "times" in fn:
+            return "'Times New Roman', Times, serif"
+        elif "cambria" in fn:
+            return "Cambria, Georgia, serif"
+        return "Calibri, Arial, sans-serif"
+
+    html_parts = [
+        "<!DOCTYPE html>",
+        "<html lang='en'>",
+        "<head>",
+        "<meta charset='utf-8'>",
+        "<meta name='viewport' content='width=device-width, initial-scale=1.0'>",
+        f"<title>{doc_title} — Oncquest Lab Report</title>",
+        "<link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap' rel='stylesheet'>",
+        "<style>",
+        f"""
+        :root {{
+          --color-primary: {primary_color};
+          --color-secondary: {secondary_color};
+          --color-banner-dark: #404040;
+          --color-bg-container: #525659;
+          --color-bg-page: #ffffff;
+          --font-primary: 'Calibri', 'Inter', sans-serif;
+          --page-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+        }}
+        * {{ box-sizing: border-box; margin: 0; padding: 0; }}
+        body {{
+          margin: 0;
+          padding: 0;
+          background-color: var(--color-bg-container);
+          font-family: var(--font-primary);
+          color: #000000;
+          -webkit-font-smoothing: antialiased;
+        }}
+        .header-bar {{
+          background: #0f172a;
+          color: #ffffff;
+          padding: 12px 24px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          font-family: 'Inter', sans-serif;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+          position: sticky;
+          top: 0;
+          z-index: 1000;
+        }}
+        .header-bar h1 {{
+          font-size: 1.1rem;
+          font-weight: 600;
+          margin: 0;
+        }}
+        .header-bar .meta {{
+          font-size: 0.85rem;
+          color: #94a3b8;
+        }}
+        .pdf-container {{
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 24px 0;
+          gap: 24px;
+        }}
+        .pdf-page {{
+          background: var(--color-bg-page);
+          width: 595.0pt;
+          min-height: 842.0pt;
+          position: relative;
+          overflow: visible;
+          box-shadow: var(--page-shadow);
+          page-break-after: always;
+          border-radius: 2px;
+        }}
+        .pdf-page p {{
+          position: absolute;
+          margin: 0;
+          padding: 0;
+          white-space: pre-wrap;
+          word-break: break-word;
+          line-height: 1.15;
+          z-index: 10;
+        }}
+        .vector-fill-box {{
+          position: absolute;
+          pointer-events: none;
+          z-index: 2;
+          box-sizing: border-box;
+        }}
+        .vector-box {{
+          position: absolute;
+          pointer-events: none;
+          z-index: 3;
+          box-sizing: border-box;
+        }}
+        .img-box {{
+          position: absolute;
+          z-index: 5;
+          object-fit: contain;
+        }}
+        @media print {{
+          .header-bar {{ display: none; }}
+          body {{ background: #ffffff; }}
+          .pdf-container {{ padding: 0; gap: 0; }}
+          .pdf-page {{ box-shadow: none; margin: 0; border-radius: 0; }}
+        }}
+        """,
+        "</style>",
+        "</head>",
+        "<body>",
+        f"<div class='header-bar'>",
+        f"  <h1>Oncquest Report Renderer — {doc_title}</h1>",
+        f"  <div class='meta'>Source: {sanitize_text(source_file)} | Pages: {len(pages)}</div>",
+        f"</div>",
+        "<div class='pdf-container'>"
+    ]
+
+    for p in pages:
+        p_num = p.get("page_number", 1)
+        pw = p.get("width", 595.0)
+        ph = p.get("height", 842.0)
+
+        html_parts.append(f"<div class='pdf-page' id='page-{p_num}' style='width:{pw:.1f}pt; min-height:{ph:.1f}pt;'>")
+
+        # 1. Render Vector Drawings
+        for d in p.get("drawings", []):
+            bbox = d.get("bbox")
+            if not bbox or len(bbox) < 4:
+                continue
+            x0, y0, x1, y1 = bbox
+            w = max(0.5, x1 - x0)
+            h = max(0.5, y1 - y0)
+            fill_col = d.get("fill_color")
+            stroke_col = d.get("stroke_color")
+
+            if fill_col:
+                html_parts.append(
+                    f"<div class='vector-fill-box' style='left:{x0:.2f}pt; top:{y0:.2f}pt; width:{w:.2f}pt; height:{h:.2f}pt; background-color:{fill_col};'></div>"
+                )
+            elif stroke_col:
+                stroke_w = d.get("width") or 1.0
+                html_parts.append(
+                    f"<div class='vector-box' style='left:{x0:.2f}pt; top:{y0:.2f}pt; width:{w:.2f}pt; height:{h:.2f}pt; border:{stroke_w}px solid {stroke_col};'></div>"
+                )
+
+        # 2. Render Images if present
+        for img in p.get("images", []):
+            bbox = img.get("bbox")
+            data_uri = img.get("data_uri")
+            if bbox and data_uri:
+                x0, y0, x1, y1 = bbox
+                w = max(1.0, x1 - x0)
+                h = max(1.0, y1 - y0)
+                html_parts.append(
+                    f"<img class='img-box' src='{data_uri}' style='left:{x0:.2f}pt; top:{y0:.2f}pt; width:{w:.2f}pt; height:{h:.2f}pt;' />"
+                )
+
+        # 3. Render Text Blocks, Lines, and Spans
+        for b in p.get("text_blocks", []):
+            for line in b.get("lines", []):
+                l_bbox = line.get("bbox", [0, 0, 0, 0])
+                lx0, ly0, lx1, ly1 = l_bbox
+                spans = line.get("spans", [])
+
+                if not spans:
+                    continue
+
+                spans_html = []
+                for s in spans:
+                    raw_text = s.get("text", "")
+                    if not raw_text:
+                        continue
+                    clean_t = sanitize_text(raw_text)
+                    font_name = s.get("font", "")
+                    font_family = get_font_family(font_name)
+                    size = s.get("size", 10.0)
+                    color = s.get("color", "#000000")
+                    is_bold = s.get("bold") or ("bold" in font_name.lower())
+                    is_italic = s.get("italic") or ("italic" in font_name.lower())
+
+                    font_wt = "bold" if is_bold else "normal"
+                    font_st = "italic" if is_italic else "normal"
+
+                    span_style = (
+                        f"font-size:{size:.2f}pt; "
+                        f"color:{color}; "
+                        f"font-family:{font_family}; "
+                        f"font-weight:{font_wt}; "
+                        f"font-style:{font_st};"
+                    )
+                    spans_html.append(f"<span style='{span_style}'>{clean_t}</span>")
+
+                if spans_html:
+                    html_parts.append(
+                        f"<p style='left:{lx0:.2f}pt; top:{ly0:.2f}pt;'>{''.join(spans_html)}</p>"
+                    )
+
+        html_parts.append("</div>")
+
+    html_parts.append("</div></body></html>")
+    full_html = "\n".join(html_parts)
+
+    if output_path:
+        out_p = Path(output_path)
+        out_p.parent.mkdir(parents=True, exist_ok=True)
+        with open(out_p, "w", encoding="utf-8") as f_out:
+            f_out.write(full_html)
+
+    return full_html
+
+
+def convert_html_to_docx(html_input, output_path: str = None, theme_config: dict = None):
+    """
+    Converts an HTML string or HTML file path directly into a Microsoft Word (.docx) file.
+    Decouples HTML rendering from Word export so users can preview/edit HTML first,
+    and then trigger HTML -> Word conversion on demand.
+    Returns bytes of the Word file, or writes to output_path if provided.
+    """
+    from docx import Document
+    from docx.shared import Inches
+    from bs4 import BeautifulSoup
+    try:
+        from htmldocx import HtmlToDocx
+    except ImportError:
+        HtmlToDocx = None
+
+    if isinstance(html_input, (str, Path)) and os.path.exists(str(html_input)) and os.path.isfile(str(html_input)):
+        with open(str(html_input), "r", encoding="utf-8") as f:
+            html_content = f.read()
+    else:
+        html_content = str(html_input)
+
+    doc = Document()
+    for section in doc.sections:
+        section.top_margin = Inches(0.75)
+        section.bottom_margin = Inches(0.75)
+        section.left_margin = Inches(0.75)
+        section.right_margin = Inches(0.75)
+
+    soup = BeautifulSoup(html_content, 'html.parser')
+    for tag in soup(['style', 'script', 'meta', 'link']):
+        tag.decompose()
+
+    body = soup.find('body')
+    clean_html = str(body) if body else str(soup)
+
+    converted_with_htmldocx = False
+    if HtmlToDocx is not None:
+        try:
+            parser = HtmlToDocx()
+            parser.add_html_to_document(clean_html, doc)
+            converted_with_htmldocx = True
+        except Exception:
+            converted_with_htmldocx = False
+
+    if not converted_with_htmldocx:
+        _parse_html_soup_to_docx(soup, doc)
+
+    if output_path:
+        out_p = Path(output_path)
+        out_p.parent.mkdir(parents=True, exist_ok=True)
+        doc.save(str(out_p))
+        return None
+    else:
+        buf = io.BytesIO()
+        doc.save(buf)
+        return buf.getvalue()
+
+
+def _parse_html_soup_to_docx(soup, doc):
+    """Fallback manual parser from BeautifulSoup to python-docx."""
+    for elem in soup.find_all(['h1', 'h2', 'h3', 'h4', 'p', 'table', 'ul', 'ol', 'div']):
+        if elem.name in ['h1', 'h2', 'h3', 'h4']:
+            level = int(elem.name[1])
+            txt = elem.get_text(strip=True)
+            if txt:
+                doc.add_heading(txt, level=level)
+        elif elem.name in ['p', 'div'] and elem.find_parent('table') is None:
+            txt = elem.get_text(strip=True)
+            if txt:
+                doc.add_paragraph(txt)
+        elif elem.name == 'table' and elem.find_parent('table') is None:
+            rows = elem.find_all('tr')
+            if rows:
+                cols_count = max(len(r.find_all(['td', 'th'])) for r in rows)
+                if cols_count > 0:
+                    t = doc.add_table(rows=len(rows), cols=cols_count)
+                    for r_idx, r in enumerate(rows):
+                        cells = r.find_all(['td', 'th'])
+                        for c_idx, c in enumerate(cells):
+                            if c_idx < cols_count:
+                                t.rows[r_idx].cells[c_idx].text = c.get_text(strip=True)
 
 
 def convert_pdf_to_word(pdf_path, docx_path):
@@ -771,9 +1205,9 @@ def get_page_section_overlays(page, page_left_str, page_width_str):
                 content_spans.append(spans[j])
 
             if content_spans:
-                c_min_y = h_bbox[3] + 1.0
-                c_max_y = max(cs['bbox'][3] for cs in content_spans) + 3.0
-                h = max(12.0, c_max_y - c_min_y)
+                c_min_y = max(0.0, h_bbox[1] - 2.0)
+                c_max_y = max(cs['bbox'][3] for cs in content_spans) + 4.0
+                h = max(14.0, c_max_y - c_min_y)
                 overlays.append(
                     f"<div class='section-content-box' "
                     f"style='left:{page_left_str};top:{c_min_y:.1f}pt;"
