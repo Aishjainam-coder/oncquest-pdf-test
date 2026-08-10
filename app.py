@@ -88,15 +88,8 @@ st.markdown("""
 # Minimal Sidebar Settings
 st.sidebar.title("⚙️ Render Settings")
 
-layout_mode_choice = st.sidebar.radio(
-    "PDF Layout Rendering Mode",
-    options=[
-        "🏷️ Responsive HTML Flow Template (Dynamic JSON Rendering)",
-        "📌 Exact Input PDF Layout (Preserve Coordinates)"
-    ],
-    index=0
-)
-use_template = ("Responsive HTML Flow Template" in layout_mode_choice)
+st.sidebar.info("📌 **PDF Layout Mode:** Exact Input PDF Layout (Preserve Coordinates)")
+use_template = False
 
 theme_preset = st.sidebar.selectbox(
     "Primary Theme Color",
