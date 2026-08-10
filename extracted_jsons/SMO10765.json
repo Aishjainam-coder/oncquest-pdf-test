@@ -1,0 +1,510 @@
+{
+  "document_summary": {
+    "file_name": "SMO10765.pdf",
+    "total_pages": 4,
+    "total_tables": 2,
+    "total_boxes": 1,
+    "total_key_value_pairs": 0,
+    "total_images_and_graphs": 0
+  },
+  "extracted_key_value_pairs": {},
+  "all_key_value_pairs": {},
+  "tables": [
+    {
+      "page": 1,
+      "table_index": 1,
+      "bbox": [
+        36.2,
+        426.28,
+        554.09,
+        467.76
+      ],
+      "headers": [
+        "",
+        ""
+      ],
+      "rows": [
+        [
+          "DNA Gene List",
+          ""
+        ],
+        [
+          "A AKT2 GATA2 GATA3 FLT3 AR ARAF AKT3 ALK GNA11",
+          ""
+        ]
+      ]
+    },
+    {
+      "page": 3,
+      "table_index": 1,
+      "bbox": [
+        36.22,
+        369.6,
+        174.98,
+        488.62
+      ],
+      "headers": [
+        "6. For all queries, feedbacks, suggestions,",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "rows": [
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ]
+    }
+  ],
+  "all_tables": [
+    {
+      "page": 1,
+      "table_index": 1,
+      "bbox": [
+        36.2,
+        426.28,
+        554.09,
+        467.76
+      ],
+      "headers": [
+        "",
+        ""
+      ],
+      "rows": [
+        [
+          "DNA Gene List",
+          ""
+        ],
+        [
+          "A AKT2 GATA2 GATA3 FLT3 AR ARAF AKT3 ALK GNA11",
+          ""
+        ]
+      ]
+    },
+    {
+      "page": 3,
+      "table_index": 1,
+      "bbox": [
+        36.22,
+        369.6,
+        174.98,
+        488.62
+      ],
+      "headers": [
+        "6. For all queries, feedbacks, suggestions,",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "rows": [
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ]
+    }
+  ],
+  "content_sections": [
+    {
+      "page": 1,
+      "title": "General Content / Notes",
+      "type": "content_section_box",
+      "bbox": [
+        35.2,
+        370.69,
+        550.22,
+        395.26
+      ],
+      "content_text": [
+        "*Genetic test results are reported based on the recommendations of  AMP-ASCO-CAP  guidelines. #Correlation of the genetic findings with the clinical condition of the patient is required to arrive at an accurate diagnosis, prognosis or therapeutic decisions"
+      ]
+    }
+  ],
+  "all_boxes_and_sections": [
+    {
+      "page": 1,
+      "title": "General Content / Notes",
+      "type": "content_section_box",
+      "bbox": [
+        35.2,
+        370.69,
+        550.22,
+        395.26
+      ],
+      "content_text": [
+        "*Genetic test results are reported based on the recommendations of  AMP-ASCO-CAP  guidelines. #Correlation of the genetic findings with the clinical condition of the patient is required to arrive at an accurate diagnosis, prognosis or therapeutic decisions"
+      ]
+    }
+  ],
+  "images_and_graphs": [],
+  "all_images_and_graphs": [],
+  "pages": [
+    {
+      "page_number": 1,
+      "dimensions": {
+        "width": 595.0,
+        "height": 842.0
+      },
+      "header_y_cutoff": 336.8,
+      "footer_y_cutoff": 505.2,
+      "key_value_pairs": {},
+      "boxes_and_sections": [
+        {
+          "page": 1,
+          "title": "General Content / Notes",
+          "type": "content_section_box",
+          "bbox": [
+            35.2,
+            370.69,
+            550.22,
+            395.26
+          ],
+          "content_text": [
+            "*Genetic test results are reported based on the recommendations of  AMP-ASCO-CAP  guidelines. #Correlation of the genetic findings with the clinical condition of the patient is required to arrive at an accurate diagnosis, prognosis or therapeutic decisions"
+          ]
+        }
+      ],
+      "tables": [
+        {
+          "page": 1,
+          "table_index": 1,
+          "bbox": [
+            36.2,
+            426.28,
+            554.09,
+            467.76
+          ],
+          "headers": [
+            "",
+            ""
+          ],
+          "rows": [
+            [
+              "DNA Gene List",
+              ""
+            ],
+            [
+              "A AKT2 GATA2 GATA3 FLT3 AR ARAF AKT3 ALK GNA11",
+              ""
+            ]
+          ]
+        }
+      ],
+      "images_and_graphs": [],
+      "text_blocks": [
+        {
+          "page": 1,
+          "bbox": [
+            35.2,
+            370.69,
+            550.22,
+            395.26
+          ],
+          "text": "*Genetic test results are reported based on the recommendations of  AMP-ASCO-CAP  guidelines. #Correlation of the genetic findings with the clinical condition of the patient is required to arrive at an accurate diagnosis, prognosis or therapeutic decisions",
+          "max_font_size": 5.78,
+          "is_bold": true,
+          "font": "Calibri,Italic"
+        },
+        {
+          "page": 1,
+          "bbox": [
+            35.2,
+            406.0,
+            168.15,
+            415.24
+          ],
+          "text": "Multi-gene Biomarker Results:",
+          "max_font_size": 9.25,
+          "is_bold": true,
+          "font": "Arial,Bold"
+        }
+      ],
+      "page_text": "*Genetic test results are reported based on the recommendations of  AMP-ASCO-CAP  guidelines. #Correlation of the genetic findings with the clinical condition of the patient is required to arrive at an accurate diagnosis, prognosis or therapeutic decisions\nMulti-gene Biomarker Results:"
+    },
+    {
+      "page_number": 2,
+      "dimensions": {
+        "width": 595.0,
+        "height": 842.0
+      },
+      "header_y_cutoff": 336.8,
+      "footer_y_cutoff": 505.2,
+      "key_value_pairs": {},
+      "boxes_and_sections": [],
+      "tables": [],
+      "images_and_graphs": [],
+      "text_blocks": [
+        {
+          "page": 2,
+          "bbox": [
+            35.2,
+            406.75,
+            218.79,
+            427.8
+          ],
+          "text": "Comprehensive Genomic Panel gene list:",
+          "max_font_size": 9.25,
+          "is_bold": true,
+          "font": "Arial,Bold"
+        }
+      ],
+      "page_text": "Comprehensive Genomic Panel gene list:"
+    },
+    {
+      "page_number": 3,
+      "dimensions": {
+        "width": 595.0,
+        "height": 842.0
+      },
+      "header_y_cutoff": 336.8,
+      "footer_y_cutoff": 505.2,
+      "key_value_pairs": {},
+      "boxes_and_sections": [],
+      "tables": [
+        {
+          "page": 3,
+          "table_index": 1,
+          "bbox": [
+            36.22,
+            369.6,
+            174.98,
+            488.62
+          ],
+          "headers": [
+            "6. For all queries, feedbacks, suggestions,",
+            "",
+            "",
+            "",
+            ""
+          ],
+          "rows": [
+            [
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "",
+              "",
+              "",
+              "",
+              ""
+            ]
+          ]
+        }
+      ],
+      "images_and_graphs": [],
+      "text_blocks": [],
+      "page_text": ""
+    },
+    {
+      "page_number": 4,
+      "dimensions": {
+        "width": 595.0,
+        "height": 842.0
+      },
+      "header_y_cutoff": 336.8,
+      "footer_y_cutoff": 505.2,
+      "key_value_pairs": {},
+      "boxes_and_sections": [],
+      "tables": [],
+      "images_and_graphs": [],
+      "text_blocks": [],
+      "page_text": ""
+    }
+  ],
+  "raw_full_text": "*Genetic test results are reported based on the recommendations of  AMP-ASCO-CAP  guidelines. #Correlation of the genetic findings with the clinical condition of the patient is required to arrive at an accurate diagnosis, prognosis or therapeutic decisions\nMulti-gene Biomarker Results:\nComprehensive Genomic Panel gene list:\n\n"
+}

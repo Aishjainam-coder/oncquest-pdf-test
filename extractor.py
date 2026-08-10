@@ -154,18 +154,159 @@ def is_inside_table_bbox(bbox, table_bboxes):
     return False
 
 
+def detect_dynamic_header_footer_bounds(doc) -> dict:
+    """
+    Dynamically analyzes document layout to identify header and footer bounding box cutoffs
+    for EVERY page of the document (including Page 1).
+    Header region includes top vendor logos, QR codes, report titles, and patient details header tables.
+    Footer region includes signatures, doctor names, qualifications, page numbers, and disclaimers.
+    """
+    from collections import defaultdict
+    page_bounds = {}
+    page_count = len(doc)
+
+    header_kw = [
+        'case id', 'sample type', 'patient name', 'uhid', 'reg no', 'ref by', 'referred by',
+        'age/gender', 'age / sex', 'date & time collected', 'date & time received', 'date & time reported',
+        'date collected', 'date received', 'date reported', 'report version', 'bill. loc.',
+        'lab no', 'barcode', 'qr code for report', 'report verification', 'patient information',
+        'patient details', 'patient metadata', 'demographics'
+    ]
+
+    footer_kw = [
+        'reviewed by', 'verified by', 'authorized signatory', 'signatory', 'doctor', 'dr.',
+        'md (path', 'ph.d.', 'pathologist', 'biochemist', 'microbiologist', 'geneticist',
+        'consultant', 'end of report', 'electronically generated', 'disclaimer', 'registered office',
+        'nabl', 'cap accredited', 'iso 15189', 'mc-7414', 'page '
+    ]
+
+    # Step 1: Detect multi-page repeated strings in top 35% and bottom 35%
+    top_str_counts = defaultdict(int)
+    bot_str_counts = defaultdict(int)
+
+    for p_idx in range(page_count):
+        page = doc[p_idx]
+        H = page.rect.height
+        text_page = page.get_text("dict")
+        for b in text_page.get("blocks", []):
+            if "lines" not in b:
+                continue
+            y0, y1 = b["bbox"][1], b["bbox"][3]
+            text = " ".join(s.get("text", "") for ln in b["lines"] for s in ln.get("spans", [])).strip()
+            if not text:
+                continue
+            norm_t = re.sub(r'\s+', ' ', text.lower())
+            if y0 < 0.35 * H:
+                top_str_counts[norm_t] += 1
+            elif y1 > 0.65 * H:
+                bot_str_counts[norm_t] += 1
+
+    repeated_top = {t for t, count in top_str_counts.items() if count >= 2 or (page_count == 1 and count >= 1)}
+    repeated_bot = {t for t, count in bot_str_counts.items() if count >= 2 or (page_count == 1 and count >= 1)}
+
+    # Step 2: Calculate cutoffs per page for all pages
+    for p_idx in range(page_count):
+        page = doc[p_idx]
+        H = page.rect.height
+        text_page = page.get_text("dict")
+
+        header_y1 = 0.0
+        footer_y0 = H
+
+        # A) Analyze text blocks
+        for b in text_page.get("blocks", []):
+            if "lines" not in b:
+                continue
+            y0, y1 = b["bbox"][1], b["bbox"][3]
+            text = " ".join(s.get("text", "") for ln in b["lines"] for s in ln.get("spans", [])).strip()
+            if not text:
+                continue
+            norm_t = re.sub(r'\s+', ' ', text.lower())
+
+            # Check Header match (top 35% of page)
+            if y0 < 0.35 * H:
+                is_hdr = False
+                if norm_t in repeated_top:
+                    is_hdr = True
+                elif any(kw in norm_t for kw in header_kw):
+                    is_hdr = True
+                elif re.search(r'page\s+\d+', norm_t):
+                    is_hdr = True
+                elif y1 < 0.15 * H:
+                    is_hdr = True
+
+                if is_hdr:
+                    if y1 > header_y1:
+                        header_y1 = y1
+
+            # Check Footer match (bottom 35% of page)
+            if y1 > 0.65 * H:
+                is_ftr = False
+                if norm_t in repeated_bot:
+                    is_ftr = True
+                elif any(kw in norm_t for kw in footer_kw):
+                    is_ftr = True
+                elif re.search(r'page\s+\d+', norm_t):
+                    is_ftr = True
+                elif y0 > 0.88 * H:
+                    is_ftr = True
+
+                if is_ftr:
+                    if y0 < footer_y0:
+                        footer_y0 = y0
+
+        # B) Analyze image bboxes
+        img_infos = page.get_image_info(xrefs=True)
+        for info in img_infos:
+            bbox = info.get("bbox")
+            if not bbox:
+                continue
+            iy0, iy1 = bbox[1], bbox[3]
+            if iy0 < 0.30 * H:
+                if iy1 > header_y1:
+                    header_y1 = iy1
+            if iy1 > 0.70 * H:
+                if iy0 < footer_y0:
+                    footer_y0 = iy0
+
+        # Add buffer
+        final_hdr_cutoff = min(header_y1 + 5.0, 0.40 * H) if header_y1 > 0 else 0.0
+        final_ftr_cutoff = max(footer_y0 - 5.0, 0.60 * H) if footer_y0 < H else H
+
+        page_bounds[p_idx] = {
+            "header_y_cutoff": round(final_hdr_cutoff, 2),
+            "footer_y_cutoff": round(final_ftr_cutoff, 2)
+        }
+
+    return page_bounds
+
+
+def is_patient_sample_header_block(text: str, y0: float) -> bool:
+    """Identify and filter out top Patient Details and Sample Details header card blocks."""
+    norm = re.sub(r'\s+', ' ', text.lower().strip())
+    if y0 < 320:
+        if norm in ['patient details', 'sample details', 'patient information', 'sample information', 'demographics']:
+            return True
+        if any(kw in norm for kw in [
+            'registration date & time', 'sample date & time', 'report date & time',
+            'ref id 1.', 'pt. loc.', 'pt. id', 'neuberg center for genomic medicine',
+            'orion intelligent genomics', 'qr code for report verification',
+            'sex / age', 'case id :', 'case id:', 'case id', 'bill. loc.', 'ref by :',
+            'sample type :', 'sample type:'
+        ]):
+            return True
+        if 'name' in norm and ('mr.' in norm or 'mrs.' in norm or 'ms.' in norm or 'master' in norm or 'dr.' in norm or 'oqg' in norm):
+            return True
+        if norm.startswith(': name') or norm.startswith('name :'):
+            return True
+    return False
+
+
 def extract_report_data(pdf_path: str) -> dict:
     """
     Universal extraction engine for ANY PDF document format.
-
-    Extracts:
-        - document_summary: file_name, total_pages, total_tables, total_boxes, total_key_value_pairs, total_images_and_graphs
-        - extracted_key_value_pairs: dict of clean key-value pairs
-        - content_sections: list of clean content section boxes (excluding table text)
-        - tables: list of extracted tables (headers, rows, bbox)
-        - images_and_graphs: list of extracted raster images, charts, and logos (Base64 URIs)
-        - pages: page-by-page breakdown
-        - raw_full_text: entire document text
+    Completely excludes header (logos, QR codes, patient details header card) and footer
+    from EVERY page including Page 1.
     """
     if not os.path.exists(pdf_path):
         logger.error(f"PDF file not found: {pdf_path}")
@@ -181,6 +322,17 @@ def extract_report_data(pdf_path: str) -> dict:
         logger.error(f"Failed to open PDF document {pdf_path}: {e}")
         return None
 
+    # Detect dynamic header and footer bounding box cutoffs across all pages
+    page_bounds = detect_dynamic_header_footer_bounds(doc)
+
+    header_kv_ignore_keys = [
+        'case id', 'sample type', 'patient name', 'uhid', 'reg no', 'ref by', 'referred by',
+        'age/gender', 'age / sex', 'date & time collected', 'date & time received', 'date & time reported',
+        'date collected', 'date received', 'date reported', 'report version', 'bill. loc.',
+        'collected', 'received', 'reported', 'lab no', 'barcode', 'qr code',
+        'pt. id', 'accession.id', 'centre details'
+    ]
+
     full_text_pages = []
     text_blocks_with_style = []
     pages_list = []
@@ -193,15 +345,13 @@ def extract_report_data(pdf_path: str) -> dict:
     for page_num in range(len(doc)):
         page = doc[page_num]
         rect = page.rect
-        page_text = page.get_text("text")
-        full_text_pages.append(page_text)
+        H = rect.height
+        hy_cutoff = page_bounds[page_num]["header_y_cutoff"]
+        fy_cutoff = page_bounds[page_num]["footer_y_cutoff"]
 
-        # 1. Extract Key-Value pairs on this page
-        page_kv = parse_header_key_value_pairs(page_text)
-        for k, v in page_kv.items():
-            all_kv_pairs[k] = v
+        text_page_dict = page.get_text("dict")
 
-        # 2. Extract Tables on this page FIRST (so we get table bounding boxes)
+        # 1. Extract Tables on this page in body region ONLY
         page_tables = []
         table_bboxes = []
         try:
@@ -209,16 +359,20 @@ def extract_report_data(pdf_path: str) -> dict:
                 tf = page.find_tables()
                 table_list = list(tf)
                 for t_idx, table in enumerate(table_list):
+                    t_bbox = [round(c, 2) for c in table.bbox]
+                    # Exclude tables inside header or footer regions on EVERY page
+                    if t_bbox[1] < hy_cutoff or t_bbox[3] > fy_cutoff:
+                        continue
+
                     table_data = table.extract()
                     if table_data and len(table_data) > 0:
                         headers = [str(c).strip().replace("\n", " ") if c else "" for c in table_data[0]]
                         rows = [[str(cell).strip().replace("\n", " ") if cell else "" for cell in row] for row in table_data[1:]]
-                        t_bbox = [round(c, 2) for c in table.bbox]
                         table_bboxes.append(t_bbox)
 
                         table_obj = {
                             "page": page_num + 1,
-                            "table_index": t_idx + 1,
+                            "table_index": len(page_tables) + 1,
                             "bbox": t_bbox,
                             "headers": headers,
                             "rows": rows
@@ -228,14 +382,17 @@ def extract_report_data(pdf_path: str) -> dict:
         except Exception as t_err:
             logger.debug(f"Page {page_num + 1} table error: {t_err}")
 
-        # 3. Parse text blocks outside tables
-        text_page_dict = page.get_text("dict")
+        # 2. Parse text blocks outside tables and strictly inside body region ONLY
         page_blocks = []
+        body_text_lines = []
         for block in text_page_dict.get("blocks", []):
             if "lines" in block:
                 b_bbox = [round(c, 2) for c in block["bbox"]]
-                # Skip text blocks inside tables
                 if is_inside_table_bbox(b_bbox, table_bboxes):
+                    continue
+
+                # Exclude text blocks inside header or footer regions on EVERY page
+                if b_bbox[1] < hy_cutoff or b_bbox[3] > fy_cutoff:
                     continue
 
                 b_text = ""
@@ -255,6 +412,13 @@ def extract_report_data(pdf_path: str) -> dict:
 
                 clean_b_text = b_text.strip()
                 if clean_b_text:
+                    if re.search(r'^page\s+\d+(\s+of\s+\d+)?$', clean_b_text, re.I):
+                        continue
+                    if any(kw in clean_b_text.lower() for kw in ['reviewed by', 'authorized signatory', 'mc-7414']):
+                        continue
+                    if is_patient_sample_header_block(clean_b_text, b_bbox[1]):
+                        continue
+
                     block_obj = {
                         "page": page_num + 1,
                         "bbox": b_bbox,
@@ -265,29 +429,34 @@ def extract_report_data(pdf_path: str) -> dict:
                     }
                     page_blocks.append(block_obj)
                     text_blocks_with_style.append(block_obj)
+                    body_text_lines.append(clean_b_text)
 
-        # 4. Extract Images & Graphs on this page
-        page_images = extract_page_images_and_graphs(doc, page_num, page)
-        all_images_list.extend(page_images)
+        page_body_text = "\n".join(body_text_lines)
+        full_text_pages.append(page_body_text)
 
-        # 5. Extract Content Boxes & Sections on this page cleanly
+        page_kv = parse_header_key_value_pairs(page_body_text)
+        filtered_page_kv = {}
+        for k, v in page_kv.items():
+            if not any(hk in k.lower() for hk in header_kv_ignore_keys):
+                filtered_page_kv[k] = v
+                all_kv_pairs[k] = v
+
+        # 3. Extract Images & Graphs in body region ONLY
+        raw_images = extract_page_images_and_graphs(doc, page_num, page)
+        page_images = []
+        for img in raw_images:
+            img_bbox = img.get("bbox")
+            if img_bbox:
+                if img_bbox[1] < hy_cutoff or img_bbox[3] > fy_cutoff:
+                    continue
+            page_images.append(img)
+            all_images_list.append(img)
+
+        # 4. Extract Content Boxes & Sections in body region ONLY
         page_boxes = []
-
-        # Demographics / Header Box if key-values present on top of page
-        if page_kv and page_num == 0:
-            page_boxes.append({
-                "page": page_num + 1,
-                "title": f"Document Header & Patient Metadata",
-                "type": "demographics_box",
-                "bbox": [round(rect.x0, 2), round(rect.y0, 2), round(rect.x1, 2), round(rect.y0 + 150, 2)],
-                "key_value_pairs": page_kv
-            })
-
         current_box = None
         for b in page_blocks:
             t = b["text"]
-            
-            # Heading candidate check: prominent font, bold short title, not ending with sentence punctuation
             is_heading_candidate = (
                 (b["max_font_size"] >= 11.5 or (b["is_bold"] and len(t) < 70)) and
                 not t.endswith(('.', ',', ';', '?')) and
@@ -326,12 +495,14 @@ def extract_report_data(pdf_path: str) -> dict:
         pages_list.append({
             "page_number": page_num + 1,
             "dimensions": {"width": round(rect.width, 2), "height": round(rect.height, 2)},
-            "key_value_pairs": page_kv,
+            "header_y_cutoff": hy_cutoff,
+            "footer_y_cutoff": fy_cutoff,
+            "key_value_pairs": filtered_page_kv,
             "boxes_and_sections": page_boxes,
             "tables": page_tables,
             "images_and_graphs": page_images,
             "text_blocks": page_blocks,
-            "page_text": page_text
+            "page_text": page_body_text
         })
 
     full_document_text = "\n".join(full_text_pages)
@@ -380,6 +551,8 @@ def extract_report_data(pdf_path: str) -> dict:
         logger.warning(f"Could not auto-save JSON to extracted_jsons/: {e_save}")
 
     return extracted_data
+
+
 
 
 if __name__ == "__main__":

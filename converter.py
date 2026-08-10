@@ -22,13 +22,13 @@ try:
 except ImportError:
     sync_playwright = None
 
-from extractor import extract_report_data
+from extractor import extract_report_data, detect_dynamic_header_footer_bounds
 
 
 def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", theme_config: dict = None) -> str:
     """
-    Renders an HTML document where EVERY SINGLE ELEMENT (text, headers, key-values, tables,
-    section boxes, images, graphs) stays in its EXACT 1-to-1 position as in the input PDF document.
+    Renders an HTML document where body elements stay in their exact visual positions,
+    while original header and footer content is completely excluded dynamically.
     Applies user-selected theme typography, primary colors, table header styling, and cell borders.
     """
     if not theme_config:
@@ -39,10 +39,12 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
     text_color = theme_config.get("text_color", "#0d0d0d")
     border_color = theme_config.get("border_color", primary_color)
     font_family = theme_config.get("font_family", "Cambria, 'Times New Roman', serif")
-    banner_font_min_pt = theme_config.get("banner_font_size_pt", 12.0)
 
     fallback_left = 35.5
     fallback_width = 524.0
+
+    # Detect dynamic header and footer bounds per page
+    page_bounds = detect_dynamic_header_footer_bounds(doc)
 
     html_parts = [
         "<!DOCTYPE html>",
@@ -80,16 +82,24 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
         page_left_str = f"{page_left_val:.1f}pt"
         page_width_str = f"{page_width_val:.1f}pt"
 
-        html_parts.append("<div class='pdf-page'>")
+        hy_cutoff = page_bounds[page_num]["header_y_cutoff"]
+        fy_cutoff = page_bounds[page_num]["footer_y_cutoff"]
+
+        html_parts.append(f"<div class='pdf-page' id='page-{page_num+1}'>")
         page_html = page.get_text("html")
 
-        # 1. Extract PyMuPDF table headers & grid coordinates
+        # 1. Extract PyMuPDF table headers & grid coordinates in body region ONLY
         tabs = page.find_tables()
         table_header_html_divs = []
         table_grid_html_divs = []
         header_y_ranges = []
 
         for tab in tabs.tables:
+            if hasattr(tab, 'bbox'):
+                tx0, ty0, tx1, ty1 = tab.bbox
+                if ty0 < hy_cutoff or ty1 > fy_cutoff:
+                    continue
+
             valid_cells = [c for c in tab.cells if c]
             if valid_cells:
                 min_y0 = min(c[1] for c in valid_cells)
@@ -129,7 +139,7 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
                         f"width:{cw:.1f}pt;height:{ch:.1f}pt;'></div>"
                     )
 
-        # 2. Extract Vector Drawings for Exact Section Boxes and Banners
+        # 2. Extract Vector Drawings in body region ONLY
         vector_html_divs = []
         try:
             drawings = page.get_drawings()
@@ -143,7 +153,10 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
                 rx0, ry0, rx1, ry1 = rect.x0, rect.y0, rect.x1, rect.y1
                 rw, rh = rx1 - rx0, ry1 - ry0
                 
-                # Check if this rect is already covered by a table header or cell
+                # Exclude vector lines/drawings in header or footer regions
+                if ry0 < hy_cutoff or ry1 > fy_cutoff:
+                    continue
+
                 if any(abs(ry0 - hy0_r) < 5.0 for hy0_r, _ in header_y_ranges):
                     continue
 
@@ -151,12 +164,11 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
                 stroke_col = d.get('color')
 
                 if fill_col:
-                    # Dark blue/teal or gray banner fill
-                    if fill_col[0] < 0.3 and fill_col[1] > 0.4:  # Teal/Blue fill
+                    if fill_col[0] < 0.3 and fill_col[1] > 0.4:
                         vector_html_divs.append(
                             f"<div class='vector-fill-box' style='left:{rx0:.1f}pt;top:{ry0:.1f}pt;width:{rw:.1f}pt;height:{rh:.1f}pt;background-color:{primary_color};'></div>"
                         )
-                    elif fill_col[0] < 0.3 and fill_col[1] < 0.3 and fill_col[2] < 0.3: # Dark gray fill
+                    elif fill_col[0] < 0.3 and fill_col[1] < 0.3 and fill_col[2] < 0.3:
                         vector_html_divs.append(
                             f"<div class='vector-fill-box' style='left:{rx0:.1f}pt;top:{ry0:.1f}pt;width:{rw:.1f}pt;height:{rh:.1f}pt;background-color:#404040;'></div>"
                         )
@@ -167,23 +179,24 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
         except Exception:
             pass
 
-        # 3. Clean raw HTML & suppress raw <p> tags inside table headers
+        # 3. Clean raw HTML & suppress raw <p> tags inside header/footer regions or table headers
         cleaned = page_html
         cleaned = re.sub(r'<img\s+[^>]*>', '', cleaned)
         cleaned = re.sub(r'font-family:[^;"]+', f'font-family: {font_family}', cleaned)
 
-        # HIDE raw <p> tags that fall inside table header Y ranges so raw text doesn't collide with table headers
-        def filter_header_p(match):
+        # HIDE raw <p> tags that fall inside header/footer regions or table headers
+        def filter_hdr_ftr_and_table_p(match):
             p_tag = match.group(0)
             top_m = re.search(r'top:\s*([\d.]+)pt', p_tag)
             if top_m:
                 y_val = float(top_m.group(1))
+                if y_val < hy_cutoff or y_val > fy_cutoff:
+                    return ""
                 if any(hy0_r <= y_val <= hy1_r for hy0_r, hy1_r in header_y_ranges):
-                    # Hide text content of raw table header <p> tag
                     return re.sub(r'>([^<]+)<', '><', p_tag)
             return p_tag
 
-        cleaned = re.sub(r'<p\s+[^>]*>.*?</p>', filter_header_p, cleaned, flags=re.DOTALL)
+        cleaned = re.sub(r'<p\s+[^>]*>.*?</p>', filter_hdr_ftr_and_table_p, cleaned, flags=re.DOTALL)
 
         # 4. Format Black Banners & Blue Section Label Bars
         def format_heading_p(match):
@@ -195,7 +208,6 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
             top_m = re.search(r'top:\s*([\d.]+)pt', p_tag)
             top_val = top_m.group(1) if top_m else "100.0"
 
-            # Check if this is a full-width Black Banner (high font size or bold title with white text on dark)
             if is_white_text and font_sz >= 12.0:
                 text_val = re.sub(r'<[^>]+>', '', p_tag).strip()
                 if len(text_val) > 15:
@@ -228,7 +240,7 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
 
         cleaned = re.sub(r'<p\s+[^>]*>.*?</p>', format_labelbar_p, cleaned, flags=re.DOTALL)
 
-        # 5. Extract exact images
+        # 5. Extract exact images in body region ONLY
         exact_image_html_divs = []
         try:
             img_infos = page.get_image_info(xrefs=True)
@@ -238,6 +250,8 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
                 if not xref or not bbox:
                     continue
                 x0, y0, x1, y1 = bbox
+                if y0 < hy_cutoff or y1 > fy_cutoff:
+                    continue
                 w_pt = max(1.0, x1 - x0)
                 h_pt = max(1.0, y1 - y0)
                 try:
@@ -260,7 +274,7 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
         except Exception:
             pass
 
-        section_overlays = get_page_section_overlays(page, page_left_str, page_width_str)
+        section_overlays = get_page_section_overlays(page, page_left_str, page_width_str, hy_cutoff, fy_cutoff)
 
         html_parts.append(cleaned)
         html_parts.extend(vector_html_divs)
@@ -276,29 +290,25 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
 
 def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Document", theme_config: dict = None) -> str:
     """
-    Renders extracted PDF JSON data dynamically into a customizable HTML template with clean section boxes,
-    structured key-value cards, responsive tables, and zero sentence cut-offs.
+    Renders extracted PDF JSON data dynamically into a clean HTML report template.
+    Does NOT recreate vendor logos, patient header cards, or footer signatures.
     """
     if not theme_config:
         theme_config = {}
 
     primary_color = theme_config.get("primary_color", "#1f497d")
-    secondary_color = theme_config.get("secondary_color", "#008080")
     bg_page = theme_config.get("bg_page", "#ffffff")
     text_color = theme_config.get("text_color", "#0d0d0d")
     border_color = theme_config.get("border_color", primary_color)
     table_header_bg = theme_config.get("table_header_bg", primary_color)
     table_header_text = theme_config.get("table_header_text", "#ffffff")
     font_family = theme_config.get("font_family", "Cambria, 'Times New Roman', serif")
-    header_title = theme_config.get("header_title", doc_title.upper().replace(".PDF", ""))
-    header_subtitle = theme_config.get("header_subtitle", "Universal Dynamic Document Report")
 
-    show_kv = theme_config.get("show_kv", True)
     show_tables = theme_config.get("show_tables", True)
     show_sections = theme_config.get("show_sections", True)
     show_images = theme_config.get("show_images", True)
-
     show_badges = theme_config.get("show_badges", True)
+
     badge_rules = theme_config.get("badge_rules", {
         "danger": ["pathogenic", "positive", "high", "failed", "rejected", "overdue",
                    "invalid", "expired", "critical", "denied", "delinquent", "abnormal"],
@@ -308,59 +318,17 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
                     "cleared", "completed", "compliant", "settled"]
     })
 
-    show_footer_signatures = theme_config.get("show_footer_signatures", True)
-    footer_signature_labels = theme_config.get(
-        "footer_signature_labels",
-        ["Prepared / Verified By", "Reviewing Officer", "Authorized Signatory"]
-    )
-
-    kv = data.get("all_key_value_pairs") or data.get("extracted_key_value_pairs") or {}
     tables = data.get("all_tables") or data.get("tables") or []
     sections = data.get("all_boxes_and_sections") or data.get("content_sections") or []
     images = data.get("all_images_and_graphs") or data.get("images_and_graphs") or []
-    summary = data.get("document_summary") or {}
 
-    # 1. Header Logo & Branding
-    logo_html = ""
-    header_images = [img for img in images if img.get("page") == 1 and img.get("width", 0) > 40]
-    if header_images and show_images:
-        first_img = header_images[0]
-        logo_html = f'<img src="{first_img.get("data_uri")}" style="max-height: 55px; max-width: 220px; object-fit: contain;" alt="Logo" />'
-
-    # 2. Key-Value Pairs Grid HTML
-    header_rows_html = ""
-    if show_kv and kv:
-        kv_items = list(kv.items())
-        for i in range(0, len(kv_items), 2):
-            k1, v1 = kv_items[i]
-            k2, v2 = kv_items[i + 1] if (i + 1) < len(kv_items) else ("", "")
-
-            td_k2 = f'<td class="header-label">{k2}:</td><td class="header-val">{v2}</td>' if k2 else '<td class="header-label"></td><td class="header-val"></td>'
-            header_rows_html += f"""
-            <tr>
-                <td class="header-label">{k1}:</td>
-                <td class="header-val"><strong>{v1}</strong></td>
-                {td_k2}
-            </tr>
-            """
-
-    if not header_rows_html:
-        header_rows_html = f"""
-        <tr>
-            <td class="header-label">Document Name:</td>
-            <td class="header-val"><strong>{summary.get("file_name", doc_title)}</strong></td>
-            <td class="header-label">Total Pages:</td>
-            <td class="header-val">{summary.get("total_pages", 1)}</td>
-        </tr>
-        """
-
-    # 3. Content Section Boxes HTML (clean boxed layout)
+    # 1. Content Section Boxes HTML (clean boxed layout)
     sections_html = ""
     if show_sections and sections:
         for sec in sections:
             title = sec.get("title", "").strip()
             sec_type = sec.get("type", "")
-            if sec_type == "demographics_box" or title.startswith("Header & Metadata Box"):
+            if sec_type == "demographics_box" or title.startswith("Header & Metadata Box") or title == "Patient Details & Metadata":
                 continue
 
             content_text = sec.get("content_text", [])
@@ -382,7 +350,7 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
             </div>
             """
 
-    # 4. Tables HTML
+    # 2. Data Tables HTML
     tables_html = ""
     if show_tables and tables:
         for t_idx, tab in enumerate(tables):
@@ -423,6 +391,7 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
             </div>
             """
 
+
     # 5. Images & Graphs Section HTML
     images_html = ""
     if show_images and images:
@@ -444,26 +413,12 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
         if img_cards:
             images_html = f"""
             <div class="section-box" style="margin-top: 14pt;">
-                <div class="section-title">Extracted Images & Graphical Content</div>
+                <div class="section-title">Extracted Body Images & Graphical Content</div>
                 <div class="image-grid">
                     {img_cards}
                 </div>
             </div>
             """
-
-    # 6. Footer Signatures HTML
-    footer_html = ""
-    if show_footer_signatures and footer_signature_labels:
-        sig_boxes = "".join(
-            f"""
-            <div class="sig-box">
-                <div>______________________</div>
-                <div class="sig-title">{label}</div>
-            </div>
-            """
-            for label in footer_signature_labels
-        )
-        footer_html = f'<div class="footer-signatures">{sig_boxes}</div>'
 
     html_content = f"""<!DOCTYPE html>
 <html lang="en">
@@ -476,14 +431,6 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
 body {{ margin: 0; padding: 0; background-color: #f1f5f9; font-family: {font_family}; color: {text_color}; }}
 .pdf-container {{ display: flex; flex-direction: column; align-items: center; padding: 20px 0; }}
 .pdf-page {{ background: {bg_page}; width: 595.6pt; min-height: 842.0pt; padding: 35.5pt; margin-bottom: 20px; position: relative; box-shadow: 0 4px 12px rgba(0,0,0,0.15); page-break-after: always; font-family: {font_family}; word-break: normal; overflow-wrap: break-word; }}
-.logo-header {{ display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid {primary_color}; padding-bottom: 8pt; margin-bottom: 12pt; }}
-.brand-title {{ font-size: 18pt; font-weight: bold; color: {primary_color}; letter-spacing: 0.02em; }}
-.brand-subtitle {{ font-size: 9pt; color: #64748b; margin-top: 2pt; }}
-.header-table {{ width: 100%; border-collapse: collapse; margin-bottom: 14pt; border: 1px solid {border_color}; border-radius: 4px; overflow: hidden; table-layout: fixed; }}
-.header-table td {{ padding: 6pt 8pt; font-size: 9.5pt; color: {text_color}; border: 1px solid #cbd5e1; vertical-align: middle; word-break: normal; overflow-wrap: break-word; }}
-.header-label {{ font-weight: bold; color: {primary_color}; width: 22%; background-color: #f8fafc; }}
-.header-val {{ width: 28%; }}
-.banner-dark {{ background-color: {primary_color}; color: #ffffff; text-align: center; padding: 7pt 0; font-weight: bold; font-size: 12.5pt; font-family: {font_family}; margin: 14pt 0; text-transform: uppercase; letter-spacing: 0.04em; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); }}
 .section-box {{ border: 1px solid {border_color}; border-radius: 6px; margin-bottom: 14pt; position: relative; background: #ffffff; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.04); }}
 .section-title {{ background-color: {primary_color}; color: #ffffff; font-weight: bold; font-size: 10.0pt; padding: 6pt 10pt; display: block; border-top-left-radius: 4px; border-top-right-radius: 4px; letter-spacing: 0.02em; }}
 .section-body {{ padding: 10pt 12pt; font-size: 9.5pt; line-height: 1.5; color: {text_color}; }}
@@ -501,40 +448,27 @@ body {{ margin: 0; padding: 0; background-color: #f1f5f9; font-family: {font_fam
 .image-card {{ border: 1px solid #e2e8f0; border-radius: 4px; padding: 8px; background: #fafafa; text-align: center; max-width: 240px; }}
 .extracted-img {{ max-width: 100%; max-height: 160px; object-fit: contain; border-radius: 2px; }}
 .image-caption {{ font-size: 8pt; color: #64748b; margin-top: 4pt; font-family: sans-serif; }}
-.footer-signatures {{ display: flex; justify-content: space-between; margin-top: 30pt; padding-top: 10pt; border-top: 1px solid #cbd5e1; font-size: 9pt; }}
-.sig-box {{ text-align: center; width: 30%; }}
-.sig-title {{ font-weight: bold; color: {primary_color}; margin-top: 4pt; }}
 </style>
 </head>
 <body>
 <div class="pdf-container">
   <div class="pdf-page">
-    <div class="logo-header">
-      <div>
-        <div class="brand-title">{header_title}</div>
-        <div class="brand-subtitle">{header_subtitle}</div>
-      </div>
-      {logo_html}
-    </div>
-    
-    <table class="header-table">
-      {header_rows_html}
-    </table>
+    {oncquest_logo_html}
 
-    <div class="banner-dark">{header_title}</div>
+    {patient_table_html}
 
     {sections_html}
 
     {tables_html}
 
     {images_html}
-
-    {footer_html}
   </div>
 </div>
 </body>
 </html>"""
     return html_content
+
+
 
 
 def _set_cell_background(cell, hex_color: str):
@@ -960,15 +894,19 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
         p_num = p.get("page_number", 1)
         pw = p.get("width", 595.0)
         ph = p.get("height", 842.0)
+        hy_cutoff = p.get("header_y_cutoff", 0.0)
+        fy_cutoff = p.get("footer_y_cutoff", ph)
 
         html_parts.append(f"<div class='pdf-page' id='page-{p_num}' style='width:{pw:.1f}pt; min-height:{ph:.1f}pt;'>")
 
-        # 1. Render Vector Drawings
+        # 1. Render Vector Drawings in body region ONLY
         for d in p.get("drawings", []):
             bbox = d.get("bbox")
             if not bbox or len(bbox) < 4:
                 continue
             x0, y0, x1, y1 = bbox
+            if y0 < hy_cutoff or y1 > fy_cutoff:
+                continue
             w = max(0.5, x1 - x0)
             h = max(0.5, y1 - y0)
             fill_col = d.get("fill_color")
@@ -984,23 +922,30 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
                     f"<div class='vector-box' style='left:{x0:.2f}pt; top:{y0:.2f}pt; width:{w:.2f}pt; height:{h:.2f}pt; border:{stroke_w}px solid {stroke_col};'></div>"
                 )
 
-        # 2. Render Images if present
+        # 2. Render Images in body region ONLY
         for img in p.get("images", []):
             bbox = img.get("bbox")
             data_uri = img.get("data_uri")
             if bbox and data_uri:
                 x0, y0, x1, y1 = bbox
+                if y0 < hy_cutoff or y1 > fy_cutoff:
+                    continue
                 w = max(1.0, x1 - x0)
                 h = max(1.0, y1 - y0)
                 html_parts.append(
                     f"<img class='img-box' src='{data_uri}' style='left:{x0:.2f}pt; top:{y0:.2f}pt; width:{w:.2f}pt; height:{h:.2f}pt;' />"
                 )
 
-        # 3. Render Text Blocks, Lines, and Spans
+        # 3. Render Text Blocks in body region ONLY
         for b in p.get("text_blocks", []):
+            b_bbox = b.get("bbox", [0, 0, 0, 0])
+            if b_bbox[1] < hy_cutoff or b_bbox[3] > fy_cutoff:
+                continue
             for line in b.get("lines", []):
                 l_bbox = line.get("bbox", [0, 0, 0, 0])
                 lx0, ly0, lx1, ly1 = l_bbox
+                if ly0 < hy_cutoff or ly1 > fy_cutoff:
+                    continue
                 spans = line.get("spans", [])
 
                 if not spans:
@@ -1176,9 +1121,9 @@ def _get_page_bounds(page, fallback_left, fallback_width):
     return fallback_left, fallback_width
 
 
-def get_page_section_overlays(page, page_left_str, page_width_str):
+def get_page_section_overlays(page, page_left_str, page_width_str, hy_cutoff: float = 0.0, fy_cutoff: float = 9999.0):
     """
-    Extract section bounding boxes based on bold section headings.
+    Extract section bounding boxes based on bold section headings in body region ONLY.
     """
     spans = []
     blocks = page.get_text('dict')['blocks']
@@ -1193,27 +1138,37 @@ def get_page_section_overlays(page, page_left_str, page_width_str):
     overlays = []
     for i, s in enumerate(spans):
         text = s['text'].strip()
+        s_y0 = s['bbox'][1]
+        s_y1 = s['bbox'][3]
+        if s_y0 < hy_cutoff or s_y1 > fy_cutoff:
+            continue
+
         is_bold = s.get('flags', 0) & 2 or "bold" in s.get('font', '').lower()
         if is_bold and text.endswith(':') and len(text) < 40:
             h_bbox = s['bbox']
             content_spans = []
             for j in range(i + 1, len(spans)):
                 next_text = spans[j]['text'].strip()
+                next_y0 = spans[j]['bbox'][1]
+                if next_y0 > fy_cutoff:
+                    break
                 next_is_bold = spans[j].get('flags', 0) & 2 or "bold" in spans[j].get('font', '').lower()
                 if (next_is_bold and next_text.endswith(':')) or spans[j]['bbox'][1] - h_bbox[1] > 100:
                     break
                 content_spans.append(spans[j])
 
             if content_spans:
-                c_min_y = max(0.0, h_bbox[1] - 2.0)
-                c_max_y = max(cs['bbox'][3] for cs in content_spans) + 4.0
+                c_min_y = max(hy_cutoff, h_bbox[1] - 2.0)
+                c_max_y = min(fy_cutoff, max(cs['bbox'][3] for cs in content_spans) + 4.0)
                 h = max(14.0, c_max_y - c_min_y)
-                overlays.append(
-                    f"<div class='section-content-box' "
-                    f"style='left:{page_left_str};top:{c_min_y:.1f}pt;"
-                    f"width:{page_width_str};height:{h:.1f}pt;'></div>"
-                )
+                if c_min_y >= hy_cutoff and c_max_y <= fy_cutoff:
+                    overlays.append(
+                        f"<div class='section-content-box' "
+                        f"style='left:{page_left_str};top:{c_min_y:.1f}pt;"
+                        f"width:{page_width_str};height:{h:.1f}pt;'></div>"
+                    )
     return overlays
+
 
 
 def process_pdf(pdf_input, output_html_path=None, is_target=False, use_template=False, theme_config=None, save_output=False):

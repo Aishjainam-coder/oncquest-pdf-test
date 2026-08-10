@@ -1,0 +1,1491 @@
+{
+  "document_summary": {
+    "file_name": "TestReport_RAJENDRA PRASAD (2479921) (OQG2604220384)_2600132859_e68d632b-52ba-40a4-b935-8aae77e550e4.pdf",
+    "total_pages": 8,
+    "total_tables": 7,
+    "total_boxes": 6,
+    "total_key_value_pairs": 6,
+    "total_images_and_graphs": 0
+  },
+  "extracted_key_value_pairs": {
+    "Clinical Indication": "Features are consistent with squamous cell carcinoma",
+    "Sequencing": "The libraries were sequenced at mean depth",
+    "PMID": "26432245.",
+    "COSMIC": "somatic cancer genetics at high-resolution.\" Nucleic Acids Research (2016) 45(D1)",
+    "Turner DJ": "Target- enrichment strategies for next-generation sequencing. Nat Methods 2010, 7",
+    "32": "358–368. doi"
+  },
+  "all_key_value_pairs": {
+    "Clinical Indication": "Features are consistent with squamous cell carcinoma",
+    "Sequencing": "The libraries were sequenced at mean depth",
+    "PMID": "26432245.",
+    "COSMIC": "somatic cancer genetics at high-resolution.\" Nucleic Acids Research (2016) 45(D1)",
+    "Turner DJ": "Target- enrichment strategies for next-generation sequencing. Nat Methods 2010, 7",
+    "32": "358–368. doi"
+  },
+  "tables": [
+    {
+      "page": 1,
+      "table_index": 1,
+      "bbox": [
+        30.08,
+        370.87,
+        565.3,
+        413.07
+      ],
+      "headers": [
+        "Tier",
+        "Gene & Transcript",
+        "Variant",
+        "Exon",
+        "Coverage/VAF"
+      ],
+      "rows": [
+        [
+          "-Negative-",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "page": 1,
+      "table_index": 2,
+      "bbox": [
+        30.08,
+        426.8,
+        565.3,
+        469.0
+      ],
+      "headers": [
+        "Fusion Genes",
+        "Breakpoints",
+        "Total Reads"
+      ],
+      "rows": [
+        [
+          "-Negative-",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "page": 1,
+      "table_index": 3,
+      "bbox": [
+        30.08,
+        482.73,
+        565.3,
+        524.93
+      ],
+      "headers": [
+        "CNV Type",
+        "Genes",
+        "Copy Number"
+      ],
+      "rows": [
+        [
+          "-Negative-",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "page": 1,
+      "table_index": 4,
+      "bbox": [
+        30.08,
+        565.12,
+        565.3,
+        644.85
+      ],
+      "headers": [
+        "Assay Biomarker",
+        "Result",
+        "Interpretation"
+      ],
+      "rows": [
+        [
+          "Microsatellite Instability (MSI)",
+          "Stable",
+          "Stable Microsatellite detected"
+        ],
+        [
+          "Tumor Mutation Burden (TMB)",
+          "5.45 (Low)",
+          "Unlikely to benefit from Immuno-Oncology therapy"
+        ]
+      ]
+    },
+    {
+      "page": 7,
+      "table_index": 1,
+      "bbox": [
+        30.09,
+        269.89,
+        565.34,
+        311.88
+      ],
+      "headers": [
+        "RNA Gene List",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "rows": [
+        [
+          "ALK",
+          "MET",
+          "NTRK1",
+          "NTRK2",
+          "NTRK3"
+        ],
+        [
+          "ROS1",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "page": 7,
+      "table_index": 2,
+      "bbox": [
+        30.09,
+        325.89,
+        565.34,
+        374.64
+      ],
+      "headers": [
+        "TMB",
+        "Category",
+        "Interpretation"
+      ],
+      "rows": [
+        [
+          "1-5 Mutations/Mb",
+          "Low",
+          "Unlikely to benefit from Immuno-Oncology therapy."
+        ],
+        [
+          "6-19 Mutations/Mb",
+          "Intermediate",
+          "Moderate response anticipated towards Immuno-Oncology therapy."
+        ],
+        [
+          ">20 Mutations/Mb",
+          "High",
+          "Good and significant response expected to Immuno-Oncology therapy"
+        ]
+      ]
+    },
+    {
+      "page": 7,
+      "table_index": 3,
+      "bbox": [
+        30.09,
+        388.74,
+        565.34,
+        437.54
+      ],
+      "headers": [
+        "MSI",
+        "% of Unstable Loci"
+      ],
+      "rows": [
+        [
+          "MSI - Stable",
+          "0-19%"
+        ],
+        [
+          "MSI - Low / Intermediate",
+          "20-30%"
+        ],
+        [
+          "MSI - High",
+          ">20%"
+        ]
+      ]
+    }
+  ],
+  "all_tables": [
+    {
+      "page": 1,
+      "table_index": 1,
+      "bbox": [
+        30.08,
+        370.87,
+        565.3,
+        413.07
+      ],
+      "headers": [
+        "Tier",
+        "Gene & Transcript",
+        "Variant",
+        "Exon",
+        "Coverage/VAF"
+      ],
+      "rows": [
+        [
+          "-Negative-",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "page": 1,
+      "table_index": 2,
+      "bbox": [
+        30.08,
+        426.8,
+        565.3,
+        469.0
+      ],
+      "headers": [
+        "Fusion Genes",
+        "Breakpoints",
+        "Total Reads"
+      ],
+      "rows": [
+        [
+          "-Negative-",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "page": 1,
+      "table_index": 3,
+      "bbox": [
+        30.08,
+        482.73,
+        565.3,
+        524.93
+      ],
+      "headers": [
+        "CNV Type",
+        "Genes",
+        "Copy Number"
+      ],
+      "rows": [
+        [
+          "-Negative-",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "page": 1,
+      "table_index": 4,
+      "bbox": [
+        30.08,
+        565.12,
+        565.3,
+        644.85
+      ],
+      "headers": [
+        "Assay Biomarker",
+        "Result",
+        "Interpretation"
+      ],
+      "rows": [
+        [
+          "Microsatellite Instability (MSI)",
+          "Stable",
+          "Stable Microsatellite detected"
+        ],
+        [
+          "Tumor Mutation Burden (TMB)",
+          "5.45 (Low)",
+          "Unlikely to benefit from Immuno-Oncology therapy"
+        ]
+      ]
+    },
+    {
+      "page": 7,
+      "table_index": 1,
+      "bbox": [
+        30.09,
+        269.89,
+        565.34,
+        311.88
+      ],
+      "headers": [
+        "RNA Gene List",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "rows": [
+        [
+          "ALK",
+          "MET",
+          "NTRK1",
+          "NTRK2",
+          "NTRK3"
+        ],
+        [
+          "ROS1",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "page": 7,
+      "table_index": 2,
+      "bbox": [
+        30.09,
+        325.89,
+        565.34,
+        374.64
+      ],
+      "headers": [
+        "TMB",
+        "Category",
+        "Interpretation"
+      ],
+      "rows": [
+        [
+          "1-5 Mutations/Mb",
+          "Low",
+          "Unlikely to benefit from Immuno-Oncology therapy."
+        ],
+        [
+          "6-19 Mutations/Mb",
+          "Intermediate",
+          "Moderate response anticipated towards Immuno-Oncology therapy."
+        ],
+        [
+          ">20 Mutations/Mb",
+          "High",
+          "Good and significant response expected to Immuno-Oncology therapy"
+        ]
+      ]
+    },
+    {
+      "page": 7,
+      "table_index": 3,
+      "bbox": [
+        30.09,
+        388.74,
+        565.34,
+        437.54
+      ],
+      "headers": [
+        "MSI",
+        "% of Unstable Loci"
+      ],
+      "rows": [
+        [
+          "MSI - Stable",
+          "0-19%"
+        ],
+        [
+          "MSI - Low / Intermediate",
+          "20-30%"
+        ],
+        [
+          "MSI - High",
+          ">20%"
+        ]
+      ]
+    }
+  ],
+  "content_sections": [
+    {
+      "page": 1,
+      "title": "On Illumina Novaseq 6000 Platform",
+      "type": "content_section_box",
+      "bbox": [
+        185.27,
+        231.42,
+        410.09,
+        247.83
+      ],
+      "content_text": [
+        "Clinical Indication: Features are consistent with squamous cell carcinoma"
+      ]
+    },
+    {
+      "page": 2,
+      "title": "General Content / Notes",
+      "type": "content_section_box",
+      "bbox": [
+        35.45,
+        245.66,
+        559.91,
+        304.27
+      ],
+      "content_text": [
+        "The Liquidseq Comprehensive Genomic Profile (CGP) Panel assay analyses  543  unique genes ( 537  DNA +  6  Fusions driver genes) for single gene and multiple gene biomarker insights, detects single gene biomarkers from all variant types including SNVs, indels, CNVs, known and novel fusions, and splice variants. Analyze complex multi-gene biomarkers for mutational signatures, including microsatellite instability ( MSI ) & Tumor Mutation burden ( TMB ) for immunotherapy research.",
+        "The performance of the panel was verified using both commercially sourced reference controls and cell-free DNA (cfTNA)samples.",
+        "Test Methodology Extraction & Library Preparation: Cell free Total Nucleic acid (cfTNA) extracted from the liquid biopsy sample is used for targeted gene capture using a custom designed hybrid capture panel. In process quality controls were determined for prepared library.",
+        "Sequencing : The libraries were sequenced at mean depth: >25,000x on Illumina Novaseq- next generation sequencing platform.",
+        "Data Analysis: Sequencing data are analyzed using a customized and validated bioinformatics pipeline capable of detecting various classes of genomic alterations, including single nucleotide variants ( SNVs ), Indels , copy number variations ( CNVs ) and fusions . As part of the streamlined bioinformatics workflow, Multi-gene Biomarkers such as Microsatellite Instability ( MSI ) and Tumor Mutation Burden ( TMB ) Score is calculated. Reportable genomic alterations and fusions are prioritized, classified, and reported based on AMP-ASCO-CAP guidelines and NCCN guidelines.",
+        "Limit of Detection (LOD): The LOD for SNVs and Short InDels is 0.1% Variant allele Frequency (VAF) and for Fusions is 05 supporting reads."
+      ]
+    },
+    {
+      "page": 2,
+      "title": "Notes",
+      "type": "content_section_box",
+      "bbox": [
+        35.4,
+        567.28,
+        61.41,
+        579.0
+      ],
+      "content_text": [
+        "Treatment decisions should not be based solely on the results of this test. Findings must be interpreted in the context of the patient’s complete clinical profile—including pathological, radiological, and family history—to guide diagnosis, prognosis, and therapeutic decisions."
+      ]
+    },
+    {
+      "page": 3,
+      "title": "General Content / Notes",
+      "type": "content_section_box",
+      "bbox": [
+        35.4,
+        245.66,
+        559.94,
+        269.1
+      ],
+      "content_text": [
+        "SN Genelab Pvt Ltd does not guarantee completeness, accuracy, or eligibility for trial enrollment. Physicians must verify eligibility criteria for specific trials independently.",
+        "Identification of a genomic alteration does not guarantee therapeutic efficacy or predict ineffectiveness. Final decisions on treatment should rest with the treating physician. The absence of reported therapeutic options does not imply ineffectiveness or lack of safety of any medication selected independently.",
+        "All variant classifications and related clinical information are based on the latest evidence from peer-reviewed publications, public clinical databases, and medical guidelines (e.g., NCCN, ASCO, AMP) available at the time of report generation. However, literature is continuously evolving, and classification may change with emerging evidence.",
+        "The assay is designed and validated for somatic variant detection, it does not differentiate between somatic and germline variants. If indicated, germline testing and genetic counselling are recommended.",
+        "Poor-quality cfDNA may fail QC thresholds at various stages such as cfDNA extraction, library preparation, or bioinformatics, and may result in assay failure or compromised results, such as low gene coverage or shallow variant depth.",
+        "Variants with lower allele frequencies may be reported if they are of strong or potential clinical relevance, or if previously detected in the same patient. False positives or negatives below assay sensitivity cannot be ruled out.",
+        "CNVs/gene amplifications reported, Confirmation using orthogonal methods such as DDPCR is recommended when clinically indicated."
+      ]
+    },
+    {
+      "page": 7,
+      "title": "General Content / Notes",
+      "type": "content_section_box",
+      "bbox": [
+        35.45,
+        451.82,
+        560.03,
+        499.21
+      ],
+      "content_text": [
+        "Tier Interpretation Tier IA Variants of Strong Clinical Significance: Biomarkers that predict response or resistance to US FDA- approved therapies for a specific type of tumor or have been included in professional guidelines as therapeutic, diagnostic, and/or prognostic biomarkers for specific types of tumors.",
+        "Tier IB Variants of Strong Clinical Significance: Biomarkers that predict response or resistance to a therapy based on well-powered studies with consensus from experts in the field, or have diagnostic and/or prognostic significance of certain diseases based on well-powered studies with expert consensus.",
+        "Tier IIC Variants of Potential Clinical Significance: biomarkers that predict response or resistance to therapies approved by FDA or professional societies for a different tumor type (i.e., off-label use of a drug), serve as inclusion criteria for clinical trials, or have diagnostic and/or prognostic significance based on the results of multiple small studies.",
+        "Tier IID Variants of Potential Clinical Significance: Biomarkers that show plausible therapeutic significance based on preclinical studies or may assist disease diagnosis and/or prognosis themselves or along with other biomarkers based on small studies or multiple case reports with no consensus."
+      ]
+    },
+    {
+      "page": 8,
+      "title": "References:",
+      "type": "content_section_box",
+      "bbox": [
+        35.45,
+        239.92,
+        89.21,
+        251.64
+      ],
+      "content_text": [
+        "1. Exome Aggregation Consortium et al. “Analysis of Protein-Coding Genetic Variation in 60,706 Humans.” Nature (2016) 536(7616): 285–291. PMID: 27535533.",
+        "2. Forbes, Simon A., et al. \"COSMIC: somatic cancer genetics at high-resolution.\" Nucleic Acids Research (2016) 45(D1): D777-D783. PMID: 27899578.",
+        "3. Li, Marilyn M., et al. \"Standards and guidelines for the interpretation and reporting of sequence variants in cancer: a joint consensus recommendation of the Association for Molecular Pathology, American Society of Clinical Oncology, and College of American Pathologists.\" The Journal of Molecular Diagnostics (2017) 19(1): 4-23. PMID: 27993330.",
+        "4. Mamanova L, Coffey AJ, Scott CE, Kozarewa I, Turner EH, Kumar A, Howard E, Shendure J, Turner DJ: Target- enrichment strategies for next-generation sequencing. Nat Methods 2010, 7: 111–118",
+        "5. Richards, Sue, et al. \"Standards and guidelines for the interpretation of sequence variants: a joint consensus recommendation of the American College of Medical Genetics and Genomics and the Association for Molecular Pathology.\" Genetics in Medicine (2015) 17(5): 405. PMID: 25741868.",
+        "6. The 1000 Genomes Project Consortium. “A Global Reference for Human Genetic Variation.” Nature (2015) 526(7571): 68–74. PMID: 26432245.",
+        "7. Thusberg J, Olatubosun A, Vihinen M. Performance of mutation pathogenicity prediction methods on missense variants. Hum Mutat. 2011;32:358–368. doi: 10.1002/humu.21445."
+      ]
+    }
+  ],
+  "all_boxes_and_sections": [
+    {
+      "page": 1,
+      "title": "On Illumina Novaseq 6000 Platform",
+      "type": "content_section_box",
+      "bbox": [
+        185.27,
+        231.42,
+        410.09,
+        247.83
+      ],
+      "content_text": [
+        "Clinical Indication: Features are consistent with squamous cell carcinoma"
+      ]
+    },
+    {
+      "page": 2,
+      "title": "General Content / Notes",
+      "type": "content_section_box",
+      "bbox": [
+        35.45,
+        245.66,
+        559.91,
+        304.27
+      ],
+      "content_text": [
+        "The Liquidseq Comprehensive Genomic Profile (CGP) Panel assay analyses  543  unique genes ( 537  DNA +  6  Fusions driver genes) for single gene and multiple gene biomarker insights, detects single gene biomarkers from all variant types including SNVs, indels, CNVs, known and novel fusions, and splice variants. Analyze complex multi-gene biomarkers for mutational signatures, including microsatellite instability ( MSI ) & Tumor Mutation burden ( TMB ) for immunotherapy research.",
+        "The performance of the panel was verified using both commercially sourced reference controls and cell-free DNA (cfTNA)samples.",
+        "Test Methodology Extraction & Library Preparation: Cell free Total Nucleic acid (cfTNA) extracted from the liquid biopsy sample is used for targeted gene capture using a custom designed hybrid capture panel. In process quality controls were determined for prepared library.",
+        "Sequencing : The libraries were sequenced at mean depth: >25,000x on Illumina Novaseq- next generation sequencing platform.",
+        "Data Analysis: Sequencing data are analyzed using a customized and validated bioinformatics pipeline capable of detecting various classes of genomic alterations, including single nucleotide variants ( SNVs ), Indels , copy number variations ( CNVs ) and fusions . As part of the streamlined bioinformatics workflow, Multi-gene Biomarkers such as Microsatellite Instability ( MSI ) and Tumor Mutation Burden ( TMB ) Score is calculated. Reportable genomic alterations and fusions are prioritized, classified, and reported based on AMP-ASCO-CAP guidelines and NCCN guidelines.",
+        "Limit of Detection (LOD): The LOD for SNVs and Short InDels is 0.1% Variant allele Frequency (VAF) and for Fusions is 05 supporting reads."
+      ]
+    },
+    {
+      "page": 2,
+      "title": "Notes",
+      "type": "content_section_box",
+      "bbox": [
+        35.4,
+        567.28,
+        61.41,
+        579.0
+      ],
+      "content_text": [
+        "Treatment decisions should not be based solely on the results of this test. Findings must be interpreted in the context of the patient’s complete clinical profile—including pathological, radiological, and family history—to guide diagnosis, prognosis, and therapeutic decisions."
+      ]
+    },
+    {
+      "page": 3,
+      "title": "General Content / Notes",
+      "type": "content_section_box",
+      "bbox": [
+        35.4,
+        245.66,
+        559.94,
+        269.1
+      ],
+      "content_text": [
+        "SN Genelab Pvt Ltd does not guarantee completeness, accuracy, or eligibility for trial enrollment. Physicians must verify eligibility criteria for specific trials independently.",
+        "Identification of a genomic alteration does not guarantee therapeutic efficacy or predict ineffectiveness. Final decisions on treatment should rest with the treating physician. The absence of reported therapeutic options does not imply ineffectiveness or lack of safety of any medication selected independently.",
+        "All variant classifications and related clinical information are based on the latest evidence from peer-reviewed publications, public clinical databases, and medical guidelines (e.g., NCCN, ASCO, AMP) available at the time of report generation. However, literature is continuously evolving, and classification may change with emerging evidence.",
+        "The assay is designed and validated for somatic variant detection, it does not differentiate between somatic and germline variants. If indicated, germline testing and genetic counselling are recommended.",
+        "Poor-quality cfDNA may fail QC thresholds at various stages such as cfDNA extraction, library preparation, or bioinformatics, and may result in assay failure or compromised results, such as low gene coverage or shallow variant depth.",
+        "Variants with lower allele frequencies may be reported if they are of strong or potential clinical relevance, or if previously detected in the same patient. False positives or negatives below assay sensitivity cannot be ruled out.",
+        "CNVs/gene amplifications reported, Confirmation using orthogonal methods such as DDPCR is recommended when clinically indicated."
+      ]
+    },
+    {
+      "page": 7,
+      "title": "General Content / Notes",
+      "type": "content_section_box",
+      "bbox": [
+        35.45,
+        451.82,
+        560.03,
+        499.21
+      ],
+      "content_text": [
+        "Tier Interpretation Tier IA Variants of Strong Clinical Significance: Biomarkers that predict response or resistance to US FDA- approved therapies for a specific type of tumor or have been included in professional guidelines as therapeutic, diagnostic, and/or prognostic biomarkers for specific types of tumors.",
+        "Tier IB Variants of Strong Clinical Significance: Biomarkers that predict response or resistance to a therapy based on well-powered studies with consensus from experts in the field, or have diagnostic and/or prognostic significance of certain diseases based on well-powered studies with expert consensus.",
+        "Tier IIC Variants of Potential Clinical Significance: biomarkers that predict response or resistance to therapies approved by FDA or professional societies for a different tumor type (i.e., off-label use of a drug), serve as inclusion criteria for clinical trials, or have diagnostic and/or prognostic significance based on the results of multiple small studies.",
+        "Tier IID Variants of Potential Clinical Significance: Biomarkers that show plausible therapeutic significance based on preclinical studies or may assist disease diagnosis and/or prognosis themselves or along with other biomarkers based on small studies or multiple case reports with no consensus."
+      ]
+    },
+    {
+      "page": 8,
+      "title": "References:",
+      "type": "content_section_box",
+      "bbox": [
+        35.45,
+        239.92,
+        89.21,
+        251.64
+      ],
+      "content_text": [
+        "1. Exome Aggregation Consortium et al. “Analysis of Protein-Coding Genetic Variation in 60,706 Humans.” Nature (2016) 536(7616): 285–291. PMID: 27535533.",
+        "2. Forbes, Simon A., et al. \"COSMIC: somatic cancer genetics at high-resolution.\" Nucleic Acids Research (2016) 45(D1): D777-D783. PMID: 27899578.",
+        "3. Li, Marilyn M., et al. \"Standards and guidelines for the interpretation and reporting of sequence variants in cancer: a joint consensus recommendation of the Association for Molecular Pathology, American Society of Clinical Oncology, and College of American Pathologists.\" The Journal of Molecular Diagnostics (2017) 19(1): 4-23. PMID: 27993330.",
+        "4. Mamanova L, Coffey AJ, Scott CE, Kozarewa I, Turner EH, Kumar A, Howard E, Shendure J, Turner DJ: Target- enrichment strategies for next-generation sequencing. Nat Methods 2010, 7: 111–118",
+        "5. Richards, Sue, et al. \"Standards and guidelines for the interpretation of sequence variants: a joint consensus recommendation of the American College of Medical Genetics and Genomics and the Association for Molecular Pathology.\" Genetics in Medicine (2015) 17(5): 405. PMID: 25741868.",
+        "6. The 1000 Genomes Project Consortium. “A Global Reference for Human Genetic Variation.” Nature (2015) 526(7571): 68–74. PMID: 26432245.",
+        "7. Thusberg J, Olatubosun A, Vihinen M. Performance of mutation pathogenicity prediction methods on missense variants. Hum Mutat. 2011;32:358–368. doi: 10.1002/humu.21445."
+      ]
+    }
+  ],
+  "images_and_graphs": [],
+  "all_images_and_graphs": [],
+  "pages": [
+    {
+      "page_number": 1,
+      "dimensions": {
+        "width": 595.3,
+        "height": 841.9
+      },
+      "header_y_cutoff": 214.8,
+      "footer_y_cutoff": 684.01,
+      "key_value_pairs": {
+        "Clinical Indication": "Features are consistent with squamous cell carcinoma"
+      },
+      "boxes_and_sections": [
+        {
+          "page": 1,
+          "title": "On Illumina Novaseq 6000 Platform",
+          "type": "content_section_box",
+          "bbox": [
+            185.27,
+            231.42,
+            410.09,
+            247.83
+          ],
+          "content_text": [
+            "Clinical Indication: Features are consistent with squamous cell carcinoma"
+          ]
+        }
+      ],
+      "tables": [
+        {
+          "page": 1,
+          "table_index": 1,
+          "bbox": [
+            30.08,
+            370.87,
+            565.3,
+            413.07
+          ],
+          "headers": [
+            "Tier",
+            "Gene & Transcript",
+            "Variant",
+            "Exon",
+            "Coverage/VAF"
+          ],
+          "rows": [
+            [
+              "-Negative-",
+              "",
+              "",
+              "",
+              ""
+            ]
+          ]
+        },
+        {
+          "page": 1,
+          "table_index": 2,
+          "bbox": [
+            30.08,
+            426.8,
+            565.3,
+            469.0
+          ],
+          "headers": [
+            "Fusion Genes",
+            "Breakpoints",
+            "Total Reads"
+          ],
+          "rows": [
+            [
+              "-Negative-",
+              "",
+              ""
+            ]
+          ]
+        },
+        {
+          "page": 1,
+          "table_index": 3,
+          "bbox": [
+            30.08,
+            482.73,
+            565.3,
+            524.93
+          ],
+          "headers": [
+            "CNV Type",
+            "Genes",
+            "Copy Number"
+          ],
+          "rows": [
+            [
+              "-Negative-",
+              "",
+              ""
+            ]
+          ]
+        },
+        {
+          "page": 1,
+          "table_index": 4,
+          "bbox": [
+            30.08,
+            565.12,
+            565.3,
+            644.85
+          ],
+          "headers": [
+            "Assay Biomarker",
+            "Result",
+            "Interpretation"
+          ],
+          "rows": [
+            [
+              "Microsatellite Instability (MSI)",
+              "Stable",
+              "Stable Microsatellite detected"
+            ],
+            [
+              "Tumor Mutation Burden (TMB)",
+              "5.45 (Low)",
+              "Unlikely to benefit from Immuno-Oncology therapy"
+            ]
+          ]
+        }
+      ],
+      "images_and_graphs": [],
+      "text_blocks": [
+        {
+          "page": 1,
+          "bbox": [
+            185.27,
+            231.42,
+            410.09,
+            247.83
+          ],
+          "text": "On Illumina Novaseq 6000 Platform",
+          "max_font_size": 14.0,
+          "is_bold": true,
+          "font": "Cambria,BoldItalic"
+        },
+        {
+          "page": 1,
+          "bbox": [
+            35.45,
+            262.29,
+            266.22,
+            285.73
+          ],
+          "text": "Clinical Indication: Features are consistent with squamous cell carcinoma",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria"
+        },
+        {
+          "page": 1,
+          "bbox": [
+            205.75,
+            302.72,
+            389.59,
+            330.85
+          ],
+          "text": "Negative (No clinically significant Variants detected)",
+          "max_font_size": 14.0,
+          "is_bold": true,
+          "font": "Cambria"
+        },
+        {
+          "page": 1,
+          "bbox": [
+            47.25,
+            348.97,
+            109.27,
+            360.69
+          ],
+          "text": "Key Findings:",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 1,
+          "bbox": [
+            47.25,
+            539.7,
+            140.66,
+            551.42
+          ],
+          "text": "Biomarkers Results:",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 1,
+          "bbox": [
+            35.45,
+            657.82,
+            111.42,
+            669.54
+          ],
+          "text": "Test Description",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        }
+      ],
+      "page_text": "On Illumina Novaseq 6000 Platform\nClinical Indication: Features are consistent with squamous cell carcinoma\nNegative (No clinically significant Variants detected)\nKey Findings:\nBiomarkers Results:\nTest Description"
+    },
+    {
+      "page_number": 2,
+      "dimensions": {
+        "width": 595.3,
+        "height": 841.9
+      },
+      "header_y_cutoff": 214.8,
+      "footer_y_cutoff": 684.01,
+      "key_value_pairs": {
+        "Sequencing": "The libraries were sequenced at mean depth"
+      },
+      "boxes_and_sections": [
+        {
+          "page": 2,
+          "title": "General Content / Notes",
+          "type": "content_section_box",
+          "bbox": [
+            35.45,
+            245.66,
+            559.91,
+            304.27
+          ],
+          "content_text": [
+            "The Liquidseq Comprehensive Genomic Profile (CGP) Panel assay analyses  543  unique genes ( 537  DNA +  6  Fusions driver genes) for single gene and multiple gene biomarker insights, detects single gene biomarkers from all variant types including SNVs, indels, CNVs, known and novel fusions, and splice variants. Analyze complex multi-gene biomarkers for mutational signatures, including microsatellite instability ( MSI ) & Tumor Mutation burden ( TMB ) for immunotherapy research.",
+            "The performance of the panel was verified using both commercially sourced reference controls and cell-free DNA (cfTNA)samples.",
+            "Test Methodology Extraction & Library Preparation: Cell free Total Nucleic acid (cfTNA) extracted from the liquid biopsy sample is used for targeted gene capture using a custom designed hybrid capture panel. In process quality controls were determined for prepared library.",
+            "Sequencing : The libraries were sequenced at mean depth: >25,000x on Illumina Novaseq- next generation sequencing platform.",
+            "Data Analysis: Sequencing data are analyzed using a customized and validated bioinformatics pipeline capable of detecting various classes of genomic alterations, including single nucleotide variants ( SNVs ), Indels , copy number variations ( CNVs ) and fusions . As part of the streamlined bioinformatics workflow, Multi-gene Biomarkers such as Microsatellite Instability ( MSI ) and Tumor Mutation Burden ( TMB ) Score is calculated. Reportable genomic alterations and fusions are prioritized, classified, and reported based on AMP-ASCO-CAP guidelines and NCCN guidelines.",
+            "Limit of Detection (LOD): The LOD for SNVs and Short InDels is 0.1% Variant allele Frequency (VAF) and for Fusions is 05 supporting reads."
+          ]
+        },
+        {
+          "page": 2,
+          "title": "Notes",
+          "type": "content_section_box",
+          "bbox": [
+            35.4,
+            567.28,
+            61.41,
+            579.0
+          ],
+          "content_text": [
+            "Treatment decisions should not be based solely on the results of this test. Findings must be interpreted in the context of the patient’s complete clinical profile—including pathological, radiological, and family history—to guide diagnosis, prognosis, and therapeutic decisions."
+          ]
+        }
+      ],
+      "tables": [],
+      "images_and_graphs": [],
+      "text_blocks": [
+        {
+          "page": 2,
+          "bbox": [
+            35.45,
+            245.66,
+            559.91,
+            304.27
+          ],
+          "text": "The Liquidseq Comprehensive Genomic Profile (CGP) Panel assay analyses  543  unique genes ( 537  DNA +  6  Fusions driver genes) for single gene and multiple gene biomarker insights, detects single gene biomarkers from all variant types including SNVs, indels, CNVs, known and novel fusions, and splice variants. Analyze complex multi-gene biomarkers for mutational signatures, including microsatellite instability ( MSI ) & Tumor Mutation burden ( TMB ) for immunotherapy research.",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria"
+        },
+        {
+          "page": 2,
+          "bbox": [
+            35.45,
+            324.0,
+            559.92,
+            347.44
+          ],
+          "text": "The performance of the panel was verified using both commercially sourced reference controls and cell-free DNA (cfTNA)samples.",
+          "max_font_size": 10.0,
+          "is_bold": false,
+          "font": "Cambria"
+        },
+        {
+          "page": 2,
+          "bbox": [
+            35.45,
+            365.43,
+            559.91,
+            412.82
+          ],
+          "text": "Test Methodology Extraction & Library Preparation: Cell free Total Nucleic acid (cfTNA) extracted from the liquid biopsy sample is used for targeted gene capture using a custom designed hybrid capture panel. In process quality controls were determined for prepared library.",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria"
+        },
+        {
+          "page": 2,
+          "bbox": [
+            35.45,
+            426.31,
+            559.88,
+            449.75
+          ],
+          "text": "Sequencing : The libraries were sequenced at mean depth: >25,000x on Illumina Novaseq- next generation sequencing platform.",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria"
+        },
+        {
+          "page": 2,
+          "bbox": [
+            35.45,
+            463.24,
+            559.93,
+            521.85
+          ],
+          "text": "Data Analysis: Sequencing data are analyzed using a customized and validated bioinformatics pipeline capable of detecting various classes of genomic alterations, including single nucleotide variants ( SNVs ), Indels , copy number variations ( CNVs ) and fusions . As part of the streamlined bioinformatics workflow, Multi-gene Biomarkers such as Microsatellite Instability ( MSI ) and Tumor Mutation Burden ( TMB ) Score is calculated. Reportable genomic alterations and fusions are prioritized, classified, and reported based on AMP-ASCO-CAP guidelines and NCCN guidelines.",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria"
+        },
+        {
+          "page": 2,
+          "bbox": [
+            35.45,
+            525.85,
+            559.92,
+            549.3
+          ],
+          "text": "Limit of Detection (LOD): The LOD for SNVs and Short InDels is 0.1% Variant allele Frequency (VAF) and for Fusions is 05 supporting reads.",
+          "max_font_size": 10.0,
+          "is_bold": false,
+          "font": "Cambria"
+        },
+        {
+          "page": 2,
+          "bbox": [
+            35.4,
+            567.28,
+            61.41,
+            579.0
+          ],
+          "text": "Notes",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 2,
+          "bbox": [
+            35.4,
+            583.51,
+            559.97,
+            618.67
+          ],
+          "text": "Treatment decisions should not be based solely on the results of this test. Findings must be interpreted in the context of the patient’s complete clinical profile—including pathological, radiological, and family history—to guide diagnosis, prognosis, and therapeutic decisions.",
+          "max_font_size": 10.0,
+          "is_bold": false,
+          "font": "Cambria"
+        }
+      ],
+      "page_text": "The Liquidseq Comprehensive Genomic Profile (CGP) Panel assay analyses  543  unique genes ( 537  DNA +  6  Fusions driver genes) for single gene and multiple gene biomarker insights, detects single gene biomarkers from all variant types including SNVs, indels, CNVs, known and novel fusions, and splice variants. Analyze complex multi-gene biomarkers for mutational signatures, including microsatellite instability ( MSI ) & Tumor Mutation burden ( TMB ) for immunotherapy research.\nThe performance of the panel was verified using both commercially sourced reference controls and cell-free DNA (cfTNA)samples.\nTest Methodology Extraction & Library Preparation: Cell free Total Nucleic acid (cfTNA) extracted from the liquid biopsy sample is used for targeted gene capture using a custom designed hybrid capture panel. In process quality controls were determined for prepared library.\nSequencing : The libraries were sequenced at mean depth: >25,000x on Illumina Novaseq- next generation sequencing platform.\nData Analysis: Sequencing data are analyzed using a customized and validated bioinformatics pipeline capable of detecting various classes of genomic alterations, including single nucleotide variants ( SNVs ), Indels , copy number variations ( CNVs ) and fusions . As part of the streamlined bioinformatics workflow, Multi-gene Biomarkers such as Microsatellite Instability ( MSI ) and Tumor Mutation Burden ( TMB ) Score is calculated. Reportable genomic alterations and fusions are prioritized, classified, and reported based on AMP-ASCO-CAP guidelines and NCCN guidelines.\nLimit of Detection (LOD): The LOD for SNVs and Short InDels is 0.1% Variant allele Frequency (VAF) and for Fusions is 05 supporting reads.\nNotes\nTreatment decisions should not be based solely on the results of this test. Findings must be interpreted in the context of the patient’s complete clinical profile—including pathological, radiological, and family history—to guide diagnosis, prognosis, and therapeutic decisions."
+    },
+    {
+      "page_number": 3,
+      "dimensions": {
+        "width": 595.3,
+        "height": 841.9
+      },
+      "header_y_cutoff": 214.8,
+      "footer_y_cutoff": 593.75,
+      "key_value_pairs": {},
+      "boxes_and_sections": [
+        {
+          "page": 3,
+          "title": "General Content / Notes",
+          "type": "content_section_box",
+          "bbox": [
+            35.4,
+            245.66,
+            559.94,
+            269.1
+          ],
+          "content_text": [
+            "SN Genelab Pvt Ltd does not guarantee completeness, accuracy, or eligibility for trial enrollment. Physicians must verify eligibility criteria for specific trials independently.",
+            "Identification of a genomic alteration does not guarantee therapeutic efficacy or predict ineffectiveness. Final decisions on treatment should rest with the treating physician. The absence of reported therapeutic options does not imply ineffectiveness or lack of safety of any medication selected independently.",
+            "All variant classifications and related clinical information are based on the latest evidence from peer-reviewed publications, public clinical databases, and medical guidelines (e.g., NCCN, ASCO, AMP) available at the time of report generation. However, literature is continuously evolving, and classification may change with emerging evidence.",
+            "The assay is designed and validated for somatic variant detection, it does not differentiate between somatic and germline variants. If indicated, germline testing and genetic counselling are recommended.",
+            "Poor-quality cfDNA may fail QC thresholds at various stages such as cfDNA extraction, library preparation, or bioinformatics, and may result in assay failure or compromised results, such as low gene coverage or shallow variant depth.",
+            "Variants with lower allele frequencies may be reported if they are of strong or potential clinical relevance, or if previously detected in the same patient. False positives or negatives below assay sensitivity cannot be ruled out.",
+            "CNVs/gene amplifications reported, Confirmation using orthogonal methods such as DDPCR is recommended when clinically indicated."
+          ]
+        }
+      ],
+      "tables": [],
+      "images_and_graphs": [],
+      "text_blocks": [
+        {
+          "page": 3,
+          "bbox": [
+            35.4,
+            245.66,
+            559.94,
+            269.1
+          ],
+          "text": "SN Genelab Pvt Ltd does not guarantee completeness, accuracy, or eligibility for trial enrollment. Physicians must verify eligibility criteria for specific trials independently.",
+          "max_font_size": 10.0,
+          "is_bold": false,
+          "font": "Cambria"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            35.4,
+            288.83,
+            559.98,
+            324.0
+          ],
+          "text": "Identification of a genomic alteration does not guarantee therapeutic efficacy or predict ineffectiveness. Final decisions on treatment should rest with the treating physician. The absence of reported therapeutic options does not imply ineffectiveness or lack of safety of any medication selected independently.",
+          "max_font_size": 10.0,
+          "is_bold": false,
+          "font": "Cambria"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            35.4,
+            343.72,
+            559.96,
+            378.89
+          ],
+          "text": "All variant classifications and related clinical information are based on the latest evidence from peer-reviewed publications, public clinical databases, and medical guidelines (e.g., NCCN, ASCO, AMP) available at the time of report generation. However, literature is continuously evolving, and classification may change with emerging evidence.",
+          "max_font_size": 10.0,
+          "is_bold": false,
+          "font": "Cambria"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            35.4,
+            398.62,
+            559.95,
+            422.06
+          ],
+          "text": "The assay is designed and validated for somatic variant detection, it does not differentiate between somatic and germline variants. If indicated, germline testing and genetic counselling are recommended.",
+          "max_font_size": 10.0,
+          "is_bold": false,
+          "font": "Cambria"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            35.4,
+            441.79,
+            559.98,
+            476.96
+          ],
+          "text": "Poor-quality cfDNA may fail QC thresholds at various stages such as cfDNA extraction, library preparation, or bioinformatics, and may result in assay failure or compromised results, such as low gene coverage or shallow variant depth.",
+          "max_font_size": 10.0,
+          "is_bold": false,
+          "font": "Cambria"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            35.4,
+            496.68,
+            559.92,
+            520.13
+          ],
+          "text": "Variants with lower allele frequencies may be reported if they are of strong or potential clinical relevance, or if previously detected in the same patient. False positives or negatives below assay sensitivity cannot be ruled out.",
+          "max_font_size": 10.0,
+          "is_bold": false,
+          "font": "Cambria"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            35.4,
+            539.85,
+            559.97,
+            563.3
+          ],
+          "text": "CNVs/gene amplifications reported, Confirmation using orthogonal methods such as DDPCR is recommended when clinically indicated.",
+          "max_font_size": 10.0,
+          "is_bold": false,
+          "font": "Cambria"
+        }
+      ],
+      "page_text": "SN Genelab Pvt Ltd does not guarantee completeness, accuracy, or eligibility for trial enrollment. Physicians must verify eligibility criteria for specific trials independently.\nIdentification of a genomic alteration does not guarantee therapeutic efficacy or predict ineffectiveness. Final decisions on treatment should rest with the treating physician. The absence of reported therapeutic options does not imply ineffectiveness or lack of safety of any medication selected independently.\nAll variant classifications and related clinical information are based on the latest evidence from peer-reviewed publications, public clinical databases, and medical guidelines (e.g., NCCN, ASCO, AMP) available at the time of report generation. However, literature is continuously evolving, and classification may change with emerging evidence.\nThe assay is designed and validated for somatic variant detection, it does not differentiate between somatic and germline variants. If indicated, germline testing and genetic counselling are recommended.\nPoor-quality cfDNA may fail QC thresholds at various stages such as cfDNA extraction, library preparation, or bioinformatics, and may result in assay failure or compromised results, such as low gene coverage or shallow variant depth.\nVariants with lower allele frequencies may be reported if they are of strong or potential clinical relevance, or if previously detected in the same patient. False positives or negatives below assay sensitivity cannot be ruled out.\nCNVs/gene amplifications reported, Confirmation using orthogonal methods such as DDPCR is recommended when clinically indicated."
+    },
+    {
+      "page_number": 4,
+      "dimensions": {
+        "width": 595.3,
+        "height": 841.9
+      },
+      "header_y_cutoff": 336.76,
+      "footer_y_cutoff": 505.14,
+      "key_value_pairs": {},
+      "boxes_and_sections": [],
+      "tables": [],
+      "images_and_graphs": [],
+      "text_blocks": [],
+      "page_text": ""
+    },
+    {
+      "page_number": 5,
+      "dimensions": {
+        "width": 595.3,
+        "height": 841.9
+      },
+      "header_y_cutoff": 336.76,
+      "footer_y_cutoff": 505.14,
+      "key_value_pairs": {},
+      "boxes_and_sections": [],
+      "tables": [],
+      "images_and_graphs": [],
+      "text_blocks": [],
+      "page_text": ""
+    },
+    {
+      "page_number": 6,
+      "dimensions": {
+        "width": 595.3,
+        "height": 841.9
+      },
+      "header_y_cutoff": 336.76,
+      "footer_y_cutoff": 505.14,
+      "key_value_pairs": {},
+      "boxes_and_sections": [],
+      "tables": [],
+      "images_and_graphs": [],
+      "text_blocks": [],
+      "page_text": ""
+    },
+    {
+      "page_number": 7,
+      "dimensions": {
+        "width": 595.3,
+        "height": 841.9
+      },
+      "header_y_cutoff": 214.8,
+      "footer_y_cutoff": 684.01,
+      "key_value_pairs": {},
+      "boxes_and_sections": [
+        {
+          "page": 7,
+          "title": "General Content / Notes",
+          "type": "content_section_box",
+          "bbox": [
+            35.45,
+            451.82,
+            560.03,
+            499.21
+          ],
+          "content_text": [
+            "Tier Interpretation Tier IA Variants of Strong Clinical Significance: Biomarkers that predict response or resistance to US FDA- approved therapies for a specific type of tumor or have been included in professional guidelines as therapeutic, diagnostic, and/or prognostic biomarkers for specific types of tumors.",
+            "Tier IB Variants of Strong Clinical Significance: Biomarkers that predict response or resistance to a therapy based on well-powered studies with consensus from experts in the field, or have diagnostic and/or prognostic significance of certain diseases based on well-powered studies with expert consensus.",
+            "Tier IIC Variants of Potential Clinical Significance: biomarkers that predict response or resistance to therapies approved by FDA or professional societies for a different tumor type (i.e., off-label use of a drug), serve as inclusion criteria for clinical trials, or have diagnostic and/or prognostic significance based on the results of multiple small studies.",
+            "Tier IID Variants of Potential Clinical Significance: Biomarkers that show plausible therapeutic significance based on preclinical studies or may assist disease diagnosis and/or prognosis themselves or along with other biomarkers based on small studies or multiple case reports with no consensus."
+          ]
+        }
+      ],
+      "tables": [
+        {
+          "page": 7,
+          "table_index": 1,
+          "bbox": [
+            30.09,
+            269.89,
+            565.34,
+            311.88
+          ],
+          "headers": [
+            "RNA Gene List",
+            "",
+            "",
+            "",
+            ""
+          ],
+          "rows": [
+            [
+              "ALK",
+              "MET",
+              "NTRK1",
+              "NTRK2",
+              "NTRK3"
+            ],
+            [
+              "ROS1",
+              "",
+              "",
+              "",
+              ""
+            ]
+          ]
+        },
+        {
+          "page": 7,
+          "table_index": 2,
+          "bbox": [
+            30.09,
+            325.89,
+            565.34,
+            374.64
+          ],
+          "headers": [
+            "TMB",
+            "Category",
+            "Interpretation"
+          ],
+          "rows": [
+            [
+              "1-5 Mutations/Mb",
+              "Low",
+              "Unlikely to benefit from Immuno-Oncology therapy."
+            ],
+            [
+              "6-19 Mutations/Mb",
+              "Intermediate",
+              "Moderate response anticipated towards Immuno-Oncology therapy."
+            ],
+            [
+              ">20 Mutations/Mb",
+              "High",
+              "Good and significant response expected to Immuno-Oncology therapy"
+            ]
+          ]
+        },
+        {
+          "page": 7,
+          "table_index": 3,
+          "bbox": [
+            30.09,
+            388.74,
+            565.34,
+            437.54
+          ],
+          "headers": [
+            "MSI",
+            "% of Unstable Loci"
+          ],
+          "rows": [
+            [
+              "MSI - Stable",
+              "0-19%"
+            ],
+            [
+              "MSI - Low / Intermediate",
+              "20-30%"
+            ],
+            [
+              "MSI - High",
+              ">20%"
+            ]
+          ]
+        }
+      ],
+      "images_and_graphs": [],
+      "text_blocks": [
+        {
+          "page": 7,
+          "bbox": [
+            35.45,
+            451.82,
+            560.03,
+            499.21
+          ],
+          "text": "Tier Interpretation Tier IA Variants of Strong Clinical Significance: Biomarkers that predict response or resistance to US FDA- approved therapies for a specific type of tumor or have been included in professional guidelines as therapeutic, diagnostic, and/or prognostic biomarkers for specific types of tumors.",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria"
+        },
+        {
+          "page": 7,
+          "bbox": [
+            35.45,
+            511.44,
+            551.13,
+            546.61
+          ],
+          "text": "Tier IB Variants of Strong Clinical Significance: Biomarkers that predict response or resistance to a therapy based on well-powered studies with consensus from experts in the field, or have diagnostic and/or prognostic significance of certain diseases based on well-powered studies with expert consensus.",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria"
+        },
+        {
+          "page": 7,
+          "bbox": [
+            35.45,
+            558.83,
+            560.04,
+            605.73
+          ],
+          "text": "Tier IIC Variants of Potential Clinical Significance: biomarkers that predict response or resistance to therapies approved by FDA or professional societies for a different tumor type (i.e., off-label use of a drug), serve as inclusion criteria for clinical trials, or have diagnostic and/or prognostic significance based on the results of multiple small studies.",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria"
+        },
+        {
+          "page": 7,
+          "bbox": [
+            35.45,
+            617.95,
+            560.03,
+            653.12
+          ],
+          "text": "Tier IID Variants of Potential Clinical Significance: Biomarkers that show plausible therapeutic significance based on preclinical studies or may assist disease diagnosis and/or prognosis themselves or along with other biomarkers based on small studies or multiple case reports with no consensus.",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria"
+        }
+      ],
+      "page_text": "Tier Interpretation Tier IA Variants of Strong Clinical Significance: Biomarkers that predict response or resistance to US FDA- approved therapies for a specific type of tumor or have been included in professional guidelines as therapeutic, diagnostic, and/or prognostic biomarkers for specific types of tumors.\nTier IB Variants of Strong Clinical Significance: Biomarkers that predict response or resistance to a therapy based on well-powered studies with consensus from experts in the field, or have diagnostic and/or prognostic significance of certain diseases based on well-powered studies with expert consensus.\nTier IIC Variants of Potential Clinical Significance: biomarkers that predict response or resistance to therapies approved by FDA or professional societies for a different tumor type (i.e., off-label use of a drug), serve as inclusion criteria for clinical trials, or have diagnostic and/or prognostic significance based on the results of multiple small studies.\nTier IID Variants of Potential Clinical Significance: Biomarkers that show plausible therapeutic significance based on preclinical studies or may assist disease diagnosis and/or prognosis themselves or along with other biomarkers based on small studies or multiple case reports with no consensus."
+    },
+    {
+      "page_number": 8,
+      "dimensions": {
+        "width": 595.3,
+        "height": 841.9
+      },
+      "header_y_cutoff": 214.8,
+      "footer_y_cutoff": 571.08,
+      "key_value_pairs": {
+        "PMID": "26432245.",
+        "COSMIC": "somatic cancer genetics at high-resolution.\" Nucleic Acids Research (2016) 45(D1)",
+        "Turner DJ": "Target- enrichment strategies for next-generation sequencing. Nat Methods 2010, 7",
+        "32": "358–368. doi"
+      },
+      "boxes_and_sections": [
+        {
+          "page": 8,
+          "title": "References:",
+          "type": "content_section_box",
+          "bbox": [
+            35.45,
+            239.92,
+            89.21,
+            251.64
+          ],
+          "content_text": [
+            "1. Exome Aggregation Consortium et al. “Analysis of Protein-Coding Genetic Variation in 60,706 Humans.” Nature (2016) 536(7616): 285–291. PMID: 27535533.",
+            "2. Forbes, Simon A., et al. \"COSMIC: somatic cancer genetics at high-resolution.\" Nucleic Acids Research (2016) 45(D1): D777-D783. PMID: 27899578.",
+            "3. Li, Marilyn M., et al. \"Standards and guidelines for the interpretation and reporting of sequence variants in cancer: a joint consensus recommendation of the Association for Molecular Pathology, American Society of Clinical Oncology, and College of American Pathologists.\" The Journal of Molecular Diagnostics (2017) 19(1): 4-23. PMID: 27993330.",
+            "4. Mamanova L, Coffey AJ, Scott CE, Kozarewa I, Turner EH, Kumar A, Howard E, Shendure J, Turner DJ: Target- enrichment strategies for next-generation sequencing. Nat Methods 2010, 7: 111–118",
+            "5. Richards, Sue, et al. \"Standards and guidelines for the interpretation of sequence variants: a joint consensus recommendation of the American College of Medical Genetics and Genomics and the Association for Molecular Pathology.\" Genetics in Medicine (2015) 17(5): 405. PMID: 25741868.",
+            "6. The 1000 Genomes Project Consortium. “A Global Reference for Human Genetic Variation.” Nature (2015) 526(7571): 68–74. PMID: 26432245.",
+            "7. Thusberg J, Olatubosun A, Vihinen M. Performance of mutation pathogenicity prediction methods on missense variants. Hum Mutat. 2011;32:358–368. doi: 10.1002/humu.21445."
+          ]
+        }
+      ],
+      "tables": [],
+      "images_and_graphs": [],
+      "text_blocks": [
+        {
+          "page": 8,
+          "bbox": [
+            35.45,
+            239.92,
+            89.21,
+            251.64
+          ],
+          "text": "References:",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 8,
+          "bbox": [
+            53.45,
+            266.88,
+            559.91,
+            292.08
+          ],
+          "text": "1. Exome Aggregation Consortium et al. “Analysis of Protein-Coding Genetic Variation in 60,706 Humans.” Nature (2016) 536(7616): 285–291. PMID: 27535533.",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria,Italic"
+        },
+        {
+          "page": 8,
+          "bbox": [
+            53.45,
+            303.85,
+            559.9,
+            329.05
+          ],
+          "text": "2. Forbes, Simon A., et al. \"COSMIC: somatic cancer genetics at high-resolution.\" Nucleic Acids Research (2016) 45(D1): D777-D783. PMID: 27899578.",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria,Italic"
+        },
+        {
+          "page": 8,
+          "bbox": [
+            53.45,
+            340.81,
+            559.92,
+            379.49
+          ],
+          "text": "3. Li, Marilyn M., et al. \"Standards and guidelines for the interpretation and reporting of sequence variants in cancer: a joint consensus recommendation of the Association for Molecular Pathology, American Society of Clinical Oncology, and College of American Pathologists.\" The Journal of Molecular Diagnostics (2017) 19(1): 4-23. PMID: 27993330.",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria,Italic"
+        },
+        {
+          "page": 8,
+          "bbox": [
+            53.45,
+            391.26,
+            559.9,
+            416.46
+          ],
+          "text": "4. Mamanova L, Coffey AJ, Scott CE, Kozarewa I, Turner EH, Kumar A, Howard E, Shendure J, Turner DJ: Target- enrichment strategies for next-generation sequencing. Nat Methods 2010, 7: 111–118",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria,Italic"
+        },
+        {
+          "page": 8,
+          "bbox": [
+            53.45,
+            428.22,
+            559.9,
+            466.91
+          ],
+          "text": "5. Richards, Sue, et al. \"Standards and guidelines for the interpretation of sequence variants: a joint consensus recommendation of the American College of Medical Genetics and Genomics and the Association for Molecular Pathology.\" Genetics in Medicine (2015) 17(5): 405. PMID: 25741868.",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria,Italic"
+        },
+        {
+          "page": 8,
+          "bbox": [
+            53.45,
+            478.67,
+            559.89,
+            503.87
+          ],
+          "text": "6. The 1000 Genomes Project Consortium. “A Global Reference for Human Genetic Variation.” Nature (2015) 526(7571): 68–74. PMID: 26432245.",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria,Italic"
+        },
+        {
+          "page": 8,
+          "bbox": [
+            53.45,
+            515.63,
+            559.89,
+            540.83
+          ],
+          "text": "7. Thusberg J, Olatubosun A, Vihinen M. Performance of mutation pathogenicity prediction methods on missense variants. Hum Mutat. 2011;32:358–368. doi: 10.1002/humu.21445.",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria,Italic"
+        }
+      ],
+      "page_text": "References:\n1. Exome Aggregation Consortium et al. “Analysis of Protein-Coding Genetic Variation in 60,706 Humans.” Nature (2016) 536(7616): 285–291. PMID: 27535533.\n2. Forbes, Simon A., et al. \"COSMIC: somatic cancer genetics at high-resolution.\" Nucleic Acids Research (2016) 45(D1): D777-D783. PMID: 27899578.\n3. Li, Marilyn M., et al. \"Standards and guidelines for the interpretation and reporting of sequence variants in cancer: a joint consensus recommendation of the Association for Molecular Pathology, American Society of Clinical Oncology, and College of American Pathologists.\" The Journal of Molecular Diagnostics (2017) 19(1): 4-23. PMID: 27993330.\n4. Mamanova L, Coffey AJ, Scott CE, Kozarewa I, Turner EH, Kumar A, Howard E, Shendure J, Turner DJ: Target- enrichment strategies for next-generation sequencing. Nat Methods 2010, 7: 111–118\n5. Richards, Sue, et al. \"Standards and guidelines for the interpretation of sequence variants: a joint consensus recommendation of the American College of Medical Genetics and Genomics and the Association for Molecular Pathology.\" Genetics in Medicine (2015) 17(5): 405. PMID: 25741868.\n6. The 1000 Genomes Project Consortium. “A Global Reference for Human Genetic Variation.” Nature (2015) 526(7571): 68–74. PMID: 26432245.\n7. Thusberg J, Olatubosun A, Vihinen M. Performance of mutation pathogenicity prediction methods on missense variants. Hum Mutat. 2011;32:358–368. doi: 10.1002/humu.21445."
+    }
+  ],
+  "raw_full_text": "On Illumina Novaseq 6000 Platform\nClinical Indication: Features are consistent with squamous cell carcinoma\nNegative (No clinically significant Variants detected)\nKey Findings:\nBiomarkers Results:\nTest Description\nThe Liquidseq Comprehensive Genomic Profile (CGP) Panel assay analyses  543  unique genes ( 537  DNA +  6  Fusions driver genes) for single gene and multiple gene biomarker insights, detects single gene biomarkers from all variant types including SNVs, indels, CNVs, known and novel fusions, and splice variants. Analyze complex multi-gene biomarkers for mutational signatures, including microsatellite instability ( MSI ) & Tumor Mutation burden ( TMB ) for immunotherapy research.\nThe performance of the panel was verified using both commercially sourced reference controls and cell-free DNA (cfTNA)samples.\nTest Methodology Extraction & Library Preparation: Cell free Total Nucleic acid (cfTNA) extracted from the liquid biopsy sample is used for targeted gene capture using a custom designed hybrid capture panel. In process quality controls were determined for prepared library.\nSequencing : The libraries were sequenced at mean depth: >25,000x on Illumina Novaseq- next generation sequencing platform.\nData Analysis: Sequencing data are analyzed using a customized and validated bioinformatics pipeline capable of detecting various classes of genomic alterations, including single nucleotide variants ( SNVs ), Indels , copy number variations ( CNVs ) and fusions . As part of the streamlined bioinformatics workflow, Multi-gene Biomarkers such as Microsatellite Instability ( MSI ) and Tumor Mutation Burden ( TMB ) Score is calculated. Reportable genomic alterations and fusions are prioritized, classified, and reported based on AMP-ASCO-CAP guidelines and NCCN guidelines.\nLimit of Detection (LOD): The LOD for SNVs and Short InDels is 0.1% Variant allele Frequency (VAF) and for Fusions is 05 supporting reads.\nNotes\nTreatment decisions should not be based solely on the results of this test. Findings must be interpreted in the context of the patient’s complete clinical profile—including pathological, radiological, and family history—to guide diagnosis, prognosis, and therapeutic decisions.\nSN Genelab Pvt Ltd does not guarantee completeness, accuracy, or eligibility for trial enrollment. Physicians must verify eligibility criteria for specific trials independently.\nIdentification of a genomic alteration does not guarantee therapeutic efficacy or predict ineffectiveness. Final decisions on treatment should rest with the treating physician. The absence of reported therapeutic options does not imply ineffectiveness or lack of safety of any medication selected independently.\nAll variant classifications and related clinical information are based on the latest evidence from peer-reviewed publications, public clinical databases, and medical guidelines (e.g., NCCN, ASCO, AMP) available at the time of report generation. However, literature is continuously evolving, and classification may change with emerging evidence.\nThe assay is designed and validated for somatic variant detection, it does not differentiate between somatic and germline variants. If indicated, germline testing and genetic counselling are recommended.\nPoor-quality cfDNA may fail QC thresholds at various stages such as cfDNA extraction, library preparation, or bioinformatics, and may result in assay failure or compromised results, such as low gene coverage or shallow variant depth.\nVariants with lower allele frequencies may be reported if they are of strong or potential clinical relevance, or if previously detected in the same patient. False positives or negatives below assay sensitivity cannot be ruled out.\nCNVs/gene amplifications reported, Confirmation using orthogonal methods such as DDPCR is recommended when clinically indicated.\n\n\n\nTier Interpretation Tier IA Variants of Strong Clinical Significance: Biomarkers that predict response or resistance to US FDA- approved therapies for a specific type of tumor or have been included in professional guidelines as therapeutic, diagnostic, and/or prognostic biomarkers for specific types of tumors.\nTier IB Variants of Strong Clinical Significance: Biomarkers that predict response or resistance to a therapy based on well-powered studies with consensus from experts in the field, or have diagnostic and/or prognostic significance of certain diseases based on well-powered studies with expert consensus.\nTier IIC Variants of Potential Clinical Significance: biomarkers that predict response or resistance to therapies approved by FDA or professional societies for a different tumor type (i.e., off-label use of a drug), serve as inclusion criteria for clinical trials, or have diagnostic and/or prognostic significance based on the results of multiple small studies.\nTier IID Variants of Potential Clinical Significance: Biomarkers that show plausible therapeutic significance based on preclinical studies or may assist disease diagnosis and/or prognosis themselves or along with other biomarkers based on small studies or multiple case reports with no consensus.\nReferences:\n1. Exome Aggregation Consortium et al. “Analysis of Protein-Coding Genetic Variation in 60,706 Humans.” Nature (2016) 536(7616): 285–291. PMID: 27535533.\n2. Forbes, Simon A., et al. \"COSMIC: somatic cancer genetics at high-resolution.\" Nucleic Acids Research (2016) 45(D1): D777-D783. PMID: 27899578.\n3. Li, Marilyn M., et al. \"Standards and guidelines for the interpretation and reporting of sequence variants in cancer: a joint consensus recommendation of the Association for Molecular Pathology, American Society of Clinical Oncology, and College of American Pathologists.\" The Journal of Molecular Diagnostics (2017) 19(1): 4-23. PMID: 27993330.\n4. Mamanova L, Coffey AJ, Scott CE, Kozarewa I, Turner EH, Kumar A, Howard E, Shendure J, Turner DJ: Target- enrichment strategies for next-generation sequencing. Nat Methods 2010, 7: 111–118\n5. Richards, Sue, et al. \"Standards and guidelines for the interpretation of sequence variants: a joint consensus recommendation of the American College of Medical Genetics and Genomics and the Association for Molecular Pathology.\" Genetics in Medicine (2015) 17(5): 405. PMID: 25741868.\n6. The 1000 Genomes Project Consortium. “A Global Reference for Human Genetic Variation.” Nature (2015) 526(7571): 68–74. PMID: 26432245.\n7. Thusberg J, Olatubosun A, Vihinen M. Performance of mutation pathogenicity prediction methods on missense variants. Hum Mutat. 2011;32:358–368. doi: 10.1002/humu.21445."
+}
