@@ -3,7 +3,7 @@
     "file_name": "TestReport_ARUL MOZHI A910744 OQG2605070895_60500108524_e9973a71-544c-4942-ab6f-d21480a625a0.pdf",
     "total_pages": 3,
     "total_tables": 2,
-    "total_boxes": 6,
+    "total_boxes": 7,
     "total_key_value_pairs": 3,
     "total_images_and_graphs": 0
   },
@@ -22,9 +22,10 @@
     "30": "Provided Diagnosis",
     "K/C/O CA breast": "cfDNA conc."
   },
-  "sections": [
+  "content": [
     {
-      "section_type": "blue_banner",
+      "type": "banner",
+      "section_type": "banner",
       "title": "2026-05-17 21:33:30 : Provided Diagnosis",
       "page": 1,
       "bbox": [
@@ -43,7 +44,8 @@
       ]
     },
     {
-      "section_type": "blue_banner",
+      "type": "banner",
+      "section_type": "banner",
       "title": "NGS Results and Interpretation",
       "page": 1,
       "bbox": [
@@ -62,6 +64,7 @@
       ]
     },
     {
+      "type": "table",
       "section_type": "table",
       "title": "Data Table (Page 1)",
       "page": 1,
@@ -72,60 +75,61 @@
         583.88
       ],
       "headers": [
-        "Tier I",
-        "Variants of Strong Clinical Significance - Therapeutic, Prognostic & Diagnostics",
+        "cla Ne as Se du Th",
+        "rify the nature of the reported alterations if there is clinical suspicion of a hereditary predisposition or pa gative (wild-type) result does not rule out the presence of a mutation that may be present below the lim",
         ""
       ],
       "rows": [
         [
           "",
-          "1A : Level A Evidence",
-          "FDA approved therapy included in professional guidelines."
+          "say. The analytical sen quencing is performe",
+          "sitivity of this assay is 0.5% VAF. d with a target depth of 2500x unique molecular reads (UMIs). UMIs are obta"
         ],
         [
           "",
-          "1B : Level B Evidence",
-          "Well- powered studies with consensus from experts in the field."
+          "plicate reads (dedupli e analytical sensitivity",
+          "cation) from the analysis. of this assay is dependent on the fraction of circulating tumor DNA (ctDNA) pres"
         ],
         [
-          "Tier II",
-          "Variants of Potential Clinical Significance - Therapeutic, Prognostic & Diagnostics",
+          "Pre cfD Lo or i De infl bu low",
+          "-analytical variables including sample collection, handling, transport, storage conditions, and time to p",
           ""
         ],
         [
           "",
-          "2C : Level C Evidence",
-          "FDA approved therapies from different tumor types or investigational therapies."
+          "NA integrity and assay w circulating tumourDN n tumours with low DN tection of copy numb uenced by cfDNA cont",
+          "performance. A cfDNA concentration of <20ng may lead to false negative results. A fraction may result in failure to detect clinically relevant variants, especially in A shedding."
         ],
         [
           "",
           "",
-          "Multiple small published studies with some consensus."
+          "er changes, gene rearrangements, and large structural variants may be limited ent, ctDNA fraction and assay design. Additionally, microsatellite instability (MSI) a"
         ],
         [
           "",
-          "2D : Level D Evidence",
-          "Preclinical trials or a few case reports without consensus."
+          "rden (TMB) estimates d tumour fraction.",
+          "erived from plasma (cfDNA) may not fully correlate with tissue-based testing an"
         ],
         [
-          "Tier III",
-          "Variants of Unknown Clinical Significance",
+          "Du of i Clo exp rep 04 ca",
+          "e to inherent technology limitations, coverage is not uniform across all regions. Hence, pathogenic vari nsufficient coverage may not be analyzed/detected/reported.",
           ""
         ],
         [
           "",
-          "Not observed at a significant allele frequency in the general or specific subpopulation databases, or pan-cancer or tumor-specific variant databases.",
+          "nal Haematopoiesis of Indeterminate Potential (CHIP) are mutations which accumulate in leucoc osure to cytotoxic therapy. These typically occurs in tumour suppressor genes including TP53, DNMT3 air genes such as BRCA1/2 and ATM, and rarely even in targetable oncogenes including EGFR and",
           ""
         ],
         [
           "",
-          "No convincing published evidence of cancer association.",
+          "32.CCR-24-3335, 10.1158/1078-0432.CCR-25-0569). They are frequently detected in liquid biopsies at low nnot definitively state whether a mutation is arising from the tumour fraction (ctDNA) or is part of",
           ""
         ]
       ]
     },
     {
-      "section_type": "content_box",
+      "type": "box",
+      "section_type": "box",
       "title": "Methodology :",
       "page": 1,
       "bbox": [
@@ -142,6 +146,7 @@
       ]
     },
     {
+      "type": "table",
       "section_type": "table",
       "title": "Data Table (Page 1)",
       "page": 1,
@@ -152,22 +157,23 @@
         727.88
       ],
       "headers": [
-        "Oncocept Liquid - gene panel",
+        "",
         "",
         "",
         ""
       ],
       "rows": [
         [
-          "AKT1",
-          "ERBB2",
-          "KIT",
-          "PIK3CA"
+          "",
+          "",
+          "",
+          ""
         ]
       ]
     },
     {
-      "section_type": "content_box",
+      "type": "box",
+      "section_type": "box",
       "title": "General Content / Notes",
       "page": 2,
       "bbox": [
@@ -202,7 +208,8 @@
       ]
     },
     {
-      "section_type": "content_box",
+      "type": "box",
+      "section_type": "box",
       "title": "Test Limitations",
       "page": 2,
       "bbox": [
@@ -219,7 +226,26 @@
       ]
     },
     {
-      "section_type": "content_box",
+      "type": "box",
+      "section_type": "box",
+      "title": "Dr. Poorva Singh MD, MGP Fellowship (USA), DipRCPath",
+      "page": 3,
+      "bbox": [
+        224.72,
+        175.12,
+        373.52,
+        193.88
+      ],
+      "content_text": [
+        "(UK) Molecular Oncopathologist"
+      ],
+      "paragraphs": [
+        "(UK) Molecular Oncopathologist"
+      ]
+    },
+    {
+      "type": "box",
+      "section_type": "box",
       "title": "General Content / Notes",
       "page": 3,
       "bbox": [
@@ -229,12 +255,250 @@
         250.12
       ],
       "content_text": [
-        "----------- End Of Report -----------",
+        "----------- End Of Report -----------"
+      ],
+      "paragraphs": [
+        "----------- End Of Report -----------"
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "type": "banner",
+      "section_type": "banner",
+      "title": "2026-05-17 21:33:30 : Provided Diagnosis",
+      "page": 1,
+      "bbox": [
+        76.63,
+        170.62,
+        234.68,
+        189.38
+      ],
+      "content_text": [
+        "K/C/O CA breast : cfDNA conc.",
+        "16 ng"
+      ],
+      "paragraphs": [
+        "K/C/O CA breast : cfDNA conc.",
+        "16 ng"
+      ]
+    },
+    {
+      "type": "banner",
+      "section_type": "banner",
+      "title": "NGS Results and Interpretation",
+      "page": 1,
+      "bbox": [
+        28.12,
+        213.65,
+        178.85,
+        222.78
+      ],
+      "content_text": [
+        "No clinically significant oncogenic variant identified in the analyzed genes (ctDNA is negative).",
+        "No pathogenic variant identified in  BRCA1/2, ERBB2, PIK3CA, ESR1, RET  and  AKT1  genes."
+      ],
+      "paragraphs": [
+        "No clinically significant oncogenic variant identified in the analyzed genes (ctDNA is negative).",
+        "No pathogenic variant identified in  BRCA1/2, ERBB2, PIK3CA, ESR1, RET  and  AKT1  genes."
+      ]
+    },
+    {
+      "type": "table",
+      "section_type": "table",
+      "title": "Data Table (Page 1)",
+      "page": 1,
+      "bbox": [
+        29.6,
+        351.38,
+        484.12,
+        583.88
+      ],
+      "headers": [
+        "cla Ne as Se du Th",
+        "rify the nature of the reported alterations if there is clinical suspicion of a hereditary predisposition or pa gative (wild-type) result does not rule out the presence of a mutation that may be present below the lim",
+        ""
+      ],
+      "rows": [
+        [
+          "",
+          "say. The analytical sen quencing is performe",
+          "sitivity of this assay is 0.5% VAF. d with a target depth of 2500x unique molecular reads (UMIs). UMIs are obta"
+        ],
+        [
+          "",
+          "plicate reads (dedupli e analytical sensitivity",
+          "cation) from the analysis. of this assay is dependent on the fraction of circulating tumor DNA (ctDNA) pres"
+        ],
+        [
+          "Pre cfD Lo or i De infl bu low",
+          "-analytical variables including sample collection, handling, transport, storage conditions, and time to p",
+          ""
+        ],
+        [
+          "",
+          "NA integrity and assay w circulating tumourDN n tumours with low DN tection of copy numb uenced by cfDNA cont",
+          "performance. A cfDNA concentration of <20ng may lead to false negative results. A fraction may result in failure to detect clinically relevant variants, especially in A shedding."
+        ],
+        [
+          "",
+          "",
+          "er changes, gene rearrangements, and large structural variants may be limited ent, ctDNA fraction and assay design. Additionally, microsatellite instability (MSI) a"
+        ],
+        [
+          "",
+          "rden (TMB) estimates d tumour fraction.",
+          "erived from plasma (cfDNA) may not fully correlate with tissue-based testing an"
+        ],
+        [
+          "Du of i Clo exp rep 04 ca",
+          "e to inherent technology limitations, coverage is not uniform across all regions. Hence, pathogenic vari nsufficient coverage may not be analyzed/detected/reported.",
+          ""
+        ],
+        [
+          "",
+          "nal Haematopoiesis of Indeterminate Potential (CHIP) are mutations which accumulate in leucoc osure to cytotoxic therapy. These typically occurs in tumour suppressor genes including TP53, DNMT3 air genes such as BRCA1/2 and ATM, and rarely even in targetable oncogenes including EGFR and",
+          ""
+        ],
+        [
+          "",
+          "32.CCR-24-3335, 10.1158/1078-0432.CCR-25-0569). They are frequently detected in liquid biopsies at low nnot definitively state whether a mutation is arising from the tumour fraction (ctDNA) or is part of",
+          ""
+        ]
+      ]
+    },
+    {
+      "type": "box",
+      "section_type": "box",
+      "title": "Methodology :",
+      "page": 1,
+      "bbox": [
+        28.88,
+        586.88,
+        86.37,
+        594.38
+      ],
+      "content_text": [
+        "Massively Parallel Sequencing (Next Generation Sequencing).    10 ml. of whole blood was collected in Streck tube (liquid biopsy). Subsequently plasma was isolated from patient’s whole blood and analyzed at Neuberg Center for Genomic Medicine. Total Nucleic Acid from the submitted specimen (cell free tube) was enriched for the coding regions of genes in the panel and splice site junctions of genes. Paired End Sequencing was performed on NGS platform . The available data was analyzed using Augmet Precision Genomics Suite, 16.1.1. The lab performed an assessment of mutations in a total of  45 genes . These genes are well characterized in the published literature and associated with oncology drugs that are FDA approved, part of National Comprehensive Cancer Network (NCCN) guidelines, or in clinical trials. Assay detects multiple types of variants, including hotspots, single nucleotide variants (SNVs), indels, CNVs, and gene fusions, in a single workflow."
+      ],
+      "paragraphs": [
+        "Massively Parallel Sequencing (Next Generation Sequencing).    10 ml. of whole blood was collected in Streck tube (liquid biopsy). Subsequently plasma was isolated from patient’s whole blood and analyzed at Neuberg Center for Genomic Medicine. Total Nucleic Acid from the submitted specimen (cell free tube) was enriched for the coding regions of genes in the panel and splice site junctions of genes. Paired End Sequencing was performed on NGS platform . The available data was analyzed using Augmet Precision Genomics Suite, 16.1.1. The lab performed an assessment of mutations in a total of  45 genes . These genes are well characterized in the published literature and associated with oncology drugs that are FDA approved, part of National Comprehensive Cancer Network (NCCN) guidelines, or in clinical trials. Assay detects multiple types of variants, including hotspots, single nucleotide variants (SNVs), indels, CNVs, and gene fusions, in a single workflow."
+      ]
+    },
+    {
+      "type": "table",
+      "section_type": "table",
+      "title": "Data Table (Page 1)",
+      "page": 1,
+      "bbox": [
+        29.6,
+        700.88,
+        319.88,
+        727.88
+      ],
+      "headers": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "rows": [
+        [
+          "",
+          "",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "type": "box",
+      "section_type": "box",
+      "title": "General Content / Notes",
+      "page": 2,
+      "bbox": [
+        58.86,
+        120.38,
+        289.25,
+        127.88
+      ],
+      "content_text": [
+        "APC ESR1 MET RET",
+        "AR ETV6 MYB ROS1",
+        "ATM EWSR1 NFIB SMAD4",
+        "BRAF FGFR1 NRAS SS18",
+        "BRCA1 FGFR2 NRG1 TERT",
+        "BRCA2 FGFR3 NTRK1 TMPRSS2",
+        "CCND1 FGFR4 NTRK2 TP53",
+        "CD274 HRAS NTRK3",
+        "CTNNB1 IDH1 PAX8",
+        "EGFR IDH2 PDGFRA"
+      ],
+      "paragraphs": [
+        "APC ESR1 MET RET",
+        "AR ETV6 MYB ROS1",
+        "ATM EWSR1 NFIB SMAD4",
+        "BRAF FGFR1 NRAS SS18",
+        "BRCA1 FGFR2 NRG1 TERT",
+        "BRCA2 FGFR3 NTRK1 TMPRSS2",
+        "CCND1 FGFR4 NTRK2 TP53",
+        "CD274 HRAS NTRK3",
+        "CTNNB1 IDH1 PAX8",
+        "EGFR IDH2 PDGFRA"
+      ]
+    },
+    {
+      "type": "box",
+      "section_type": "box",
+      "title": "Test Limitations",
+      "page": 2,
+      "bbox": [
+        28.88,
+        274.88,
+        93.48,
+        282.38
+      ],
+      "content_text": [
+        "ctDNA is highly specific (up to 95%) but its sensitivity varies from 60% to 75%. A negative result from ctDNA should not definitively exclude the existence of driver mutations. Tissue genotyping (NGS from FFPE block) should be considered when plasma genotyping (liquid biopsy) is negative, if clinically indicated. This test does not differentiate between somatic and germline alterations. Additional germline testing may be necessary to clarify the nature of the reported alterations if there is clinical suspicion of a hereditary predisposition or pathology. Negative (wild-type) result does not rule out the presence of a mutation that may be present below the limit of detection of this assay. The analytical sensitivity of this assay is 0.5% VAF. Sequencing is performed with a target depth of 2500x unique molecular reads (UMIs). UMIs are obtained after removing duplicate reads (deduplication) from the analysis. The analytical sensitivity of this assay is dependent on the fraction of circulating tumor DNA (ctDNA) present in the specimen. Pre-analytical variables including sample collection, handling, transport, storage conditions, and time to processing may affect cfDNA integrity and assay performance. A cfDNA concentration of <20ng may lead to false negative results. Low circulating tumourDNA fraction may result in failure to detect clinically relevant variants, especially in early-stage disease or in tumours with low DNA shedding. Detection of copy number changes, gene rearrangements, and large structural variants may be limited in this assay, and is influenced by cfDNA content, ctDNA fraction and assay design. Additionally, microsatellite instability (MSI) and tumor mutational burden (TMB) estimates derived from plasma (cfDNA) may not fully correlate with tissue-based testing and may be affected by low tumour fraction. Due to inherent technology limitations, coverage is not uniform across all regions. Hence, pathogenic variants present in areas of insufficient coverage may not be analyzed/detected/reported. Clonal Haematopoiesis of Indeterminate Potential (CHIP) are mutations which accumulate in leucocytes with ageing or exposure to cytotoxic therapy. These typically occurs in tumour suppressor genes including TP53, DNMT3A, ASXL1, TET2, PPM1D, repair genes such as BRCA1/2 and ATM, and rarely even in targetable oncogenes including EGFR and KRAS (10.1158/1078- 0432.CCR-24-3335, 10.1158/1078-0432.CCR-25-0569). They are frequently detected in liquid biopsies at low VAFs, and this assay cannot definitively state whether a mutation is arising from the tumour fraction (ctDNA) or is part of CHIP. Therefore, their clinical significance cannot be predicted based on this assay alone and requires longitudinal clinical and molecular monitoring. The classification and interpretation of all the variants in this assay reflects the current state of scientific understanding at the time this report was issued. In some instances, the classification and interpretation of such variants may change as new scientific information comes to light. Test results should be interpreted in the context of clinical findings, tumour location, histopathology, and other relevant imaging and laboratory data. Testing has been performed assuming that the sample received belongs to the individual(s) named in the report, and any stated relationships between individuals are accepted as true. If the reported results do not match the clinical profile and/or other laboratory findings, please contact the laboratory at the earliest. Misinterpretation of results may occur if the information provided is inaccurate or incomplete."
+      ],
+      "paragraphs": [
+        "ctDNA is highly specific (up to 95%) but its sensitivity varies from 60% to 75%. A negative result from ctDNA should not definitively exclude the existence of driver mutations. Tissue genotyping (NGS from FFPE block) should be considered when plasma genotyping (liquid biopsy) is negative, if clinically indicated. This test does not differentiate between somatic and germline alterations. Additional germline testing may be necessary to clarify the nature of the reported alterations if there is clinical suspicion of a hereditary predisposition or pathology. Negative (wild-type) result does not rule out the presence of a mutation that may be present below the limit of detection of this assay. The analytical sensitivity of this assay is 0.5% VAF. Sequencing is performed with a target depth of 2500x unique molecular reads (UMIs). UMIs are obtained after removing duplicate reads (deduplication) from the analysis. The analytical sensitivity of this assay is dependent on the fraction of circulating tumor DNA (ctDNA) present in the specimen. Pre-analytical variables including sample collection, handling, transport, storage conditions, and time to processing may affect cfDNA integrity and assay performance. A cfDNA concentration of <20ng may lead to false negative results. Low circulating tumourDNA fraction may result in failure to detect clinically relevant variants, especially in early-stage disease or in tumours with low DNA shedding. Detection of copy number changes, gene rearrangements, and large structural variants may be limited in this assay, and is influenced by cfDNA content, ctDNA fraction and assay design. Additionally, microsatellite instability (MSI) and tumor mutational burden (TMB) estimates derived from plasma (cfDNA) may not fully correlate with tissue-based testing and may be affected by low tumour fraction. Due to inherent technology limitations, coverage is not uniform across all regions. Hence, pathogenic variants present in areas of insufficient coverage may not be analyzed/detected/reported. Clonal Haematopoiesis of Indeterminate Potential (CHIP) are mutations which accumulate in leucocytes with ageing or exposure to cytotoxic therapy. These typically occurs in tumour suppressor genes including TP53, DNMT3A, ASXL1, TET2, PPM1D, repair genes such as BRCA1/2 and ATM, and rarely even in targetable oncogenes including EGFR and KRAS (10.1158/1078- 0432.CCR-24-3335, 10.1158/1078-0432.CCR-25-0569). They are frequently detected in liquid biopsies at low VAFs, and this assay cannot definitively state whether a mutation is arising from the tumour fraction (ctDNA) or is part of CHIP. Therefore, their clinical significance cannot be predicted based on this assay alone and requires longitudinal clinical and molecular monitoring. The classification and interpretation of all the variants in this assay reflects the current state of scientific understanding at the time this report was issued. In some instances, the classification and interpretation of such variants may change as new scientific information comes to light. Test results should be interpreted in the context of clinical findings, tumour location, histopathology, and other relevant imaging and laboratory data. Testing has been performed assuming that the sample received belongs to the individual(s) named in the report, and any stated relationships between individuals are accepted as true. If the reported results do not match the clinical profile and/or other laboratory findings, please contact the laboratory at the earliest. Misinterpretation of results may occur if the information provided is inaccurate or incomplete."
+      ]
+    },
+    {
+      "type": "box",
+      "section_type": "box",
+      "title": "Dr. Poorva Singh MD, MGP Fellowship (USA), DipRCPath",
+      "page": 3,
+      "bbox": [
+        224.72,
+        175.12,
+        373.52,
+        193.88
+      ],
+      "content_text": [
         "(UK) Molecular Oncopathologist"
       ],
       "paragraphs": [
-        "----------- End Of Report -----------",
         "(UK) Molecular Oncopathologist"
+      ]
+    },
+    {
+      "type": "box",
+      "section_type": "box",
+      "title": "General Content / Notes",
+      "page": 3,
+      "bbox": [
+        221.16,
+        242.62,
+        374.87,
+        250.12
+      ],
+      "content_text": [
+        "----------- End Of Report -----------"
+      ],
+      "paragraphs": [
+        "----------- End Of Report -----------"
       ]
     }
   ],
@@ -248,55 +512,56 @@
         484.12,
         583.88
       ],
+      "type": "table",
       "headers": [
-        "Tier I",
-        "Variants of Strong Clinical Significance - Therapeutic, Prognostic & Diagnostics",
+        "cla Ne as Se du Th",
+        "rify the nature of the reported alterations if there is clinical suspicion of a hereditary predisposition or pa gative (wild-type) result does not rule out the presence of a mutation that may be present below the lim",
         ""
       ],
       "rows": [
         [
           "",
-          "1A : Level A Evidence",
-          "FDA approved therapy included in professional guidelines."
+          "say. The analytical sen quencing is performe",
+          "sitivity of this assay is 0.5% VAF. d with a target depth of 2500x unique molecular reads (UMIs). UMIs are obta"
         ],
         [
           "",
-          "1B : Level B Evidence",
-          "Well- powered studies with consensus from experts in the field."
+          "plicate reads (dedupli e analytical sensitivity",
+          "cation) from the analysis. of this assay is dependent on the fraction of circulating tumor DNA (ctDNA) pres"
         ],
         [
-          "Tier II",
-          "Variants of Potential Clinical Significance - Therapeutic, Prognostic & Diagnostics",
+          "Pre cfD Lo or i De infl bu low",
+          "-analytical variables including sample collection, handling, transport, storage conditions, and time to p",
           ""
         ],
         [
           "",
-          "2C : Level C Evidence",
-          "FDA approved therapies from different tumor types or investigational therapies."
+          "NA integrity and assay w circulating tumourDN n tumours with low DN tection of copy numb uenced by cfDNA cont",
+          "performance. A cfDNA concentration of <20ng may lead to false negative results. A fraction may result in failure to detect clinically relevant variants, especially in A shedding."
         ],
         [
           "",
           "",
-          "Multiple small published studies with some consensus."
+          "er changes, gene rearrangements, and large structural variants may be limited ent, ctDNA fraction and assay design. Additionally, microsatellite instability (MSI) a"
         ],
         [
           "",
-          "2D : Level D Evidence",
-          "Preclinical trials or a few case reports without consensus."
+          "rden (TMB) estimates d tumour fraction.",
+          "erived from plasma (cfDNA) may not fully correlate with tissue-based testing an"
         ],
         [
-          "Tier III",
-          "Variants of Unknown Clinical Significance",
+          "Du of i Clo exp rep 04 ca",
+          "e to inherent technology limitations, coverage is not uniform across all regions. Hence, pathogenic vari nsufficient coverage may not be analyzed/detected/reported.",
           ""
         ],
         [
           "",
-          "Not observed at a significant allele frequency in the general or specific subpopulation databases, or pan-cancer or tumor-specific variant databases.",
+          "nal Haematopoiesis of Indeterminate Potential (CHIP) are mutations which accumulate in leucoc osure to cytotoxic therapy. These typically occurs in tumour suppressor genes including TP53, DNMT3 air genes such as BRCA1/2 and ATM, and rarely even in targetable oncogenes including EGFR and",
           ""
         ],
         [
           "",
-          "No convincing published evidence of cancer association.",
+          "32.CCR-24-3335, 10.1158/1078-0432.CCR-25-0569). They are frequently detected in liquid biopsies at low nnot definitively state whether a mutation is arising from the tumour fraction (ctDNA) or is part of",
           ""
         ]
       ]
@@ -310,18 +575,19 @@
         319.88,
         727.88
       ],
+      "type": "table",
       "headers": [
-        "Oncocept Liquid - gene panel",
+        "",
         "",
         "",
         ""
       ],
       "rows": [
         [
-          "AKT1",
-          "ERBB2",
-          "KIT",
-          "PIK3CA"
+          "",
+          "",
+          "",
+          ""
         ]
       ]
     }
@@ -336,55 +602,56 @@
         484.12,
         583.88
       ],
+      "type": "table",
       "headers": [
-        "Tier I",
-        "Variants of Strong Clinical Significance - Therapeutic, Prognostic & Diagnostics",
+        "cla Ne as Se du Th",
+        "rify the nature of the reported alterations if there is clinical suspicion of a hereditary predisposition or pa gative (wild-type) result does not rule out the presence of a mutation that may be present below the lim",
         ""
       ],
       "rows": [
         [
           "",
-          "1A : Level A Evidence",
-          "FDA approved therapy included in professional guidelines."
+          "say. The analytical sen quencing is performe",
+          "sitivity of this assay is 0.5% VAF. d with a target depth of 2500x unique molecular reads (UMIs). UMIs are obta"
         ],
         [
           "",
-          "1B : Level B Evidence",
-          "Well- powered studies with consensus from experts in the field."
+          "plicate reads (dedupli e analytical sensitivity",
+          "cation) from the analysis. of this assay is dependent on the fraction of circulating tumor DNA (ctDNA) pres"
         ],
         [
-          "Tier II",
-          "Variants of Potential Clinical Significance - Therapeutic, Prognostic & Diagnostics",
+          "Pre cfD Lo or i De infl bu low",
+          "-analytical variables including sample collection, handling, transport, storage conditions, and time to p",
           ""
         ],
         [
           "",
-          "2C : Level C Evidence",
-          "FDA approved therapies from different tumor types or investigational therapies."
+          "NA integrity and assay w circulating tumourDN n tumours with low DN tection of copy numb uenced by cfDNA cont",
+          "performance. A cfDNA concentration of <20ng may lead to false negative results. A fraction may result in failure to detect clinically relevant variants, especially in A shedding."
         ],
         [
           "",
           "",
-          "Multiple small published studies with some consensus."
+          "er changes, gene rearrangements, and large structural variants may be limited ent, ctDNA fraction and assay design. Additionally, microsatellite instability (MSI) a"
         ],
         [
           "",
-          "2D : Level D Evidence",
-          "Preclinical trials or a few case reports without consensus."
+          "rden (TMB) estimates d tumour fraction.",
+          "erived from plasma (cfDNA) may not fully correlate with tissue-based testing an"
         ],
         [
-          "Tier III",
-          "Variants of Unknown Clinical Significance",
+          "Du of i Clo exp rep 04 ca",
+          "e to inherent technology limitations, coverage is not uniform across all regions. Hence, pathogenic vari nsufficient coverage may not be analyzed/detected/reported.",
           ""
         ],
         [
           "",
-          "Not observed at a significant allele frequency in the general or specific subpopulation databases, or pan-cancer or tumor-specific variant databases.",
+          "nal Haematopoiesis of Indeterminate Potential (CHIP) are mutations which accumulate in leucoc osure to cytotoxic therapy. These typically occurs in tumour suppressor genes including TP53, DNMT3 air genes such as BRCA1/2 and ATM, and rarely even in targetable oncogenes including EGFR and",
           ""
         ],
         [
           "",
-          "No convincing published evidence of cancer association.",
+          "32.CCR-24-3335, 10.1158/1078-0432.CCR-25-0569). They are frequently detected in liquid biopsies at low nnot definitively state whether a mutation is arising from the tumour fraction (ctDNA) or is part of",
           ""
         ]
       ]
@@ -398,18 +665,19 @@
         319.88,
         727.88
       ],
+      "type": "table",
       "headers": [
-        "Oncocept Liquid - gene panel",
+        "",
         "",
         "",
         ""
       ],
       "rows": [
         [
-          "AKT1",
-          "ERBB2",
-          "KIT",
-          "PIK3CA"
+          "",
+          "",
+          "",
+          ""
         ]
       ]
     }
@@ -418,7 +686,7 @@
     {
       "page": 1,
       "title": "2026-05-17 21:33:30 : Provided Diagnosis",
-      "type": "content_section_box",
+      "type": "box",
       "bbox": [
         76.63,
         170.62,
@@ -433,7 +701,7 @@
     {
       "page": 1,
       "title": "NGS Results and Interpretation",
-      "type": "content_section_box",
+      "type": "box",
       "bbox": [
         28.12,
         213.65,
@@ -448,7 +716,7 @@
     {
       "page": 1,
       "title": "Methodology :",
-      "type": "content_section_box",
+      "type": "box",
       "bbox": [
         28.88,
         586.88,
@@ -462,7 +730,7 @@
     {
       "page": 2,
       "title": "General Content / Notes",
-      "type": "content_section_box",
+      "type": "box",
       "bbox": [
         58.86,
         120.38,
@@ -485,7 +753,7 @@
     {
       "page": 2,
       "title": "Test Limitations",
-      "type": "content_section_box",
+      "type": "box",
       "bbox": [
         28.88,
         274.88,
@@ -499,7 +767,7 @@
     {
       "page": 3,
       "title": "General Content / Notes",
-      "type": "content_section_box",
+      "type": "box",
       "bbox": [
         221.16,
         242.62,
@@ -507,7 +775,20 @@
         250.12
       ],
       "content_text": [
-        "----------- End Of Report -----------",
+        "----------- End Of Report -----------"
+      ]
+    },
+    {
+      "page": 3,
+      "title": "Dr. Poorva Singh MD, MGP Fellowship (USA), DipRCPath",
+      "type": "box",
+      "bbox": [
+        224.72,
+        175.12,
+        373.52,
+        193.88
+      ],
+      "content_text": [
         "(UK) Molecular Oncopathologist"
       ]
     }
@@ -516,7 +797,7 @@
     {
       "page": 1,
       "title": "2026-05-17 21:33:30 : Provided Diagnosis",
-      "type": "content_section_box",
+      "type": "box",
       "bbox": [
         76.63,
         170.62,
@@ -531,7 +812,7 @@
     {
       "page": 1,
       "title": "NGS Results and Interpretation",
-      "type": "content_section_box",
+      "type": "box",
       "bbox": [
         28.12,
         213.65,
@@ -546,7 +827,7 @@
     {
       "page": 1,
       "title": "Methodology :",
-      "type": "content_section_box",
+      "type": "box",
       "bbox": [
         28.88,
         586.88,
@@ -560,7 +841,7 @@
     {
       "page": 2,
       "title": "General Content / Notes",
-      "type": "content_section_box",
+      "type": "box",
       "bbox": [
         58.86,
         120.38,
@@ -583,7 +864,7 @@
     {
       "page": 2,
       "title": "Test Limitations",
-      "type": "content_section_box",
+      "type": "box",
       "bbox": [
         28.88,
         274.88,
@@ -597,7 +878,7 @@
     {
       "page": 3,
       "title": "General Content / Notes",
-      "type": "content_section_box",
+      "type": "box",
       "bbox": [
         221.16,
         242.62,
@@ -605,7 +886,20 @@
         250.12
       ],
       "content_text": [
-        "----------- End Of Report -----------",
+        "----------- End Of Report -----------"
+      ]
+    },
+    {
+      "page": 3,
+      "title": "Dr. Poorva Singh MD, MGP Fellowship (USA), DipRCPath",
+      "type": "box",
+      "bbox": [
+        224.72,
+        175.12,
+        373.52,
+        193.88
+      ],
+      "content_text": [
         "(UK) Molecular Oncopathologist"
       ]
     }
@@ -619,8 +913,166 @@
         "width": 595.92,
         "height": 842.88
       },
-      "header_y_cutoff": 164.38,
-      "footer_y_cutoff": 738.13,
+      "header_y_cutoff": 161.38,
+      "footer_y_cutoff": 741.13,
+      "content": [
+        {
+          "page": 1,
+          "type": "key_value",
+          "pairs": {
+            "2026-05-17 21": "33",
+            "30": "Provided Diagnosis",
+            "K/C/O CA breast": "cfDNA conc."
+          },
+          "bbox": [
+            35.0,
+            166.38,
+            560.0,
+            206.38
+          ]
+        },
+        {
+          "page": 1,
+          "type": "box",
+          "title": "2026-05-17 21:33:30 : Provided Diagnosis",
+          "text": [
+            "K/C/O CA breast : cfDNA conc.",
+            "16 ng"
+          ],
+          "content_text": [
+            "K/C/O CA breast : cfDNA conc.",
+            "16 ng"
+          ],
+          "bbox": [
+            76.63,
+            170.62,
+            234.68,
+            189.38
+          ]
+        },
+        {
+          "page": 1,
+          "type": "box",
+          "title": "NGS Results and Interpretation",
+          "text": [
+            "No clinically significant oncogenic variant identified in the analyzed genes (ctDNA is negative).",
+            "No pathogenic variant identified in  BRCA1/2, ERBB2, PIK3CA, ESR1, RET  and  AKT1  genes."
+          ],
+          "content_text": [
+            "No clinically significant oncogenic variant identified in the analyzed genes (ctDNA is negative).",
+            "No pathogenic variant identified in  BRCA1/2, ERBB2, PIK3CA, ESR1, RET  and  AKT1  genes."
+          ],
+          "bbox": [
+            28.12,
+            213.65,
+            178.85,
+            222.78
+          ]
+        },
+        {
+          "page": 1,
+          "type": "table",
+          "headers": [
+            "cla Ne as Se du Th",
+            "rify the nature of the reported alterations if there is clinical suspicion of a hereditary predisposition or pa gative (wild-type) result does not rule out the presence of a mutation that may be present below the lim",
+            ""
+          ],
+          "rows": [
+            [
+              "",
+              "say. The analytical sen quencing is performe",
+              "sitivity of this assay is 0.5% VAF. d with a target depth of 2500x unique molecular reads (UMIs). UMIs are obta"
+            ],
+            [
+              "",
+              "plicate reads (dedupli e analytical sensitivity",
+              "cation) from the analysis. of this assay is dependent on the fraction of circulating tumor DNA (ctDNA) pres"
+            ],
+            [
+              "Pre cfD Lo or i De infl bu low",
+              "-analytical variables including sample collection, handling, transport, storage conditions, and time to p",
+              ""
+            ],
+            [
+              "",
+              "NA integrity and assay w circulating tumourDN n tumours with low DN tection of copy numb uenced by cfDNA cont",
+              "performance. A cfDNA concentration of <20ng may lead to false negative results. A fraction may result in failure to detect clinically relevant variants, especially in A shedding."
+            ],
+            [
+              "",
+              "",
+              "er changes, gene rearrangements, and large structural variants may be limited ent, ctDNA fraction and assay design. Additionally, microsatellite instability (MSI) a"
+            ],
+            [
+              "",
+              "rden (TMB) estimates d tumour fraction.",
+              "erived from plasma (cfDNA) may not fully correlate with tissue-based testing an"
+            ],
+            [
+              "Du of i Clo exp rep 04 ca",
+              "e to inherent technology limitations, coverage is not uniform across all regions. Hence, pathogenic vari nsufficient coverage may not be analyzed/detected/reported.",
+              ""
+            ],
+            [
+              "",
+              "nal Haematopoiesis of Indeterminate Potential (CHIP) are mutations which accumulate in leucoc osure to cytotoxic therapy. These typically occurs in tumour suppressor genes including TP53, DNMT3 air genes such as BRCA1/2 and ATM, and rarely even in targetable oncogenes including EGFR and",
+              ""
+            ],
+            [
+              "",
+              "32.CCR-24-3335, 10.1158/1078-0432.CCR-25-0569). They are frequently detected in liquid biopsies at low nnot definitively state whether a mutation is arising from the tumour fraction (ctDNA) or is part of",
+              ""
+            ]
+          ],
+          "bbox": [
+            29.6,
+            351.38,
+            484.12,
+            583.88
+          ]
+        },
+        {
+          "page": 1,
+          "type": "box",
+          "title": "Methodology :",
+          "text": [
+            "Massively Parallel Sequencing (Next Generation Sequencing).    10 ml. of whole blood was collected in Streck tube (liquid biopsy). Subsequently plasma was isolated from patient’s whole blood and analyzed at Neuberg Center for Genomic Medicine. Total Nucleic Acid from the submitted specimen (cell free tube) was enriched for the coding regions of genes in the panel and splice site junctions of genes. Paired End Sequencing was performed on NGS platform . The available data was analyzed using Augmet Precision Genomics Suite, 16.1.1. The lab performed an assessment of mutations in a total of  45 genes . These genes are well characterized in the published literature and associated with oncology drugs that are FDA approved, part of National Comprehensive Cancer Network (NCCN) guidelines, or in clinical trials. Assay detects multiple types of variants, including hotspots, single nucleotide variants (SNVs), indels, CNVs, and gene fusions, in a single workflow."
+          ],
+          "content_text": [
+            "Massively Parallel Sequencing (Next Generation Sequencing).    10 ml. of whole blood was collected in Streck tube (liquid biopsy). Subsequently plasma was isolated from patient’s whole blood and analyzed at Neuberg Center for Genomic Medicine. Total Nucleic Acid from the submitted specimen (cell free tube) was enriched for the coding regions of genes in the panel and splice site junctions of genes. Paired End Sequencing was performed on NGS platform . The available data was analyzed using Augmet Precision Genomics Suite, 16.1.1. The lab performed an assessment of mutations in a total of  45 genes . These genes are well characterized in the published literature and associated with oncology drugs that are FDA approved, part of National Comprehensive Cancer Network (NCCN) guidelines, or in clinical trials. Assay detects multiple types of variants, including hotspots, single nucleotide variants (SNVs), indels, CNVs, and gene fusions, in a single workflow."
+          ],
+          "bbox": [
+            28.88,
+            586.88,
+            86.37,
+            594.38
+          ]
+        },
+        {
+          "page": 1,
+          "type": "table",
+          "headers": [
+            "",
+            "",
+            "",
+            ""
+          ],
+          "rows": [
+            [
+              "",
+              "",
+              "",
+              ""
+            ]
+          ],
+          "bbox": [
+            29.6,
+            700.88,
+            319.88,
+            727.88
+          ]
+        }
+      ],
       "key_value_pairs": {
         "2026-05-17 21": "33",
         "30": "Provided Diagnosis",
@@ -630,7 +1082,7 @@
         {
           "page": 1,
           "title": "2026-05-17 21:33:30 : Provided Diagnosis",
-          "type": "content_section_box",
+          "type": "box",
           "bbox": [
             76.63,
             170.62,
@@ -645,7 +1097,7 @@
         {
           "page": 1,
           "title": "NGS Results and Interpretation",
-          "type": "content_section_box",
+          "type": "box",
           "bbox": [
             28.12,
             213.65,
@@ -660,7 +1112,7 @@
         {
           "page": 1,
           "title": "Methodology :",
-          "type": "content_section_box",
+          "type": "box",
           "bbox": [
             28.88,
             586.88,
@@ -682,55 +1134,56 @@
             484.12,
             583.88
           ],
+          "type": "table",
           "headers": [
-            "Tier I",
-            "Variants of Strong Clinical Significance - Therapeutic, Prognostic & Diagnostics",
+            "cla Ne as Se du Th",
+            "rify the nature of the reported alterations if there is clinical suspicion of a hereditary predisposition or pa gative (wild-type) result does not rule out the presence of a mutation that may be present below the lim",
             ""
           ],
           "rows": [
             [
               "",
-              "1A : Level A Evidence",
-              "FDA approved therapy included in professional guidelines."
+              "say. The analytical sen quencing is performe",
+              "sitivity of this assay is 0.5% VAF. d with a target depth of 2500x unique molecular reads (UMIs). UMIs are obta"
             ],
             [
               "",
-              "1B : Level B Evidence",
-              "Well- powered studies with consensus from experts in the field."
+              "plicate reads (dedupli e analytical sensitivity",
+              "cation) from the analysis. of this assay is dependent on the fraction of circulating tumor DNA (ctDNA) pres"
             ],
             [
-              "Tier II",
-              "Variants of Potential Clinical Significance - Therapeutic, Prognostic & Diagnostics",
+              "Pre cfD Lo or i De infl bu low",
+              "-analytical variables including sample collection, handling, transport, storage conditions, and time to p",
               ""
             ],
             [
               "",
-              "2C : Level C Evidence",
-              "FDA approved therapies from different tumor types or investigational therapies."
+              "NA integrity and assay w circulating tumourDN n tumours with low DN tection of copy numb uenced by cfDNA cont",
+              "performance. A cfDNA concentration of <20ng may lead to false negative results. A fraction may result in failure to detect clinically relevant variants, especially in A shedding."
             ],
             [
               "",
               "",
-              "Multiple small published studies with some consensus."
+              "er changes, gene rearrangements, and large structural variants may be limited ent, ctDNA fraction and assay design. Additionally, microsatellite instability (MSI) a"
             ],
             [
               "",
-              "2D : Level D Evidence",
-              "Preclinical trials or a few case reports without consensus."
+              "rden (TMB) estimates d tumour fraction.",
+              "erived from plasma (cfDNA) may not fully correlate with tissue-based testing an"
             ],
             [
-              "Tier III",
-              "Variants of Unknown Clinical Significance",
+              "Du of i Clo exp rep 04 ca",
+              "e to inherent technology limitations, coverage is not uniform across all regions. Hence, pathogenic vari nsufficient coverage may not be analyzed/detected/reported.",
               ""
             ],
             [
               "",
-              "Not observed at a significant allele frequency in the general or specific subpopulation databases, or pan-cancer or tumor-specific variant databases.",
+              "nal Haematopoiesis of Indeterminate Potential (CHIP) are mutations which accumulate in leucoc osure to cytotoxic therapy. These typically occurs in tumour suppressor genes including TP53, DNMT3 air genes such as BRCA1/2 and ATM, and rarely even in targetable oncogenes including EGFR and",
               ""
             ],
             [
               "",
-              "No convincing published evidence of cancer association.",
+              "32.CCR-24-3335, 10.1158/1078-0432.CCR-25-0569). They are frequently detected in liquid biopsies at low nnot definitively state whether a mutation is arising from the tumour fraction (ctDNA) or is part of",
               ""
             ]
           ]
@@ -744,18 +1197,19 @@
             319.88,
             727.88
           ],
+          "type": "table",
           "headers": [
-            "Oncocept Liquid - gene panel",
+            "",
             "",
             "",
             ""
           ],
           "rows": [
             [
-              "AKT1",
-              "ERBB2",
-              "KIT",
-              "PIK3CA"
+              "",
+              "",
+              "",
+              ""
             ]
           ]
         }
@@ -770,6 +1224,7 @@
             234.68,
             189.38
           ],
+          "type": "heading",
           "text": "2026-05-17 21:33:30 : Provided Diagnosis",
           "max_font_size": 7.5,
           "is_bold": true,
@@ -783,6 +1238,7 @@
             404.31,
             189.38
           ],
+          "type": "paragraph",
           "text": "K/C/O CA breast : cfDNA conc.",
           "max_font_size": 7.5,
           "is_bold": true,
@@ -796,6 +1252,7 @@
             435.73,
             178.12
           ],
+          "type": "paragraph",
           "text": "16 ng",
           "max_font_size": 7.5,
           "is_bold": false,
@@ -809,6 +1266,7 @@
             178.85,
             222.78
           ],
+          "type": "heading",
           "text": "NGS Results and Interpretation",
           "max_font_size": 9.14,
           "is_bold": true,
@@ -822,6 +1280,7 @@
             563.97,
             259.93
           ],
+          "type": "paragraph",
           "text": "No clinically significant oncogenic variant identified in the analyzed genes (ctDNA is negative).",
           "max_font_size": 10.7,
           "is_bold": false,
@@ -835,6 +1294,7 @@
             504.36,
             274.53
           ],
+          "type": "paragraph",
           "text": "No pathogenic variant identified in  BRCA1/2, ERBB2, PIK3CA, ESR1, RET  and  AKT1  genes.",
           "max_font_size": 9.14,
           "is_bold": true,
@@ -848,6 +1308,7 @@
             106.27,
             307.53
           ],
+          "type": "heading",
           "text": "Technical Notes",
           "max_font_size": 9.14,
           "is_bold": true,
@@ -861,6 +1322,7 @@
             151.11,
             342.38
           ],
+          "type": "heading",
           "text": "AMP/ASCO/CAP Classification",
           "max_font_size": 7.5,
           "is_bold": true,
@@ -874,6 +1336,7 @@
             86.37,
             594.38
           ],
+          "type": "heading",
           "text": "Methodology :",
           "max_font_size": 7.5,
           "is_bold": true,
@@ -887,6 +1350,7 @@
             567.15,
             691.88
           ],
+          "type": "paragraph",
           "text": "Massively Parallel Sequencing (Next Generation Sequencing).    10 ml. of whole blood was collected in Streck tube (liquid biopsy). Subsequently plasma was isolated from patient’s whole blood and analyzed at Neuberg Center for Genomic Medicine. Total Nucleic Acid from the submitted specimen (cell free tube) was enriched for the coding regions of genes in the panel and splice site junctions of genes. Paired End Sequencing was performed on NGS platform . The available data was analyzed using Augmet Precision Genomics Suite, 16.1.1. The lab performed an assessment of mutations in a total of  45 genes . These genes are well characterized in the published literature and associated with oncology drugs that are FDA approved, part of National Comprehensive Cancer Network (NCCN) guidelines, or in clinical trials. Assay detects multiple types of variants, including hotspots, single nucleotide variants (SNVs), indels, CNVs, and gene fusions, in a single workflow.",
           "max_font_size": 7.5,
           "is_bold": true,
@@ -901,14 +1365,68 @@
         "width": 595.92,
         "height": 842.88
       },
-      "header_y_cutoff": 119.38,
-      "footer_y_cutoff": 738.13,
+      "header_y_cutoff": 116.38,
+      "footer_y_cutoff": 741.13,
+      "content": [
+        {
+          "page": 2,
+          "type": "box",
+          "title": "General Content / Notes",
+          "text": [
+            "APC ESR1 MET RET",
+            "AR ETV6 MYB ROS1",
+            "ATM EWSR1 NFIB SMAD4",
+            "BRAF FGFR1 NRAS SS18",
+            "BRCA1 FGFR2 NRG1 TERT",
+            "BRCA2 FGFR3 NTRK1 TMPRSS2",
+            "CCND1 FGFR4 NTRK2 TP53",
+            "CD274 HRAS NTRK3",
+            "CTNNB1 IDH1 PAX8",
+            "EGFR IDH2 PDGFRA"
+          ],
+          "content_text": [
+            "APC ESR1 MET RET",
+            "AR ETV6 MYB ROS1",
+            "ATM EWSR1 NFIB SMAD4",
+            "BRAF FGFR1 NRAS SS18",
+            "BRCA1 FGFR2 NRG1 TERT",
+            "BRCA2 FGFR3 NTRK1 TMPRSS2",
+            "CCND1 FGFR4 NTRK2 TP53",
+            "CD274 HRAS NTRK3",
+            "CTNNB1 IDH1 PAX8",
+            "EGFR IDH2 PDGFRA"
+          ],
+          "bbox": [
+            58.86,
+            120.38,
+            289.25,
+            127.88
+          ]
+        },
+        {
+          "page": 2,
+          "type": "box",
+          "title": "Test Limitations",
+          "text": [
+            "ctDNA is highly specific (up to 95%) but its sensitivity varies from 60% to 75%. A negative result from ctDNA should not definitively exclude the existence of driver mutations. Tissue genotyping (NGS from FFPE block) should be considered when plasma genotyping (liquid biopsy) is negative, if clinically indicated. This test does not differentiate between somatic and germline alterations. Additional germline testing may be necessary to clarify the nature of the reported alterations if there is clinical suspicion of a hereditary predisposition or pathology. Negative (wild-type) result does not rule out the presence of a mutation that may be present below the limit of detection of this assay. The analytical sensitivity of this assay is 0.5% VAF. Sequencing is performed with a target depth of 2500x unique molecular reads (UMIs). UMIs are obtained after removing duplicate reads (deduplication) from the analysis. The analytical sensitivity of this assay is dependent on the fraction of circulating tumor DNA (ctDNA) present in the specimen. Pre-analytical variables including sample collection, handling, transport, storage conditions, and time to processing may affect cfDNA integrity and assay performance. A cfDNA concentration of <20ng may lead to false negative results. Low circulating tumourDNA fraction may result in failure to detect clinically relevant variants, especially in early-stage disease or in tumours with low DNA shedding. Detection of copy number changes, gene rearrangements, and large structural variants may be limited in this assay, and is influenced by cfDNA content, ctDNA fraction and assay design. Additionally, microsatellite instability (MSI) and tumor mutational burden (TMB) estimates derived from plasma (cfDNA) may not fully correlate with tissue-based testing and may be affected by low tumour fraction. Due to inherent technology limitations, coverage is not uniform across all regions. Hence, pathogenic variants present in areas of insufficient coverage may not be analyzed/detected/reported. Clonal Haematopoiesis of Indeterminate Potential (CHIP) are mutations which accumulate in leucocytes with ageing or exposure to cytotoxic therapy. These typically occurs in tumour suppressor genes including TP53, DNMT3A, ASXL1, TET2, PPM1D, repair genes such as BRCA1/2 and ATM, and rarely even in targetable oncogenes including EGFR and KRAS (10.1158/1078- 0432.CCR-24-3335, 10.1158/1078-0432.CCR-25-0569). They are frequently detected in liquid biopsies at low VAFs, and this assay cannot definitively state whether a mutation is arising from the tumour fraction (ctDNA) or is part of CHIP. Therefore, their clinical significance cannot be predicted based on this assay alone and requires longitudinal clinical and molecular monitoring. The classification and interpretation of all the variants in this assay reflects the current state of scientific understanding at the time this report was issued. In some instances, the classification and interpretation of such variants may change as new scientific information comes to light. Test results should be interpreted in the context of clinical findings, tumour location, histopathology, and other relevant imaging and laboratory data. Testing has been performed assuming that the sample received belongs to the individual(s) named in the report, and any stated relationships between individuals are accepted as true. If the reported results do not match the clinical profile and/or other laboratory findings, please contact the laboratory at the earliest. Misinterpretation of results may occur if the information provided is inaccurate or incomplete."
+          ],
+          "content_text": [
+            "ctDNA is highly specific (up to 95%) but its sensitivity varies from 60% to 75%. A negative result from ctDNA should not definitively exclude the existence of driver mutations. Tissue genotyping (NGS from FFPE block) should be considered when plasma genotyping (liquid biopsy) is negative, if clinically indicated. This test does not differentiate between somatic and germline alterations. Additional germline testing may be necessary to clarify the nature of the reported alterations if there is clinical suspicion of a hereditary predisposition or pathology. Negative (wild-type) result does not rule out the presence of a mutation that may be present below the limit of detection of this assay. The analytical sensitivity of this assay is 0.5% VAF. Sequencing is performed with a target depth of 2500x unique molecular reads (UMIs). UMIs are obtained after removing duplicate reads (deduplication) from the analysis. The analytical sensitivity of this assay is dependent on the fraction of circulating tumor DNA (ctDNA) present in the specimen. Pre-analytical variables including sample collection, handling, transport, storage conditions, and time to processing may affect cfDNA integrity and assay performance. A cfDNA concentration of <20ng may lead to false negative results. Low circulating tumourDNA fraction may result in failure to detect clinically relevant variants, especially in early-stage disease or in tumours with low DNA shedding. Detection of copy number changes, gene rearrangements, and large structural variants may be limited in this assay, and is influenced by cfDNA content, ctDNA fraction and assay design. Additionally, microsatellite instability (MSI) and tumor mutational burden (TMB) estimates derived from plasma (cfDNA) may not fully correlate with tissue-based testing and may be affected by low tumour fraction. Due to inherent technology limitations, coverage is not uniform across all regions. Hence, pathogenic variants present in areas of insufficient coverage may not be analyzed/detected/reported. Clonal Haematopoiesis of Indeterminate Potential (CHIP) are mutations which accumulate in leucocytes with ageing or exposure to cytotoxic therapy. These typically occurs in tumour suppressor genes including TP53, DNMT3A, ASXL1, TET2, PPM1D, repair genes such as BRCA1/2 and ATM, and rarely even in targetable oncogenes including EGFR and KRAS (10.1158/1078- 0432.CCR-24-3335, 10.1158/1078-0432.CCR-25-0569). They are frequently detected in liquid biopsies at low VAFs, and this assay cannot definitively state whether a mutation is arising from the tumour fraction (ctDNA) or is part of CHIP. Therefore, their clinical significance cannot be predicted based on this assay alone and requires longitudinal clinical and molecular monitoring. The classification and interpretation of all the variants in this assay reflects the current state of scientific understanding at the time this report was issued. In some instances, the classification and interpretation of such variants may change as new scientific information comes to light. Test results should be interpreted in the context of clinical findings, tumour location, histopathology, and other relevant imaging and laboratory data. Testing has been performed assuming that the sample received belongs to the individual(s) named in the report, and any stated relationships between individuals are accepted as true. If the reported results do not match the clinical profile and/or other laboratory findings, please contact the laboratory at the earliest. Misinterpretation of results may occur if the information provided is inaccurate or incomplete."
+          ],
+          "bbox": [
+            28.88,
+            274.88,
+            93.48,
+            282.38
+          ]
+        }
+      ],
       "key_value_pairs": {},
       "boxes_and_sections": [
         {
           "page": 2,
           "title": "General Content / Notes",
-          "type": "content_section_box",
+          "type": "box",
           "bbox": [
             58.86,
             120.38,
@@ -931,7 +1449,7 @@
         {
           "page": 2,
           "title": "Test Limitations",
-          "type": "content_section_box",
+          "type": "box",
           "bbox": [
             28.88,
             274.88,
@@ -954,6 +1472,7 @@
             289.25,
             127.88
           ],
+          "type": "paragraph",
           "text": "APC ESR1 MET RET",
           "max_font_size": 7.5,
           "is_bold": false,
@@ -967,6 +1486,7 @@
             291.76,
             141.38
           ],
+          "type": "paragraph",
           "text": "AR ETV6 MYB ROS1",
           "max_font_size": 7.5,
           "is_bold": false,
@@ -980,6 +1500,7 @@
             296.21,
             154.88
           ],
+          "type": "paragraph",
           "text": "ATM EWSR1 NFIB SMAD4",
           "max_font_size": 7.5,
           "is_bold": false,
@@ -993,6 +1514,7 @@
             291.1,
             168.38
           ],
+          "type": "paragraph",
           "text": "BRAF FGFR1 NRAS SS18",
           "max_font_size": 7.5,
           "is_bold": false,
@@ -1006,6 +1528,7 @@
             291.39,
             181.88
           ],
+          "type": "paragraph",
           "text": "BRCA1 FGFR2 NRG1 TERT",
           "max_font_size": 7.5,
           "is_bold": false,
@@ -1019,6 +1542,7 @@
             299.74,
             195.38
           ],
+          "type": "paragraph",
           "text": "BRCA2 FGFR3 NTRK1 TMPRSS2",
           "max_font_size": 7.5,
           "is_bold": false,
@@ -1032,6 +1556,7 @@
             291.89,
             208.88
           ],
+          "type": "paragraph",
           "text": "CCND1 FGFR4 NTRK2 TP53",
           "max_font_size": 7.5,
           "is_bold": false,
@@ -1045,6 +1570,7 @@
             283.79,
             222.38
           ],
+          "type": "paragraph",
           "text": "CD274 HRAS NTRK3",
           "max_font_size": 7.5,
           "is_bold": false,
@@ -1058,6 +1584,7 @@
             283.79,
             235.88
           ],
+          "type": "paragraph",
           "text": "CTNNB1 IDH1 PAX8",
           "max_font_size": 7.5,
           "is_bold": false,
@@ -1071,6 +1598,7 @@
             283.79,
             250.12
           ],
+          "type": "paragraph",
           "text": "EGFR IDH2 PDGFRA",
           "max_font_size": 7.5,
           "is_bold": false,
@@ -1084,6 +1612,7 @@
             93.48,
             282.38
           ],
+          "type": "heading",
           "text": "Test Limitations",
           "max_font_size": 7.5,
           "is_bold": true,
@@ -1097,6 +1626,7 @@
             567.15,
             694.88
           ],
+          "type": "paragraph",
           "text": "ctDNA is highly specific (up to 95%) but its sensitivity varies from 60% to 75%. A negative result from ctDNA should not definitively exclude the existence of driver mutations. Tissue genotyping (NGS from FFPE block) should be considered when plasma genotyping (liquid biopsy) is negative, if clinically indicated. This test does not differentiate between somatic and germline alterations. Additional germline testing may be necessary to clarify the nature of the reported alterations if there is clinical suspicion of a hereditary predisposition or pathology. Negative (wild-type) result does not rule out the presence of a mutation that may be present below the limit of detection of this assay. The analytical sensitivity of this assay is 0.5% VAF. Sequencing is performed with a target depth of 2500x unique molecular reads (UMIs). UMIs are obtained after removing duplicate reads (deduplication) from the analysis. The analytical sensitivity of this assay is dependent on the fraction of circulating tumor DNA (ctDNA) present in the specimen. Pre-analytical variables including sample collection, handling, transport, storage conditions, and time to processing may affect cfDNA integrity and assay performance. A cfDNA concentration of <20ng may lead to false negative results. Low circulating tumourDNA fraction may result in failure to detect clinically relevant variants, especially in early-stage disease or in tumours with low DNA shedding. Detection of copy number changes, gene rearrangements, and large structural variants may be limited in this assay, and is influenced by cfDNA content, ctDNA fraction and assay design. Additionally, microsatellite instability (MSI) and tumor mutational burden (TMB) estimates derived from plasma (cfDNA) may not fully correlate with tissue-based testing and may be affected by low tumour fraction. Due to inherent technology limitations, coverage is not uniform across all regions. Hence, pathogenic variants present in areas of insufficient coverage may not be analyzed/detected/reported. Clonal Haematopoiesis of Indeterminate Potential (CHIP) are mutations which accumulate in leucocytes with ageing or exposure to cytotoxic therapy. These typically occurs in tumour suppressor genes including TP53, DNMT3A, ASXL1, TET2, PPM1D, repair genes such as BRCA1/2 and ATM, and rarely even in targetable oncogenes including EGFR and KRAS (10.1158/1078- 0432.CCR-24-3335, 10.1158/1078-0432.CCR-25-0569). They are frequently detected in liquid biopsies at low VAFs, and this assay cannot definitively state whether a mutation is arising from the tumour fraction (ctDNA) or is part of CHIP. Therefore, their clinical significance cannot be predicted based on this assay alone and requires longitudinal clinical and molecular monitoring. The classification and interpretation of all the variants in this assay reflects the current state of scientific understanding at the time this report was issued. In some instances, the classification and interpretation of such variants may change as new scientific information comes to light. Test results should be interpreted in the context of clinical findings, tumour location, histopathology, and other relevant imaging and laboratory data. Testing has been performed assuming that the sample received belongs to the individual(s) named in the report, and any stated relationships between individuals are accepted as true. If the reported results do not match the clinical profile and/or other laboratory findings, please contact the laboratory at the earliest. Misinterpretation of results may occur if the information provided is inaccurate or incomplete.",
           "max_font_size": 7.5,
           "is_bold": true,
@@ -1111,14 +1641,50 @@
         "width": 595.92,
         "height": 842.88
       },
-      "header_y_cutoff": 177.5,
-      "footer_y_cutoff": 738.13,
+      "header_y_cutoff": 174.5,
+      "footer_y_cutoff": 741.13,
+      "content": [
+        {
+          "page": 3,
+          "type": "box",
+          "title": "Dr. Poorva Singh MD, MGP Fellowship (USA), DipRCPath",
+          "text": [
+            "(UK) Molecular Oncopathologist"
+          ],
+          "content_text": [
+            "(UK) Molecular Oncopathologist"
+          ],
+          "bbox": [
+            224.72,
+            175.12,
+            373.52,
+            193.88
+          ]
+        },
+        {
+          "page": 3,
+          "type": "box",
+          "title": "General Content / Notes",
+          "text": [
+            "----------- End Of Report -----------"
+          ],
+          "content_text": [
+            "----------- End Of Report -----------"
+          ],
+          "bbox": [
+            221.16,
+            242.62,
+            374.87,
+            250.12
+          ]
+        }
+      ],
       "key_value_pairs": {},
       "boxes_and_sections": [
         {
           "page": 3,
           "title": "General Content / Notes",
-          "type": "content_section_box",
+          "type": "box",
           "bbox": [
             221.16,
             242.62,
@@ -1126,7 +1692,20 @@
             250.12
           ],
           "content_text": [
-            "----------- End Of Report -----------",
+            "----------- End Of Report -----------"
+          ]
+        },
+        {
+          "page": 3,
+          "title": "Dr. Poorva Singh MD, MGP Fellowship (USA), DipRCPath",
+          "type": "box",
+          "bbox": [
+            224.72,
+            175.12,
+            373.52,
+            193.88
+          ],
+          "content_text": [
             "(UK) Molecular Oncopathologist"
           ]
         }
@@ -1142,9 +1721,24 @@
             374.87,
             250.12
           ],
+          "type": "paragraph",
           "text": "----------- End Of Report -----------",
           "max_font_size": 7.5,
           "is_bold": false,
+          "font": "Poppins-Regular"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            224.72,
+            175.12,
+            373.52,
+            193.88
+          ],
+          "type": "heading",
+          "text": "Dr. Poorva Singh MD, MGP Fellowship (USA), DipRCPath",
+          "max_font_size": 7.5,
+          "is_bold": true,
           "font": "Poppins-Regular"
         },
         {
@@ -1155,14 +1749,15 @@
             351.48,
             216.38
           ],
+          "type": "paragraph",
           "text": "(UK) Molecular Oncopathologist",
           "max_font_size": 7.5,
           "is_bold": false,
           "font": "Poppins-Regular"
         }
       ],
-      "page_text": "----------- End Of Report -----------\n(UK) Molecular Oncopathologist"
+      "page_text": "----------- End Of Report -----------\nDr. Poorva Singh MD, MGP Fellowship (USA), DipRCPath\n(UK) Molecular Oncopathologist"
     }
   ],
-  "raw_full_text": "2026-05-17 21:33:30 : Provided Diagnosis\nK/C/O CA breast : cfDNA conc.\n16 ng\nNGS Results and Interpretation\nNo clinically significant oncogenic variant identified in the analyzed genes (ctDNA is negative).\nNo pathogenic variant identified in  BRCA1/2, ERBB2, PIK3CA, ESR1, RET  and  AKT1  genes.\nTechnical Notes\nAMP/ASCO/CAP Classification\nMethodology :\nMassively Parallel Sequencing (Next Generation Sequencing).    10 ml. of whole blood was collected in Streck tube (liquid biopsy). Subsequently plasma was isolated from patient’s whole blood and analyzed at Neuberg Center for Genomic Medicine. Total Nucleic Acid from the submitted specimen (cell free tube) was enriched for the coding regions of genes in the panel and splice site junctions of genes. Paired End Sequencing was performed on NGS platform . The available data was analyzed using Augmet Precision Genomics Suite, 16.1.1. The lab performed an assessment of mutations in a total of  45 genes . These genes are well characterized in the published literature and associated with oncology drugs that are FDA approved, part of National Comprehensive Cancer Network (NCCN) guidelines, or in clinical trials. Assay detects multiple types of variants, including hotspots, single nucleotide variants (SNVs), indels, CNVs, and gene fusions, in a single workflow.\nAPC ESR1 MET RET\nAR ETV6 MYB ROS1\nATM EWSR1 NFIB SMAD4\nBRAF FGFR1 NRAS SS18\nBRCA1 FGFR2 NRG1 TERT\nBRCA2 FGFR3 NTRK1 TMPRSS2\nCCND1 FGFR4 NTRK2 TP53\nCD274 HRAS NTRK3\nCTNNB1 IDH1 PAX8\nEGFR IDH2 PDGFRA\nTest Limitations\nctDNA is highly specific (up to 95%) but its sensitivity varies from 60% to 75%. A negative result from ctDNA should not definitively exclude the existence of driver mutations. Tissue genotyping (NGS from FFPE block) should be considered when plasma genotyping (liquid biopsy) is negative, if clinically indicated. This test does not differentiate between somatic and germline alterations. Additional germline testing may be necessary to clarify the nature of the reported alterations if there is clinical suspicion of a hereditary predisposition or pathology. Negative (wild-type) result does not rule out the presence of a mutation that may be present below the limit of detection of this assay. The analytical sensitivity of this assay is 0.5% VAF. Sequencing is performed with a target depth of 2500x unique molecular reads (UMIs). UMIs are obtained after removing duplicate reads (deduplication) from the analysis. The analytical sensitivity of this assay is dependent on the fraction of circulating tumor DNA (ctDNA) present in the specimen. Pre-analytical variables including sample collection, handling, transport, storage conditions, and time to processing may affect cfDNA integrity and assay performance. A cfDNA concentration of <20ng may lead to false negative results. Low circulating tumourDNA fraction may result in failure to detect clinically relevant variants, especially in early-stage disease or in tumours with low DNA shedding. Detection of copy number changes, gene rearrangements, and large structural variants may be limited in this assay, and is influenced by cfDNA content, ctDNA fraction and assay design. Additionally, microsatellite instability (MSI) and tumor mutational burden (TMB) estimates derived from plasma (cfDNA) may not fully correlate with tissue-based testing and may be affected by low tumour fraction. Due to inherent technology limitations, coverage is not uniform across all regions. Hence, pathogenic variants present in areas of insufficient coverage may not be analyzed/detected/reported. Clonal Haematopoiesis of Indeterminate Potential (CHIP) are mutations which accumulate in leucocytes with ageing or exposure to cytotoxic therapy. These typically occurs in tumour suppressor genes including TP53, DNMT3A, ASXL1, TET2, PPM1D, repair genes such as BRCA1/2 and ATM, and rarely even in targetable oncogenes including EGFR and KRAS (10.1158/1078- 0432.CCR-24-3335, 10.1158/1078-0432.CCR-25-0569). They are frequently detected in liquid biopsies at low VAFs, and this assay cannot definitively state whether a mutation is arising from the tumour fraction (ctDNA) or is part of CHIP. Therefore, their clinical significance cannot be predicted based on this assay alone and requires longitudinal clinical and molecular monitoring. The classification and interpretation of all the variants in this assay reflects the current state of scientific understanding at the time this report was issued. In some instances, the classification and interpretation of such variants may change as new scientific information comes to light. Test results should be interpreted in the context of clinical findings, tumour location, histopathology, and other relevant imaging and laboratory data. Testing has been performed assuming that the sample received belongs to the individual(s) named in the report, and any stated relationships between individuals are accepted as true. If the reported results do not match the clinical profile and/or other laboratory findings, please contact the laboratory at the earliest. Misinterpretation of results may occur if the information provided is inaccurate or incomplete.\n----------- End Of Report -----------\n(UK) Molecular Oncopathologist"
+  "raw_full_text": "2026-05-17 21:33:30 : Provided Diagnosis\nK/C/O CA breast : cfDNA conc.\n16 ng\nNGS Results and Interpretation\nNo clinically significant oncogenic variant identified in the analyzed genes (ctDNA is negative).\nNo pathogenic variant identified in  BRCA1/2, ERBB2, PIK3CA, ESR1, RET  and  AKT1  genes.\nTechnical Notes\nAMP/ASCO/CAP Classification\nMethodology :\nMassively Parallel Sequencing (Next Generation Sequencing).    10 ml. of whole blood was collected in Streck tube (liquid biopsy). Subsequently plasma was isolated from patient’s whole blood and analyzed at Neuberg Center for Genomic Medicine. Total Nucleic Acid from the submitted specimen (cell free tube) was enriched for the coding regions of genes in the panel and splice site junctions of genes. Paired End Sequencing was performed on NGS platform . The available data was analyzed using Augmet Precision Genomics Suite, 16.1.1. The lab performed an assessment of mutations in a total of  45 genes . These genes are well characterized in the published literature and associated with oncology drugs that are FDA approved, part of National Comprehensive Cancer Network (NCCN) guidelines, or in clinical trials. Assay detects multiple types of variants, including hotspots, single nucleotide variants (SNVs), indels, CNVs, and gene fusions, in a single workflow.\nAPC ESR1 MET RET\nAR ETV6 MYB ROS1\nATM EWSR1 NFIB SMAD4\nBRAF FGFR1 NRAS SS18\nBRCA1 FGFR2 NRG1 TERT\nBRCA2 FGFR3 NTRK1 TMPRSS2\nCCND1 FGFR4 NTRK2 TP53\nCD274 HRAS NTRK3\nCTNNB1 IDH1 PAX8\nEGFR IDH2 PDGFRA\nTest Limitations\nctDNA is highly specific (up to 95%) but its sensitivity varies from 60% to 75%. A negative result from ctDNA should not definitively exclude the existence of driver mutations. Tissue genotyping (NGS from FFPE block) should be considered when plasma genotyping (liquid biopsy) is negative, if clinically indicated. This test does not differentiate between somatic and germline alterations. Additional germline testing may be necessary to clarify the nature of the reported alterations if there is clinical suspicion of a hereditary predisposition or pathology. Negative (wild-type) result does not rule out the presence of a mutation that may be present below the limit of detection of this assay. The analytical sensitivity of this assay is 0.5% VAF. Sequencing is performed with a target depth of 2500x unique molecular reads (UMIs). UMIs are obtained after removing duplicate reads (deduplication) from the analysis. The analytical sensitivity of this assay is dependent on the fraction of circulating tumor DNA (ctDNA) present in the specimen. Pre-analytical variables including sample collection, handling, transport, storage conditions, and time to processing may affect cfDNA integrity and assay performance. A cfDNA concentration of <20ng may lead to false negative results. Low circulating tumourDNA fraction may result in failure to detect clinically relevant variants, especially in early-stage disease or in tumours with low DNA shedding. Detection of copy number changes, gene rearrangements, and large structural variants may be limited in this assay, and is influenced by cfDNA content, ctDNA fraction and assay design. Additionally, microsatellite instability (MSI) and tumor mutational burden (TMB) estimates derived from plasma (cfDNA) may not fully correlate with tissue-based testing and may be affected by low tumour fraction. Due to inherent technology limitations, coverage is not uniform across all regions. Hence, pathogenic variants present in areas of insufficient coverage may not be analyzed/detected/reported. Clonal Haematopoiesis of Indeterminate Potential (CHIP) are mutations which accumulate in leucocytes with ageing or exposure to cytotoxic therapy. These typically occurs in tumour suppressor genes including TP53, DNMT3A, ASXL1, TET2, PPM1D, repair genes such as BRCA1/2 and ATM, and rarely even in targetable oncogenes including EGFR and KRAS (10.1158/1078- 0432.CCR-24-3335, 10.1158/1078-0432.CCR-25-0569). They are frequently detected in liquid biopsies at low VAFs, and this assay cannot definitively state whether a mutation is arising from the tumour fraction (ctDNA) or is part of CHIP. Therefore, their clinical significance cannot be predicted based on this assay alone and requires longitudinal clinical and molecular monitoring. The classification and interpretation of all the variants in this assay reflects the current state of scientific understanding at the time this report was issued. In some instances, the classification and interpretation of such variants may change as new scientific information comes to light. Test results should be interpreted in the context of clinical findings, tumour location, histopathology, and other relevant imaging and laboratory data. Testing has been performed assuming that the sample received belongs to the individual(s) named in the report, and any stated relationships between individuals are accepted as true. If the reported results do not match the clinical profile and/or other laboratory findings, please contact the laboratory at the earliest. Misinterpretation of results may occur if the information provided is inaccurate or incomplete.\n----------- End Of Report -----------\nDr. Poorva Singh MD, MGP Fellowship (USA), DipRCPath\n(UK) Molecular Oncopathologist"
 }

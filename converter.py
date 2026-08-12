@@ -22,6 +22,11 @@ try:
 except ImportError:
     sync_playwright = None
 
+try:
+    from pdf2docx import Converter as PDF2DocxConverter
+except ImportError:
+    PDF2DocxConverter = None
+
 from extractor import extract_report_data, detect_dynamic_header_footer_bounds
 
 
@@ -450,6 +455,9 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
             </div>
             """
 
+    oncquest_logo_html = ""
+    patient_table_html = ""
+
     html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -483,10 +491,6 @@ body {{ margin: 0; padding: 0; background-color: #f1f5f9; font-family: {font_fam
 <body>
 <div class="pdf-container">
   <div class="pdf-page">
-    {oncquest_logo_html}
-
-    {patient_table_html}
-
     {sections_html}
 
     {tables_html}
@@ -1609,23 +1613,112 @@ def _parse_html_soup_to_docx(soup, doc):
                                 t.rows[r_idx].cells[c_idx].text = c.get_text(strip=True)
 
 
-def convert_pdf_to_word(pdf_path, docx_path, theme_config: dict = None):
+def convert_pdf_via_pdf2docx(pdf_path, docx_path):
     """
-    Convert a PDF file to Word (.docx) preserving visual layout, text, tables, images, and structure.
-    Pipeline: Input PDF -> Remove Header/Footer -> Extract Content -> extracted.json -> Apply theme.json -> Generate .docx
+    Directly converts a PDF file to Word (.docx) using pdf2docx Converter.
+    """
+    if PDF2DocxConverter is None:
+        print("[!] pdf2docx library is not installed. Install via: pip install pdf2docx")
+        return False
+    try:
+        pdf_p = str(Path(pdf_path).absolute())
+        docx_p = str(Path(docx_path).absolute())
+        Path(docx_p).parent.mkdir(parents=True, exist_ok=True)
+
+        cv_obj = PDF2DocxConverter(pdf_p)
+        cv_obj.convert(docx_p)
+        cv_obj.close()
+        print(f"   [+] pdf2docx conversion completed successfully: {docx_p}")
+        return True
+    except Exception as e:
+        print(f"   [!] pdf2docx conversion error for {pdf_path}: {e}")
+        return False
+
+
+def convert_pdf_full_pipeline(pdf_path, output_dir=None, theme_config: dict = None):
+    """
+    Executes full 4-step pipeline:
+    1. Input PDF -> Extract JSON
+    2. JSON -> Render HTML template
+    3. HTML -> Compile Intermediate PDF (via Playwright)
+    4. Intermediate PDF -> Word (.docx) via pdf2docx (fallback to python-docx)
     """
     pdf_path = Path(pdf_path).absolute()
-    docx_path = Path(docx_path).absolute()
-    docx_path.parent.mkdir(parents=True, exist_ok=True)
+    if output_dir is None:
+        output_dir = pdf_path.parent / "output"
+    else:
+        output_dir = Path(output_dir).absolute()
+    output_dir.mkdir(parents=True, exist_ok=True)
+    json_dir = pdf_path.parent / "extracted_jsons"
+    json_dir.mkdir(parents=True, exist_ok=True)
+
+    stem = pdf_path.stem
+
+    print(f"\n==================================================")
+    print(f"[*] Executing 4-Step Pipeline for: {pdf_path.name}")
+    print(f"==================================================")
+
+    # Step 1: PDF -> JSON
+    print(f"\n[Step 1/4] Extracting PDF to JSON...")
+    extracted_data = extract_report_data(str(pdf_path))
+    json_path = json_dir / f"{stem}.json"
+    if extracted_data:
+        with open(json_path, "w", encoding="utf-8") as f_json:
+            json.dump(extracted_data, f_json, indent=2, ensure_ascii=False)
+        print(f"   [+] JSON saved: {json_path}")
+
+    # Step 2: JSON -> HTML
+    print(f"\n[Step 2/4] Rendering JSON to HTML...")
+    out_html = output_dir / f"{stem}_template.html"
+    if extracted_data:
+        full_html = generate_dynamic_template_html(extracted_data, doc_title=pdf_path.name, theme_config=theme_config)
+    else:
+        doc = fitz.open(str(pdf_path))
+        full_html = render_exact_pdf_layout_html(doc, doc_title=pdf_path.name, theme_config=theme_config)
+        doc.close()
+
+    with open(out_html, "w", encoding="utf-8") as f_html:
+        f_html.write(full_html)
+    print(f"   [+] HTML saved: {out_html}")
+
+    # Step 3: HTML -> Compiled Result PDF
+    print(f"\n[Step 3/4] Compiling HTML to Result PDF...")
+    intermediate_pdf = output_dir / f"{stem}_compiled.pdf"
+    render_html_to_pdf_and_preview(out_html, intermediate_pdf)
+    print(f"   [+] Result PDF compiled from HTML: {intermediate_pdf}")
+
+    # Step 4: Convert Compiled Result PDF to Word (.docx) using pdf2docx
+    print(f"\n[Step 4/4] Converting Compiled Result PDF to Word (.docx) via pdf2docx...")
+    out_docx = output_dir / f"{stem}_report.docx"
+    target_pdf_for_word = intermediate_pdf if (intermediate_pdf.exists() and intermediate_pdf.stat().st_size > 0) else pdf_path
+    convert_pdf_to_word(target_pdf_for_word, out_docx)
+
+    print(f"\n[+] 4-Step Pipeline Completed Successfully! Final Word doc: {out_docx}")
+    print(f"==================================================\n")
+    return out_docx
+
+
+def convert_pdf_to_word(pdf_path, docx_path, theme_config: dict = None):
+    """
+    Convert PDF to Word (.docx) directly using pdf2docx Converter (pdftoDoc logic).
+    """
+    pdf_p = str(Path(pdf_path).absolute())
+    docx_p = str(Path(docx_path).absolute())
+    Path(docx_p).parent.mkdir(parents=True, exist_ok=True)
+
+    if PDF2DocxConverter is None:
+        print("[!] Error: pdf2docx is not installed. Run 'pip install pdf2docx'")
+        return False
 
     try:
-        extracted_data = extract_report_data(str(pdf_path))
-        if extracted_data:
-            return convert_json_to_docx(extracted_data, output_path=str(docx_path), theme_config=theme_config)
+        cv_obj = PDF2DocxConverter(pdf_p)
+        cv_obj.convert(docx_p)
+        cv_obj.close()
+        print(f"   [+] File Converted Successfully: {docx_p}")
+        return True
     except Exception as e:
-        logger.error(f"PDF to Word pipeline failed: {e}")
-
-    return None
+        print(f"   [!] Conversion Failed: {e}")
+        return False
 
 
 

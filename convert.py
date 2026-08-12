@@ -9,7 +9,14 @@ import sys
 import shutil
 import json
 from pathlib import Path
-from converter import process_pdf, render_html_to_pdf_and_preview, convert_json_to_docx, convert_html_to_docx, render_json_file_to_html
+from converter import (
+    process_pdf, 
+    render_html_to_pdf_and_preview, 
+    convert_json_to_docx, 
+    convert_html_to_docx, 
+    render_json_file_to_html,
+    convert_pdf_full_pipeline
+)
 from extractor import extract_report_data
 
 output_dir = Path("output")
@@ -69,30 +76,7 @@ print(f"[+] Found {len(pdf_files)} PDF file(s) to process dynamically: {[p.name 
 SAVE_OUTPUT = True
 
 for pdf_path in pdf_files:
-    pdf_stem = pdf_path.stem
-    print(f"[*] Processing input PDF dynamically: {pdf_path.name}")
-    
-    # 1. Universal Extraction
-    extracted_data = extract_report_data(str(pdf_path))
-    if extracted_data:
-        print(f"   [+] Data Extracted Successfully for: {pdf_path.name}")
-        print(f"        - Key-Value Pairs: {len(extracted_data.get('all_key_value_pairs', {}))}")
-        print(f"        - Tables: {len(extracted_data.get('all_tables', []))}")
-        print(f"        - Content Boxes: {len(extracted_data.get('all_boxes_and_sections', []))}")
-        print(f"        - Images & Graphs: {len(extracted_data.get('all_images_and_graphs', []))}")
+    convert_pdf_full_pipeline(pdf_path, output_dir=output_dir, theme_config=theme_config)
 
-    # 2. Render HTML
-    out_html = output_dir / f"{pdf_stem}_target.html"
-    full_html = process_pdf(str(pdf_path), out_html, is_target=False, use_template=False, theme_config=theme_config, save_output=SAVE_OUTPUT)
-    print(f"   [+] Rendered HTML saved: {out_html}")
-    
-    # 3. Convert JSON -> Word (.docx)
-    out_docx = output_dir / f"{pdf_stem}_report.docx"
-    if extracted_data:
-        convert_json_to_docx(extracted_data, output_path=out_docx, theme_config=theme_config)
-    else:
-        convert_html_to_docx(full_html, output_path=out_docx, theme_config=theme_config)
-    print(f"   [+] Converted JSON to Word (.docx) with clean alignment: {out_docx}")
-
-print("\n[+] Dynamic conversions completed successfully!")
+print("\n[+] All 4-step dynamic conversions completed successfully!")
 

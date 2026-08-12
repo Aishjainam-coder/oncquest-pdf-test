@@ -229,18 +229,31 @@ if uploaded_file is not None:
                         except Exception:
                             pass
 
-                        # Render Clean End Result HTML (Original repeating headers/footers removed, theme applied)
+                        # Render Clean End Result HTML
                         doc_fitz = fitz.open(str(pdf_input_path))
                         html_content = render_exact_pdf_layout_html(doc_fitz, doc_title=uploaded_file.name, theme_config=theme_config)
                         doc_fitz.close()
                         st.session_state.html_content = html_content
 
-                        # Convert Extracted JSON + theme.json -> Word (.docx)
-                        if st.session_state.extracted_data:
-                            docx_bytes = convert_json_to_docx(st.session_state.extracted_data, theme_config=theme_config)
+                        # Compile Intermediate PDF from HTML
+                        try:
+                            html_tmp = Path(tmp_dir) / "temp.html"
+                            html_tmp.write_text(html_content, encoding="utf-8")
+                            compiled_pdf_tmp = Path(tmp_dir) / "compiled.pdf"
+                            render_html_to_pdf_and_preview(html_tmp, compiled_pdf_tmp)
+                            if compiled_pdf_tmp.exists():
+                                st.session_state.compiled_pdf_bytes = compiled_pdf_tmp.read_bytes()
+                        except Exception:
+                            st.session_state.compiled_pdf_bytes = None
+
+                        # Convert Compiled Result PDF -> Word (.docx) using pdf2docx Converter
+                        out_docx_tmp = Path(tmp_dir) / "output.docx"
+                        target_pdf_for_word = compiled_pdf_tmp if (compiled_pdf_tmp.exists() and compiled_pdf_tmp.stat().st_size > 0) else pdf_input_path
+                        convert_pdf_to_word(target_pdf_for_word, out_docx_tmp)
+                        if out_docx_tmp.exists():
+                            st.session_state.docx_bytes = out_docx_tmp.read_bytes()
                         else:
-                            docx_bytes = convert_html_to_docx(html_content, theme_config=theme_config)
-                        st.session_state.docx_bytes = docx_bytes
+                            st.session_state.docx_bytes = None
 
                 st.success("✅ Converted Extracted Content + theme.json → Word (.docx) successfully!")
 
@@ -271,7 +284,7 @@ if uploaded_file is not None:
         st.markdown("---")
         st.subheader("📊 Optional Web & PDF Previews")
 
-        tab_html, tab_pdf = st.tabs(["🌐 HTML Preview", "📄 PDF Preview"])
+        tab_html, tab_pdf = st.tabs(["🌐 Rendered HTML Preview", "📄 Compiled PDF Preview"])
 
         # Tab 1: Rendered HTML Result
         with tab_html:
@@ -289,12 +302,13 @@ if uploaded_file is not None:
                     )
                 components.html(st.session_state.html_content, height=preview_height, scrolling=True)
 
-        # Tab 2: Output PDF Result
+        # Tab 2: Compiled Output PDF Result
         with tab_pdf:
-            if uploaded_file and file_ext == ".pdf":
-                st.markdown("### 📄 Original PDF Document")
-                b64_pdf = base64.b64encode(file_bytes).decode("utf-8")
+            compiled_pdf_bytes = getattr(st.session_state, "compiled_pdf_bytes", None)
+            if compiled_pdf_bytes:
+                st.markdown("### 📄 Compiled Target PDF")
+                b64_pdf = base64.b64encode(compiled_pdf_bytes).decode("utf-8")
                 pdf_display = f'<iframe src="data:application/pdf;base64,{b64_pdf}" width="100%" height="{preview_height}px" type="application/pdf"></iframe>'
                 st.markdown(pdf_display, unsafe_allow_html=True)
             else:
-                st.info("PDF preview available when a PDF file is uploaded.")
+                st.info("Compiled PDF preview will appear after generation.")
