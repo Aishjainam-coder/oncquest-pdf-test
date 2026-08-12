@@ -1,0 +1,2542 @@
+{
+  "document_summary": {
+    "file_name": "Mrs ANCHALA MISHRA SHV2607170072.pdf",
+    "total_pages": 5,
+    "total_tables": 3,
+    "total_boxes": 7,
+    "total_key_value_pairs": 58,
+    "total_images_and_graphs": 1
+  },
+  "metadata": {
+    "Interpretation": "GUIDE FOR RISK STRATIFICATION -Screen Positive or Screen Negative is based on the Risk Cut-Off. The strategy of Risk Int",
+    "Requestor": "-, -",
+    "REQUESTOR": "-",
+    "DOCTOR": "-",
+    "REQUESTOR CODE": "-",
+    "REQUESTOR TYPE": "- REQUESTOR PHONE 1",
+    "FACILITY": "-",
+    "Patient 2607170072": "-, Mrs ANCHALA MISHRA SHV2607170072",
+    "PATIENT ID": "2607170072",
+    "LAST NAME": "-",
+    "FIRST NAME": "Mrs ANCHALA MISHRA  SHV2607170072",
+    "BIRTH DATE": "25/08/1993",
+    "ETHNICITY": "Asian",
+    "ADDRESS 1": "-",
+    "CITY": "- POSTAL CODE",
+    "Calculated EDD": "23/01/2027 (MAEDD",
+    "MAEDD": "33.41",
+    "CALCULATED EDD": "23/01/2027",
+    "DATE": "18/04/2026",
+    "METHOD": "CRL LMP DATE",
+    "SMOKING STATUS": "Non smoker",
+    "DIABETIC": "-",
+    "OF FETUSES": "1 MONOZYGOUS",
+    "CHORIONICITY": "-",
+    "FERTILIZATION DATE": "- MATERNAL WEIGHT [KG]",
+    "DIABETES TYPE II": "No",
+    "CHRONIC HYPERTENSION": "-",
+    "SYSTEMIC LUPUS ERYTHEMATOSUS": "-",
+    "ANTI-PHOSPHOLIPID SYNDROME": "-",
+    "24  WEEKS": "-",
+    "PRE-ECLAMPSIA": "-",
+    "DELIVERY DATE": "-",
+    "AT DELIVERY": "0 w 0 d",
+    "BIRTH WEIGHT Z-SCORE": "-",
+    "ASSISTANCE METHOD": "-",
+    "TRANSFER DATE": "-",
+    "EGG EXTRACTION DATE": "-",
+    "EGG DONOR DOB": "- AGE AT EXTRACTION",
+    "S SYNDROME": "-",
+    "SYNDROME": "-",
+    "PAST TR - TRIPLOIDY": "-",
+    "RISK ASSESSED": "At term",
+    "SCREENING PROTOCOL": "Screening_4.0",
+    "SCAN DATE": "17/07/2026",
+    "CRL": "65.6",
+    "BPD": "-",
+    "HC": "- GEST. AT SAMPLE DATE (W + D)",
+    "AC": "-",
+    "TIME MEASURED": "17/07/2026",
+    "LEFT SYST #1": "100",
+    "LEFT DIAST #1": "70",
+    "LEFT SYST #2": "-",
+    "LEFT DIAST #2": "-",
+    "RIGHT SYST #1": "100",
+    "RIGHT DIAST #1": "70",
+    "RIGHT SYST #2": "-",
+    "RIGHT DIAST #2": "-",
+    "MOM": "0.98"
+  },
+  "extracted_key_value_pairs": {
+    "Interpretation": "GUIDE FOR RISK STRATIFICATION -Screen Positive or Screen Negative is based on the Risk Cut-Off. The strategy of Risk Int",
+    "Requestor": "-, -",
+    "REQUESTOR": "-",
+    "DOCTOR": "-",
+    "REQUESTOR CODE": "-",
+    "REQUESTOR TYPE": "- REQUESTOR PHONE 1",
+    "FACILITY": "-",
+    "Patient 2607170072": "-, Mrs ANCHALA MISHRA SHV2607170072",
+    "PATIENT ID": "2607170072",
+    "LAST NAME": "-",
+    "FIRST NAME": "Mrs ANCHALA MISHRA  SHV2607170072",
+    "BIRTH DATE": "25/08/1993",
+    "ETHNICITY": "Asian",
+    "ADDRESS 1": "-",
+    "CITY": "- POSTAL CODE",
+    "Calculated EDD": "23/01/2027 (MAEDD",
+    "MAEDD": "33.41",
+    "CALCULATED EDD": "23/01/2027",
+    "DATE": "18/04/2026",
+    "METHOD": "CRL LMP DATE",
+    "SMOKING STATUS": "Non smoker",
+    "DIABETIC": "-",
+    "OF FETUSES": "1 MONOZYGOUS",
+    "CHORIONICITY": "-",
+    "FERTILIZATION DATE": "- MATERNAL WEIGHT [KG]",
+    "DIABETES TYPE II": "No",
+    "CHRONIC HYPERTENSION": "-",
+    "SYSTEMIC LUPUS ERYTHEMATOSUS": "-",
+    "ANTI-PHOSPHOLIPID SYNDROME": "-",
+    "24  WEEKS": "-",
+    "PRE-ECLAMPSIA": "-",
+    "DELIVERY DATE": "-",
+    "AT DELIVERY": "0 w 0 d",
+    "BIRTH WEIGHT Z-SCORE": "-",
+    "ASSISTANCE METHOD": "-",
+    "TRANSFER DATE": "-",
+    "EGG EXTRACTION DATE": "-",
+    "EGG DONOR DOB": "- AGE AT EXTRACTION",
+    "S SYNDROME": "-",
+    "SYNDROME": "-",
+    "PAST TR - TRIPLOIDY": "-",
+    "RISK ASSESSED": "At term",
+    "SCREENING PROTOCOL": "Screening_4.0",
+    "SCAN DATE": "17/07/2026",
+    "CRL": "65.6",
+    "BPD": "-",
+    "HC": "- GEST. AT SAMPLE DATE (W + D)",
+    "AC": "-",
+    "TIME MEASURED": "17/07/2026",
+    "LEFT SYST #1": "100",
+    "LEFT DIAST #1": "70",
+    "LEFT SYST #2": "-",
+    "LEFT DIAST #2": "-",
+    "RIGHT SYST #1": "100",
+    "RIGHT DIAST #1": "70",
+    "RIGHT SYST #2": "-",
+    "RIGHT DIAST #2": "-",
+    "MOM": "0.98"
+  },
+  "all_key_value_pairs": {
+    "Interpretation": "GUIDE FOR RISK STRATIFICATION -Screen Positive or Screen Negative is based on the Risk Cut-Off. The strategy of Risk Int",
+    "Requestor": "-, -",
+    "REQUESTOR": "-",
+    "DOCTOR": "-",
+    "REQUESTOR CODE": "-",
+    "REQUESTOR TYPE": "- REQUESTOR PHONE 1",
+    "FACILITY": "-",
+    "Patient 2607170072": "-, Mrs ANCHALA MISHRA SHV2607170072",
+    "PATIENT ID": "2607170072",
+    "LAST NAME": "-",
+    "FIRST NAME": "Mrs ANCHALA MISHRA  SHV2607170072",
+    "BIRTH DATE": "25/08/1993",
+    "ETHNICITY": "Asian",
+    "ADDRESS 1": "-",
+    "CITY": "- POSTAL CODE",
+    "Calculated EDD": "23/01/2027 (MAEDD",
+    "MAEDD": "33.41",
+    "CALCULATED EDD": "23/01/2027",
+    "DATE": "18/04/2026",
+    "METHOD": "CRL LMP DATE",
+    "SMOKING STATUS": "Non smoker",
+    "DIABETIC": "-",
+    "OF FETUSES": "1 MONOZYGOUS",
+    "CHORIONICITY": "-",
+    "FERTILIZATION DATE": "- MATERNAL WEIGHT [KG]",
+    "DIABETES TYPE II": "No",
+    "CHRONIC HYPERTENSION": "-",
+    "SYSTEMIC LUPUS ERYTHEMATOSUS": "-",
+    "ANTI-PHOSPHOLIPID SYNDROME": "-",
+    "24  WEEKS": "-",
+    "PRE-ECLAMPSIA": "-",
+    "DELIVERY DATE": "-",
+    "AT DELIVERY": "0 w 0 d",
+    "BIRTH WEIGHT Z-SCORE": "-",
+    "ASSISTANCE METHOD": "-",
+    "TRANSFER DATE": "-",
+    "EGG EXTRACTION DATE": "-",
+    "EGG DONOR DOB": "- AGE AT EXTRACTION",
+    "S SYNDROME": "-",
+    "SYNDROME": "-",
+    "PAST TR - TRIPLOIDY": "-",
+    "RISK ASSESSED": "At term",
+    "SCREENING PROTOCOL": "Screening_4.0",
+    "SCAN DATE": "17/07/2026",
+    "CRL": "65.6",
+    "BPD": "-",
+    "HC": "- GEST. AT SAMPLE DATE (W + D)",
+    "AC": "-",
+    "TIME MEASURED": "17/07/2026",
+    "LEFT SYST #1": "100",
+    "LEFT DIAST #1": "70",
+    "LEFT SYST #2": "-",
+    "LEFT DIAST #2": "-",
+    "RIGHT SYST #1": "100",
+    "RIGHT DIAST #1": "70",
+    "RIGHT SYST #2": "-",
+    "RIGHT DIAST #2": "-",
+    "MOM": "0.98"
+  },
+  "sections": [
+    {
+      "section_type": "table",
+      "title": "Data Table (Page 1)",
+      "page": 1,
+      "bbox": [
+        25.5,
+        185.44,
+        545.71,
+        408.19
+      ],
+      "headers": [
+        "1T Quad Screening Marker- AutoDELFIA (LifeCycle)",
+        "",
+        "",
+        ""
+      ],
+      "rows": [
+        [
+          "Alpha-fetoprotein (AFP) TRFI",
+          "15.6",
+          "U/mL",
+          ""
+        ],
+        [
+          "Beta HCG Free TRFI",
+          "88.1",
+          "ng/mL",
+          ""
+        ],
+        [
+          "Pregnancy Associated Plasma Protein(PAPP-A) TRFI",
+          "6800",
+          "mU/L",
+          ""
+        ],
+        [
+          "Placental growth factor (PlGF) TRFI",
+          "57.5",
+          "pg/mL",
+          ""
+        ],
+        [
+          "Method - Time Resolve Fluorescence Immunoassay (DELFIA) Software used for risk calculation : Life Cycle 7.0 REV.6 Disorder Interpretation Disorder Interpretation TrisomyT21 Low Risk Pre-eclampsia <32 week Low Risk TrisomyT18 Low Risk Pre-eclampsia <34 week Low Risk TrisomyT13 Low Risk Pre-eclampsia <37 week Low Risk",
+          "",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "section_type": "table",
+      "title": "Data Table (Page 1)",
+      "page": 1,
+      "bbox": [
+        32.43,
+        334.37,
+        485.39,
+        388.27
+      ],
+      "headers": [
+        "Disorder",
+        "Interpretation",
+        "Disorder",
+        "Interpretation"
+      ],
+      "rows": [
+        [
+          "TrisomyT21",
+          "Low Risk",
+          "Pre-eclampsia <32 week",
+          "Low Risk"
+        ],
+        [
+          "TrisomyT18",
+          "Low Risk",
+          "Pre-eclampsia <34 week",
+          "Low Risk"
+        ],
+        [
+          "TrisomyT13",
+          "Low Risk",
+          "Pre-eclampsia <37 week",
+          "Low Risk"
+        ]
+      ]
+    },
+    {
+      "section_type": "blue_banner",
+      "title": "General Content / Notes",
+      "page": 1,
+      "bbox": [
+        31.07,
+        428.61,
+        497.18,
+        460.68
+      ],
+      "content_text": [
+        "Interpretation: GUIDE FOR RISK STRATIFICATION -Screen Positive or Screen Negative is based on the Risk Cut-Off. The strategy of Risk Interpretation is as follows:",
+        "Pre-eclampsia <32/ <34 /<37 weeks 1:100 Note: 1. All lab results are subject to clinical interpretation by a qualified medical professional & this report is not subject to use for any medico-legal purpose. FMF accredited Perkin Elmer platform is used to measure the biochemical marker statistical evaluation has been done by using Life Cycle Software.",
+        "2. Maternal biochemical marker's screening is based on satistical analysis & demographic & biochemical data of the patient. They only indicates a high and low risk category.A confirmatory test CVS/Amniocentesis is recommended for confirmation of screen positive patient.",
+        "3. Multiples of Median ( MOM ) are measured by accounting variables like gestational age / maternal weight / multiple gestation / IVF or not / ultrasound / smoking stand Previous history & T21, hence accurate availability & this data is very important for risk calculation.",
+        "4. Ideal sampling time is between 11 weeks to 13 weeks  6 days of gestation and requires a crown-rump length between approximately 40mm to 80 mm."
+      ],
+      "paragraphs": [
+        "Interpretation: GUIDE FOR RISK STRATIFICATION -Screen Positive or Screen Negative is based on the Risk Cut-Off. The strategy of Risk Interpretation is as follows:",
+        "Pre-eclampsia <32/ <34 /<37 weeks 1:100 Note: 1. All lab results are subject to clinical interpretation by a qualified medical professional & this report is not subject to use for any medico-legal purpose. FMF accredited Perkin Elmer platform is used to measure the biochemical marker statistical evaluation has been done by using Life Cycle Software.",
+        "2. Maternal biochemical marker's screening is based on satistical analysis & demographic & biochemical data of the patient. They only indicates a high and low risk category.A confirmatory test CVS/Amniocentesis is recommended for confirmation of screen positive patient.",
+        "3. Multiples of Median ( MOM ) are measured by accounting variables like gestational age / maternal weight / multiple gestation / IVF or not / ultrasound / smoking stand Previous history & T21, hence accurate availability & this data is very important for risk calculation.",
+        "4. Ideal sampling time is between 11 weeks to 13 weeks  6 days of gestation and requires a crown-rump length between approximately 40mm to 80 mm."
+      ]
+    },
+    {
+      "section_type": "table",
+      "title": "Data Table (Page 1)",
+      "page": 1,
+      "bbox": [
+        32.43,
+        461.79,
+        485.39,
+        516.04
+      ],
+      "headers": [
+        "Disorder",
+        "Screen Positive cut-off"
+      ],
+      "rows": [
+        [
+          "TrisomyT21",
+          "1:250"
+        ],
+        [
+          "TrisomyT18/TrisomyT13",
+          "1:100"
+        ],
+        [
+          "Pre-eclampsia <32/ <34 /<37 weeks",
+          "1:100"
+        ]
+      ]
+    },
+    {
+      "section_type": "content_box",
+      "title": "General Content / Notes",
+      "page": 2,
+      "bbox": [
+        31.07,
+        171.3,
+        540.14,
+        253.32
+      ],
+      "content_text": [
+        "5. The detection rate for Down syndrome is 60% with a false positive rate of 5% if the only biochemical risk is estimated. A  combination of Nuchal translucency and biochemical tests (Combined test) has a detection rate of Down syndrome 82 to 87% at a 5% false-positive rate. The addition of absent nasal bone status can improve the detection rate up to 93% at false- positive rate of 2.5%. Comments 1. Statistical risk factor calculation for any fetus is screened positive for trisomy 21 (Down's syndrome), trisomy 18 (Edward syndrome) and trisomy 13 (Patau syndrome) further confirmation ,evaluation and follow up is required in that cases.",
+        "2. The statistical risk evaluation requires maternal age to be decimalised for months, to be represented as age at sampling & conversion of maternal hormonal values to mean of medians(MOMs). The MoMs are further calculated using Indian medians.",
+        "3. This is a risk estimation test and not a diagnostic test. An increased risk result does not mean that the fetus is affected and a low risk does not mean that the fetus is unaffected, reported risk should be correlated and adjusted to the absence/presence of sonographic markers observed in the anomaly/malformation scan.",
+        "*** End Of Report ***"
+      ],
+      "paragraphs": [
+        "5. The detection rate for Down syndrome is 60% with a false positive rate of 5% if the only biochemical risk is estimated. A  combination of Nuchal translucency and biochemical tests (Combined test) has a detection rate of Down syndrome 82 to 87% at a 5% false-positive rate. The addition of absent nasal bone status can improve the detection rate up to 93% at false- positive rate of 2.5%. Comments 1. Statistical risk factor calculation for any fetus is screened positive for trisomy 21 (Down's syndrome), trisomy 18 (Edward syndrome) and trisomy 13 (Patau syndrome) further confirmation ,evaluation and follow up is required in that cases.",
+        "2. The statistical risk evaluation requires maternal age to be decimalised for months, to be represented as age at sampling & conversion of maternal hormonal values to mean of medians(MOMs). The MoMs are further calculated using Indian medians.",
+        "3. This is a risk estimation test and not a diagnostic test. An increased risk result does not mean that the fetus is affected and a low risk does not mean that the fetus is unaffected, reported risk should be correlated and adjusted to the absence/presence of sonographic markers observed in the anomaly/malformation scan.",
+        "*** End Of Report ***"
+      ]
+    },
+    {
+      "section_type": "content_box",
+      "title": "DIABETES TYPE II: No",
+      "page": 3,
+      "bbox": [
+        308.02,
+        350.96,
+        370.65,
+        369.25
+      ],
+      "content_text": [
+        "INSULIN TREATMENT FOR TYPE II  DIABETES: - CONCEPTION METHOD: Spontaneous"
+      ],
+      "paragraphs": [
+        "INSULIN TREATMENT FOR TYPE II  DIABETES: - CONCEPTION METHOD: Spontaneous"
+      ]
+    },
+    {
+      "section_type": "content_box",
+      "title": "PAST T18 - EDWARDS' SYNDROME: -",
+      "page": 3,
+      "bbox": [
+        308.02,
+        487.4,
+        427.98,
+        505.69
+      ],
+      "content_text": [
+        "PAST T13 - PATAU'S SYNDROME: - PAST CDLS - CORNELIA DE LANGE  SYNDROME: -"
+      ],
+      "paragraphs": [
+        "PAST T13 - PATAU'S SYNDROME: - PAST CDLS - CORNELIA DE LANGE  SYNDROME: -"
+      ]
+    },
+    {
+      "section_type": "content_box",
+      "title": "Tests",
+      "page": 4,
+      "bbox": [
+        38.02,
+        177.74,
+        64.13,
+        187.74
+      ],
+      "content_text": [
+        "Distribution median, 5th and 95th centiles obtained from publication: Wright D, Kagan KO, Molina FS, Gazzoni A, Nicolaides KH. A mixture model of  nuchal translucency thickness in screening for chromosomal defects. Ultrasound Obstet Gynecol 2008;31:376-83"
+      ],
+      "paragraphs": [
+        "Distribution median, 5th and 95th centiles obtained from publication: Wright D, Kagan KO, Molina FS, Gazzoni A, Nicolaides KH. A mixture model of  nuchal translucency thickness in screening for chromosomal defects. Ultrasound Obstet Gynecol 2008;31:376-83"
+      ]
+    },
+    {
+      "section_type": "content_box",
+      "title": "General Content / Notes",
+      "page": 4,
+      "bbox": [
+        354.82,
+        192.57,
+        570.64,
+        200.57
+      ],
+      "content_text": [
+        "VALUE UNIT CORR. MOM WEIGHT [KG]"
+      ],
+      "paragraphs": [
+        "VALUE UNIT CORR. MOM WEIGHT [KG]"
+      ]
+    },
+    {
+      "section_type": "image",
+      "title": "Image (Page 4)",
+      "page": 4,
+      "bbox": [
+        36.0,
+        349.16,
+        306.0,
+        529.16
+      ],
+      "data_uri": "data:image/png;base64,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",
+      "mime_type": "image/png",
+      "width": 600,
+      "height": 400
+    },
+    {
+      "section_type": "content_box",
+      "title": "General Content / Notes",
+      "page": 5,
+      "bbox": [
+        38.02,
+        378.74,
+        81.37,
+        384.74
+      ],
+      "content_text": [
+        "PLEASE NOTE:"
+      ],
+      "paragraphs": [
+        "PLEASE NOTE:"
+      ]
+    }
+  ],
+  "tables": [
+    {
+      "page": 1,
+      "table_index": 1,
+      "bbox": [
+        25.5,
+        185.44,
+        545.71,
+        408.19
+      ],
+      "headers": [
+        "1T Quad Screening Marker- AutoDELFIA (LifeCycle)",
+        "",
+        "",
+        ""
+      ],
+      "rows": [
+        [
+          "Alpha-fetoprotein (AFP) TRFI",
+          "15.6",
+          "U/mL",
+          ""
+        ],
+        [
+          "Beta HCG Free TRFI",
+          "88.1",
+          "ng/mL",
+          ""
+        ],
+        [
+          "Pregnancy Associated Plasma Protein(PAPP-A) TRFI",
+          "6800",
+          "mU/L",
+          ""
+        ],
+        [
+          "Placental growth factor (PlGF) TRFI",
+          "57.5",
+          "pg/mL",
+          ""
+        ],
+        [
+          "Method - Time Resolve Fluorescence Immunoassay (DELFIA) Software used for risk calculation : Life Cycle 7.0 REV.6 Disorder Interpretation Disorder Interpretation TrisomyT21 Low Risk Pre-eclampsia <32 week Low Risk TrisomyT18 Low Risk Pre-eclampsia <34 week Low Risk TrisomyT13 Low Risk Pre-eclampsia <37 week Low Risk",
+          "",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "page": 1,
+      "table_index": 2,
+      "bbox": [
+        32.43,
+        334.37,
+        485.39,
+        388.27
+      ],
+      "headers": [
+        "Disorder",
+        "Interpretation",
+        "Disorder",
+        "Interpretation"
+      ],
+      "rows": [
+        [
+          "TrisomyT21",
+          "Low Risk",
+          "Pre-eclampsia <32 week",
+          "Low Risk"
+        ],
+        [
+          "TrisomyT18",
+          "Low Risk",
+          "Pre-eclampsia <34 week",
+          "Low Risk"
+        ],
+        [
+          "TrisomyT13",
+          "Low Risk",
+          "Pre-eclampsia <37 week",
+          "Low Risk"
+        ]
+      ]
+    },
+    {
+      "page": 1,
+      "table_index": 3,
+      "bbox": [
+        32.43,
+        461.79,
+        485.39,
+        516.04
+      ],
+      "headers": [
+        "Disorder",
+        "Screen Positive cut-off"
+      ],
+      "rows": [
+        [
+          "TrisomyT21",
+          "1:250"
+        ],
+        [
+          "TrisomyT18/TrisomyT13",
+          "1:100"
+        ],
+        [
+          "Pre-eclampsia <32/ <34 /<37 weeks",
+          "1:100"
+        ]
+      ]
+    }
+  ],
+  "all_tables": [
+    {
+      "page": 1,
+      "table_index": 1,
+      "bbox": [
+        25.5,
+        185.44,
+        545.71,
+        408.19
+      ],
+      "headers": [
+        "1T Quad Screening Marker- AutoDELFIA (LifeCycle)",
+        "",
+        "",
+        ""
+      ],
+      "rows": [
+        [
+          "Alpha-fetoprotein (AFP) TRFI",
+          "15.6",
+          "U/mL",
+          ""
+        ],
+        [
+          "Beta HCG Free TRFI",
+          "88.1",
+          "ng/mL",
+          ""
+        ],
+        [
+          "Pregnancy Associated Plasma Protein(PAPP-A) TRFI",
+          "6800",
+          "mU/L",
+          ""
+        ],
+        [
+          "Placental growth factor (PlGF) TRFI",
+          "57.5",
+          "pg/mL",
+          ""
+        ],
+        [
+          "Method - Time Resolve Fluorescence Immunoassay (DELFIA) Software used for risk calculation : Life Cycle 7.0 REV.6 Disorder Interpretation Disorder Interpretation TrisomyT21 Low Risk Pre-eclampsia <32 week Low Risk TrisomyT18 Low Risk Pre-eclampsia <34 week Low Risk TrisomyT13 Low Risk Pre-eclampsia <37 week Low Risk",
+          "",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "page": 1,
+      "table_index": 2,
+      "bbox": [
+        32.43,
+        334.37,
+        485.39,
+        388.27
+      ],
+      "headers": [
+        "Disorder",
+        "Interpretation",
+        "Disorder",
+        "Interpretation"
+      ],
+      "rows": [
+        [
+          "TrisomyT21",
+          "Low Risk",
+          "Pre-eclampsia <32 week",
+          "Low Risk"
+        ],
+        [
+          "TrisomyT18",
+          "Low Risk",
+          "Pre-eclampsia <34 week",
+          "Low Risk"
+        ],
+        [
+          "TrisomyT13",
+          "Low Risk",
+          "Pre-eclampsia <37 week",
+          "Low Risk"
+        ]
+      ]
+    },
+    {
+      "page": 1,
+      "table_index": 3,
+      "bbox": [
+        32.43,
+        461.79,
+        485.39,
+        516.04
+      ],
+      "headers": [
+        "Disorder",
+        "Screen Positive cut-off"
+      ],
+      "rows": [
+        [
+          "TrisomyT21",
+          "1:250"
+        ],
+        [
+          "TrisomyT18/TrisomyT13",
+          "1:100"
+        ],
+        [
+          "Pre-eclampsia <32/ <34 /<37 weeks",
+          "1:100"
+        ]
+      ]
+    }
+  ],
+  "content_sections": [
+    {
+      "page": 1,
+      "title": "General Content / Notes",
+      "type": "content_section_box",
+      "bbox": [
+        31.07,
+        428.61,
+        497.18,
+        460.68
+      ],
+      "content_text": [
+        "Interpretation: GUIDE FOR RISK STRATIFICATION -Screen Positive or Screen Negative is based on the Risk Cut-Off. The strategy of Risk Interpretation is as follows:",
+        "Pre-eclampsia <32/ <34 /<37 weeks 1:100 Note: 1. All lab results are subject to clinical interpretation by a qualified medical professional & this report is not subject to use for any medico-legal purpose. FMF accredited Perkin Elmer platform is used to measure the biochemical marker statistical evaluation has been done by using Life Cycle Software.",
+        "2. Maternal biochemical marker's screening is based on satistical analysis & demographic & biochemical data of the patient. They only indicates a high and low risk category.A confirmatory test CVS/Amniocentesis is recommended for confirmation of screen positive patient.",
+        "3. Multiples of Median ( MOM ) are measured by accounting variables like gestational age / maternal weight / multiple gestation / IVF or not / ultrasound / smoking stand Previous history & T21, hence accurate availability & this data is very important for risk calculation.",
+        "4. Ideal sampling time is between 11 weeks to 13 weeks  6 days of gestation and requires a crown-rump length between approximately 40mm to 80 mm."
+      ]
+    },
+    {
+      "page": 2,
+      "title": "General Content / Notes",
+      "type": "content_section_box",
+      "bbox": [
+        31.07,
+        171.3,
+        540.14,
+        253.32
+      ],
+      "content_text": [
+        "5. The detection rate for Down syndrome is 60% with a false positive rate of 5% if the only biochemical risk is estimated. A  combination of Nuchal translucency and biochemical tests (Combined test) has a detection rate of Down syndrome 82 to 87% at a 5% false-positive rate. The addition of absent nasal bone status can improve the detection rate up to 93% at false- positive rate of 2.5%. Comments 1. Statistical risk factor calculation for any fetus is screened positive for trisomy 21 (Down's syndrome), trisomy 18 (Edward syndrome) and trisomy 13 (Patau syndrome) further confirmation ,evaluation and follow up is required in that cases.",
+        "2. The statistical risk evaluation requires maternal age to be decimalised for months, to be represented as age at sampling & conversion of maternal hormonal values to mean of medians(MOMs). The MoMs are further calculated using Indian medians.",
+        "3. This is a risk estimation test and not a diagnostic test. An increased risk result does not mean that the fetus is affected and a low risk does not mean that the fetus is unaffected, reported risk should be correlated and adjusted to the absence/presence of sonographic markers observed in the anomaly/malformation scan.",
+        "*** End Of Report ***"
+      ]
+    },
+    {
+      "page": 3,
+      "title": "DIABETES TYPE II: No",
+      "type": "content_section_box",
+      "bbox": [
+        308.02,
+        350.96,
+        370.65,
+        369.25
+      ],
+      "content_text": [
+        "INSULIN TREATMENT FOR TYPE II  DIABETES: - CONCEPTION METHOD: Spontaneous"
+      ]
+    },
+    {
+      "page": 3,
+      "title": "PAST T18 - EDWARDS' SYNDROME: -",
+      "type": "content_section_box",
+      "bbox": [
+        308.02,
+        487.4,
+        427.98,
+        505.69
+      ],
+      "content_text": [
+        "PAST T13 - PATAU'S SYNDROME: - PAST CDLS - CORNELIA DE LANGE  SYNDROME: -"
+      ]
+    },
+    {
+      "page": 4,
+      "title": "General Content / Notes",
+      "type": "content_section_box",
+      "bbox": [
+        354.82,
+        192.57,
+        570.64,
+        200.57
+      ],
+      "content_text": [
+        "VALUE UNIT CORR. MOM WEIGHT [KG]"
+      ]
+    },
+    {
+      "page": 4,
+      "title": "Tests",
+      "type": "content_section_box",
+      "bbox": [
+        38.02,
+        177.74,
+        64.13,
+        187.74
+      ],
+      "content_text": [
+        "Distribution median, 5th and 95th centiles obtained from publication: Wright D, Kagan KO, Molina FS, Gazzoni A, Nicolaides KH. A mixture model of  nuchal translucency thickness in screening for chromosomal defects. Ultrasound Obstet Gynecol 2008;31:376-83"
+      ]
+    },
+    {
+      "page": 5,
+      "title": "General Content / Notes",
+      "type": "content_section_box",
+      "bbox": [
+        38.02,
+        378.74,
+        81.37,
+        384.74
+      ],
+      "content_text": [
+        "PLEASE NOTE:"
+      ]
+    }
+  ],
+  "all_boxes_and_sections": [
+    {
+      "page": 1,
+      "title": "General Content / Notes",
+      "type": "content_section_box",
+      "bbox": [
+        31.07,
+        428.61,
+        497.18,
+        460.68
+      ],
+      "content_text": [
+        "Interpretation: GUIDE FOR RISK STRATIFICATION -Screen Positive or Screen Negative is based on the Risk Cut-Off. The strategy of Risk Interpretation is as follows:",
+        "Pre-eclampsia <32/ <34 /<37 weeks 1:100 Note: 1. All lab results are subject to clinical interpretation by a qualified medical professional & this report is not subject to use for any medico-legal purpose. FMF accredited Perkin Elmer platform is used to measure the biochemical marker statistical evaluation has been done by using Life Cycle Software.",
+        "2. Maternal biochemical marker's screening is based on satistical analysis & demographic & biochemical data of the patient. They only indicates a high and low risk category.A confirmatory test CVS/Amniocentesis is recommended for confirmation of screen positive patient.",
+        "3. Multiples of Median ( MOM ) are measured by accounting variables like gestational age / maternal weight / multiple gestation / IVF or not / ultrasound / smoking stand Previous history & T21, hence accurate availability & this data is very important for risk calculation.",
+        "4. Ideal sampling time is between 11 weeks to 13 weeks  6 days of gestation and requires a crown-rump length between approximately 40mm to 80 mm."
+      ]
+    },
+    {
+      "page": 2,
+      "title": "General Content / Notes",
+      "type": "content_section_box",
+      "bbox": [
+        31.07,
+        171.3,
+        540.14,
+        253.32
+      ],
+      "content_text": [
+        "5. The detection rate for Down syndrome is 60% with a false positive rate of 5% if the only biochemical risk is estimated. A  combination of Nuchal translucency and biochemical tests (Combined test) has a detection rate of Down syndrome 82 to 87% at a 5% false-positive rate. The addition of absent nasal bone status can improve the detection rate up to 93% at false- positive rate of 2.5%. Comments 1. Statistical risk factor calculation for any fetus is screened positive for trisomy 21 (Down's syndrome), trisomy 18 (Edward syndrome) and trisomy 13 (Patau syndrome) further confirmation ,evaluation and follow up is required in that cases.",
+        "2. The statistical risk evaluation requires maternal age to be decimalised for months, to be represented as age at sampling & conversion of maternal hormonal values to mean of medians(MOMs). The MoMs are further calculated using Indian medians.",
+        "3. This is a risk estimation test and not a diagnostic test. An increased risk result does not mean that the fetus is affected and a low risk does not mean that the fetus is unaffected, reported risk should be correlated and adjusted to the absence/presence of sonographic markers observed in the anomaly/malformation scan.",
+        "*** End Of Report ***"
+      ]
+    },
+    {
+      "page": 3,
+      "title": "DIABETES TYPE II: No",
+      "type": "content_section_box",
+      "bbox": [
+        308.02,
+        350.96,
+        370.65,
+        369.25
+      ],
+      "content_text": [
+        "INSULIN TREATMENT FOR TYPE II  DIABETES: - CONCEPTION METHOD: Spontaneous"
+      ]
+    },
+    {
+      "page": 3,
+      "title": "PAST T18 - EDWARDS' SYNDROME: -",
+      "type": "content_section_box",
+      "bbox": [
+        308.02,
+        487.4,
+        427.98,
+        505.69
+      ],
+      "content_text": [
+        "PAST T13 - PATAU'S SYNDROME: - PAST CDLS - CORNELIA DE LANGE  SYNDROME: -"
+      ]
+    },
+    {
+      "page": 4,
+      "title": "General Content / Notes",
+      "type": "content_section_box",
+      "bbox": [
+        354.82,
+        192.57,
+        570.64,
+        200.57
+      ],
+      "content_text": [
+        "VALUE UNIT CORR. MOM WEIGHT [KG]"
+      ]
+    },
+    {
+      "page": 4,
+      "title": "Tests",
+      "type": "content_section_box",
+      "bbox": [
+        38.02,
+        177.74,
+        64.13,
+        187.74
+      ],
+      "content_text": [
+        "Distribution median, 5th and 95th centiles obtained from publication: Wright D, Kagan KO, Molina FS, Gazzoni A, Nicolaides KH. A mixture model of  nuchal translucency thickness in screening for chromosomal defects. Ultrasound Obstet Gynecol 2008;31:376-83"
+      ]
+    },
+    {
+      "page": 5,
+      "title": "General Content / Notes",
+      "type": "content_section_box",
+      "bbox": [
+        38.02,
+        378.74,
+        81.37,
+        384.74
+      ],
+      "content_text": [
+        "PLEASE NOTE:"
+      ]
+    }
+  ],
+  "images_and_graphs": [
+    {
+      "page": 4,
+      "image_index": 1,
+      "xref": 62,
+      "width": 600,
+      "height": 400,
+      "format": "png",
+      "mime_type": "image/png",
+      "type": "graph_chart",
+      "bbox": [
+        36.0,
+        349.16,
+        306.0,
+        529.16
+      ],
+      "data_uri": "data:image/png;base64,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"
+    }
+  ],
+  "all_images_and_graphs": [
+    {
+      "page": 4,
+      "image_index": 1,
+      "xref": 62,
+      "width": 600,
+      "height": 400,
+      "format": "png",
+      "mime_type": "image/png",
+      "type": "graph_chart",
+      "bbox": [
+        36.0,
+        349.16,
+        306.0,
+        529.16
+      ],
+      "data_uri": "data:image/png;base64,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"
+    }
+  ],
+  "pages": [
+    {
+      "page_number": 1,
+      "dimensions": {
+        "width": 595.0,
+        "height": 842.0
+      },
+      "header_y_cutoff": 167.74,
+      "footer_y_cutoff": 694.27,
+      "key_value_pairs": {
+        "Interpretation": "GUIDE FOR RISK STRATIFICATION -Screen Positive or Screen Negative is based on the Risk Cut-Off. The strategy of Risk Int"
+      },
+      "boxes_and_sections": [
+        {
+          "page": 1,
+          "title": "General Content / Notes",
+          "type": "content_section_box",
+          "bbox": [
+            31.07,
+            428.61,
+            497.18,
+            460.68
+          ],
+          "content_text": [
+            "Interpretation: GUIDE FOR RISK STRATIFICATION -Screen Positive or Screen Negative is based on the Risk Cut-Off. The strategy of Risk Interpretation is as follows:",
+            "Pre-eclampsia <32/ <34 /<37 weeks 1:100 Note: 1. All lab results are subject to clinical interpretation by a qualified medical professional & this report is not subject to use for any medico-legal purpose. FMF accredited Perkin Elmer platform is used to measure the biochemical marker statistical evaluation has been done by using Life Cycle Software.",
+            "2. Maternal biochemical marker's screening is based on satistical analysis & demographic & biochemical data of the patient. They only indicates a high and low risk category.A confirmatory test CVS/Amniocentesis is recommended for confirmation of screen positive patient.",
+            "3. Multiples of Median ( MOM ) are measured by accounting variables like gestational age / maternal weight / multiple gestation / IVF or not / ultrasound / smoking stand Previous history & T21, hence accurate availability & this data is very important for risk calculation.",
+            "4. Ideal sampling time is between 11 weeks to 13 weeks  6 days of gestation and requires a crown-rump length between approximately 40mm to 80 mm."
+          ]
+        }
+      ],
+      "tables": [
+        {
+          "page": 1,
+          "table_index": 1,
+          "bbox": [
+            25.5,
+            185.44,
+            545.71,
+            408.19
+          ],
+          "headers": [
+            "1T Quad Screening Marker- AutoDELFIA (LifeCycle)",
+            "",
+            "",
+            ""
+          ],
+          "rows": [
+            [
+              "Alpha-fetoprotein (AFP) TRFI",
+              "15.6",
+              "U/mL",
+              ""
+            ],
+            [
+              "Beta HCG Free TRFI",
+              "88.1",
+              "ng/mL",
+              ""
+            ],
+            [
+              "Pregnancy Associated Plasma Protein(PAPP-A) TRFI",
+              "6800",
+              "mU/L",
+              ""
+            ],
+            [
+              "Placental growth factor (PlGF) TRFI",
+              "57.5",
+              "pg/mL",
+              ""
+            ],
+            [
+              "Method - Time Resolve Fluorescence Immunoassay (DELFIA) Software used for risk calculation : Life Cycle 7.0 REV.6 Disorder Interpretation Disorder Interpretation TrisomyT21 Low Risk Pre-eclampsia <32 week Low Risk TrisomyT18 Low Risk Pre-eclampsia <34 week Low Risk TrisomyT13 Low Risk Pre-eclampsia <37 week Low Risk",
+              "",
+              "",
+              ""
+            ]
+          ]
+        },
+        {
+          "page": 1,
+          "table_index": 2,
+          "bbox": [
+            32.43,
+            334.37,
+            485.39,
+            388.27
+          ],
+          "headers": [
+            "Disorder",
+            "Interpretation",
+            "Disorder",
+            "Interpretation"
+          ],
+          "rows": [
+            [
+              "TrisomyT21",
+              "Low Risk",
+              "Pre-eclampsia <32 week",
+              "Low Risk"
+            ],
+            [
+              "TrisomyT18",
+              "Low Risk",
+              "Pre-eclampsia <34 week",
+              "Low Risk"
+            ],
+            [
+              "TrisomyT13",
+              "Low Risk",
+              "Pre-eclampsia <37 week",
+              "Low Risk"
+            ]
+          ]
+        },
+        {
+          "page": 1,
+          "table_index": 3,
+          "bbox": [
+            32.43,
+            461.79,
+            485.39,
+            516.04
+          ],
+          "headers": [
+            "Disorder",
+            "Screen Positive cut-off"
+          ],
+          "rows": [
+            [
+              "TrisomyT21",
+              "1:250"
+            ],
+            [
+              "TrisomyT18/TrisomyT13",
+              "1:100"
+            ],
+            [
+              "Pre-eclampsia <32/ <34 /<37 weeks",
+              "1:100"
+            ]
+          ]
+        }
+      ],
+      "images_and_graphs": [],
+      "text_blocks": [
+        {
+          "page": 1,
+          "bbox": [
+            31.07,
+            428.61,
+            497.18,
+            460.68
+          ],
+          "text": "Interpretation: GUIDE FOR RISK STRATIFICATION -Screen Positive or Screen Negative is based on the Risk Cut-Off. The strategy of Risk Interpretation is as follows:",
+          "max_font_size": 10.42,
+          "is_bold": true,
+          "font": "Arial"
+        },
+        {
+          "page": 1,
+          "bbox": [
+            31.07,
+            505.6,
+            540.14,
+            572.0
+          ],
+          "text": "Pre-eclampsia <32/ <34 /<37 weeks 1:100 Note: 1. All lab results are subject to clinical interpretation by a qualified medical professional & this report is not subject to use for any medico-legal purpose. FMF accredited Perkin Elmer platform is used to measure the biochemical marker statistical evaluation has been done by using Life Cycle Software.",
+          "max_font_size": 9.11,
+          "is_bold": true,
+          "font": "Arial"
+        },
+        {
+          "page": 1,
+          "bbox": [
+            31.07,
+            583.72,
+            540.14,
+            613.67
+          ],
+          "text": "2. Maternal biochemical marker's screening is based on satistical analysis & demographic & biochemical data of the patient. They only indicates a high and low risk category.A confirmatory test CVS/Amniocentesis is recommended for confirmation of screen positive patient.",
+          "max_font_size": 9.11,
+          "is_bold": false,
+          "font": "Arial"
+        },
+        {
+          "page": 1,
+          "bbox": [
+            31.07,
+            625.38,
+            540.14,
+            655.33
+          ],
+          "text": "3. Multiples of Median ( MOM ) are measured by accounting variables like gestational age / maternal weight / multiple gestation / IVF or not / ultrasound / smoking stand Previous history & T21, hence accurate availability & this data is very important for risk calculation.",
+          "max_font_size": 9.11,
+          "is_bold": false,
+          "font": "Arial"
+        },
+        {
+          "page": 1,
+          "bbox": [
+            31.07,
+            667.05,
+            539.49,
+            686.58
+          ],
+          "text": "4. Ideal sampling time is between 11 weeks to 13 weeks  6 days of gestation and requires a crown-rump length between approximately 40mm to 80 mm.",
+          "max_font_size": 9.11,
+          "is_bold": false,
+          "font": "Arial"
+        }
+      ],
+      "page_text": "Interpretation: GUIDE FOR RISK STRATIFICATION -Screen Positive or Screen Negative is based on the Risk Cut-Off. The strategy of Risk Interpretation is as follows:\nPre-eclampsia <32/ <34 /<37 weeks 1:100 Note: 1. All lab results are subject to clinical interpretation by a qualified medical professional & this report is not subject to use for any medico-legal purpose. FMF accredited Perkin Elmer platform is used to measure the biochemical marker statistical evaluation has been done by using Life Cycle Software.\n2. Maternal biochemical marker's screening is based on satistical analysis & demographic & biochemical data of the patient. They only indicates a high and low risk category.A confirmatory test CVS/Amniocentesis is recommended for confirmation of screen positive patient.\n3. Multiples of Median ( MOM ) are measured by accounting variables like gestational age / maternal weight / multiple gestation / IVF or not / ultrasound / smoking stand Previous history & T21, hence accurate availability & this data is very important for risk calculation.\n4. Ideal sampling time is between 11 weeks to 13 weeks  6 days of gestation and requires a crown-rump length between approximately 40mm to 80 mm."
+    },
+    {
+      "page_number": 2,
+      "dimensions": {
+        "width": 595.0,
+        "height": 842.0
+      },
+      "header_y_cutoff": 167.74,
+      "footer_y_cutoff": 694.27,
+      "key_value_pairs": {},
+      "boxes_and_sections": [
+        {
+          "page": 2,
+          "title": "General Content / Notes",
+          "type": "content_section_box",
+          "bbox": [
+            31.07,
+            171.3,
+            540.14,
+            253.32
+          ],
+          "content_text": [
+            "5. The detection rate for Down syndrome is 60% with a false positive rate of 5% if the only biochemical risk is estimated. A  combination of Nuchal translucency and biochemical tests (Combined test) has a detection rate of Down syndrome 82 to 87% at a 5% false-positive rate. The addition of absent nasal bone status can improve the detection rate up to 93% at false- positive rate of 2.5%. Comments 1. Statistical risk factor calculation for any fetus is screened positive for trisomy 21 (Down's syndrome), trisomy 18 (Edward syndrome) and trisomy 13 (Patau syndrome) further confirmation ,evaluation and follow up is required in that cases.",
+            "2. The statistical risk evaluation requires maternal age to be decimalised for months, to be represented as age at sampling & conversion of maternal hormonal values to mean of medians(MOMs). The MoMs are further calculated using Indian medians.",
+            "3. This is a risk estimation test and not a diagnostic test. An increased risk result does not mean that the fetus is affected and a low risk does not mean that the fetus is unaffected, reported risk should be correlated and adjusted to the absence/presence of sonographic markers observed in the anomaly/malformation scan.",
+            "*** End Of Report ***"
+          ]
+        }
+      ],
+      "tables": [],
+      "images_and_graphs": [],
+      "text_blocks": [
+        {
+          "page": 2,
+          "bbox": [
+            31.07,
+            171.3,
+            540.14,
+            253.32
+          ],
+          "text": "5. The detection rate for Down syndrome is 60% with a false positive rate of 5% if the only biochemical risk is estimated. A  combination of Nuchal translucency and biochemical tests (Combined test) has a detection rate of Down syndrome 82 to 87% at a 5% false-positive rate. The addition of absent nasal bone status can improve the detection rate up to 93% at false- positive rate of 2.5%. Comments 1. Statistical risk factor calculation for any fetus is screened positive for trisomy 21 (Down's syndrome), trisomy 18 (Edward syndrome) and trisomy 13 (Patau syndrome) further confirmation ,evaluation and follow up is required in that cases.",
+          "max_font_size": 9.11,
+          "is_bold": true,
+          "font": "Arial"
+        },
+        {
+          "page": 2,
+          "bbox": [
+            31.07,
+            265.04,
+            540.14,
+            294.98
+          ],
+          "text": "2. The statistical risk evaluation requires maternal age to be decimalised for months, to be represented as age at sampling & conversion of maternal hormonal values to mean of medians(MOMs). The MoMs are further calculated using Indian medians.",
+          "max_font_size": 9.11,
+          "is_bold": false,
+          "font": "Arial"
+        },
+        {
+          "page": 2,
+          "bbox": [
+            31.07,
+            306.7,
+            540.14,
+            336.65
+          ],
+          "text": "3. This is a risk estimation test and not a diagnostic test. An increased risk result does not mean that the fetus is affected and a low risk does not mean that the fetus is unaffected, reported risk should be correlated and adjusted to the absence/presence of sonographic markers observed in the anomaly/malformation scan.",
+          "max_font_size": 9.11,
+          "is_bold": false,
+          "font": "Arial"
+        },
+        {
+          "page": 2,
+          "bbox": [
+            238.08,
+            359.87,
+            333.13,
+            370.28
+          ],
+          "text": "*** End Of Report ***",
+          "max_font_size": 10.42,
+          "is_bold": false,
+          "font": "Times New Roman"
+        }
+      ],
+      "page_text": "5. The detection rate for Down syndrome is 60% with a false positive rate of 5% if the only biochemical risk is estimated. A  combination of Nuchal translucency and biochemical tests (Combined test) has a detection rate of Down syndrome 82 to 87% at a 5% false-positive rate. The addition of absent nasal bone status can improve the detection rate up to 93% at false- positive rate of 2.5%. Comments 1. Statistical risk factor calculation for any fetus is screened positive for trisomy 21 (Down's syndrome), trisomy 18 (Edward syndrome) and trisomy 13 (Patau syndrome) further confirmation ,evaluation and follow up is required in that cases.\n2. The statistical risk evaluation requires maternal age to be decimalised for months, to be represented as age at sampling & conversion of maternal hormonal values to mean of medians(MOMs). The MoMs are further calculated using Indian medians.\n3. This is a risk estimation test and not a diagnostic test. An increased risk result does not mean that the fetus is affected and a low risk does not mean that the fetus is unaffected, reported risk should be correlated and adjusted to the absence/presence of sonographic markers observed in the anomaly/malformation scan.\n*** End Of Report ***"
+    },
+    {
+      "page_number": 3,
+      "dimensions": {
+        "width": 612.0,
+        "height": 792.0
+      },
+      "header_y_cutoff": 107.96,
+      "footer_y_cutoff": 686.14,
+      "key_value_pairs": {
+        "Requestor": "-, -",
+        "REQUESTOR": "-",
+        "DOCTOR": "-",
+        "REQUESTOR CODE": "-",
+        "REQUESTOR TYPE": "- REQUESTOR PHONE 1",
+        "FACILITY": "-",
+        "Patient 2607170072": "-, Mrs ANCHALA MISHRA SHV2607170072",
+        "PATIENT ID": "2607170072",
+        "LAST NAME": "-",
+        "FIRST NAME": "Mrs ANCHALA MISHRA  SHV2607170072",
+        "BIRTH DATE": "25/08/1993",
+        "ETHNICITY": "Asian",
+        "ADDRESS 1": "-",
+        "CITY": "- POSTAL CODE",
+        "Calculated EDD": "23/01/2027 (MAEDD",
+        "MAEDD": "33.41",
+        "CALCULATED EDD": "23/01/2027",
+        "DATE": "18/04/2026",
+        "METHOD": "CRL LMP DATE",
+        "SMOKING STATUS": "Non smoker",
+        "DIABETIC": "-",
+        "OF FETUSES": "1 MONOZYGOUS",
+        "CHORIONICITY": "-",
+        "FERTILIZATION DATE": "- MATERNAL WEIGHT [KG]",
+        "DIABETES TYPE II": "No",
+        "CHRONIC HYPERTENSION": "-",
+        "SYSTEMIC LUPUS ERYTHEMATOSUS": "-",
+        "ANTI-PHOSPHOLIPID SYNDROME": "-",
+        "24  WEEKS": "-",
+        "PRE-ECLAMPSIA": "-",
+        "DELIVERY DATE": "-",
+        "AT DELIVERY": "0 w 0 d",
+        "BIRTH WEIGHT Z-SCORE": "-",
+        "ASSISTANCE METHOD": "-",
+        "TRANSFER DATE": "-",
+        "EGG EXTRACTION DATE": "-",
+        "EGG DONOR DOB": "- AGE AT EXTRACTION",
+        "S SYNDROME": "-",
+        "SYNDROME": "-",
+        "PAST TR - TRIPLOIDY": "-",
+        "RISK ASSESSED": "At term",
+        "SCREENING PROTOCOL": "Screening_4.0",
+        "SCAN DATE": "17/07/2026",
+        "CRL": "65.6",
+        "BPD": "-",
+        "HC": "- GEST. AT SAMPLE DATE (W + D)",
+        "AC": "-"
+      },
+      "boxes_and_sections": [
+        {
+          "page": 3,
+          "title": "DIABETES TYPE II: No",
+          "type": "content_section_box",
+          "bbox": [
+            308.02,
+            350.96,
+            370.65,
+            369.25
+          ],
+          "content_text": [
+            "INSULIN TREATMENT FOR TYPE II  DIABETES: - CONCEPTION METHOD: Spontaneous"
+          ]
+        },
+        {
+          "page": 3,
+          "title": "PAST T18 - EDWARDS' SYNDROME: -",
+          "type": "content_section_box",
+          "bbox": [
+            308.02,
+            487.4,
+            427.98,
+            505.69
+          ],
+          "content_text": [
+            "PAST T13 - PATAU'S SYNDROME: - PAST CDLS - CORNELIA DE LANGE  SYNDROME: -"
+          ]
+        }
+      ],
+      "tables": [],
+      "images_and_graphs": [],
+      "text_blocks": [
+        {
+          "page": 3,
+          "bbox": [
+            38.02,
+            121.0,
+            105.79,
+            131.0
+          ],
+          "text": "Requestor: -, -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            38.02,
+            134.96,
+            84.3,
+            153.25
+          ],
+          "text": "REQUESTOR: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            173.02,
+            134.96,
+            205.29,
+            153.25
+          ],
+          "text": "DOCTOR: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            308.02,
+            134.96,
+            376.47,
+            153.25
+          ],
+          "text": "REQUESTOR CODE: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            38.02,
+            134.96,
+            509.53,
+            174.27
+          ],
+          "text": "REQUESTOR TYPE: - REQUESTOR PHONE 1: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            173.02,
+            155.98,
+            205.69,
+            174.27
+          ],
+          "text": "FACILITY: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            38.02,
+            181.41,
+            335.86,
+            191.41
+          ],
+          "text": "Patient 2607170072: -, Mrs ANCHALA MISHRA SHV2607170072",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            38.02,
+            195.37,
+            93.61,
+            213.66
+          ],
+          "text": "PATIENT ID: 2607170072",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            173.02,
+            195.37,
+            214.64,
+            213.66
+          ],
+          "text": "LAST NAME: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            308.02,
+            195.37,
+            422.99,
+            224.82
+          ],
+          "text": "FIRST NAME: Mrs ANCHALA MISHRA  SHV2607170072",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            443.02,
+            195.37,
+            493.05,
+            213.66
+          ],
+          "text": "BIRTH DATE: 25/08/1993",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            38.02,
+            227.55,
+            76.91,
+            245.84
+          ],
+          "text": "ETHNICITY: Asian",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            173.02,
+            227.55,
+            220.08,
+            245.84
+          ],
+          "text": "PHONE NO. 1: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            308.02,
+            227.55,
+            349.64,
+            245.84
+          ],
+          "text": "ADDRESS 1: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            38.02,
+            227.55,
+            460.91,
+            266.87
+          ],
+          "text": "CITY: - POSTAL CODE: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            38.02,
+            274.0,
+            302.52,
+            284.0
+          ],
+          "text": "Pregnancy, Calculated EDD: 23/01/2027 (MAEDD: 33.41)",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            38.02,
+            287.96,
+            65.24,
+            306.25
+          ],
+          "text": "MAEDD: 33.41",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            173.02,
+            287.96,
+            237.97,
+            306.25
+          ],
+          "text": "CALCULATED EDD: 23/01/2027",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            308.02,
+            287.96,
+            358.05,
+            306.25
+          ],
+          "text": "GEST. DATE: 18/04/2026",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            38.02,
+            287.96,
+            537.15,
+            327.27
+          ],
+          "text": "SELECTED GEST. METHOD: CRL LMP DATE: 18/04/2026",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            173.02,
+            308.98,
+            237.58,
+            327.27
+          ],
+          "text": "SMOKING STATUS: Non smoker",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            308.02,
+            308.98,
+            390.09,
+            327.27
+          ],
+          "text": "INSULIN DEP. DIABETIC: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            38.02,
+            308.98,
+            503.31,
+            348.3
+          ],
+          "text": "NO. OF FETUSES: 1 MONOZYGOUS: No",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            173.02,
+            330.01,
+            225.91,
+            348.3
+          ],
+          "text": "CHORIONICITY: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            308.02,
+            330.01,
+            418.47,
+            348.3
+          ],
+          "text": "CORRECTED BY CHORIONICITY: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            38.02,
+            330.01,
+            517.31,
+            369.25
+          ],
+          "text": "FERTILIZATION DATE: - MATERNAL WEIGHT [KG]: 50",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            173.02,
+            350.96,
+            218.13,
+            369.25
+          ],
+          "text": "HEIGHT [CM]: 161.5",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            308.02,
+            350.96,
+            370.65,
+            369.25
+          ],
+          "text": "DIABETES TYPE II: No",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            38.02,
+            350.96,
+            560.09,
+            398.12
+          ],
+          "text": "INSULIN TREATMENT FOR TYPE II  DIABETES: - CONCEPTION METHOD: Spontaneous",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            173.02,
+            379.83,
+            281.91,
+            405.97
+          ],
+          "text": "MOTHER OF PATIENT HAD PRE- ECLAMPSIA: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            308.02,
+            379.83,
+            399.8,
+            398.12
+          ],
+          "text": "CHRONIC HYPERTENSION: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            443.02,
+            379.83,
+            570.98,
+            398.12
+          ],
+          "text": "SYSTEMIC LUPUS ERYTHEMATOSUS: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            38.02,
+            408.7,
+            153.14,
+            426.99
+          ],
+          "text": "ANTI-PHOSPHOLIPID SYNDROME: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            173.02,
+            408.7,
+            287.75,
+            434.84
+          ],
+          "text": "PAST NO. OF PREGNANCIES  ≥ 24  WEEKS: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            308.02,
+            408.7,
+            413.44,
+            426.99
+          ],
+          "text": "PREV. PREG. PRE-ECLAMPSIA: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            443.02,
+            408.7,
+            546.88,
+            426.99
+          ],
+          "text": "PREV. PREG. DELIVERY DATE: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            38.02,
+            437.58,
+            143.81,
+            463.71
+          ],
+          "text": "INTER-PREGNANCY INTERVAL  [YEARS]: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            173.02,
+            437.58,
+            290.11,
+            455.87
+          ],
+          "text": "PREV. PREG. GEST. AT DELIVERY: 0 w 0 d",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            308.02,
+            437.58,
+            416.55,
+            455.87
+          ],
+          "text": "PREV. PREG. BABY WEIGHT [G]: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            443.02,
+            437.58,
+            529.35,
+            455.87
+          ],
+          "text": "BIRTH WEIGHT Z-SCORE: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            38.02,
+            466.45,
+            116.58,
+            484.74
+          ],
+          "text": "ASSISTANCE METHOD: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            173.02,
+            466.45,
+            233.3,
+            484.74
+          ],
+          "text": "TRANSFER DATE: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            308.02,
+            466.45,
+            393.2,
+            484.74
+          ],
+          "text": "EGG EXTRACTION DATE: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            38.02,
+            466.45,
+            505.64,
+            505.69
+          ],
+          "text": "EGG DONOR DOB: - AGE AT EXTRACTION: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            173.02,
+            487.4,
+            284.04,
+            505.69
+          ],
+          "text": "PAST T21 - DOWN'S SYNDROME: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            308.02,
+            487.4,
+            427.98,
+            505.69
+          ],
+          "text": "PAST T18 - EDWARDS' SYNDROME: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            38.02,
+            487.4,
+            555.21,
+            534.56
+          ],
+          "text": "PAST T13 - PATAU'S SYNDROME: - PAST CDLS - CORNELIA DE LANGE  SYNDROME: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            173.02,
+            508.42,
+            287.38,
+            534.56
+          ],
+          "text": "PAST SLOS - SMITH-LEMLI-OPITZ  SYNDROME: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            308.02,
+            508.42,
+            382.7,
+            526.71
+          ],
+          "text": "PAST TR - TRIPLOIDY: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            443.02,
+            508.42,
+            557.92,
+            526.71
+          ],
+          "text": "PAST TS - TURNER'S SYNDROME: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            38.02,
+            537.3,
+            95.98,
+            555.59
+          ],
+          "text": "RISK ASSESSED: At term",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            173.02,
+            537.3,
+            257.81,
+            555.59
+          ],
+          "text": "SCREENING PROTOCOL: Screening_4.0",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            38.02,
+            566.75,
+            90.79,
+            576.75
+          ],
+          "text": "Ultrasound",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            38.02,
+            580.71,
+            88.05,
+            599.0
+          ],
+          "text": "SCAN DATE: 17/07/2026",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            173.02,
+            580.71,
+            192.47,
+            599.0
+          ],
+          "text": "CRL: 65.6",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            308.02,
+            580.71,
+            324.35,
+            599.0
+          ],
+          "text": "BPD: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            38.02,
+            580.71,
+            455.07,
+            620.03
+          ],
+          "text": "HC: - GEST. AT SAMPLE DATE (W + D): 12 w 6 d",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            173.02,
+            601.74,
+            203.35,
+            620.03
+          ],
+          "text": "CRL (#2): -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            308.02,
+            601.74,
+            338.75,
+            620.03
+          ],
+          "text": "BPD (#2): -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            38.02,
+            601.74,
+            469.46,
+            640.98
+          ],
+          "text": "HC (#2): - GEST. AT MANUAL ENTRY (W + D): 0 w 0 d",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            173.02,
+            622.69,
+            218.92,
+            640.98
+          ],
+          "text": "WEIGHT [KG]: 50",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            308.02,
+            622.69,
+            319.68,
+            640.98
+          ],
+          "text": "AC: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 3,
+          "bbox": [
+            443.02,
+            622.69,
+            469.08,
+            640.98
+          ],
+          "text": "AC (#2): -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        }
+      ],
+      "page_text": "Requestor: -, -\nREQUESTOR: -\nDOCTOR: -\nREQUESTOR CODE: -\nREQUESTOR TYPE: - REQUESTOR PHONE 1: -\nFACILITY: -\nPatient 2607170072: -, Mrs ANCHALA MISHRA SHV2607170072\nPATIENT ID: 2607170072\nLAST NAME: -\nFIRST NAME: Mrs ANCHALA MISHRA  SHV2607170072\nBIRTH DATE: 25/08/1993\nETHNICITY: Asian\nPHONE NO. 1: -\nADDRESS 1: -\nCITY: - POSTAL CODE: -\nPregnancy, Calculated EDD: 23/01/2027 (MAEDD: 33.41)\nMAEDD: 33.41\nCALCULATED EDD: 23/01/2027\nGEST. DATE: 18/04/2026\nSELECTED GEST. METHOD: CRL LMP DATE: 18/04/2026\nSMOKING STATUS: Non smoker\nINSULIN DEP. DIABETIC: -\nNO. OF FETUSES: 1 MONOZYGOUS: No\nCHORIONICITY: -\nCORRECTED BY CHORIONICITY: -\nFERTILIZATION DATE: - MATERNAL WEIGHT [KG]: 50\nHEIGHT [CM]: 161.5\nDIABETES TYPE II: No\nINSULIN TREATMENT FOR TYPE II  DIABETES: - CONCEPTION METHOD: Spontaneous\nMOTHER OF PATIENT HAD PRE- ECLAMPSIA: -\nCHRONIC HYPERTENSION: -\nSYSTEMIC LUPUS ERYTHEMATOSUS: -\nANTI-PHOSPHOLIPID SYNDROME: -\nPAST NO. OF PREGNANCIES  ≥ 24  WEEKS: -\nPREV. PREG. PRE-ECLAMPSIA: -\nPREV. PREG. DELIVERY DATE: -\nINTER-PREGNANCY INTERVAL  [YEARS]: -\nPREV. PREG. GEST. AT DELIVERY: 0 w 0 d\nPREV. PREG. BABY WEIGHT [G]: -\nBIRTH WEIGHT Z-SCORE: -\nASSISTANCE METHOD: -\nTRANSFER DATE: -\nEGG EXTRACTION DATE: -\nEGG DONOR DOB: - AGE AT EXTRACTION: -\nPAST T21 - DOWN'S SYNDROME: -\nPAST T18 - EDWARDS' SYNDROME: -\nPAST T13 - PATAU'S SYNDROME: - PAST CDLS - CORNELIA DE LANGE  SYNDROME: -\nPAST SLOS - SMITH-LEMLI-OPITZ  SYNDROME: -\nPAST TR - TRIPLOIDY: -\nPAST TS - TURNER'S SYNDROME: -\nRISK ASSESSED: At term\nSCREENING PROTOCOL: Screening_4.0\nUltrasound\nSCAN DATE: 17/07/2026\nCRL: 65.6\nBPD: -\nHC: - GEST. AT SAMPLE DATE (W + D): 12 w 6 d\nCRL (#2): -\nBPD (#2): -\nHC (#2): - GEST. AT MANUAL ENTRY (W + D): 0 w 0 d\nWEIGHT [KG]: 50\nAC: -\nAC (#2): -"
+    },
+    {
+      "page_number": 4,
+      "dimensions": {
+        "width": 612.0,
+        "height": 792.0
+      },
+      "header_y_cutoff": 107.96,
+      "footer_y_cutoff": 590.83,
+      "key_value_pairs": {
+        "TIME MEASURED": "17/07/2026",
+        "LEFT SYST #1": "100",
+        "LEFT DIAST #1": "70",
+        "LEFT SYST #2": "-",
+        "LEFT DIAST #2": "-",
+        "RIGHT SYST #1": "100",
+        "RIGHT DIAST #1": "70",
+        "RIGHT SYST #2": "-",
+        "RIGHT DIAST #2": "-",
+        "MOM": "0.98"
+      },
+      "boxes_and_sections": [
+        {
+          "page": 4,
+          "title": "General Content / Notes",
+          "type": "content_section_box",
+          "bbox": [
+            354.82,
+            192.57,
+            570.64,
+            200.57
+          ],
+          "content_text": [
+            "VALUE UNIT CORR. MOM WEIGHT [KG]"
+          ]
+        },
+        {
+          "page": 4,
+          "title": "Tests",
+          "type": "content_section_box",
+          "bbox": [
+            38.02,
+            177.74,
+            64.13,
+            187.74
+          ],
+          "content_text": [
+            "Distribution median, 5th and 95th centiles obtained from publication: Wright D, Kagan KO, Molina FS, Gazzoni A, Nicolaides KH. A mixture model of  nuchal translucency thickness in screening for chromosomal defects. Ultrasound Obstet Gynecol 2008;31:376-83"
+          ]
+        }
+      ],
+      "tables": [],
+      "images_and_graphs": [
+        {
+          "page": 4,
+          "image_index": 1,
+          "xref": 62,
+          "width": 600,
+          "height": 400,
+          "format": "png",
+          "mime_type": "image/png",
+          "type": "graph_chart",
+          "bbox": [
+            36.0,
+            349.16,
+            306.0,
+            529.16
+          ],
+          "data_uri": "data:image/png;base64,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"
+        }
+      ],
+      "text_blocks": [
+        {
+          "page": 4,
+          "bbox": [
+            354.82,
+            192.57,
+            570.64,
+            200.57
+          ],
+          "text": "VALUE UNIT CORR. MOM WEIGHT [KG]",
+          "max_font_size": 8.0,
+          "is_bold": false,
+          "font": "Helvetica"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            38.02,
+            221.87,
+            531.53,
+            231.87
+          ],
+          "text": "AFP (Signed) 2607170072 17/07/2026 12 w 6 d 15.6 U/mL 0.84 50",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            38.02,
+            239.87,
+            531.53,
+            249.87
+          ],
+          "text": "hCGb (Signed) 2607170072 17/07/2026 12 w 6 d 88.1 ng/mL 1.81 50",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            38.02,
+            257.87,
+            531.53,
+            267.87
+          ],
+          "text": "PAPP-A (Signed) 2607170072 17/07/2026 12 w 6 d 6800 mU/L 1.42 50",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            38.02,
+            275.87,
+            531.53,
+            285.87
+          ],
+          "text": "PlGF (Signed) 2607170072 17/07/2026 12 w 6 d 57.5 pg/mL 0.87 50",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            38.02,
+            293.87,
+            531.53,
+            303.87
+          ],
+          "text": "NB (Signed) - 17/07/2026 12 w 6 d Present - - 50",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            38.02,
+            311.87,
+            531.53,
+            321.87
+          ],
+          "text": "NT (Signed) - 17/07/2026 12 w 6 d 1 mm 0.7 50",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            38.02,
+            329.87,
+            531.53,
+            339.87
+          ],
+          "text": "UTPi (Signed) - 17/07/2026 12 w 6 d 1.9 - 1.39 50",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            38.02,
+            126.97,
+            98.3,
+            145.26
+          ],
+          "text": "TIME MEASURED: 17/07/2026",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            128.02,
+            126.97,
+            177.04,
+            145.26
+          ],
+          "text": "LEFT SYST #1: 100",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            218.02,
+            126.97,
+            269.37,
+            145.26
+          ],
+          "text": "LEFT DIAST #1: 70",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            308.02,
+            126.97,
+            357.04,
+            145.26
+          ],
+          "text": "LEFT SYST #2: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            398.02,
+            126.97,
+            449.37,
+            145.26
+          ],
+          "text": "LEFT DIAST #2: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            38.02,
+            126.97,
+            533.13,
+            166.28
+          ],
+          "text": "MAP [MMHG]: 80 WEIGHT [KG]: 50",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            128.02,
+            147.99,
+            181.7,
+            166.28
+          ],
+          "text": "RIGHT SYST #1: 100",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            218.02,
+            147.99,
+            274.03,
+            166.28
+          ],
+          "text": "RIGHT DIAST #1: 70",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            308.02,
+            147.99,
+            361.7,
+            166.28
+          ],
+          "text": "RIGHT SYST #2: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            398.02,
+            147.99,
+            454.03,
+            166.28
+          ],
+          "text": "RIGHT DIAST #2: -",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            488.02,
+            147.99,
+            531.57,
+            166.28
+          ],
+          "text": "CORR. MOM: 0.98",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            38.02,
+            177.74,
+            64.13,
+            187.74
+          ],
+          "text": "Tests",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Helvetica-Bold"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            38.02,
+            539.9,
+            563.05,
+            556.9
+          ],
+          "text": "Distribution median, 5th and 95th centiles obtained from publication: Wright D, Kagan KO, Molina FS, Gazzoni A, Nicolaides KH. A mixture model of  nuchal translucency thickness in screening for chromosomal defects. Ultrasound Obstet Gynecol 2008;31:376-83",
+          "max_font_size": 8.0,
+          "is_bold": false,
+          "font": "Helvetica"
+        }
+      ],
+      "page_text": "VALUE UNIT CORR. MOM WEIGHT [KG]\nAFP (Signed) 2607170072 17/07/2026 12 w 6 d 15.6 U/mL 0.84 50\nhCGb (Signed) 2607170072 17/07/2026 12 w 6 d 88.1 ng/mL 1.81 50\nPAPP-A (Signed) 2607170072 17/07/2026 12 w 6 d 6800 mU/L 1.42 50\nPlGF (Signed) 2607170072 17/07/2026 12 w 6 d 57.5 pg/mL 0.87 50\nNB (Signed) - 17/07/2026 12 w 6 d Present - - 50\nNT (Signed) - 17/07/2026 12 w 6 d 1 mm 0.7 50\nUTPi (Signed) - 17/07/2026 12 w 6 d 1.9 - 1.39 50\nTIME MEASURED: 17/07/2026\nLEFT SYST #1: 100\nLEFT DIAST #1: 70\nLEFT SYST #2: -\nLEFT DIAST #2: -\nMAP [MMHG]: 80 WEIGHT [KG]: 50\nRIGHT SYST #1: 100\nRIGHT DIAST #1: 70\nRIGHT SYST #2: -\nRIGHT DIAST #2: -\nCORR. MOM: 0.98\nTests\nDistribution median, 5th and 95th centiles obtained from publication: Wright D, Kagan KO, Molina FS, Gazzoni A, Nicolaides KH. A mixture model of  nuchal translucency thickness in screening for chromosomal defects. Ultrasound Obstet Gynecol 2008;31:376-83"
+    },
+    {
+      "page_number": 5,
+      "dimensions": {
+        "width": 612.0,
+        "height": 792.0
+      },
+      "header_y_cutoff": 272.72,
+      "footer_y_cutoff": 686.14,
+      "key_value_pairs": {},
+      "boxes_and_sections": [
+        {
+          "page": 5,
+          "title": "General Content / Notes",
+          "type": "content_section_box",
+          "bbox": [
+            38.02,
+            378.74,
+            81.37,
+            384.74
+          ],
+          "content_text": [
+            "PLEASE NOTE:"
+          ]
+        }
+      ],
+      "tables": [],
+      "images_and_graphs": [],
+      "text_blocks": [
+        {
+          "page": 5,
+          "bbox": [
+            38.02,
+            378.74,
+            81.37,
+            384.74
+          ],
+          "text": "PLEASE NOTE:",
+          "max_font_size": 6.0,
+          "is_bold": false,
+          "font": "Helvetica"
+        }
+      ],
+      "page_text": "PLEASE NOTE:"
+    }
+  ],
+  "raw_full_text": "Interpretation: GUIDE FOR RISK STRATIFICATION -Screen Positive or Screen Negative is based on the Risk Cut-Off. The strategy of Risk Interpretation is as follows:\nPre-eclampsia <32/ <34 /<37 weeks 1:100 Note: 1. All lab results are subject to clinical interpretation by a qualified medical professional & this report is not subject to use for any medico-legal purpose. FMF accredited Perkin Elmer platform is used to measure the biochemical marker statistical evaluation has been done by using Life Cycle Software.\n2. Maternal biochemical marker's screening is based on satistical analysis & demographic & biochemical data of the patient. They only indicates a high and low risk category.A confirmatory test CVS/Amniocentesis is recommended for confirmation of screen positive patient.\n3. Multiples of Median ( MOM ) are measured by accounting variables like gestational age / maternal weight / multiple gestation / IVF or not / ultrasound / smoking stand Previous history & T21, hence accurate availability & this data is very important for risk calculation.\n4. Ideal sampling time is between 11 weeks to 13 weeks  6 days of gestation and requires a crown-rump length between approximately 40mm to 80 mm.\n5. The detection rate for Down syndrome is 60% with a false positive rate of 5% if the only biochemical risk is estimated. A  combination of Nuchal translucency and biochemical tests (Combined test) has a detection rate of Down syndrome 82 to 87% at a 5% false-positive rate. The addition of absent nasal bone status can improve the detection rate up to 93% at false- positive rate of 2.5%. Comments 1. Statistical risk factor calculation for any fetus is screened positive for trisomy 21 (Down's syndrome), trisomy 18 (Edward syndrome) and trisomy 13 (Patau syndrome) further confirmation ,evaluation and follow up is required in that cases.\n2. The statistical risk evaluation requires maternal age to be decimalised for months, to be represented as age at sampling & conversion of maternal hormonal values to mean of medians(MOMs). The MoMs are further calculated using Indian medians.\n3. This is a risk estimation test and not a diagnostic test. An increased risk result does not mean that the fetus is affected and a low risk does not mean that the fetus is unaffected, reported risk should be correlated and adjusted to the absence/presence of sonographic markers observed in the anomaly/malformation scan.\n*** End Of Report ***\nRequestor: -, -\nREQUESTOR: -\nDOCTOR: -\nREQUESTOR CODE: -\nREQUESTOR TYPE: - REQUESTOR PHONE 1: -\nFACILITY: -\nPatient 2607170072: -, Mrs ANCHALA MISHRA SHV2607170072\nPATIENT ID: 2607170072\nLAST NAME: -\nFIRST NAME: Mrs ANCHALA MISHRA  SHV2607170072\nBIRTH DATE: 25/08/1993\nETHNICITY: Asian\nPHONE NO. 1: -\nADDRESS 1: -\nCITY: - POSTAL CODE: -\nPregnancy, Calculated EDD: 23/01/2027 (MAEDD: 33.41)\nMAEDD: 33.41\nCALCULATED EDD: 23/01/2027\nGEST. DATE: 18/04/2026\nSELECTED GEST. METHOD: CRL LMP DATE: 18/04/2026\nSMOKING STATUS: Non smoker\nINSULIN DEP. DIABETIC: -\nNO. OF FETUSES: 1 MONOZYGOUS: No\nCHORIONICITY: -\nCORRECTED BY CHORIONICITY: -\nFERTILIZATION DATE: - MATERNAL WEIGHT [KG]: 50\nHEIGHT [CM]: 161.5\nDIABETES TYPE II: No\nINSULIN TREATMENT FOR TYPE II  DIABETES: - CONCEPTION METHOD: Spontaneous\nMOTHER OF PATIENT HAD PRE- ECLAMPSIA: -\nCHRONIC HYPERTENSION: -\nSYSTEMIC LUPUS ERYTHEMATOSUS: -\nANTI-PHOSPHOLIPID SYNDROME: -\nPAST NO. OF PREGNANCIES  ≥ 24  WEEKS: -\nPREV. PREG. PRE-ECLAMPSIA: -\nPREV. PREG. DELIVERY DATE: -\nINTER-PREGNANCY INTERVAL  [YEARS]: -\nPREV. PREG. GEST. AT DELIVERY: 0 w 0 d\nPREV. PREG. BABY WEIGHT [G]: -\nBIRTH WEIGHT Z-SCORE: -\nASSISTANCE METHOD: -\nTRANSFER DATE: -\nEGG EXTRACTION DATE: -\nEGG DONOR DOB: - AGE AT EXTRACTION: -\nPAST T21 - DOWN'S SYNDROME: -\nPAST T18 - EDWARDS' SYNDROME: -\nPAST T13 - PATAU'S SYNDROME: - PAST CDLS - CORNELIA DE LANGE  SYNDROME: -\nPAST SLOS - SMITH-LEMLI-OPITZ  SYNDROME: -\nPAST TR - TRIPLOIDY: -\nPAST TS - TURNER'S SYNDROME: -\nRISK ASSESSED: At term\nSCREENING PROTOCOL: Screening_4.0\nUltrasound\nSCAN DATE: 17/07/2026\nCRL: 65.6\nBPD: -\nHC: - GEST. AT SAMPLE DATE (W + D): 12 w 6 d\nCRL (#2): -\nBPD (#2): -\nHC (#2): - GEST. AT MANUAL ENTRY (W + D): 0 w 0 d\nWEIGHT [KG]: 50\nAC: -\nAC (#2): -\nVALUE UNIT CORR. MOM WEIGHT [KG]\nAFP (Signed) 2607170072 17/07/2026 12 w 6 d 15.6 U/mL 0.84 50\nhCGb (Signed) 2607170072 17/07/2026 12 w 6 d 88.1 ng/mL 1.81 50\nPAPP-A (Signed) 2607170072 17/07/2026 12 w 6 d 6800 mU/L 1.42 50\nPlGF (Signed) 2607170072 17/07/2026 12 w 6 d 57.5 pg/mL 0.87 50\nNB (Signed) - 17/07/2026 12 w 6 d Present - - 50\nNT (Signed) - 17/07/2026 12 w 6 d 1 mm 0.7 50\nUTPi (Signed) - 17/07/2026 12 w 6 d 1.9 - 1.39 50\nTIME MEASURED: 17/07/2026\nLEFT SYST #1: 100\nLEFT DIAST #1: 70\nLEFT SYST #2: -\nLEFT DIAST #2: -\nMAP [MMHG]: 80 WEIGHT [KG]: 50\nRIGHT SYST #1: 100\nRIGHT DIAST #1: 70\nRIGHT SYST #2: -\nRIGHT DIAST #2: -\nCORR. MOM: 0.98\nTests\nDistribution median, 5th and 95th centiles obtained from publication: Wright D, Kagan KO, Molina FS, Gazzoni A, Nicolaides KH. A mixture model of  nuchal translucency thickness in screening for chromosomal defects. Ultrasound Obstet Gynecol 2008;31:376-83\nPLEASE NOTE:"
+}

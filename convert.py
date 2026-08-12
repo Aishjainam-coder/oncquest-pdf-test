@@ -23,14 +23,7 @@ theme_json_path = Path("theme.json")
 if theme_json_path.exists():
     try:
         with open(theme_json_path, "r", encoding="utf-8") as f_theme:
-            theme_file_data = json.load(f_theme)
-            colors = theme_file_data.get("colors", {})
-            fonts = theme_file_data.get("fonts", {})
-            theme_config = {
-                "primary_color": colors.get("primary", "#1f497d"),
-                "secondary_color": colors.get("secondary", "#008080"),
-                "font_family": fonts.get("families", {}).get("primary", "Cambria, serif")
-            }
+            theme_config = json.load(f_theme)
     except Exception as e:
         print(f"[*] Note: Could not load theme.json: {e}")
 
@@ -45,8 +38,13 @@ if len(sys.argv) > 1:
             print(f"[+] Successfully converted HTML -> Word (.docx): {out_docx}")
             sys.exit(0)
         elif target_path.suffix.lower() == ".json":
-            print(f"[*] Rendering JSON file to HTML: {target_path.name}")
+            print(f"[*] Rendering JSON file to HTML and Word (.docx): {target_path.name}")
             out_html = output_dir / f"{target_path.stem}.html"
+            out_docx = output_dir / f"{target_path.stem}.docx"
+            with open(target_path, "r", encoding="utf-8") as f_json:
+                data_json = json.load(f_json)
+            convert_json_to_docx(data_json, output_path=out_docx, theme_config=theme_config)
+            print(f"[+] Successfully converted JSON -> Word (.docx): {out_docx}")
             render_json_file_to_html(target_path, output_path=out_html, theme_config=theme_config)
             print(f"[+] Successfully rendered JSON -> HTML template: {out_html}")
             sys.exit(0)

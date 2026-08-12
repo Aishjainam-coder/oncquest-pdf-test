@@ -31,14 +31,20 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
     while original header and footer content is completely excluded dynamically.
     Applies user-selected theme typography, primary colors, table header styling, and cell borders.
     """
-    if not theme_config:
-        theme_config = {}
+    cfg = get_merged_theme_config(theme_config)
+    colors_cfg = cfg.get("colors", {})
+    typo_cfg = cfg.get("typography", {})
 
-    primary_color = theme_config.get("primary_color", "#1f497d")
-    bg_page = theme_config.get("bg_page", "#ffffff")
-    text_color = theme_config.get("text_color", "#0d0d0d")
-    border_color = theme_config.get("border_color", primary_color)
-    font_family = theme_config.get("font_family", "Cambria, 'Times New Roman', serif")
+    primary_color = colors_cfg.get("primary", "#1f497d")
+    secondary_color = colors_cfg.get("secondary", "#008080")
+    accent_orange = colors_cfg.get("accent_orange", "#ed7d31")
+    accent_red = colors_cfg.get("accent_red", "#ff0000")
+    banner_dark = colors_cfg.get("banner_dark", "#404040")
+    text_primary = colors_cfg.get("text_primary", "#000000")
+    text_dark = colors_cfg.get("text_dark", "#0d0d0d")
+    bg_page = colors_cfg.get("background_page", "#ffffff")
+    border_color = colors_cfg.get("border_primary", primary_color)
+    font_family = typo_cfg.get("primary_family", "Cambria, 'Times New Roman', serif")
 
     fallback_left = 35.5
     fallback_width = 524.0
@@ -53,23 +59,43 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
         "<meta charset='utf-8'>",
         f"<title>{doc_title}</title>",
         "<style>",
-        "@page { size: 595.6pt 842.0pt; margin: 0; }",
-        "* { box-sizing: border-box; }",
-        f"body {{ margin: 0; padding: 0; background-color: #525659; font-family: {font_family}; color: {text_color}; }}",
-        ".pdf-container { display: flex; flex-direction: column; align-items: center; padding: 20px 0; }",
-        f".pdf-page {{ background: {bg_page}; width: 595.6pt; min-height: 842.0pt; margin-bottom: 20px; position: relative; overflow: visible; box-shadow: 0 4px 12px rgba(0,0,0,0.3); page-break-after: always; font-family: {font_family}; }}",
-        f"div[id^='page'] {{ position: relative !important; width: 595.6pt !important; min-height: 842.0pt !important; overflow: visible !important; }}",
-        f"div[id^='page'] p {{ position: absolute !important; margin: 0 !important; padding: 0 !important; white-space: normal !important; word-break: normal !important; overflow-wrap: break-word !important; max-width: 100% !important; z-index: 10 !important; font-family: {font_family} !important; line-height: 1.2 !important; overflow: visible !important; }}",
-        f"div[id^='page'] span {{ word-break: normal !important; overflow-wrap: break-word !important; }}",
-        f".black-banner-span {{ color: #ffffff !important; display: block !important; width: 100% !important; text-align: center !important; padding: 4px 0 !important; line-height: 1.2 !important; font-weight: bold !important; font-size: 13.0pt !important; font-family: {font_family} !important; border-radius: 0px !important; white-space: normal !important; margin: 0 !important; background-color: #404040 !important; box-sizing: border-box !important; z-index: 15 !important; }}",
-        f".label-bar-span {{ color: #ffffff !important; display: inline-block !important; padding: 2px 6px !important; line-height: 1.2 !important; border-radius: 2px !important; font-family: {font_family} !important; word-break: break-word !important; margin: 0 !important; background-color: {primary_color} !important; z-index: 15 !important; }}",
-        f".table-header-cell {{ position: absolute; background-color: {primary_color} !important; color: #ffffff !important; font-family: {font_family} !important; font-size: 9.5pt !important; font-weight: bold !important; display: flex !important; align-items: center !important; justify-content: center !important; text-align: center !important; padding: 2px 4px !important; white-space: normal !important; word-break: break-word !important; overflow-wrap: break-word !important; line-height: 1.15 !important; border: 1px solid {border_color} !important; box-sizing: border-box !important; z-index: 15 !important; pointer-events: none !important; }}",
-        "div[id^='page'] img { position: absolute !important; transform-origin: 0 0 !important; z-index: 5 !important; opacity: 1 !important; visibility: visible !important; display: inline-block !important; }",
-        f".table-grid-cell {{ position: absolute; border: 1px solid {border_color} !important; background: transparent; pointer-events: none; z-index: 2 !important; }}",
-        f".vector-box {{ position: absolute; border: 1px solid {border_color} !important; background: transparent; pointer-events: none; z-index: 2 !important; border-radius: 2px; box-sizing: border-box !important; }}",
-        f".vector-fill-box {{ position: absolute; background-color: {primary_color} !important; pointer-events: none; z-index: 2 !important; border-radius: 2px; box-sizing: border-box !important; }}",
-        f".section-content-box {{ position: absolute; border: 1px solid {border_color} !important; background: transparent; pointer-events: none; z-index: 2 !important; border-radius: 3px; }}",
-        "@media print { body { background-color: #ffffff; } .pdf-container { padding: 0; } .pdf-page { margin: 0; box-shadow: none; } }",
+        f"""
+        :root {{
+          --color-primary: {primary_color};
+          --color-secondary: {secondary_color};
+          --color-accent-orange: {accent_orange};
+          --color-accent-red: {accent_red};
+          --color-banner-dark: {banner_dark};
+          --color-bg-page: {bg_page};
+          --color-bg-container: #525659;
+          --text-primary: {text_primary};
+          --text-teal: {secondary_color};
+          --text-orange: {accent_orange};
+          --text-red: {accent_red};
+          --border-color: {border_color};
+          --font-primary: {font_family};
+        }}
+        @page {{ size: 595.6pt 842.0pt; margin: 0; }}
+        * {{ box-sizing: border-box; }}
+        body {{ margin: 0; padding: 0; background-color: var(--color-bg-container); font-family: var(--font-primary); color: var(--text-primary); }}
+        .pdf-container {{ display: flex; flex-direction: column; align-items: center; padding: 20px 0; }}
+        .pdf-page {{ background: var(--color-bg-page); width: 595.6pt; min-height: 842.0pt; margin-bottom: 20px; position: relative; overflow: visible; box-shadow: 0 4px 12px rgba(0,0,0,0.3); page-break-after: always; font-family: var(--font-primary); }}
+        div[id^='page'] {{ position: relative !important; width: 595.6pt !important; min-height: 842.0pt !important; overflow: visible !important; }}
+        div[id^='page'] p {{ position: absolute !important; margin: 0 !important; padding: 0 !important; white-space: normal !important; word-break: normal !important; overflow-wrap: break-word !important; max-width: 100% !important; z-index: 10 !important; font-family: var(--font-primary) !important; line-height: 1.2 !important; overflow: visible !important; }}
+        div[id^='page'] span {{ word-break: normal !important; overflow-wrap: break-word !important; }}
+        .black-banner-span {{ color: #ffffff !important; display: block !important; width: 100% !important; text-align: center !important; padding: 4px 0 !important; line-height: 1.2 !important; font-weight: bold !important; font-size: 13.0pt !important; font-family: var(--font-primary) !important; border-radius: 0px !important; white-space: normal !important; margin: 0 !important; background-color: var(--color-banner-dark) !important; box-sizing: border-box !important; z-index: 15 !important; }}
+        .label-bar-span {{ color: #ffffff !important; display: inline-block !important; padding: 2px 6px !important; line-height: 1.2 !important; border-radius: 2px !important; font-family: var(--font-primary) !important; word-break: break-word !important; margin: 0 !important; background-color: var(--color-primary) !important; z-index: 15 !important; }}
+        .table-header-cell {{ position: absolute; background-color: var(--color-primary) !important; color: #ffffff !important; font-family: var(--font-primary) !important; font-size: 9.5pt !important; font-weight: bold !important; display: flex !important; align-items: center !important; justify-content: center !important; text-align: center !important; padding: 2px 4px !important; white-space: normal !important; word-break: break-word !important; overflow-wrap: break-word !important; line-height: 1.15 !important; border: 1px solid var(--border-color) !important; box-sizing: border-box !important; z-index: 15 !important; pointer-events: none !important; }}
+        div[id^='page'] img {{ position: absolute !important; transform-origin: 0 0 !important; z-index: 5 !important; opacity: 1 !important; visibility: visible !important; display: inline-block !important; }}
+        .table-grid-cell {{ position: absolute; border: 1px solid var(--border-color) !important; background: transparent; pointer-events: none; z-index: 2 !important; }}
+        .vector-box {{ position: absolute; border: 1px solid var(--border-color) !important; background: transparent; pointer-events: none; z-index: 2 !important; border-radius: 2px; box-sizing: border-box !important; }}
+        .vector-fill-box {{ position: absolute; background-color: var(--color-primary) !important; pointer-events: none; z-index: 2 !important; border-radius: 2px; box-sizing: border-box !important; }}
+        .section-content-box {{ position: absolute; border: 1px solid var(--border-color) !important; background: transparent; pointer-events: none; z-index: 2 !important; border-radius: 3px; }}
+        .teal-text {{ color: var(--color-secondary) !important; font-weight: bold; }}
+        .orange-text {{ color: var(--color-accent-orange) !important; font-weight: bold; }}
+        .red-text {{ color: var(--color-accent-red) !important; font-weight: bold; }}
+        @media print {{ body {{ background-color: #ffffff; }} .pdf-container {{ padding: 0; }} .pdf-page {{ margin: 0; box-shadow: none; }} }}
+        """,
         "</style>",
         "</head>",
         "<body>",
@@ -293,16 +319,20 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
     Renders extracted PDF JSON data dynamically into a clean HTML report template.
     Does NOT recreate vendor logos, patient header cards, or footer signatures.
     """
-    if not theme_config:
-        theme_config = {}
+    cfg = get_merged_theme_config(theme_config)
+    colors_cfg = cfg.get("colors", {})
+    typo_cfg = cfg.get("typography", {})
 
-    primary_color = theme_config.get("primary_color", "#1f497d")
-    bg_page = theme_config.get("bg_page", "#ffffff")
-    text_color = theme_config.get("text_color", "#0d0d0d")
-    border_color = theme_config.get("border_color", primary_color)
-    table_header_bg = theme_config.get("table_header_bg", primary_color)
-    table_header_text = theme_config.get("table_header_text", "#ffffff")
-    font_family = theme_config.get("font_family", "Cambria, 'Times New Roman', serif")
+    primary_color = colors_cfg.get("primary", "#1f497d")
+    secondary_color = colors_cfg.get("secondary", "#008080")
+    accent_orange = colors_cfg.get("accent_orange", "#ed7d31")
+    accent_red = colors_cfg.get("accent_red", "#ff0000")
+    bg_page = colors_cfg.get("background_page", "#ffffff")
+    text_color = colors_cfg.get("text_primary", "#0d0d0d")
+    border_color = colors_cfg.get("border_primary", primary_color)
+    table_header_bg = primary_color
+    table_header_text = colors_cfg.get("text_light", "#ffffff")
+    font_family = typo_cfg.get("primary_family", "Cambria, 'Times New Roman', serif")
 
     show_tables = theme_config.get("show_tables", True)
     show_sections = theme_config.get("show_sections", True)
@@ -434,7 +464,7 @@ body {{ margin: 0; padding: 0; background-color: #f1f5f9; font-family: {font_fam
 .section-box {{ border: 1px solid {border_color}; border-radius: 6px; margin-bottom: 14pt; position: relative; background: #ffffff; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.04); }}
 .section-title {{ background-color: {primary_color}; color: #ffffff; font-weight: bold; font-size: 10.0pt; padding: 6pt 10pt; display: block; border-top-left-radius: 4px; border-top-right-radius: 4px; letter-spacing: 0.02em; }}
 .section-body {{ padding: 10pt 12pt; font-size: 9.5pt; line-height: 1.5; color: {text_color}; }}
-.section-p {{ margin: 0 0 6pt 0; text-align: justify; word-break: normal; overflow-wrap: break-word; }}
+.section-p {{ margin: 0 0 6pt 0; text-align: left; word-break: normal; overflow-wrap: break-word; }}
 .section-p:last-child {{ margin-bottom: 0; }}
 .table-card-box {{ margin-top: 14pt; margin-bottom: 14pt; border: 1px solid {border_color}; border-radius: 6px; overflow: hidden; background: #ffffff; box-shadow: 0 2px 5px rgba(0,0,0,0.04); }}
 .table-card-header {{ font-size: 9.5pt; font-weight: bold; color: {primary_color}; padding: 6pt 10pt; background-color: #f8fafc; border-bottom: 1px solid {border_color}; }}
@@ -497,244 +527,744 @@ def _set_cell_borders(cell, border_color: str = "CBD5E1", border_size: str = "4"
     tcPr.append(borders)
 
 
+def _set_cell_margins(cell, top=80, bottom=80, left=120, right=120):
+    """Utility to set XML cell margins/padding of a python-docx table cell in dxa (1pt = 20dxa)."""
+    from docx.oxml import parse_xml
+    from docx.oxml.ns import nsdecls
+    tcPr = cell._tc.get_or_add_tcPr()
+    tcMar = parse_xml(
+        f'<w:tcMar {nsdecls("w")}>'
+        f'<w:top w:w="{top}" w:type="dxa"/>'
+        f'<w:left w:w="{left}" w:type="dxa"/>'
+        f'<w:bottom w:w="{bottom}" w:type="dxa"/>'
+        f'<w:right w:w="{right}" w:type="dxa"/>'
+        f'</w:tcMar>'
+    )
+    tcPr.append(tcMar)
+
+
+def _set_cell_width(cell, width_pt):
+    """Utility to set XML cell width in dxa (1pt = 20dxa)."""
+    from docx.oxml import parse_xml
+    from docx.oxml.ns import nsdecls
+    tcPr = cell._tc.get_or_add_tcPr()
+    width_dxa = int(width_pt * 20)
+    tcW = parse_xml(f'<w:tcW {nsdecls("w")} w:w="{width_dxa}" w:type="dxa"/>')
+    tcPr.append(tcW)
+
+
+def _add_page_number_to_run(run, docx_module):
+    """Utility to add dynamic Word PAGE field to a run."""
+    from docx.oxml import parse_xml
+    from docx.oxml.ns import nsdecls
+    fldChar1 = parse_xml(f'<w:fldChar {nsdecls("w")} w:fldCharType="begin"/>')
+    instrText = parse_xml(f'<w:instrText {nsdecls("w")} xml:space="preserve"> PAGE </w:instrText>')
+    fldChar2 = parse_xml(f'<w:fldChar {nsdecls("w")} w:fldCharType="separate"/>')
+    fldChar3 = parse_xml(f'<w:fldChar {nsdecls("w")} w:fldCharType="end"/>')
+    run._r.append(fldChar1)
+    run._r.append(instrText)
+    run._r.append(fldChar2)
+    run._r.append(fldChar3)
+
+
+def _add_numpages_to_run(run, docx_module):
+    """Utility to add dynamic Word NUMPAGES field to a run."""
+    from docx.oxml import parse_xml
+    from docx.oxml.ns import nsdecls
+    fldChar1 = parse_xml(f'<w:fldChar {nsdecls("w")} w:fldCharType="begin"/>')
+    instrText = parse_xml(f'<w:instrText {nsdecls("w")} xml:space="preserve"> NUMPAGES </w:instrText>')
+    fldChar2 = parse_xml(f'<w:fldChar {nsdecls("w")} w:fldCharType="separate"/>')
+    fldChar3 = parse_xml(f'<w:fldChar {nsdecls("w")} w:fldCharType="end"/>')
+    run._r.append(fldChar1)
+    run._r.append(instrText)
+    run._r.append(fldChar2)
+    run._r.append(fldChar3)
+
+
+def _hex_to_rgb(hex_str: str):
+    from docx.shared import RGBColor
+    if not hex_str:
+        return RGBColor(31, 73, 125)
+    hex_clean = str(hex_str).lstrip("#")
+    if len(hex_clean) == 6:
+        r, g, b = int(hex_clean[0:2], 16), int(hex_clean[2:4], 16), int(hex_clean[4:6], 16)
+    else:
+        r, g, b = 31, 73, 125
+    return RGBColor(r, g, b)
+
+
+def get_merged_theme_config(theme_config: dict = None) -> dict:
+    """
+    Dynamically loads styling and layout parameters from theme.json and merges them with user overrides.
+    """
+    merged = {
+        "document_page": {
+            "paper_size": "A4",
+            "width_pt": 595.6,
+            "height_pt": 842.0,
+            "margins_pt": {"top": 36.0, "bottom": 36.0, "left": 36.0, "right": 36.0},
+            "header_distance_pt": 18.0,
+            "footer_distance_pt": 18.0
+        },
+        "typography": {
+            "primary_family": "Cambria",
+            "secondary_family": "Calibri",
+            "line_spacing": 1.15,
+            "paragraph_space_after_pt": 4.0,
+            "sizes_pt": {
+                "document_title": 14.0,
+                "section_heading": 13.0,
+                "banner_heading": 10.0,
+                "body": 10.0,
+                "table_header": 9.5,
+                "table_body": 9.5,
+                "footer": 9.0,
+                "small": 8.0
+            }
+        },
+        "colors": {
+            "primary": "#1f497d",
+            "secondary": "#008080",
+            "accent_orange": "#ed7d31",
+            "accent_red": "#ff0000",
+            "banner_dark": "#404040",
+            "text_primary": "#000000",
+            "text_secondary": "#242729",
+            "text_light": "#ffffff",
+            "background_page": "#ffffff",
+            "border_primary": "#1f497d",
+            "border_header": "#cbd5e1",
+            "alternating_row_bg": "#f8fafc"
+        },
+        "headers_and_footers": {
+            "header": {
+                "show_logo": True,
+                "logo_image_path": "assets/header_image1.png",
+                "logo_width_pt": 540.0,
+                "logo_alignment": "center",
+                "show_metadata_table": True,
+                "metadata_table": {
+                    "border_color": "#cbd5e1",
+                    "border_size": "2",
+                    "label_font_weight": "bold",
+                    "value_font_weight": "normal",
+                    "column_widths_pt": [87.2, 160.75, 88.95, 203.1],
+                    "cell_padding_pt": {"top": 2, "bottom": 2, "left": 4, "right": 4}
+                }
+            },
+            "footer": {
+                "show_signatures": True,
+                "signature_image_path": "assets/footer_signatures.png",
+                "signature_width_pt": 540.0,
+                "signature_alignment": "center",
+                "show_page_number": True,
+                "page_number_text": "Page {page} of {total}",
+                "font_size_pt": 9.0,
+                "text_color": "#404040"
+            }
+        },
+        "components": {
+            "black_banner": {
+                "background_color": "#404040",
+                "text_color": "#ffffff",
+                "font_family": "Cambria",
+                "font_size_pt": 13.0,
+                "font_weight": "bold",
+                "alignment": "center",
+                "space_before_pt": 6.0,
+                "space_after_pt": 6.0
+            },
+            "blue_section_banner": {
+                "background_color": "#1f497d",
+                "text_color": "#ffffff",
+                "font_family": "Cambria",
+                "font_size_pt": 10.0,
+                "font_weight": "bold",
+                "alignment": "left",
+                "space_before_pt": 4.0,
+                "space_after_pt": 4.0
+            },
+            "data_table": {
+                "header_background_color": "#1f497d",
+                "header_text_color": "#ffffff",
+                "header_font_weight": "bold",
+                "header_font_size_pt": 9.5,
+                "body_font_size_pt": 9.5,
+                "border_color": "#1f497d",
+                "border_size": "4",
+                "cell_padding_pt": {"top": 3, "bottom": 3, "left": 4, "right": 4},
+                "alignment": "center"
+            },
+            "content_box": {
+                "border_color": "#1f497d",
+                "border_size": "4",
+                "background_color": "transparent",
+                "title_font_size_pt": 10.0,
+                "title_font_weight": "bold",
+                "title_text_color": "#1f497d",
+                "body_font_size_pt": 9.5,
+                "body_text_color": "#000000",
+                "space_before_pt": 4.0,
+                "space_after_pt": 4.0
+            },
+            "bullet_list": {
+                "bullet_char": "•",
+                "indent_pt": 18.0,
+                "font_size_pt": 9.5
+            },
+            "end_of_report_marker": {
+                "text": "------------------ End Of Report ------------------",
+                "font_family": "Calibri",
+                "font_size_pt": 10.0,
+                "text_color": "#000000",
+                "alignment": "center",
+                "space_before_pt": 12.0,
+                "space_after_pt": 12.0
+            }
+        },
+        "word": {
+            "layout": {
+                "element_flow": ["header_metadata", "headings", "banners", "content_boxes", "tables", "paragraphs", "bullet_lists", "signatures", "end_of_report_marker"],
+                "spacing": {
+                    "default_line_spacing": 1.15,
+                    "paragraph_space_before_pt": 0.0,
+                    "paragraph_space_after_pt": 4.0,
+                    "heading_space_before_pt": 8.0,
+                    "heading_space_after_pt": 4.0,
+                    "table_space_before_pt": 6.0,
+                    "table_space_after_pt": 6.0,
+                    "content_box_space_before_pt": 6.0,
+                    "content_box_space_after_pt": 6.0,
+                    "banner_space_before_pt": 6.0,
+                    "banner_space_after_pt": 6.0
+                },
+                "boxes": {
+                    "border_color": "#1f497d",
+                    "border_size": "4",
+                    "background_color": "#ffffff",
+                    "title_font_size_pt": 10.0,
+                    "title_font_weight": "bold",
+                    "title_text_color": "#1f497d",
+                    "body_font_size_pt": 9.5,
+                    "body_text_color": "#000000",
+                    "cell_padding_pt": {"top": 4, "bottom": 4, "left": 6, "right": 6}
+                },
+                "tables": {
+                    "alignment": "center",
+                    "header_background_color": "#1f497d",
+                    "header_text_color": "#ffffff",
+                    "header_font_weight": "bold",
+                    "header_font_size_pt": 9.5,
+                    "body_font_size_pt": 9.5,
+                    "border_color": "#1f497d",
+                    "border_size": "4",
+                    "alternating_row_bg": "#f8fafc",
+                    "cell_padding_pt": {"top": 3, "bottom": 3, "left": 4, "right": 4},
+                    "autofit": True,
+                    "cant_split_rows": True
+                },
+                "banners": {
+                    "black_banner": {"background_color": "#404040", "text_color": "#ffffff", "font_size_pt": 13.0, "font_weight": "bold", "alignment": "center"},
+                    "blue_banner": {"background_color": "#1f497d", "text_color": "#ffffff", "font_size_pt": 10.0, "font_weight": "bold", "alignment": "left"}
+                }
+            },
+            "pagination": {
+                "respect_page_breaks": True,
+                "keep_with_next_headings": True,
+                "page_numbering": {"enabled": True, "text_format": "Page {page} of {total}", "font_size_pt": 9.0, "alignment": "center"},
+                "repeat_table_headers": True,
+                "prevent_orphan_rows": True
+            }
+        },
+        "primary_color": "#1f497d",
+        "secondary_color": "#008080",
+        "accent_orange": "#ed7d31",
+        "accent_red": "#ff0000",
+        "banner_dark": "#404040",
+        "font_family": "Cambria",
+        "border_color": "#1f497d",
+        "body_font_size": 10.0,
+        "title_font_size": 14.0,
+        "table_header_font_size": 9.5,
+        "show_footer_signatures": True,
+        "end_report_marker": "------------------ End Of Report ------------------"
+    }
+
+    theme_file = Path("theme.json")
+    if theme_file.exists():
+        try:
+            with open(theme_file, "r", encoding="utf-8") as f:
+                tj = json.load(f)
+                if isinstance(tj, dict):
+                    for key in ["document_page", "typography", "colors", "headers_and_footers", "components", "word"]:
+                        if key in tj and isinstance(tj[key], dict):
+                            if key in merged and isinstance(merged[key], dict):
+                                merged[key].update(tj[key])
+                            else:
+                                merged[key] = tj[key]
+
+                    colors = merged.get("colors", {})
+                    fonts = merged.get("typography", {})
+                    if "primary" in colors:
+                        merged["primary_color"] = colors["primary"]
+                    if "secondary" in colors:
+                        merged["secondary_color"] = colors["secondary"]
+                    if "accent_orange" in colors:
+                        merged["accent_orange"] = colors["accent_orange"]
+                    if "accent_red" in colors:
+                        merged["accent_red"] = colors["accent_red"]
+                    if "banner_dark" in colors:
+                        merged["banner_dark"] = colors["banner_dark"]
+                    if "border_primary" in colors:
+                        merged["border_color"] = colors["border_primary"]
+
+                    merged["font_family"] = fonts.get("primary_family", "Cambria")
+                    sizes = fonts.get("sizes_pt", {})
+                    if "body" in sizes:
+                        merged["body_font_size"] = sizes["body"]
+                    if "document_title" in sizes:
+                        merged["title_font_size"] = sizes["document_title"]
+                    if "table_header" in sizes:
+                        merged["table_header_font_size"] = sizes["table_header"]
+
+                    end_marker_comp = merged.get("components", {}).get("end_of_report_marker", {})
+                    if "text" in end_marker_comp:
+                        merged["end_report_marker"] = end_marker_comp["text"]
+        except Exception:
+            pass
+
+    if theme_config and isinstance(theme_config, dict):
+        for k, v in theme_config.items():
+            if v is not None:
+                merged[k] = v
+
+    return merged
+
+
+def _find_kv_val(kv_dict: dict, keywords: list) -> str:
+    """Helper to fuzzy match key in key-value dictionary."""
+    if not isinstance(kv_dict, dict):
+        return ""
+    for k, v in kv_dict.items():
+        k_clean = str(k).lower().replace("_", " ").replace(".", " ").strip()
+        for kw in keywords:
+            if kw in k_clean:
+                return str(v).strip()
+    return ""
+
+
+def clean_extracted_text(val):
+    """
+    Clean trailing/standalone '_' artifacts and stray whitespace from extracted text and table cells.
+    Preserves internal underscores (e.g. 'Gene_Name', 'NM_000251.3').
+    """
+    if not isinstance(val, str):
+        return val
+    text = val.strip()
+    if not text:
+        return ""
+    # If text consists solely of underscores and whitespace
+    if set(text) <= {'_', ' '}:
+        return ""
+    # Remove trailing/standalone underscore artifacts like " _", " _ _", or trailing "_" preceded by whitespace
+    text = re.sub(r'(?:\s+_+)+\s*$', '', text)
+    return text.strip()
+
+
+def is_decorative_or_watermark_image(img_dict: dict, page_w: float = 595.6, page_h: float = 842.0) -> bool:
+    """
+    Filter out decorative/background images: skip images that are near-square and very large relative to page,
+    or that sit in page margins/watermark layer, or have low content density.
+    Keep only real content graphs/logos based on size & aspect-ratio thresholds.
+    """
+    if not isinstance(img_dict, dict):
+        return False
+
+    bbox = img_dict.get("bbox") or [0, 0, 0, 0]
+    x0, y0, x1, y1 = bbox[:4] if len(bbox) >= 4 else (0, 0, 0, 0)
+    w_pt = x1 - x0 if x1 > x0 else 0.0
+    h_pt = y1 - y0 if y1 > y0 else 0.0
+
+    px_w = float(img_dict.get("width") or 0.0)
+    px_h = float(img_dict.get("height") or 0.0)
+
+    data_uri = img_dict.get("data_uri")
+    if data_uri and (px_w == 0 or px_h == 0 or w_pt == 0):
+        try:
+            b64_str = data_uri.split(",", 1)[1] if "," in data_uri else data_uri
+            img_bytes = base64.b64decode(b64_str)
+            with Image.open(io.BytesIO(img_bytes)) as pil_img:
+                px_w, px_h = float(pil_img.size[0]), float(pil_img.size[1])
+        except Exception:
+            pass
+
+    eff_w = w_pt if w_pt > 0 else px_w
+    eff_h = h_pt if h_pt > 0 else px_h
+
+    if eff_w <= 0 or eff_h <= 0:
+        return False
+
+    aspect_ratio = eff_w / eff_h if eff_h > 0 else 1.0
+
+    # Criteria 1: Near-square (0.7 <= aspect <= 1.4) AND large relative to page
+    is_near_square = 0.7 <= aspect_ratio <= 1.4
+    is_large_pt = (w_pt > 350 and h_pt > 350) or (w_pt > 0.55 * page_w and h_pt > 0.4 * page_h)
+    is_large_px = (px_w > 450 and px_h > 450)
+
+    if is_near_square and (is_large_pt or is_large_px):
+        return True
+
+    # Criteria 2: Full-page background or margin-spanning watermark layer
+    if w_pt > 0.8 * page_w and h_pt > 0.8 * page_h:
+        return True
+    if w_pt > 0 and h_pt > 0 and x0 <= 40 and x1 >= (page_w - 40) and y0 <= 50 and y1 >= (page_h - 50):
+        return True
+
+    return False
+
+
+def _clean_text(s):
+    if s is None:
+        return ""
+    s = str(s)
+    s = re.sub(r"\s*_+\s*", " ", s)   # remove standalone/trailing underscores
+    s = re.sub(r"\s{2,}", " ", s)     # collapse whitespace
+    return s.strip()
+
+
+def _is_decorative_image(img, page_w=595.0, page_h=842.0):
+    w = float(img.get("width", 0) or 0)
+    h = float(img.get("height", 0) or 0)
+    if w <= 0 or h <= 0:
+        return False
+    aspect = w / h if h else 1.0
+    near_square = 0.7 <= aspect <= 1.4
+    bb = img.get("bbox")
+    if isinstance(bb, (list, tuple)) and len(bb) >= 4:
+        bw = abs(bb[2] - bb[0]); bh = abs(bb[3] - bb[1])
+        area_frac = (bw * bh) / (page_w * page_h)
+    else:
+        area_frac = (w * h) / (page_w * page_h)
+    return near_square and area_frac >= 0.22
+
+
+def _load_oncquest_theme(theme_config=None):
+    theme_config = theme_config or {}
+    tj = {}
+    tj_path = Path("theme.json")
+    if tj_path.exists():
+        try:
+            with open(tj_path, "r", encoding="utf-8") as f:
+                tj = json.load(f)
+        except Exception:
+            tj = {}
+
+    colors = tj.get("colors", {}) or {}
+    text = colors.get("text", {}) or {}
+    fonts = tj.get("fonts", {}) or {}
+    families = fonts.get("families", {}) or {}
+    sizes = fonts.get("sizes", {}) or {}
+    comps = tj.get("components", {}) or {}
+    eor = comps.get("end_of_report_marker", {}) or {}
+
+    def clean_font(css, fallback="Cambria"):
+        if not css or not isinstance(css, str):
+            return fallback
+        first = css.split(",")[0].strip().strip("'\"")
+        if first.lower() in ("bold", "italic", "bolditalic", "serif", "sans-serif"):
+            return fallback
+        return first or fallback
+
+    def clean_hex(h, fallback):
+        if not h or not isinstance(h, str):
+            return fallback
+        h = h.strip().lstrip("#")
+        return h if len(h) == 6 else fallback
+
+    border = colors.get("border")
+    border_primary = border.get("primary") if isinstance(border, dict) else None
+    primary = theme_config.get("primary_color") or colors.get("primary") or "#1f497d"
+
+    return {
+        "primary": clean_hex(primary, "1f497d"),
+        "banner_dark": clean_hex(colors.get("banner_dark"), "404040"),
+        "border": clean_hex(border_primary, "1f497d"),
+        "body_color": clean_hex(text.get("primary"), "000000"),
+        "header_text": clean_hex(text.get("white"), "ffffff"),
+        "font": clean_font(families.get("primary"), "Cambria"),
+        "table_header_font": clean_font(families.get("table_header"), "Cambria"),
+        "body_pt": float(sizes.get("body_pt", 10.0)),
+        "banner_pt": float(sizes.get("banner_pt", 13.0)),
+        "table_header_pt": float(sizes.get("table_header_pt", 9.5)),
+        "eor_text": eor.get("text_pattern",
+                            "------------------ End Of Report ------------------"),
+        "eor_font": clean_font(eor.get("font_family"), "Calibri"),
+        "eor_pt": float(eor.get("font_size_pt", 10.0)),
+        "eor_color": clean_hex(eor.get("text_color"), "000000"),
+    }
+
+
 def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict = None):
-    """
-    Converts extracted JSON document data into a beautifully formatted Microsoft Word (.docx) file.
-    Renders styled headers, metadata key-value tables, content sections with colored callouts,
-    formatted data tables with colored header rows and cell borders, images, and signature blocks.
-    Returns bytes of the Word file, or writes to output_path if provided.
-    """
     from docx import Document
-    from docx.shared import Inches, Pt, RGBColor
+    from docx.shared import Pt, RGBColor, Inches
     from docx.enum.text import WD_ALIGN_PARAGRAPH
     from docx.enum.table import WD_TABLE_ALIGNMENT
+    from docx.oxml.ns import qn
+    from docx.oxml import OxmlElement
 
-    if not theme_config:
-        theme_config = {}
+    T = _load_oncquest_theme(theme_config)
 
-    primary_hex = theme_config.get("primary_color", "#1f497d").lstrip("#")
-    if len(primary_hex) == 6:
-        p_r, p_g, p_b = int(primary_hex[0:2], 16), int(primary_hex[2:4], 16), int(primary_hex[4:6], 16)
-    else:
-        p_r, p_g, p_b = 31, 73, 125
-        primary_hex = "1F497D"
-    primary_color_rgb = RGBColor(p_r, p_g, p_b)
+    def rgb(hx):
+        return RGBColor(int(hx[0:2], 16), int(hx[2:4], 16), int(hx[4:6], 16))
 
+    # ---------- xml helpers ----------
+    def shade_cell(cell, fill):
+        tcPr = cell._tc.get_or_add_tcPr()
+        shd = OxmlElement("w:shd")
+        shd.set(qn("w:val"), "clear"); shd.set(qn("w:color"), "auto")
+        shd.set(qn("w:fill"), fill); tcPr.append(shd)
+
+    def shade_para(paragraph, fill):
+        pPr = paragraph._p.get_or_add_pPr()
+        shd = OxmlElement("w:shd")
+        shd.set(qn("w:val"), "clear"); shd.set(qn("w:color"), "auto")
+        shd.set(qn("w:fill"), fill); pPr.append(shd)
+
+    def cell_margins(cell, t=40, b=40, l=80, r=80):
+        tcPr = cell._tc.get_or_add_tcPr()
+        m = OxmlElement("w:tcMar")
+        for tag, val in (("top", t), ("bottom", b), ("start", l), ("end", r)):
+            n = OxmlElement(f"w:{tag}")
+            n.set(qn("w:w"), str(val)); n.set(qn("w:type"), "dxa"); m.append(n)
+        tcPr.append(m)
+
+    def table_borders(table, color, sz=4):
+        tblPr = table._tbl.tblPr
+        b = OxmlElement("w:tblBorders")
+        for edge in ("top", "left", "bottom", "right", "insideH", "insideV"):
+            e = OxmlElement(f"w:{edge}")
+            e.set(qn("w:val"), "single"); e.set(qn("w:sz"), str(sz))
+            e.set(qn("w:space"), "0"); e.set(qn("w:color"), color); b.append(e)
+        tblPr.append(b)
+
+    def set_repeat_header(row):
+        """Make a table's header row repeat on every page."""
+        trPr = row._tr.get_or_add_trPr()
+        th = OxmlElement("w:tblHeader"); th.set(qn("w:val"), "true")
+        trPr.append(th)
+
+    def set_cant_split(row):
+        """Prevent a row from splitting across pages."""
+        trPr = row._tr.get_or_add_trPr()
+        cs = OxmlElement("w:cantSplit"); cs.set(qn("w:val"), "true")
+        trPr.append(cs)
+
+    # ---------- render primitives ----------
+    def add_banner(doc, txt, fill, big=False):
+        txt = _clean_text(txt)
+        if not txt:
+            return
+        p = doc.add_paragraph()
+        p.paragraph_format.space_before = Pt(6)
+        p.paragraph_format.space_after = Pt(3)
+        p.paragraph_format.keep_with_next = True  # heading stays with its content
+        shade_para(p, fill)
+        run = p.add_run(txt); run.bold = True
+        run.font.name = T["font"]
+        run.font.size = Pt(T["banner_pt"] if big else T["body_pt"] + 1.0)
+        run.font.color.rgb = rgb(T["header_text"])
+
+    def add_para(doc, txt):
+        txt = _clean_text(txt)
+        if not txt:
+            return
+        p = doc.add_paragraph()
+        p.paragraph_format.space_after = Pt(3)
+        p.paragraph_format.line_spacing = 1.15
+        run = p.add_run(txt)
+        run.font.name = T["font"]; run.font.size = Pt(T["body_pt"])
+        run.font.color.rgb = rgb(T["body_color"])
+
+    def add_kv_table(doc, kv):
+        if not kv:
+            return
+        tbl = doc.add_table(rows=0, cols=2)
+        table_borders(tbl, T["border"])
+        tbl.alignment = WD_TABLE_ALIGNMENT.LEFT
+        for k, v in kv.items():
+            cells = tbl.add_row().cells
+            set_cant_split(tbl.rows[-1])
+            cell_margins(cells[0]); cell_margins(cells[1])
+            kr = cells[0].paragraphs[0].add_run(_clean_text(k))
+            kr.bold = True; kr.font.name = T["font"]; kr.font.size = Pt(T["body_pt"])
+            kr.font.color.rgb = rgb(T["primary"])
+            vr = cells[1].paragraphs[0].add_run(_clean_text(v))
+            vr.font.name = T["font"]; vr.font.size = Pt(T["body_pt"])
+            vr.font.color.rgb = rgb(T["body_color"])
+        doc.add_paragraph().paragraph_format.space_after = Pt(2)
+
+    def add_data_table(doc, tab):
+        headers = [_clean_text(h) for h in (tab.get("headers") or [])]
+        rows = [[_clean_text(c) for c in (r or [])] for r in (tab.get("rows") or [])]
+
+        if (not headers or not any(headers)) and rows:  # empty header -> promote row 0
+            headers = rows[0]; rows = rows[1:]
+        if not any(headers) and not any(any(c for c in r) for r in rows):  # empty table
+            return
+
+        ncols = max([len(headers)] + [len(r) for r in rows] + [0])
+        if ncols == 0:
+            return
+        headers = (headers + [""] * ncols)[:ncols]
+        rows = [(r + [""] * ncols)[:ncols] for r in rows]
+
+        has_header = any(headers)
+        tbl = doc.add_table(rows=1 if has_header else 0, cols=ncols)
+        table_borders(tbl, T["border"])
+        tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
+
+        if has_header:
+            hrow = tbl.rows[0]
+            set_repeat_header(hrow)   # header repeats across pages
+            set_cant_split(hrow)
+            for i in range(ncols):
+                cell = hrow.cells[i]
+                shade_cell(cell, T["primary"]); cell_margins(cell)
+                para = cell.paragraphs[0]; para.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                run = para.add_run(headers[i]); run.bold = True
+                run.font.name = T["table_header_font"]
+                run.font.size = Pt(T["table_header_pt"])
+                run.font.color.rgb = rgb(T["header_text"])
+
+        for r in rows:
+            cells = tbl.add_row().cells
+            set_cant_split(tbl.rows[-1])   # a row never splits across pages
+            for i in range(ncols):
+                cell_margins(cells[i])
+                run = cells[i].paragraphs[0].add_run(r[i])
+                run.font.name = T["font"]; run.font.size = Pt(T["body_pt"])
+                run.font.color.rgb = rgb(T["body_color"])
+        doc.add_paragraph().paragraph_format.space_after = Pt(2)
+
+    def add_image(doc, img):
+        if _is_decorative_image(img):       # skip watermark circles
+            return
+        uri = img.get("data_uri", "")
+        if not uri or "," not in uri:
+            return
+        try:
+            raw = base64.b64decode(uri.split(",", 1)[1])
+            stream = io.BytesIO(raw)
+            w = float(img.get("width", 0) or 0)
+            p = doc.add_paragraph(); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            run = p.add_run()
+            width_in = min(6.0, w / 96.0) if w else 4.0
+            run.add_picture(stream, width=Inches(max(1.0, width_in)))
+        except Exception:
+            pass
+
+    def bbox_top(el):
+        bb = el.get("bbox")
+        if isinstance(bb, (list, tuple)) and len(bb) >= 2:
+            return (bb[1], bb[0])   # sort by top-Y then left-X
+        return (10_000_000, 0)
+
+    def content_lines(box):
+        ct = box.get("content_text", [])
+        if isinstance(ct, str):
+            return [ct]
+        if isinstance(ct, list):
+            return [str(x) for x in ct]
+        return []
+
+    # ---------------- build document ----------------
     doc = Document()
 
-    # Set 0.75 in margins
-    for section in doc.sections:
-        section.top_margin = Inches(0.75)
-        section.bottom_margin = Inches(0.75)
-        section.left_margin = Inches(0.75)
-        section.right_margin = Inches(0.75)
+    normal = doc.styles["Normal"]
+    normal.font.name = T["font"]; normal.font.size = Pt(T["body_pt"])
+    rpr = normal.element.get_or_add_rPr()
+    rfonts = rpr.get_or_add_rFonts()
+    rfonts.set(qn("w:ascii"), T["font"]); rfonts.set(qn("w:hAnsi"), T["font"])
 
-    doc_summary = data.get("document_summary", {})
-    file_name = doc_summary.get("file_name", "Document Report")
-    header_title = theme_config.get("header_title", file_name.upper().replace(".PDF", ""))
-    header_subtitle = theme_config.get("header_subtitle", "Universal Dynamic Document Report")
+    summary = data.get("document_summary", {}) or {}
+    title = os.path.splitext(summary.get("file_name", "Report"))[0]
+    add_banner(doc, title.upper(), T["banner_dark"], big=True)
 
-    # Title Banner
-    p_title = doc.add_paragraph()
-    run_title = p_title.add_run(header_title)
-    run_title.font.name = 'Arial'
-    run_title.font.size = Pt(18)
-    run_title.font.bold = True
-    run_title.font.color.rgb = primary_color_rgb
-    p_title.paragraph_format.space_after = Pt(2)
-
-    p_sub = doc.add_paragraph()
-    run_sub = p_sub.add_run(header_subtitle)
-    run_sub.font.name = 'Arial'
-    run_sub.font.size = Pt(9.5)
-    run_sub.font.color.rgb = RGBColor(100, 116, 139)
-    p_sub.paragraph_format.space_after = Pt(12)
-
-    # 1. Metadata Key-Value Table
     kv = data.get("all_key_value_pairs") or data.get("extracted_key_value_pairs") or {}
     if kv:
-        p_kv_heading = doc.add_paragraph()
-        run_kvh = p_kv_heading.add_run("📋 Header Metadata & Key Information")
-        run_kvh.font.name = 'Arial'
-        run_kvh.font.size = Pt(11)
-        run_kvh.font.bold = True
-        run_kvh.font.color.rgb = primary_color_rgb
-        p_kv_heading.paragraph_format.space_after = Pt(4)
+        add_banner(doc, "DETAILS", T["primary"])
+        add_kv_table(doc, kv)
 
-        kv_items = list(kv.items())
-        table_rows = (len(kv_items) + 1) // 2
-        table = doc.add_table(rows=table_rows, cols=4)
-        table.alignment = WD_TABLE_ALIGNMENT.CENTER
-        table.autofit = False
+    seen = set()
 
-        for i in range(0, len(kv_items), 2):
-            r_idx = i // 2
-            row = table.rows[r_idx]
+    def render_page(page):
+        boxes = page.get("boxes_and_sections") or []
+        tables = page.get("tables") or []
+        images = page.get("images_and_graphs") or []
+        text_blocks = page.get("text_blocks") or []
 
-            k1, v1 = kv_items[i]
-            k2, v2 = kv_items[i+1] if (i+1) < len(kv_items) else ("", "")
+        items = []
+        for b in boxes:
+            items.append(("box", bbox_top(b), b))
+        for t in tables:
+            items.append(("table", bbox_top(t), t))
+        for im in images:
+            items.append(("image", bbox_top(im), im))
+        if not boxes and text_blocks:      # fallback so nothing is lost
+            for tb in text_blocks:
+                items.append(("textblock", bbox_top(tb), tb))
 
-            row.cells[0].text = f"{k1}:"
-            row.cells[1].text = str(v1)
-            row.cells[2].text = f"{k2}:" if k2 else ""
-            row.cells[3].text = str(v2) if k2 else ""
+        items.sort(key=lambda x: x[1])     # bbox used ONLY for ordering
 
-            for col_idx in [0, 2]:
-                cell = row.cells[col_idx]
-                _set_cell_background(cell, "F1F5F9")
-                _set_cell_borders(cell, border_color="CBD5E1")
-                if cell.paragraphs[0].runs:
-                    cell.paragraphs[0].runs[0].font.bold = True
-                    cell.paragraphs[0].runs[0].font.size = Pt(9.0)
-                    cell.paragraphs[0].runs[0].font.name = 'Arial'
-                    cell.paragraphs[0].runs[0].font.color.rgb = primary_color_rgb
-            for col_idx in [1, 3]:
-                cell = row.cells[col_idx]
-                _set_cell_background(cell, "FFFFFF")
-                _set_cell_borders(cell, border_color="CBD5E1")
-                if cell.paragraphs[0].runs:
-                    cell.paragraphs[0].runs[0].font.size = Pt(9.0)
-                    cell.paragraphs[0].runs[0].font.name = 'Arial'
+        for kind, _pos, el in items:
+            if kind == "box":
+                ttl = _clean_text(el.get("title"))
+                if ttl and ttl.lower() != "general content / notes":
+                    add_banner(doc, ttl, T["primary"])
+                for line in content_lines(el):
+                    s = _clean_text(line)
+                    if s and s not in seen:
+                        seen.add(s); add_para(doc, s)
+            elif kind == "table":
+                add_data_table(doc, el)
+            elif kind == "image":
+                add_image(doc, el)
+            elif kind == "textblock":
+                s = _clean_text(el.get("text", ""))
+                if s and s not in seen:
+                    seen.add(s); add_para(doc, s)
 
-        doc.add_paragraph().paragraph_format.space_after = Pt(8)
+    pages = data.get("pages") or []
+    if pages:
+        for page in pages:
+            render_page(page)
+    else:
+        for sec in data.get("all_boxes_and_sections") or data.get("content_sections") or []:
+            ttl = _clean_text(sec.get("title"))
+            if ttl and ttl.lower() != "general content / notes":
+                add_banner(doc, ttl, T["primary"])
+            for line in content_lines(sec):
+                s = _clean_text(line)
+                if s and s not in seen:
+                    seen.add(s); add_para(doc, s)
+        for tb in data.get("all_tables") or data.get("tables") or []:
+            add_data_table(doc, tb)
+        for im in data.get("all_images_and_graphs") or data.get("images_and_graphs") or []:
+            add_image(doc, im)
 
-    # 2. Content Sections
-    sections = data.get("all_boxes_and_sections") or data.get("content_sections") or []
-    if sections:
-        for sec in sections:
-            title = sec.get("title", "").strip()
-            sec_type = sec.get("type", "")
-            if sec_type == "demographics_box" or title.startswith("Header & Metadata Box"):
-                continue
-
-            content_text = sec.get("content_text", [])
-            if isinstance(content_text, list):
-                body_lines = [t.strip() for t in content_text if t.strip()]
-            else:
-                body_lines = [str(content_text).strip()]
-
-            if not title and not body_lines:
-                continue
-
-            if title:
-                p_sec = doc.add_paragraph()
-                r_sec = p_sec.add_run(f"📌 {title}")
-                r_sec.font.name = 'Arial'
-                r_sec.font.size = Pt(11)
-                r_sec.font.bold = True
-                r_sec.font.color.rgb = primary_color_rgb
-                p_sec.paragraph_format.space_before = Pt(8)
-                p_sec.paragraph_format.space_after = Pt(4)
-
-            for line in body_lines:
-                p_body = doc.add_paragraph()
-                r_body = p_body.add_run(line)
-                r_body.font.name = 'Arial'
-                r_body.font.size = Pt(9.5)
-                p_body.paragraph_format.line_spacing = 1.15
-                p_body.paragraph_format.space_after = Pt(3)
-
-        doc.add_paragraph().paragraph_format.space_after = Pt(8)
-
-    # 3. Data Tables
-    tables = data.get("all_tables") or data.get("tables") or []
-    if tables:
-        for t_idx, tab in enumerate(tables):
-            headers = tab.get("headers", [])
-            rows = tab.get("rows", [])
-            page_n = tab.get("page", 1)
-
-            if not headers and not rows:
-                continue
-
-            p_tbl = doc.add_paragraph()
-            r_tbl = p_tbl.add_run(f"📊 Table {t_idx + 1} (Page {page_n})")
-            r_tbl.font.name = 'Arial'
-            r_tbl.font.size = Pt(11)
-            r_tbl.font.bold = True
-            r_tbl.font.color.rgb = primary_color_rgb
-            p_tbl.paragraph_format.space_before = Pt(8)
-            p_tbl.paragraph_format.space_after = Pt(4)
-
-            total_rows = (1 if headers else 0) + len(rows)
-            num_cols = max(len(headers), max((len(r) for r in rows), default=1))
-
-            docx_table = doc.add_table(rows=total_rows, cols=num_cols)
-            docx_table.alignment = WD_TABLE_ALIGNMENT.CENTER
-            docx_table.autofit = False
-
-            curr_r = 0
-            if headers:
-                hdr_cells = docx_table.rows[0].cells
-                for c_i, h in enumerate(headers):
-                    if c_i < len(hdr_cells):
-                        hdr_cells[c_i].text = str(h)
-                        _set_cell_background(hdr_cells[c_i], primary_hex)
-                        _set_cell_borders(hdr_cells[c_i], border_color=primary_hex)
-                        if hdr_cells[c_i].paragraphs[0].runs:
-                            hdr_cells[c_i].paragraphs[0].runs[0].font.bold = True
-                            hdr_cells[c_i].paragraphs[0].runs[0].font.size = Pt(9.5)
-                            hdr_cells[c_i].paragraphs[0].runs[0].font.name = 'Arial'
-                            hdr_cells[c_i].paragraphs[0].runs[0].font.color.rgb = RGBColor(255, 255, 255)
-                curr_r += 1
-
-            for r_idx, r in enumerate(rows):
-                if curr_r < total_rows:
-                    row_cells = docx_table.rows[curr_r].cells
-                    bg_color = "F8FAFC" if (r_idx % 2 == 1) else "FFFFFF"
-                    for c_i, cell_v in enumerate(r):
-                        if c_i < len(row_cells):
-                            row_cells[c_i].text = str(cell_v)
-                            _set_cell_background(row_cells[c_i], bg_color)
-                            _set_cell_borders(row_cells[c_i], border_color="CBD5E1")
-                            if row_cells[c_i].paragraphs[0].runs:
-                                row_cells[c_i].paragraphs[0].runs[0].font.size = Pt(9.0)
-                                row_cells[c_i].paragraphs[0].runs[0].font.name = 'Arial'
-                    curr_r += 1
-
-            p_sp = doc.add_paragraph()
-            p_sp.paragraph_format.space_after = Pt(8)
-
-    # 4. Footer / Signatures
-    show_footer_signatures = theme_config.get("show_footer_signatures", True)
-    if show_footer_signatures:
-        p_sig_head = doc.add_paragraph()
-        p_sig_head.paragraph_format.space_before = Pt(16)
-        
-        sig_labels = theme_config.get("footer_signature_labels", ["Prepared / Verified By", "Reviewing Officer", "Authorized Signatory"])
-        sig_table = doc.add_table(rows=2, cols=len(sig_labels))
-        sig_table.alignment = WD_TABLE_ALIGNMENT.CENTER
-        sig_table.autofit = False
-
-        for c_idx, label in enumerate(sig_labels):
-            cell_top = sig_table.rows[0].cells[c_idx]
-            cell_top.text = "_______________________\n(Signature / Stamp)"
-            _set_cell_borders(cell_top, border_color="FFFFFF")
-            if cell_top.paragraphs[0].runs:
-                cell_top.paragraphs[0].runs[0].font.size = Pt(8.5)
-                cell_top.paragraphs[0].runs[0].font.name = 'Arial'
-                cell_top.paragraphs[0].runs[0].font.color.rgb = RGBColor(148, 163, 184)
-            cell_top.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
-
-            cell_bot = sig_table.rows[1].cells[c_idx]
-            cell_bot.text = label
-            _set_cell_borders(cell_bot, border_color="FFFFFF")
-            if cell_bot.paragraphs[0].runs:
-                cell_bot.paragraphs[0].runs[0].font.bold = True
-                cell_bot.paragraphs[0].runs[0].font.size = Pt(9.0)
-                cell_bot.paragraphs[0].runs[0].font.name = 'Arial'
-                cell_bot.paragraphs[0].runs[0].font.color.rgb = primary_color_rgb
-            cell_bot.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+    end = doc.add_paragraph(); end.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    er = end.add_run(T["eor_text"])
+    er.font.name = T["eor_font"]; er.font.size = Pt(T["eor_pt"])
+    er.font.color.rgb = rgb(T["eor_color"])
 
     if output_path:
         out_p = Path(output_path)
         out_p.parent.mkdir(parents=True, exist_ok=True)
         doc.save(str(out_p))
         return None
-    else:
-        buf = io.BytesIO()
-        doc.save(buf)
-        return buf.getvalue()
+    buf = io.BytesIO()
+    doc.save(buf)
+    return buf.getvalue()
 
 
 def render_json_file_to_html(json_path, output_path: str = None, theme_config: dict = None) -> str:
@@ -752,11 +1282,12 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
     doc_title = Path(source_file).stem
     pages = data.get("pages", [])
 
-    if not theme_config:
-        theme_config = {}
-
-    primary_color = theme_config.get("primary_color", "#124b82")
-    secondary_color = theme_config.get("secondary_color", "#009966")
+    cfg = get_merged_theme_config(theme_config)
+    colors_cfg = cfg.get("colors", {})
+    primary_color = colors_cfg.get("primary", "#1f497d")
+    secondary_color = colors_cfg.get("secondary", "#008080")
+    accent_orange = colors_cfg.get("accent_orange", "#ed7d31")
+    accent_red = colors_cfg.get("accent_red", "#ff0000")
 
     def sanitize_text(text: str) -> str:
         if not text:
@@ -1078,26 +1609,24 @@ def _parse_html_soup_to_docx(soup, doc):
                                 t.rows[r_idx].cells[c_idx].text = c.get_text(strip=True)
 
 
-def convert_pdf_to_word(pdf_path, docx_path):
+def convert_pdf_to_word(pdf_path, docx_path, theme_config: dict = None):
     """
-    Convert a PDF file to Word (.docx) using extracted JSON and python-docx.
+    Convert a PDF file to Word (.docx) preserving visual layout, text, tables, images, and structure.
+    Pipeline: Input PDF -> Remove Header/Footer -> Extract Content -> extracted.json -> Apply theme.json -> Generate .docx
     """
+    pdf_path = Path(pdf_path).absolute()
+    docx_path = Path(docx_path).absolute()
+    docx_path.parent.mkdir(parents=True, exist_ok=True)
+
     try:
-        pdf_path = Path(pdf_path).absolute()
-        docx_path = Path(docx_path).absolute()
         extracted_data = extract_report_data(str(pdf_path))
         if extracted_data:
-            convert_json_to_docx(extracted_data, output_path=str(docx_path))
-            return docx_path
-        else:
-            from pdf2docx import Converter as DocxConverter
-            docx_path.parent.mkdir(parents=True, exist_ok=True)
-            cv = DocxConverter(str(pdf_path))
-            cv.convert(str(docx_path), start=0, end=None)
-            cv.close()
-            return docx_path
+            return convert_json_to_docx(extracted_data, output_path=str(docx_path), theme_config=theme_config)
     except Exception as e:
-        return None
+        logger.error(f"PDF to Word pipeline failed: {e}")
+
+    return None
+
 
 
 def _get_page_bounds(page, fallback_left, fallback_width):

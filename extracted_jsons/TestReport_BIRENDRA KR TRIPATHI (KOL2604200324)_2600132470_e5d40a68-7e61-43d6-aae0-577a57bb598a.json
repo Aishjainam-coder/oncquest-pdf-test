@@ -3,9 +3,16 @@
     "file_name": "TestReport_BIRENDRA KR TRIPATHI (KOL2604200324)_2600132470_e5d40a68-7e61-43d6-aae0-577a57bb598a.pdf",
     "total_pages": 8,
     "total_tables": 5,
-    "total_boxes": 6,
+    "total_boxes": 7,
     "total_key_value_pairs": 5,
     "total_images_and_graphs": 0
+  },
+  "metadata": {
+    "Sample Description": "Sample quality is optimum for the test.",
+    "MSH2": "Deletion Exon 3-6) is classified as  Pathogenic  variant.",
+    "Case Specific Recommendations": "1. Segregation analysis of the variant by Sanger /Exome sequencing/ MLPA is recommended.",
+    "The Genome Analysis Toolkit": "a MapReduce framework for analyzing next-generation DNA sequencing data. Genome Res, 2010. 20(9)",
+    "Appendix 2": "COVERAGE SUMMARY"
   },
   "extracted_key_value_pairs": {
     "Sample Description": "Sample quality is optimum for the test.",
@@ -21,32 +28,348 @@
     "The Genome Analysis Toolkit": "a MapReduce framework for analyzing next-generation DNA sequencing data. Genome Res, 2010. 20(9)",
     "Appendix 2": "COVERAGE SUMMARY"
   },
+  "sections": [
+    {
+      "section_type": "blue_banner",
+      "title": "NGS Hereditary Cancer Panel on the Illumina Novaseq X NGS Platform",
+      "page": 1,
+      "bbox": [
+        169.49,
+        205.65,
+        425.88,
+        236.06
+      ],
+      "content_text": [
+        "Sample Description: Sample quality is optimum for the test."
+      ],
+      "paragraphs": [
+        "Sample Description: Sample quality is optimum for the test."
+      ]
+    },
+    {
+      "section_type": "blue_banner",
+      "title": "Key Findings:",
+      "page": 1,
+      "bbox": [
+        35.45,
+        404.55,
+        97.47,
+        414.55
+      ],
+      "content_text": [
+        "*Genetic test results are reported based on the recommendations of American College of Medical Genetics",
+        "Variant Interpretation & Clinical correlation:",
+        "MSH2 :Deletion Exon 3-6; The submitted sample shows Heterozygous deletion of exon 3-6 of gene MSH2 on chromosome 2. A 6.4kb deletion detected on cytoband 2p21 (?_47,410,089-47,416,441_?). This variant is absent in our internal database.",
+        "Based on above evidence, this variant (MSH2:Deletion Exon 3-6) is classified as  Pathogenic  variant.",
+        "MSH2 Gene Phenotype Description : Lynch syndrome-1 (LYNCH1), also known as hereditary nonpolyposis colorectal cancer (HNPCC1), is caused by heterozygous mutation in the mismatch repair gene MSH2 (609309) on chromosome 2p21-p16. Lynch syndrome (LYNCH), also called hereditary nonpolyposis colorectal cancer, is defined as an autosomal dominant predisposition to a spectrum of cancers, primarily of the colorectum and endometrium, which exhibit impaired DNA mismatch repair (MMR) activity (summary by Lynch et al., 2015).",
+        "Clinical Indication:",
+        "Birendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion."
+      ],
+      "paragraphs": [
+        "*Genetic test results are reported based on the recommendations of American College of Medical Genetics",
+        "Variant Interpretation & Clinical correlation:",
+        "MSH2 :Deletion Exon 3-6; The submitted sample shows Heterozygous deletion of exon 3-6 of gene MSH2 on chromosome 2. A 6.4kb deletion detected on cytoband 2p21 (?_47,410,089-47,416,441_?). This variant is absent in our internal database.",
+        "Based on above evidence, this variant (MSH2:Deletion Exon 3-6) is classified as  Pathogenic  variant.",
+        "MSH2 Gene Phenotype Description : Lynch syndrome-1 (LYNCH1), also known as hereditary nonpolyposis colorectal cancer (HNPCC1), is caused by heterozygous mutation in the mismatch repair gene MSH2 (609309) on chromosome 2p21-p16. Lynch syndrome (LYNCH), also called hereditary nonpolyposis colorectal cancer, is defined as an autosomal dominant predisposition to a spectrum of cancers, primarily of the colorectum and endometrium, which exhibit impaired DNA mismatch repair (MMR) activity (summary by Lynch et al., 2015).",
+        "Clinical Indication:",
+        "Birendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion."
+      ]
+    },
+    {
+      "section_type": "table",
+      "title": "Data Table (Page 1)",
+      "page": 1,
+      "bbox": [
+        30.17,
+        415.25,
+        565.22,
+        491.9
+      ],
+      "headers": [
+        "relationships bet  Test results are i in genes potenti",
+        "ween individuals nterpreted in the ally related to the",
+        "are accepted as true. context of clinical find proband's medical c",
+        "ings, family history ondition are report",
+        "and other laboratory d ed. Rare polymorphism",
+        "ata. Only variations s may lead to false"
+      ],
+      "rows": [
+        [
+          "negative or posi incomplete. The racial/ethnic bac information avai",
+          "tive results. Mis results should b kground. Please lable. Re-interpre",
+          "interpretation of resu e interpreted in the c note that variant class tation of multi gene n",
+          "lts may occur if t ontext of the patien ification and/or int ext generation sequ",
+          "he information provide t’s medical evaluation, erpretation may change encing data is recomme",
+          "d is inaccurate or family history and over time if more nded on an annual"
+        ]
+      ]
+    },
+    {
+      "section_type": "content_box",
+      "title": "Additional Findings :",
+      "page": 2,
+      "bbox": [
+        35.45,
+        205.09,
+        128.08,
+        215.09
+      ],
+      "content_text": [
+        "*Genetic test results are reported based on the recommendations of American College of Medical Genetics",
+        "HBB Gene Phenotype Description : Direct sequencing of specific regions of genomic DNA became feasible with the invention of the polymerase chain reaction (PCR) which permits amplification of specific regions of DNA. Recently, human mitochondrial DNA was amplified and directly sequenced. Using a thermostable DNA polymerase of T. aquaticus (Saiki, R.K. et al., manuscript in preparation) in the PCR, we have applied a combination of PCR and direct sequence analysis of the amplified product to a human single- copy gene. We studied the genomic DNA of five patients with beta-thalassaemia whose mutant alleles were uncharacterized, and found two previously undescribed mutations, along with three known alleles. One new allele is a frameshift at codons 106-107 and the other is an A-C transversion at the cap site (+1) of the beta-globin gene. This latter is the first natural mutation observed at the cap site and it occurs in a gene which is poorly expressed.",
+        "Case Specific Recommendations: 1. Segregation analysis of the variant by Sanger /Exome sequencing/ MLPA is recommended.",
+        "Recommendations  Genetic counseling is advised for interpretation on the consequences of the variant(s).  We recommend confirming the presence of these variants by Sanger Sequencing/ MLPA.  Segregation analysis of the variant by Sanger /Exome sequencing/ MLPA is recommended.  The significance/classification of the variants might change based on parental and family members genetic testing.  For questions about this report, or for assistance in locating nearby genetic counseling services, please contact the Laboratory:  contact@sngenelab.com .  If results obtained do not match the clinical findings, additional testing should be considered as per referring clinician's recommendation."
+      ],
+      "paragraphs": [
+        "*Genetic test results are reported based on the recommendations of American College of Medical Genetics",
+        "HBB Gene Phenotype Description : Direct sequencing of specific regions of genomic DNA became feasible with the invention of the polymerase chain reaction (PCR) which permits amplification of specific regions of DNA. Recently, human mitochondrial DNA was amplified and directly sequenced. Using a thermostable DNA polymerase of T. aquaticus (Saiki, R.K. et al., manuscript in preparation) in the PCR, we have applied a combination of PCR and direct sequence analysis of the amplified product to a human single- copy gene. We studied the genomic DNA of five patients with beta-thalassaemia whose mutant alleles were uncharacterized, and found two previously undescribed mutations, along with three known alleles. One new allele is a frameshift at codons 106-107 and the other is an A-C transversion at the cap site (+1) of the beta-globin gene. This latter is the first natural mutation observed at the cap site and it occurs in a gene which is poorly expressed.",
+        "Case Specific Recommendations: 1. Segregation analysis of the variant by Sanger /Exome sequencing/ MLPA is recommended.",
+        "Recommendations  Genetic counseling is advised for interpretation on the consequences of the variant(s).  We recommend confirming the presence of these variants by Sanger Sequencing/ MLPA.  Segregation analysis of the variant by Sanger /Exome sequencing/ MLPA is recommended.  The significance/classification of the variants might change based on parental and family members genetic testing.  For questions about this report, or for assistance in locating nearby genetic counseling services, please contact the Laboratory:  contact@sngenelab.com .  If results obtained do not match the clinical findings, additional testing should be considered as per referring clinician's recommendation."
+      ]
+    },
+    {
+      "section_type": "table",
+      "title": "Data Table (Page 2)",
+      "page": 2,
+      "bbox": [
+        30.09,
+        216.69,
+        565.31,
+        293.4
+      ],
+      "headers": [
+        " Sequence and copy  The transcript used",
+        "number varia for clinical",
+        "nts are reported ac reporting generally",
+        "cording to the Hu represents the c",
+        "man Genome Variation So anonical transcript, whic",
+        "ciety (HGVS). h is usually the longest"
+      ],
+      "rows": [
+        [
+          "coding transcript w alternate complete c *Variant classification as",
+          "ith strong/ oding transc per ACMG g",
+          "multiple supportin ripts could also be uidelines:",
+          "g evidence. How reported.",
+          "ever, clinically relevant",
+          "variants annotated in"
+        ]
+      ]
+    },
+    {
+      "section_type": "content_box",
+      "title": "General Content / Notes",
+      "page": 3,
+      "bbox": [
+        35.45,
+        206.04,
+        559.93,
+        336.14
+      ],
+      "content_text": [
+        " This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study."
+      ],
+      "paragraphs": [
+        " This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study."
+      ]
+    },
+    {
+      "section_type": "content_box",
+      "title": "General Content / Notes",
+      "page": 4,
+      "bbox": [
+        35.45,
+        205.59,
+        559.93,
+        263.59
+      ],
+      "content_text": [
+        "origin of the sequence data in such regions.  Sequence and copy number variants are reported according to the Human Genome Variation Society (HGVS).  The transcript used for clinical reporting generally represents the canonical transcript, which is usually the longest coding transcript with strong/multiple supporting evidence. However, clinically relevant variants annotated in alternate complete coding transcripts could also be reported.",
+        "References : 1. Richards S, Aziz N, Bale S, et al. Standards and guidelines for the interpretation of sequence variants: a joint consensus recommendation of the American College of Medical Genetics and Genomics and the Association for Molecular Pathology, Genetics in Medicine, 2015 May;17(5):405-24",
+        "2. Kalia S.S. et al., Recommendations for reporting of secondary findings in clinical exome and genome sequencing, 2016 update(ACMG SF v2.0): a policy statement of the American College of Medical Genetics and Genomics. Genet Med., 19(2):249-255, 2017."
+      ],
+      "paragraphs": [
+        "origin of the sequence data in such regions.  Sequence and copy number variants are reported according to the Human Genome Variation Society (HGVS).  The transcript used for clinical reporting generally represents the canonical transcript, which is usually the longest coding transcript with strong/multiple supporting evidence. However, clinically relevant variants annotated in alternate complete coding transcripts could also be reported.",
+        "References : 1. Richards S, Aziz N, Bale S, et al. Standards and guidelines for the interpretation of sequence variants: a joint consensus recommendation of the American College of Medical Genetics and Genomics and the Association for Molecular Pathology, Genetics in Medicine, 2015 May;17(5):405-24",
+        "2. Kalia S.S. et al., Recommendations for reporting of secondary findings in clinical exome and genome sequencing, 2016 update(ACMG SF v2.0): a policy statement of the American College of Medical Genetics and Genomics. Genet Med., 19(2):249-255, 2017."
+      ]
+    },
+    {
+      "section_type": "table",
+      "title": "Data Table (Page 4)",
+      "page": 4,
+      "bbox": [
+        30.13,
+        276.39,
+        565.27,
+        569.9
+      ],
+      "headers": [
+        "5. 1000 Genomes Project Consortium et al., A global reference for human genetic variation. Nature, 526(7571): 68-74, 2015.",
+        ""
+      ],
+      "rows": [
+        [
+          "6. Lek M. et al., Analysis",
+          "of protein-coding genetic variation in 60,706 humans. Nature, 536(7616):285-91, 2016."
+        ],
+        [
+          "7. McLaren, W., et al., De Bioinformatics, 2010. 26 Appendix 1: SAMPLE",
+          "riving the consequences of genomic variants with the Ensembl API and SNP Effect Predictor. (16): p. 2069-70. DATA AND STATISTICS"
+        ],
+        [
+          "Title Total data generated (G Total Reads (%)",
+          "Data b) 8.09 100.00"
+        ],
+        [
+          "Total reads aligned (%) Data >Q30 (%) Appendix 2: COVERAG",
+          "99.30 96.93 E SUMMARY"
+        ],
+        [
+          "Mean Depth 80.16x",
+          "Percentage target base pairs covered 1x 5x 20x 98.71% 98.42% 97.85%"
+        ],
+        [
+          "Appendix 3: MTDNA G Gene Re MT-ATP6 10 MT-ATP8 10 MT-CO1 10",
+          "ENES gion covered Gene Region covered Gene Region covered 0.00% MT-ND6 100.00% MT-TL1 100.00% 0.00% MT-RNR1 100.00% MT-TL2 100.00% 0.00% MT-RNR2 100.00% MT-TM 100.00%"
+        ]
+      ]
+    },
+    {
+      "section_type": "content_box",
+      "title": "General Content / Notes",
+      "page": 5,
+      "bbox": [
+        35.45,
+        205.09,
+        533.06,
+        226.82
+      ],
+      "content_text": [
+        "3. Meyer, L.R., et al., The UCSC Genome Browser database: extensions and updates 2013. Nucleic Acids Res, 2013. 41(D1): p.D64-9.",
+        "4. McKenna, A., et al., The Genome Analysis Toolkit: a MapReduce framework for analyzing next-generation DNA sequencing data. Genome Res, 2010. 20(9): p. 1297-303",
+        "5. 1000 Genomes Project Consortium et al., A global reference for human genetic variation. Nature, 526(7571): 68-74, 2015.",
+        "6. Lek M. et al., Analysis of protein-coding genetic variation in 60,706 humans. Nature, 536(7616):285-91, 2016.",
+        "7. McLaren, W., et al., Deriving the consequences of genomic variants with the Ensembl API and SNP Effect Predictor. Bioinformatics, 2010. 26(16): p. 2069-70."
+      ],
+      "paragraphs": [
+        "3. Meyer, L.R., et al., The UCSC Genome Browser database: extensions and updates 2013. Nucleic Acids Res, 2013. 41(D1): p.D64-9.",
+        "4. McKenna, A., et al., The Genome Analysis Toolkit: a MapReduce framework for analyzing next-generation DNA sequencing data. Genome Res, 2010. 20(9): p. 1297-303",
+        "5. 1000 Genomes Project Consortium et al., A global reference for human genetic variation. Nature, 526(7571): 68-74, 2015.",
+        "6. Lek M. et al., Analysis of protein-coding genetic variation in 60,706 humans. Nature, 536(7616):285-91, 2016.",
+        "7. McLaren, W., et al., Deriving the consequences of genomic variants with the Ensembl API and SNP Effect Predictor. Bioinformatics, 2010. 26(16): p. 2069-70."
+      ]
+    },
+    {
+      "section_type": "table",
+      "title": "Data Table (Page 5)",
+      "page": 5,
+      "bbox": [
+        30.08,
+        358.89,
+        565.32,
+        433.58
+      ],
+      "headers": [
+        "Title",
+        "Data"
+      ],
+      "rows": [
+        [
+          "Total data generated (Gb)",
+          "8.09"
+        ],
+        [
+          "Total Reads (%)",
+          "100.00"
+        ],
+        [
+          "Total reads aligned (%)",
+          "99.30"
+        ],
+        [
+          "Data >Q30 (%)",
+          "96.93"
+        ]
+      ]
+    },
+    {
+      "section_type": "table",
+      "title": "Data Table (Page 5)",
+      "page": 5,
+      "bbox": [
+        30.08,
+        458.54,
+        565.32,
+        498.76
+      ],
+      "headers": [
+        "Mean Depth",
+        "Percentage target base pairs covered",
+        "",
+        ""
+      ],
+      "rows": [
+        [
+          "80.16x",
+          "1x",
+          "5x",
+          "20x"
+        ],
+        [
+          "",
+          "98.71%",
+          "98.42%",
+          "97.85%"
+        ]
+      ]
+    },
+    {
+      "section_type": "content_box",
+      "title": "General Content / Notes",
+      "page": 8,
+      "bbox": [
+        35.45,
+        205.59,
+        520.12,
+        386.72
+      ],
+      "content_text": [
+        "PIK3R1 100.00% PRKCD 100.00% RAC2 100.00% RASGRP1 100.00% RHOH 100.00% STAT3 100.00% STK4 100.00% TPP2 100.00% XIAP 100.00% CREBBP 100.00% MYD88 100.00% STAT6 100.00% B2M 100.00% EP300 100.00% NOTCH1 100.00% TET2 100.00% BCL2 100.00% NOTCH2 100.00% TNFAIP3 100.00% FOXO1 100.00% TNFRSF14 100.00% GNA13 100.00% PIM1 100.00% CD79A 100.00% KMT2D 100.00% CD79B 100.00% MYC 100.00% SOCS1 100.00% FAN1 100.00% CDK12 100.00% CHEK1 100.00% CUL2 100.00% DIS3 100.00% ERBB2 100.00% ESR2 100.00% TDO2 100.00% GFAP 100.00% MED12 100.00% PPP2R2A 100.00% RAD54L 100.00% SLC45A2 100.00% SPOP 100.00% TYR 100.00% MBD4 100.00% HBB 100.00%",
+        "------------------ End Of Report ------------------"
+      ],
+      "paragraphs": [
+        "PIK3R1 100.00% PRKCD 100.00% RAC2 100.00% RASGRP1 100.00% RHOH 100.00% STAT3 100.00% STK4 100.00% TPP2 100.00% XIAP 100.00% CREBBP 100.00% MYD88 100.00% STAT6 100.00% B2M 100.00% EP300 100.00% NOTCH1 100.00% TET2 100.00% BCL2 100.00% NOTCH2 100.00% TNFAIP3 100.00% FOXO1 100.00% TNFRSF14 100.00% GNA13 100.00% PIM1 100.00% CD79A 100.00% KMT2D 100.00% CD79B 100.00% MYC 100.00% SOCS1 100.00% FAN1 100.00% CDK12 100.00% CHEK1 100.00% CUL2 100.00% DIS3 100.00% ERBB2 100.00% ESR2 100.00% TDO2 100.00% GFAP 100.00% MED12 100.00% PPP2R2A 100.00% RAD54L 100.00% SLC45A2 100.00% SPOP 100.00% TYR 100.00% MBD4 100.00% HBB 100.00%",
+        "------------------ End Of Report ------------------"
+      ]
+    }
+  ],
   "tables": [
     {
       "page": 1,
       "table_index": 1,
       "bbox": [
-        30.1,
-        415.22,
-        565.3,
-        491.92
+        30.17,
+        415.25,
+        565.22,
+        491.9
       ],
       "headers": [
-        "Gene & Transcript",
-        "Location",
-        "Variant",
-        "Zygosity/ Inheritance",
-        "Phenotype",
-        "Clinical Significance"
+        "relationships bet  Test results are i in genes potenti",
+        "ween individuals nterpreted in the ally related to the",
+        "are accepted as true. context of clinical find proband's medical c",
+        "ings, family history ondition are report",
+        "and other laboratory d ed. Rare polymorphism",
+        "ata. Only variations s may lead to false"
       ],
       "rows": [
         [
-          "MSH2 (+) NM 000251.3 _",
-          "2p21 (? 47,410,089- _ 47,416,441 ?) _ Exon 3-6",
-          "c.367-? c.1076+? _ 6.4kb",
-          "Heterozygous /Autosomal Dominant",
-          "Lynch syndrome 1",
-          "Pathogenic"
+          "negative or posi incomplete. The racial/ethnic bac information avai",
+          "tive results. Mis results should b kground. Please lable. Re-interpre",
+          "interpretation of resu e interpreted in the c note that variant class tation of multi gene n",
+          "lts may occur if t ontext of the patien ification and/or int ext generation sequ",
+          "he information provide t’s medical evaluation, erpretation may change encing data is recomme",
+          "d is inaccurate or family history and over time if more nded on an annual"
         ]
       ]
     },
@@ -60,21 +383,21 @@
         293.4
       ],
       "headers": [
-        "Gene & Transcript",
-        "Location",
-        "Variant & Depth/VAF",
-        "Zygosity/ Inheritance",
-        "Phenotype",
-        "Clinical Significance"
+        " Sequence and copy  The transcript used",
+        "number varia for clinical",
+        "nts are reported ac reporting generally",
+        "cording to the Hu represents the c",
+        "man Genome Variation So anonical transcript, whic",
+        "ciety (HGVS). h is usually the longest"
       ],
       "rows": [
         [
-          "HBB (-) NM 000518.5 _ (chr11:g.5227071T>G)",
-          "Exon 1",
-          "c.-50A>C (5' prime UTR variant) 49x/51%",
-          "Heterozygous /Autosomal Recessive",
-          "Beta-thalassemia HBB",
-          "Pathogenic (PM2, PM3, PP5)"
+          "coding transcript w alternate complete c *Variant classification as",
+          "ith strong/ oding transc per ACMG g",
+          "multiple supportin ripts could also be uidelines:",
+          "g evidence. How reported.",
+          "ever, clinically relevant",
+          "variants annotated in"
         ]
       ]
     },
@@ -88,33 +411,33 @@
         569.9
       ],
       "headers": [
-        "*Variant classification as per ACMG guidelines:",
+        "5. 1000 Genomes Project Consortium et al., A global reference for human genetic variation. Nature, 526(7571): 68-74, 2015.",
         ""
       ],
       "rows": [
         [
-          "Variant",
-          "A change in a gene. This could be disease causing (pathogenic) or not disease causing (benign)."
+          "6. Lek M. et al., Analysis",
+          "of protein-coding genetic variation in 60,706 humans. Nature, 536(7616):285-91, 2016."
         ],
         [
-          "Benign",
-          "A variant which is known not to be responsible for disease has been detected. Generally, no further action is warranted on such variants when detected."
+          "7. McLaren, W., et al., De Bioinformatics, 2010. 26 Appendix 1: SAMPLE",
+          "riving the consequences of genomic variants with the Ensembl API and SNP Effect Predictor. (16): p. 2069-70. DATA AND STATISTICS"
         ],
         [
-          "Likely Benign",
-          "A variant which is very unlikely to contribute to the development of disease however, the scientific evidence is currently insufficient to prove this conclusively. Additional evidence is expected to confirm this assertion of Pathogenicity."
+          "Title Total data generated (G Total Reads (%)",
+          "Data b) 8.09 100.00"
         ],
         [
-          "Pathogenic",
-          "A disease-causing variation in a gene which can explain the patient's symptoms has been detected. This usually means that a suspected disorder for which testing had been requested has been confirmed."
+          "Total reads aligned (%) Data >Q30 (%) Appendix 2: COVERAG",
+          "99.30 96.93 E SUMMARY"
         ],
         [
-          "Likely Pathogenic",
-          "A variant which is very likely to contribute to the development of disease however, the scientific evidence is currently insufficient to prove this conclusively. Additional evidence is expected to confirm this assertion of pathogenicity."
+          "Mean Depth 80.16x",
+          "Percentage target base pairs covered 1x 5x 20x 98.71% 98.42% 97.85%"
         ],
         [
-          "Variant of Uncertain Significance",
-          "A variant has been detected, but it is difficult to classify it as either pathogenic (disease causing) or benign (non-disease causing) based on current available scientific evidence. Further testing of the patient or family members as recommended by your clinician may be needed. It is probable that their significance can be assessed only with time, subject to availability of scientific evidence."
+          "Appendix 3: MTDNA G Gene Re MT-ATP6 10 MT-ATP8 10 MT-CO1 10",
+          "ENES gion covered Gene Region covered Gene Region covered 0.00% MT-ND6 100.00% MT-TL1 100.00% 0.00% MT-RNR1 100.00% MT-TL2 100.00% 0.00% MT-RNR2 100.00% MT-TM 100.00%"
         ]
       ]
     },
@@ -122,10 +445,10 @@
       "page": 5,
       "table_index": 1,
       "bbox": [
-        30.05,
-        358.81,
-        565.35,
-        433.67
+        30.08,
+        358.89,
+        565.32,
+        433.58
       ],
       "headers": [
         "Title",
@@ -154,10 +477,10 @@
       "page": 5,
       "table_index": 2,
       "bbox": [
-        30.05,
-        458.5,
-        565.35,
-        498.81
+        30.08,
+        458.54,
+        565.32,
+        498.76
       ],
       "headers": [
         "Mean Depth",
@@ -186,27 +509,27 @@
       "page": 1,
       "table_index": 1,
       "bbox": [
-        30.1,
-        415.22,
-        565.3,
-        491.92
+        30.17,
+        415.25,
+        565.22,
+        491.9
       ],
       "headers": [
-        "Gene & Transcript",
-        "Location",
-        "Variant",
-        "Zygosity/ Inheritance",
-        "Phenotype",
-        "Clinical Significance"
+        "relationships bet  Test results are i in genes potenti",
+        "ween individuals nterpreted in the ally related to the",
+        "are accepted as true. context of clinical find proband's medical c",
+        "ings, family history ondition are report",
+        "and other laboratory d ed. Rare polymorphism",
+        "ata. Only variations s may lead to false"
       ],
       "rows": [
         [
-          "MSH2 (+) NM 000251.3 _",
-          "2p21 (? 47,410,089- _ 47,416,441 ?) _ Exon 3-6",
-          "c.367-? c.1076+? _ 6.4kb",
-          "Heterozygous /Autosomal Dominant",
-          "Lynch syndrome 1",
-          "Pathogenic"
+          "negative or posi incomplete. The racial/ethnic bac information avai",
+          "tive results. Mis results should b kground. Please lable. Re-interpre",
+          "interpretation of resu e interpreted in the c note that variant class tation of multi gene n",
+          "lts may occur if t ontext of the patien ification and/or int ext generation sequ",
+          "he information provide t’s medical evaluation, erpretation may change encing data is recomme",
+          "d is inaccurate or family history and over time if more nded on an annual"
         ]
       ]
     },
@@ -220,21 +543,21 @@
         293.4
       ],
       "headers": [
-        "Gene & Transcript",
-        "Location",
-        "Variant & Depth/VAF",
-        "Zygosity/ Inheritance",
-        "Phenotype",
-        "Clinical Significance"
+        " Sequence and copy  The transcript used",
+        "number varia for clinical",
+        "nts are reported ac reporting generally",
+        "cording to the Hu represents the c",
+        "man Genome Variation So anonical transcript, whic",
+        "ciety (HGVS). h is usually the longest"
       ],
       "rows": [
         [
-          "HBB (-) NM 000518.5 _ (chr11:g.5227071T>G)",
-          "Exon 1",
-          "c.-50A>C (5' prime UTR variant) 49x/51%",
-          "Heterozygous /Autosomal Recessive",
-          "Beta-thalassemia HBB",
-          "Pathogenic (PM2, PM3, PP5)"
+          "coding transcript w alternate complete c *Variant classification as",
+          "ith strong/ oding transc per ACMG g",
+          "multiple supportin ripts could also be uidelines:",
+          "g evidence. How reported.",
+          "ever, clinically relevant",
+          "variants annotated in"
         ]
       ]
     },
@@ -248,33 +571,33 @@
         569.9
       ],
       "headers": [
-        "*Variant classification as per ACMG guidelines:",
+        "5. 1000 Genomes Project Consortium et al., A global reference for human genetic variation. Nature, 526(7571): 68-74, 2015.",
         ""
       ],
       "rows": [
         [
-          "Variant",
-          "A change in a gene. This could be disease causing (pathogenic) or not disease causing (benign)."
+          "6. Lek M. et al., Analysis",
+          "of protein-coding genetic variation in 60,706 humans. Nature, 536(7616):285-91, 2016."
         ],
         [
-          "Benign",
-          "A variant which is known not to be responsible for disease has been detected. Generally, no further action is warranted on such variants when detected."
+          "7. McLaren, W., et al., De Bioinformatics, 2010. 26 Appendix 1: SAMPLE",
+          "riving the consequences of genomic variants with the Ensembl API and SNP Effect Predictor. (16): p. 2069-70. DATA AND STATISTICS"
         ],
         [
-          "Likely Benign",
-          "A variant which is very unlikely to contribute to the development of disease however, the scientific evidence is currently insufficient to prove this conclusively. Additional evidence is expected to confirm this assertion of Pathogenicity."
+          "Title Total data generated (G Total Reads (%)",
+          "Data b) 8.09 100.00"
         ],
         [
-          "Pathogenic",
-          "A disease-causing variation in a gene which can explain the patient's symptoms has been detected. This usually means that a suspected disorder for which testing had been requested has been confirmed."
+          "Total reads aligned (%) Data >Q30 (%) Appendix 2: COVERAG",
+          "99.30 96.93 E SUMMARY"
         ],
         [
-          "Likely Pathogenic",
-          "A variant which is very likely to contribute to the development of disease however, the scientific evidence is currently insufficient to prove this conclusively. Additional evidence is expected to confirm this assertion of pathogenicity."
+          "Mean Depth 80.16x",
+          "Percentage target base pairs covered 1x 5x 20x 98.71% 98.42% 97.85%"
         ],
         [
-          "Variant of Uncertain Significance",
-          "A variant has been detected, but it is difficult to classify it as either pathogenic (disease causing) or benign (non-disease causing) based on current available scientific evidence. Further testing of the patient or family members as recommended by your clinician may be needed. It is probable that their significance can be assessed only with time, subject to availability of scientific evidence."
+          "Appendix 3: MTDNA G Gene Re MT-ATP6 10 MT-ATP8 10 MT-CO1 10",
+          "ENES gion covered Gene Region covered Gene Region covered 0.00% MT-ND6 100.00% MT-TL1 100.00% 0.00% MT-RNR1 100.00% MT-TL2 100.00% 0.00% MT-RNR2 100.00% MT-TM 100.00%"
         ]
       ]
     },
@@ -282,10 +605,10 @@
       "page": 5,
       "table_index": 1,
       "bbox": [
-        30.05,
-        358.81,
-        565.35,
-        433.67
+        30.08,
+        358.89,
+        565.32,
+        433.58
       ],
       "headers": [
         "Title",
@@ -314,10 +637,10 @@
       "page": 5,
       "table_index": 2,
       "bbox": [
-        30.05,
-        458.5,
-        565.35,
-        498.81
+        30.08,
+        458.54,
+        565.32,
+        498.76
       ],
       "headers": [
         "Mean Depth",
@@ -344,13 +667,13 @@
   "content_sections": [
     {
       "page": 1,
-      "title": "General Content / Notes",
+      "title": "NGS Hereditary Cancer Panel on the Illumina Novaseq X NGS Platform",
       "type": "content_section_box",
       "bbox": [
-        35.45,
-        302.68,
-        200.26,
-        327.62
+        169.49,
+        205.65,
+        425.88,
+        236.06
       ],
       "content_text": [
         "Sample Description: Sample quality is optimum for the test."
@@ -362,9 +685,9 @@
       "type": "content_section_box",
       "bbox": [
         35.45,
-        403.15,
+        404.55,
         97.47,
-        414.87
+        414.55
       ],
       "content_text": [
         "*Genetic test results are reported based on the recommendations of American College of Medical Genetics",
@@ -378,13 +701,13 @@
     },
     {
       "page": 2,
-      "title": "General Content / Notes",
+      "title": "Additional Findings :",
       "type": "content_section_box",
       "bbox": [
         35.45,
-        293.74,
-        470.83,
-        305.46
+        205.09,
+        128.08,
+        215.09
       ],
       "content_text": [
         "*Genetic test results are reported based on the recommendations of American College of Medical Genetics",
@@ -394,16 +717,31 @@
       ]
     },
     {
+      "page": 3,
+      "title": "General Content / Notes",
+      "type": "content_section_box",
+      "bbox": [
+        35.45,
+        206.04,
+        559.93,
+        336.14
+      ],
+      "content_text": [
+        " This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study."
+      ]
+    },
+    {
       "page": 4,
       "title": "General Content / Notes",
       "type": "content_section_box",
       "bbox": [
         35.45,
-        581.93,
-        536.77,
-        628.82
+        205.59,
+        559.93,
+        263.59
       ],
       "content_text": [
+        "origin of the sequence data in such regions.  Sequence and copy number variants are reported according to the Human Genome Variation Society (HGVS).  The transcript used for clinical reporting generally represents the canonical transcript, which is usually the longest coding transcript with strong/multiple supporting evidence. However, clinically relevant variants annotated in alternate complete coding transcripts could also be reported.",
         "References : 1. Richards S, Aziz N, Bale S, et al. Standards and guidelines for the interpretation of sequence variants: a joint consensus recommendation of the American College of Medical Genetics and Genomics and the Association for Molecular Pathology, Genetics in Medicine, 2015 May;17(5):405-24",
         "2. Kalia S.S. et al., Recommendations for reporting of secondary findings in clinical exome and genome sequencing, 2016 update(ACMG SF v2.0): a policy statement of the American College of Medical Genetics and Genomics. Genet Med., 19(2):249-255, 2017."
       ]
@@ -414,11 +752,12 @@
       "type": "content_section_box",
       "bbox": [
         35.45,
-        235.14,
-        549.0,
-        258.59
+        205.09,
+        533.06,
+        226.82
       ],
       "content_text": [
+        "3. Meyer, L.R., et al., The UCSC Genome Browser database: extensions and updates 2013. Nucleic Acids Res, 2013. 41(D1): p.D64-9.",
         "4. McKenna, A., et al., The Genome Analysis Toolkit: a MapReduce framework for analyzing next-generation DNA sequencing data. Genome Res, 2010. 20(9): p. 1297-303",
         "5. 1000 Genomes Project Consortium et al., A global reference for human genetic variation. Nature, 526(7571): 68-74, 2015.",
         "6. Lek M. et al., Analysis of protein-coding genetic variation in 60,706 humans. Nature, 536(7616):285-91, 2016.",
@@ -430,12 +769,13 @@
       "title": "General Content / Notes",
       "type": "content_section_box",
       "bbox": [
-        211.66,
-        407.27,
-        383.74,
-        419.48
+        35.45,
+        205.59,
+        520.12,
+        386.72
       ],
       "content_text": [
+        "PIK3R1 100.00% PRKCD 100.00% RAC2 100.00% RASGRP1 100.00% RHOH 100.00% STAT3 100.00% STK4 100.00% TPP2 100.00% XIAP 100.00% CREBBP 100.00% MYD88 100.00% STAT6 100.00% B2M 100.00% EP300 100.00% NOTCH1 100.00% TET2 100.00% BCL2 100.00% NOTCH2 100.00% TNFAIP3 100.00% FOXO1 100.00% TNFRSF14 100.00% GNA13 100.00% PIM1 100.00% CD79A 100.00% KMT2D 100.00% CD79B 100.00% MYC 100.00% SOCS1 100.00% FAN1 100.00% CDK12 100.00% CHEK1 100.00% CUL2 100.00% DIS3 100.00% ERBB2 100.00% ESR2 100.00% TDO2 100.00% GFAP 100.00% MED12 100.00% PPP2R2A 100.00% RAD54L 100.00% SLC45A2 100.00% SPOP 100.00% TYR 100.00% MBD4 100.00% HBB 100.00%",
         "------------------ End Of Report ------------------"
       ]
     }
@@ -443,13 +783,13 @@
   "all_boxes_and_sections": [
     {
       "page": 1,
-      "title": "General Content / Notes",
+      "title": "NGS Hereditary Cancer Panel on the Illumina Novaseq X NGS Platform",
       "type": "content_section_box",
       "bbox": [
-        35.45,
-        302.68,
-        200.26,
-        327.62
+        169.49,
+        205.65,
+        425.88,
+        236.06
       ],
       "content_text": [
         "Sample Description: Sample quality is optimum for the test."
@@ -461,9 +801,9 @@
       "type": "content_section_box",
       "bbox": [
         35.45,
-        403.15,
+        404.55,
         97.47,
-        414.87
+        414.55
       ],
       "content_text": [
         "*Genetic test results are reported based on the recommendations of American College of Medical Genetics",
@@ -477,13 +817,13 @@
     },
     {
       "page": 2,
-      "title": "General Content / Notes",
+      "title": "Additional Findings :",
       "type": "content_section_box",
       "bbox": [
         35.45,
-        293.74,
-        470.83,
-        305.46
+        205.09,
+        128.08,
+        215.09
       ],
       "content_text": [
         "*Genetic test results are reported based on the recommendations of American College of Medical Genetics",
@@ -493,16 +833,31 @@
       ]
     },
     {
+      "page": 3,
+      "title": "General Content / Notes",
+      "type": "content_section_box",
+      "bbox": [
+        35.45,
+        206.04,
+        559.93,
+        336.14
+      ],
+      "content_text": [
+        " This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study."
+      ]
+    },
+    {
       "page": 4,
       "title": "General Content / Notes",
       "type": "content_section_box",
       "bbox": [
         35.45,
-        581.93,
-        536.77,
-        628.82
+        205.59,
+        559.93,
+        263.59
       ],
       "content_text": [
+        "origin of the sequence data in such regions.  Sequence and copy number variants are reported according to the Human Genome Variation Society (HGVS).  The transcript used for clinical reporting generally represents the canonical transcript, which is usually the longest coding transcript with strong/multiple supporting evidence. However, clinically relevant variants annotated in alternate complete coding transcripts could also be reported.",
         "References : 1. Richards S, Aziz N, Bale S, et al. Standards and guidelines for the interpretation of sequence variants: a joint consensus recommendation of the American College of Medical Genetics and Genomics and the Association for Molecular Pathology, Genetics in Medicine, 2015 May;17(5):405-24",
         "2. Kalia S.S. et al., Recommendations for reporting of secondary findings in clinical exome and genome sequencing, 2016 update(ACMG SF v2.0): a policy statement of the American College of Medical Genetics and Genomics. Genet Med., 19(2):249-255, 2017."
       ]
@@ -513,11 +868,12 @@
       "type": "content_section_box",
       "bbox": [
         35.45,
-        235.14,
-        549.0,
-        258.59
+        205.09,
+        533.06,
+        226.82
       ],
       "content_text": [
+        "3. Meyer, L.R., et al., The UCSC Genome Browser database: extensions and updates 2013. Nucleic Acids Res, 2013. 41(D1): p.D64-9.",
         "4. McKenna, A., et al., The Genome Analysis Toolkit: a MapReduce framework for analyzing next-generation DNA sequencing data. Genome Res, 2010. 20(9): p. 1297-303",
         "5. 1000 Genomes Project Consortium et al., A global reference for human genetic variation. Nature, 526(7571): 68-74, 2015.",
         "6. Lek M. et al., Analysis of protein-coding genetic variation in 60,706 humans. Nature, 536(7616):285-91, 2016.",
@@ -529,12 +885,13 @@
       "title": "General Content / Notes",
       "type": "content_section_box",
       "bbox": [
-        211.66,
-        407.27,
-        383.74,
-        419.48
+        35.45,
+        205.59,
+        520.12,
+        386.72
       ],
       "content_text": [
+        "PIK3R1 100.00% PRKCD 100.00% RAC2 100.00% RASGRP1 100.00% RHOH 100.00% STAT3 100.00% STK4 100.00% TPP2 100.00% XIAP 100.00% CREBBP 100.00% MYD88 100.00% STAT6 100.00% B2M 100.00% EP300 100.00% NOTCH1 100.00% TET2 100.00% BCL2 100.00% NOTCH2 100.00% TNFAIP3 100.00% FOXO1 100.00% TNFRSF14 100.00% GNA13 100.00% PIM1 100.00% CD79A 100.00% KMT2D 100.00% CD79B 100.00% MYC 100.00% SOCS1 100.00% FAN1 100.00% CDK12 100.00% CHEK1 100.00% CUL2 100.00% DIS3 100.00% ERBB2 100.00% ESR2 100.00% TDO2 100.00% GFAP 100.00% MED12 100.00% PPP2R2A 100.00% RAD54L 100.00% SLC45A2 100.00% SPOP 100.00% TYR 100.00% MBD4 100.00% HBB 100.00%",
         "------------------ End Of Report ------------------"
       ]
     }
@@ -548,8 +905,8 @@
         "width": 595.3,
         "height": 841.9
       },
-      "header_y_cutoff": 204.79,
-      "footer_y_cutoff": 684.01,
+      "header_y_cutoff": 204.3,
+      "footer_y_cutoff": 684.76,
       "key_value_pairs": {
         "Sample Description": "Sample quality is optimum for the test.",
         "MSH2": "Deletion Exon 3-6) is classified as  Pathogenic  variant."
@@ -557,13 +914,13 @@
       "boxes_and_sections": [
         {
           "page": 1,
-          "title": "General Content / Notes",
+          "title": "NGS Hereditary Cancer Panel on the Illumina Novaseq X NGS Platform",
           "type": "content_section_box",
           "bbox": [
-            35.45,
-            302.68,
-            200.26,
-            327.62
+            169.49,
+            205.65,
+            425.88,
+            236.06
           ],
           "content_text": [
             "Sample Description: Sample quality is optimum for the test."
@@ -575,9 +932,9 @@
           "type": "content_section_box",
           "bbox": [
             35.45,
-            403.15,
+            404.55,
             97.47,
-            414.87
+            414.55
           ],
           "content_text": [
             "*Genetic test results are reported based on the recommendations of American College of Medical Genetics",
@@ -595,27 +952,27 @@
           "page": 1,
           "table_index": 1,
           "bbox": [
-            30.1,
-            415.22,
-            565.3,
-            491.92
+            30.17,
+            415.25,
+            565.22,
+            491.9
           ],
           "headers": [
-            "Gene & Transcript",
-            "Location",
-            "Variant",
-            "Zygosity/ Inheritance",
-            "Phenotype",
-            "Clinical Significance"
+            "relationships bet  Test results are i in genes potenti",
+            "ween individuals nterpreted in the ally related to the",
+            "are accepted as true. context of clinical find proband's medical c",
+            "ings, family history ondition are report",
+            "and other laboratory d ed. Rare polymorphism",
+            "ata. Only variations s may lead to false"
           ],
           "rows": [
             [
-              "MSH2 (+) NM 000251.3 _",
-              "2p21 (? 47,410,089- _ 47,416,441 ?) _ Exon 3-6",
-              "c.367-? c.1076+? _ 6.4kb",
-              "Heterozygous /Autosomal Dominant",
-              "Lynch syndrome 1",
-              "Pathogenic"
+              "negative or posi incomplete. The racial/ethnic bac information avai",
+              "tive results. Mis results should b kground. Please lable. Re-interpre",
+              "interpretation of resu e interpreted in the c note that variant class tation of multi gene n",
+              "lts may occur if t ontext of the patien ification and/or int ext generation sequ",
+              "he information provide t’s medical evaluation, erpretation may change encing data is recomme",
+              "d is inaccurate or family history and over time if more nded on an annual"
             ]
           ]
         }
@@ -625,10 +982,23 @@
         {
           "page": 1,
           "bbox": [
+            169.49,
+            205.65,
+            425.88,
+            236.06
+          ],
+          "text": "NGS Hereditary Cancer Panel on the Illumina Novaseq X NGS Platform",
+          "max_font_size": 14.0,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 1,
+          "bbox": [
             35.45,
-            302.68,
+            304.07,
             200.26,
-            327.62
+            327.29
           ],
           "text": "Sample Description: Sample quality is optimum for the test.",
           "max_font_size": 10.0,
@@ -639,9 +1009,9 @@
           "page": 1,
           "bbox": [
             35.45,
-            403.15,
+            404.55,
             97.47,
-            414.87
+            414.55
           ],
           "text": "Key Findings:",
           "max_font_size": 10.0,
@@ -652,9 +1022,9 @@
           "page": 1,
           "bbox": [
             35.45,
-            492.27,
+            493.67,
             470.83,
-            503.99
+            503.67
           ],
           "text": "*Genetic test results are reported based on the recommendations of American College of Medical Genetics",
           "max_font_size": 10.0,
@@ -665,9 +1035,9 @@
           "page": 1,
           "bbox": [
             35.45,
-            515.72,
+            517.11,
             225.49,
-            527.44
+            527.11
           ],
           "text": "Variant Interpretation & Clinical correlation:",
           "max_font_size": 10.0,
@@ -678,9 +1048,9 @@
           "page": 1,
           "bbox": [
             35.45,
-            541.92,
+            543.32,
             559.88,
-            577.09
+            576.77
           ],
           "text": "MSH2 :Deletion Exon 3-6; The submitted sample shows Heterozygous deletion of exon 3-6 of gene MSH2 on chromosome 2. A 6.4kb deletion detected on cytoband 2p21 (?_47,410,089-47,416,441_?). This variant is absent in our internal database.",
           "max_font_size": 10.0,
@@ -691,9 +1061,9 @@
           "page": 1,
           "bbox": [
             35.45,
-            584.54,
+            585.94,
             477.72,
-            596.26
+            595.94
           ],
           "text": "Based on above evidence, this variant (MSH2:Deletion Exon 3-6) is classified as  Pathogenic  variant.",
           "max_font_size": 10.0,
@@ -704,9 +1074,9 @@
           "page": 1,
           "bbox": [
             35.45,
-            608.28,
+            609.67,
             559.93,
-            678.61
+            678.29
           ],
           "text": "MSH2 Gene Phenotype Description : Lynch syndrome-1 (LYNCH1), also known as hereditary nonpolyposis colorectal cancer (HNPCC1), is caused by heterozygous mutation in the mismatch repair gene MSH2 (609309) on chromosome 2p21-p16. Lynch syndrome (LYNCH), also called hereditary nonpolyposis colorectal cancer, is defined as an autosomal dominant predisposition to a spectrum of cancers, primarily of the colorectum and endometrium, which exhibit impaired DNA mismatch repair (MMR) activity (summary by Lynch et al., 2015).",
           "max_font_size": 10.0,
@@ -717,9 +1087,9 @@
           "page": 1,
           "bbox": [
             41.1,
-            251.1,
+            252.5,
             120.86,
-            262.82
+            262.5
           ],
           "text": "Clinical Indication:",
           "max_font_size": 10.0,
@@ -730,9 +1100,9 @@
           "page": 1,
           "bbox": [
             41.1,
-            266.45,
+            267.85,
             424.2,
-            278.17
+            277.85
           ],
           "text": "Birendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion.",
           "max_font_size": 10.0,
@@ -743,9 +1113,9 @@
           "page": 1,
           "bbox": [
             121.2,
-            354.43,
+            356.38,
             474.14,
-            370.83
+            370.38
           ],
           "text": "Pathogenic deletion identified in relation to phenotype",
           "max_font_size": 14.0,
@@ -753,7 +1123,7 @@
           "font": "Cambria,Bold"
         }
       ],
-      "page_text": "Sample Description: Sample quality is optimum for the test.\nKey Findings:\n*Genetic test results are reported based on the recommendations of American College of Medical Genetics\nVariant Interpretation & Clinical correlation:\nMSH2 :Deletion Exon 3-6; The submitted sample shows Heterozygous deletion of exon 3-6 of gene MSH2 on chromosome 2. A 6.4kb deletion detected on cytoband 2p21 (?_47,410,089-47,416,441_?). This variant is absent in our internal database.\nBased on above evidence, this variant (MSH2:Deletion Exon 3-6) is classified as  Pathogenic  variant.\nMSH2 Gene Phenotype Description : Lynch syndrome-1 (LYNCH1), also known as hereditary nonpolyposis colorectal cancer (HNPCC1), is caused by heterozygous mutation in the mismatch repair gene MSH2 (609309) on chromosome 2p21-p16. Lynch syndrome (LYNCH), also called hereditary nonpolyposis colorectal cancer, is defined as an autosomal dominant predisposition to a spectrum of cancers, primarily of the colorectum and endometrium, which exhibit impaired DNA mismatch repair (MMR) activity (summary by Lynch et al., 2015).\nClinical Indication:\nBirendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion.\nPathogenic deletion identified in relation to phenotype"
+      "page_text": "NGS Hereditary Cancer Panel on the Illumina Novaseq X NGS Platform\nSample Description: Sample quality is optimum for the test.\nKey Findings:\n*Genetic test results are reported based on the recommendations of American College of Medical Genetics\nVariant Interpretation & Clinical correlation:\nMSH2 :Deletion Exon 3-6; The submitted sample shows Heterozygous deletion of exon 3-6 of gene MSH2 on chromosome 2. A 6.4kb deletion detected on cytoband 2p21 (?_47,410,089-47,416,441_?). This variant is absent in our internal database.\nBased on above evidence, this variant (MSH2:Deletion Exon 3-6) is classified as  Pathogenic  variant.\nMSH2 Gene Phenotype Description : Lynch syndrome-1 (LYNCH1), also known as hereditary nonpolyposis colorectal cancer (HNPCC1), is caused by heterozygous mutation in the mismatch repair gene MSH2 (609309) on chromosome 2p21-p16. Lynch syndrome (LYNCH), also called hereditary nonpolyposis colorectal cancer, is defined as an autosomal dominant predisposition to a spectrum of cancers, primarily of the colorectum and endometrium, which exhibit impaired DNA mismatch repair (MMR) activity (summary by Lynch et al., 2015).\nClinical Indication:\nBirendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion.\nPathogenic deletion identified in relation to phenotype"
     },
     {
       "page_number": 2,
@@ -761,21 +1131,21 @@
         "width": 595.3,
         "height": 841.9
       },
-      "header_y_cutoff": 204.79,
-      "footer_y_cutoff": 591.73,
+      "header_y_cutoff": 204.3,
+      "footer_y_cutoff": 593.13,
       "key_value_pairs": {
         "Case Specific Recommendations": "1. Segregation analysis of the variant by Sanger /Exome sequencing/ MLPA is recommended."
       },
       "boxes_and_sections": [
         {
           "page": 2,
-          "title": "General Content / Notes",
+          "title": "Additional Findings :",
           "type": "content_section_box",
           "bbox": [
             35.45,
-            293.74,
-            470.83,
-            305.46
+            205.09,
+            128.08,
+            215.09
           ],
           "content_text": [
             "*Genetic test results are reported based on the recommendations of American College of Medical Genetics",
@@ -796,21 +1166,21 @@
             293.4
           ],
           "headers": [
-            "Gene & Transcript",
-            "Location",
-            "Variant & Depth/VAF",
-            "Zygosity/ Inheritance",
-            "Phenotype",
-            "Clinical Significance"
+            " Sequence and copy  The transcript used",
+            "number varia for clinical",
+            "nts are reported ac reporting generally",
+            "cording to the Hu represents the c",
+            "man Genome Variation So anonical transcript, whic",
+            "ciety (HGVS). h is usually the longest"
           ],
           "rows": [
             [
-              "HBB (-) NM 000518.5 _ (chr11:g.5227071T>G)",
-              "Exon 1",
-              "c.-50A>C (5' prime UTR variant) 49x/51%",
-              "Heterozygous /Autosomal Recessive",
-              "Beta-thalassemia HBB",
-              "Pathogenic (PM2, PM3, PP5)"
+              "coding transcript w alternate complete c *Variant classification as",
+              "ith strong/ oding transc per ACMG g",
+              "multiple supportin ripts could also be uidelines:",
+              "g evidence. How reported.",
+              "ever, clinically relevant",
+              "variants annotated in"
             ]
           ]
         }
@@ -821,9 +1191,22 @@
           "page": 2,
           "bbox": [
             35.45,
-            293.74,
+            205.09,
+            128.08,
+            215.09
+          ],
+          "text": "Additional Findings :",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria,Bold"
+        },
+        {
+          "page": 2,
+          "bbox": [
+            35.45,
+            295.14,
             470.83,
-            305.46
+            305.14
           ],
           "text": "*Genetic test results are reported based on the recommendations of American College of Medical Genetics",
           "max_font_size": 10.0,
@@ -834,9 +1217,9 @@
           "page": 2,
           "bbox": [
             35.45,
-            317.18,
+            318.58,
             559.93,
-            422.69
+            422.37
           ],
           "text": "HBB Gene Phenotype Description : Direct sequencing of specific regions of genomic DNA became feasible with the invention of the polymerase chain reaction (PCR) which permits amplification of specific regions of DNA. Recently, human mitochondrial DNA was amplified and directly sequenced. Using a thermostable DNA polymerase of T. aquaticus (Saiki, R.K. et al., manuscript in preparation) in the PCR, we have applied a combination of PCR and direct sequence analysis of the amplified product to a human single- copy gene. We studied the genomic DNA of five patients with beta-thalassaemia whose mutant alleles were uncharacterized, and found two previously undescribed mutations, along with three known alleles. One new allele is a frameshift at codons 106-107 and the other is an A-C transversion at the cap site (+1) of the beta-globin gene. This latter is the first natural mutation observed at the cap site and it occurs in a gene which is poorly expressed.",
           "max_font_size": 10.0,
@@ -847,9 +1230,9 @@
           "page": 2,
           "bbox": [
             35.45,
-            437.52,
+            438.91,
             439.03,
-            460.96
+            460.63
           ],
           "text": "Case Specific Recommendations: 1. Segregation analysis of the variant by Sanger /Exome sequencing/ MLPA is recommended.",
           "max_font_size": 10.0,
@@ -860,9 +1243,9 @@
           "page": 2,
           "bbox": [
             35.45,
-            473.69,
+            475.08,
             559.91,
-            584.01
+            583.68
           ],
           "text": "Recommendations  Genetic counseling is advised for interpretation on the consequences of the variant(s).  We recommend confirming the presence of these variants by Sanger Sequencing/ MLPA.  Segregation analysis of the variant by Sanger /Exome sequencing/ MLPA is recommended.  The significance/classification of the variants might change based on parental and family members genetic testing.  For questions about this report, or for assistance in locating nearby genetic counseling services, please contact the Laboratory:  contact@sngenelab.com .  If results obtained do not match the clinical findings, additional testing should be considered as per referring clinician's recommendation.",
           "max_font_size": 10.0,
@@ -870,7 +1253,7 @@
           "font": "Cambria"
         }
       ],
-      "page_text": "*Genetic test results are reported based on the recommendations of American College of Medical Genetics\nHBB Gene Phenotype Description : Direct sequencing of specific regions of genomic DNA became feasible with the invention of the polymerase chain reaction (PCR) which permits amplification of specific regions of DNA. Recently, human mitochondrial DNA was amplified and directly sequenced. Using a thermostable DNA polymerase of T. aquaticus (Saiki, R.K. et al., manuscript in preparation) in the PCR, we have applied a combination of PCR and direct sequence analysis of the amplified product to a human single- copy gene. We studied the genomic DNA of five patients with beta-thalassaemia whose mutant alleles were uncharacterized, and found two previously undescribed mutations, along with three known alleles. One new allele is a frameshift at codons 106-107 and the other is an A-C transversion at the cap site (+1) of the beta-globin gene. This latter is the first natural mutation observed at the cap site and it occurs in a gene which is poorly expressed.\nCase Specific Recommendations: 1. Segregation analysis of the variant by Sanger /Exome sequencing/ MLPA is recommended.\nRecommendations  Genetic counseling is advised for interpretation on the consequences of the variant(s).  We recommend confirming the presence of these variants by Sanger Sequencing/ MLPA.  Segregation analysis of the variant by Sanger /Exome sequencing/ MLPA is recommended.  The significance/classification of the variants might change based on parental and family members genetic testing.  For questions about this report, or for assistance in locating nearby genetic counseling services, please contact the Laboratory:  contact@sngenelab.com .  If results obtained do not match the clinical findings, additional testing should be considered as per referring clinician's recommendation."
+      "page_text": "Additional Findings :\n*Genetic test results are reported based on the recommendations of American College of Medical Genetics\nHBB Gene Phenotype Description : Direct sequencing of specific regions of genomic DNA became feasible with the invention of the polymerase chain reaction (PCR) which permits amplification of specific regions of DNA. Recently, human mitochondrial DNA was amplified and directly sequenced. Using a thermostable DNA polymerase of T. aquaticus (Saiki, R.K. et al., manuscript in preparation) in the PCR, we have applied a combination of PCR and direct sequence analysis of the amplified product to a human single- copy gene. We studied the genomic DNA of five patients with beta-thalassaemia whose mutant alleles were uncharacterized, and found two previously undescribed mutations, along with three known alleles. One new allele is a frameshift at codons 106-107 and the other is an A-C transversion at the cap site (+1) of the beta-globin gene. This latter is the first natural mutation observed at the cap site and it occurs in a gene which is poorly expressed.\nCase Specific Recommendations: 1. Segregation analysis of the variant by Sanger /Exome sequencing/ MLPA is recommended.\nRecommendations  Genetic counseling is advised for interpretation on the consequences of the variant(s).  We recommend confirming the presence of these variants by Sanger Sequencing/ MLPA.  Segregation analysis of the variant by Sanger /Exome sequencing/ MLPA is recommended.  The significance/classification of the variants might change based on parental and family members genetic testing.  For questions about this report, or for assistance in locating nearby genetic counseling services, please contact the Laboratory:  contact@sngenelab.com .  If results obtained do not match the clinical findings, additional testing should be considered as per referring clinician's recommendation."
     },
     {
       "page_number": 3,
@@ -878,14 +1261,43 @@
         "width": 595.3,
         "height": 841.9
       },
-      "header_y_cutoff": 204.79,
+      "header_y_cutoff": 204.3,
       "footer_y_cutoff": 505.14,
       "key_value_pairs": {},
-      "boxes_and_sections": [],
+      "boxes_and_sections": [
+        {
+          "page": 3,
+          "title": "General Content / Notes",
+          "type": "content_section_box",
+          "bbox": [
+            35.45,
+            206.04,
+            559.93,
+            336.14
+          ],
+          "content_text": [
+            " This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study."
+          ]
+        }
+      ],
       "tables": [],
       "images_and_graphs": [],
-      "text_blocks": [],
-      "page_text": ""
+      "text_blocks": [
+        {
+          "page": 3,
+          "bbox": [
+            35.45,
+            206.04,
+            559.93,
+            336.14
+          ],
+          "text": " This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study.",
+          "max_font_size": 10.0,
+          "is_bold": false,
+          "font": "Cambria"
+        }
+      ],
+      "page_text": " This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study."
     },
     {
       "page_number": 4,
@@ -893,8 +1305,8 @@
         "width": 595.3,
         "height": 841.9
       },
-      "header_y_cutoff": 204.79,
-      "footer_y_cutoff": 684.01,
+      "header_y_cutoff": 204.3,
+      "footer_y_cutoff": 684.76,
       "key_value_pairs": {},
       "boxes_and_sections": [
         {
@@ -903,11 +1315,12 @@
           "type": "content_section_box",
           "bbox": [
             35.45,
-            581.93,
-            536.77,
-            628.82
+            205.59,
+            559.93,
+            263.59
           ],
           "content_text": [
+            "origin of the sequence data in such regions.  Sequence and copy number variants are reported according to the Human Genome Variation Society (HGVS).  The transcript used for clinical reporting generally represents the canonical transcript, which is usually the longest coding transcript with strong/multiple supporting evidence. However, clinically relevant variants annotated in alternate complete coding transcripts could also be reported.",
             "References : 1. Richards S, Aziz N, Bale S, et al. Standards and guidelines for the interpretation of sequence variants: a joint consensus recommendation of the American College of Medical Genetics and Genomics and the Association for Molecular Pathology, Genetics in Medicine, 2015 May;17(5):405-24",
             "2. Kalia S.S. et al., Recommendations for reporting of secondary findings in clinical exome and genome sequencing, 2016 update(ACMG SF v2.0): a policy statement of the American College of Medical Genetics and Genomics. Genet Med., 19(2):249-255, 2017."
           ]
@@ -924,33 +1337,33 @@
             569.9
           ],
           "headers": [
-            "*Variant classification as per ACMG guidelines:",
+            "5. 1000 Genomes Project Consortium et al., A global reference for human genetic variation. Nature, 526(7571): 68-74, 2015.",
             ""
           ],
           "rows": [
             [
-              "Variant",
-              "A change in a gene. This could be disease causing (pathogenic) or not disease causing (benign)."
+              "6. Lek M. et al., Analysis",
+              "of protein-coding genetic variation in 60,706 humans. Nature, 536(7616):285-91, 2016."
             ],
             [
-              "Benign",
-              "A variant which is known not to be responsible for disease has been detected. Generally, no further action is warranted on such variants when detected."
+              "7. McLaren, W., et al., De Bioinformatics, 2010. 26 Appendix 1: SAMPLE",
+              "riving the consequences of genomic variants with the Ensembl API and SNP Effect Predictor. (16): p. 2069-70. DATA AND STATISTICS"
             ],
             [
-              "Likely Benign",
-              "A variant which is very unlikely to contribute to the development of disease however, the scientific evidence is currently insufficient to prove this conclusively. Additional evidence is expected to confirm this assertion of Pathogenicity."
+              "Title Total data generated (G Total Reads (%)",
+              "Data b) 8.09 100.00"
             ],
             [
-              "Pathogenic",
-              "A disease-causing variation in a gene which can explain the patient's symptoms has been detected. This usually means that a suspected disorder for which testing had been requested has been confirmed."
+              "Total reads aligned (%) Data >Q30 (%) Appendix 2: COVERAG",
+              "99.30 96.93 E SUMMARY"
             ],
             [
-              "Likely Pathogenic",
-              "A variant which is very likely to contribute to the development of disease however, the scientific evidence is currently insufficient to prove this conclusively. Additional evidence is expected to confirm this assertion of pathogenicity."
+              "Mean Depth 80.16x",
+              "Percentage target base pairs covered 1x 5x 20x 98.71% 98.42% 97.85%"
             ],
             [
-              "Variant of Uncertain Significance",
-              "A variant has been detected, but it is difficult to classify it as either pathogenic (disease causing) or benign (non-disease causing) based on current available scientific evidence. Further testing of the patient or family members as recommended by your clinician may be needed. It is probable that their significance can be assessed only with time, subject to availability of scientific evidence."
+              "Appendix 3: MTDNA G Gene Re MT-ATP6 10 MT-ATP8 10 MT-CO1 10",
+              "ENES gion covered Gene Region covered Gene Region covered 0.00% MT-ND6 100.00% MT-TL1 100.00% 0.00% MT-RNR1 100.00% MT-TL2 100.00% 0.00% MT-RNR2 100.00% MT-TM 100.00%"
             ]
           ]
         }
@@ -961,9 +1374,22 @@
           "page": 4,
           "bbox": [
             35.45,
-            581.93,
+            205.59,
+            559.93,
+            263.59
+          ],
+          "text": "origin of the sequence data in such regions.  Sequence and copy number variants are reported according to the Human Genome Variation Society (HGVS).  The transcript used for clinical reporting generally represents the canonical transcript, which is usually the longest coding transcript with strong/multiple supporting evidence. However, clinically relevant variants annotated in alternate complete coding transcripts could also be reported.",
+          "max_font_size": 10.0,
+          "is_bold": false,
+          "font": "Cambria"
+        },
+        {
+          "page": 4,
+          "bbox": [
+            35.45,
+            583.32,
             536.77,
-            628.82
+            628.49
           ],
           "text": "References : 1. Richards S, Aziz N, Bale S, et al. Standards and guidelines for the interpretation of sequence variants: a joint consensus recommendation of the American College of Medical Genetics and Genomics and the Association for Molecular Pathology, Genetics in Medicine, 2015 May;17(5):405-24",
           "max_font_size": 10.0,
@@ -974,9 +1400,9 @@
           "page": 4,
           "bbox": [
             35.45,
-            636.82,
+            638.22,
             530.79,
-            671.99
+            671.66
           ],
           "text": "2. Kalia S.S. et al., Recommendations for reporting of secondary findings in clinical exome and genome sequencing, 2016 update(ACMG SF v2.0): a policy statement of the American College of Medical Genetics and Genomics. Genet Med., 19(2):249-255, 2017.",
           "max_font_size": 10.0,
@@ -984,7 +1410,7 @@
           "font": "Cambria,Italic"
         }
       ],
-      "page_text": "References : 1. Richards S, Aziz N, Bale S, et al. Standards and guidelines for the interpretation of sequence variants: a joint consensus recommendation of the American College of Medical Genetics and Genomics and the Association for Molecular Pathology, Genetics in Medicine, 2015 May;17(5):405-24\n2. Kalia S.S. et al., Recommendations for reporting of secondary findings in clinical exome and genome sequencing, 2016 update(ACMG SF v2.0): a policy statement of the American College of Medical Genetics and Genomics. Genet Med., 19(2):249-255, 2017."
+      "page_text": "origin of the sequence data in such regions.  Sequence and copy number variants are reported according to the Human Genome Variation Society (HGVS).  The transcript used for clinical reporting generally represents the canonical transcript, which is usually the longest coding transcript with strong/multiple supporting evidence. However, clinically relevant variants annotated in alternate complete coding transcripts could also be reported.\nReferences : 1. Richards S, Aziz N, Bale S, et al. Standards and guidelines for the interpretation of sequence variants: a joint consensus recommendation of the American College of Medical Genetics and Genomics and the Association for Molecular Pathology, Genetics in Medicine, 2015 May;17(5):405-24\n2. Kalia S.S. et al., Recommendations for reporting of secondary findings in clinical exome and genome sequencing, 2016 update(ACMG SF v2.0): a policy statement of the American College of Medical Genetics and Genomics. Genet Med., 19(2):249-255, 2017."
     },
     {
       "page_number": 5,
@@ -992,7 +1418,7 @@
         "width": 595.3,
         "height": 841.9
       },
-      "header_y_cutoff": 204.79,
+      "header_y_cutoff": 204.3,
       "footer_y_cutoff": 505.14,
       "key_value_pairs": {
         "The Genome Analysis Toolkit": "a MapReduce framework for analyzing next-generation DNA sequencing data. Genome Res, 2010. 20(9)",
@@ -1005,11 +1431,12 @@
           "type": "content_section_box",
           "bbox": [
             35.45,
-            235.14,
-            549.0,
-            258.59
+            205.09,
+            533.06,
+            226.82
           ],
           "content_text": [
+            "3. Meyer, L.R., et al., The UCSC Genome Browser database: extensions and updates 2013. Nucleic Acids Res, 2013. 41(D1): p.D64-9.",
             "4. McKenna, A., et al., The Genome Analysis Toolkit: a MapReduce framework for analyzing next-generation DNA sequencing data. Genome Res, 2010. 20(9): p. 1297-303",
             "5. 1000 Genomes Project Consortium et al., A global reference for human genetic variation. Nature, 526(7571): 68-74, 2015.",
             "6. Lek M. et al., Analysis of protein-coding genetic variation in 60,706 humans. Nature, 536(7616):285-91, 2016.",
@@ -1022,10 +1449,10 @@
           "page": 5,
           "table_index": 1,
           "bbox": [
-            30.05,
-            358.81,
-            565.35,
-            433.67
+            30.08,
+            358.89,
+            565.32,
+            433.58
           ],
           "headers": [
             "Title",
@@ -1054,10 +1481,10 @@
           "page": 5,
           "table_index": 2,
           "bbox": [
-            30.05,
-            458.5,
-            565.35,
-            498.81
+            30.08,
+            458.54,
+            565.32,
+            498.76
           ],
           "headers": [
             "Mean Depth",
@@ -1087,9 +1514,22 @@
           "page": 5,
           "bbox": [
             35.45,
-            235.14,
+            205.09,
+            533.06,
+            226.82
+          ],
+          "text": "3. Meyer, L.R., et al., The UCSC Genome Browser database: extensions and updates 2013. Nucleic Acids Res, 2013. 41(D1): p.D64-9.",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria,Italic"
+        },
+        {
+          "page": 5,
+          "bbox": [
+            35.45,
+            236.54,
             549.0,
-            258.59
+            258.26
           ],
           "text": "4. McKenna, A., et al., The Genome Analysis Toolkit: a MapReduce framework for analyzing next-generation DNA sequencing data. Genome Res, 2010. 20(9): p. 1297-303",
           "max_font_size": 10.0,
@@ -1100,9 +1540,9 @@
           "page": 5,
           "bbox": [
             35.45,
-            270.32,
+            271.71,
             547.27,
-            282.04
+            281.71
           ],
           "text": "5. 1000 Genomes Project Consortium et al., A global reference for human genetic variation. Nature, 526(7571): 68-74, 2015.",
           "max_font_size": 10.0,
@@ -1113,9 +1553,9 @@
           "page": 5,
           "bbox": [
             35.45,
-            290.04,
+            291.43,
             497.42,
-            301.76
+            301.43
           ],
           "text": "6. Lek M. et al., Analysis of protein-coding genetic variation in 60,706 humans. Nature, 536(7616):285-91, 2016.",
           "max_font_size": 10.0,
@@ -1126,9 +1566,9 @@
           "page": 5,
           "bbox": [
             35.45,
-            309.76,
+            311.16,
             516.93,
-            333.21
+            332.88
           ],
           "text": "7. McLaren, W., et al., Deriving the consequences of genomic variants with the Ensembl API and SNP Effect Predictor. Bioinformatics, 2010. 26(16): p. 2069-70.",
           "max_font_size": 10.0,
@@ -1139,9 +1579,9 @@
           "page": 5,
           "bbox": [
             35.45,
-            445.56,
+            446.95,
             193.1,
-            457.28
+            456.95
           ],
           "text": "Appendix 2: COVERAGE SUMMARY",
           "max_font_size": 10.0,
@@ -1149,7 +1589,7 @@
           "font": "Cambria,Bold"
         }
       ],
-      "page_text": "4. McKenna, A., et al., The Genome Analysis Toolkit: a MapReduce framework for analyzing next-generation DNA sequencing data. Genome Res, 2010. 20(9): p. 1297-303\n5. 1000 Genomes Project Consortium et al., A global reference for human genetic variation. Nature, 526(7571): 68-74, 2015.\n6. Lek M. et al., Analysis of protein-coding genetic variation in 60,706 humans. Nature, 536(7616):285-91, 2016.\n7. McLaren, W., et al., Deriving the consequences of genomic variants with the Ensembl API and SNP Effect Predictor. Bioinformatics, 2010. 26(16): p. 2069-70.\nAppendix 2: COVERAGE SUMMARY"
+      "page_text": "3. Meyer, L.R., et al., The UCSC Genome Browser database: extensions and updates 2013. Nucleic Acids Res, 2013. 41(D1): p.D64-9.\n4. McKenna, A., et al., The Genome Analysis Toolkit: a MapReduce framework for analyzing next-generation DNA sequencing data. Genome Res, 2010. 20(9): p. 1297-303\n5. 1000 Genomes Project Consortium et al., A global reference for human genetic variation. Nature, 526(7571): 68-74, 2015.\n6. Lek M. et al., Analysis of protein-coding genetic variation in 60,706 humans. Nature, 536(7616):285-91, 2016.\n7. McLaren, W., et al., Deriving the consequences of genomic variants with the Ensembl API and SNP Effect Predictor. Bioinformatics, 2010. 26(16): p. 2069-70.\nAppendix 2: COVERAGE SUMMARY"
     },
     {
       "page_number": 6,
@@ -1187,8 +1627,8 @@
         "width": 595.3,
         "height": 841.9
       },
-      "header_y_cutoff": 204.79,
-      "footer_y_cutoff": 684.01,
+      "header_y_cutoff": 204.3,
+      "footer_y_cutoff": 684.76,
       "key_value_pairs": {},
       "boxes_and_sections": [
         {
@@ -1196,12 +1636,13 @@
           "title": "General Content / Notes",
           "type": "content_section_box",
           "bbox": [
-            211.66,
-            407.27,
-            383.74,
-            419.48
+            35.45,
+            205.59,
+            520.12,
+            386.72
           ],
           "content_text": [
+            "PIK3R1 100.00% PRKCD 100.00% RAC2 100.00% RASGRP1 100.00% RHOH 100.00% STAT3 100.00% STK4 100.00% TPP2 100.00% XIAP 100.00% CREBBP 100.00% MYD88 100.00% STAT6 100.00% B2M 100.00% EP300 100.00% NOTCH1 100.00% TET2 100.00% BCL2 100.00% NOTCH2 100.00% TNFAIP3 100.00% FOXO1 100.00% TNFRSF14 100.00% GNA13 100.00% PIM1 100.00% CD79A 100.00% KMT2D 100.00% CD79B 100.00% MYC 100.00% SOCS1 100.00% FAN1 100.00% CDK12 100.00% CHEK1 100.00% CUL2 100.00% DIS3 100.00% ERBB2 100.00% ESR2 100.00% TDO2 100.00% GFAP 100.00% MED12 100.00% PPP2R2A 100.00% RAD54L 100.00% SLC45A2 100.00% SPOP 100.00% TYR 100.00% MBD4 100.00% HBB 100.00%",
             "------------------ End Of Report ------------------"
           ]
         }
@@ -1212,10 +1653,23 @@
         {
           "page": 8,
           "bbox": [
+            35.45,
+            205.59,
+            520.12,
+            386.72
+          ],
+          "text": "PIK3R1 100.00% PRKCD 100.00% RAC2 100.00% RASGRP1 100.00% RHOH 100.00% STAT3 100.00% STK4 100.00% TPP2 100.00% XIAP 100.00% CREBBP 100.00% MYD88 100.00% STAT6 100.00% B2M 100.00% EP300 100.00% NOTCH1 100.00% TET2 100.00% BCL2 100.00% NOTCH2 100.00% TNFAIP3 100.00% FOXO1 100.00% TNFRSF14 100.00% GNA13 100.00% PIM1 100.00% CD79A 100.00% KMT2D 100.00% CD79B 100.00% MYC 100.00% SOCS1 100.00% FAN1 100.00% CDK12 100.00% CHEK1 100.00% CUL2 100.00% DIS3 100.00% ERBB2 100.00% ESR2 100.00% TDO2 100.00% GFAP 100.00% MED12 100.00% PPP2R2A 100.00% RAD54L 100.00% SLC45A2 100.00% SPOP 100.00% TYR 100.00% MBD4 100.00% HBB 100.00%",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "font": "Cambria"
+        },
+        {
+          "page": 8,
+          "bbox": [
             211.66,
-            407.27,
+            409.0,
             383.74,
-            419.48
+            419.0
           ],
           "text": "------------------ End Of Report ------------------",
           "max_font_size": 10.0,
@@ -1223,8 +1677,8 @@
           "font": "Calibri"
         }
       ],
-      "page_text": "------------------ End Of Report ------------------"
+      "page_text": "PIK3R1 100.00% PRKCD 100.00% RAC2 100.00% RASGRP1 100.00% RHOH 100.00% STAT3 100.00% STK4 100.00% TPP2 100.00% XIAP 100.00% CREBBP 100.00% MYD88 100.00% STAT6 100.00% B2M 100.00% EP300 100.00% NOTCH1 100.00% TET2 100.00% BCL2 100.00% NOTCH2 100.00% TNFAIP3 100.00% FOXO1 100.00% TNFRSF14 100.00% GNA13 100.00% PIM1 100.00% CD79A 100.00% KMT2D 100.00% CD79B 100.00% MYC 100.00% SOCS1 100.00% FAN1 100.00% CDK12 100.00% CHEK1 100.00% CUL2 100.00% DIS3 100.00% ERBB2 100.00% ESR2 100.00% TDO2 100.00% GFAP 100.00% MED12 100.00% PPP2R2A 100.00% RAD54L 100.00% SLC45A2 100.00% SPOP 100.00% TYR 100.00% MBD4 100.00% HBB 100.00%\n------------------ End Of Report ------------------"
     }
   ],
-  "raw_full_text": "Sample Description: Sample quality is optimum for the test.\nKey Findings:\n*Genetic test results are reported based on the recommendations of American College of Medical Genetics\nVariant Interpretation & Clinical correlation:\nMSH2 :Deletion Exon 3-6; The submitted sample shows Heterozygous deletion of exon 3-6 of gene MSH2 on chromosome 2. A 6.4kb deletion detected on cytoband 2p21 (?_47,410,089-47,416,441_?). This variant is absent in our internal database.\nBased on above evidence, this variant (MSH2:Deletion Exon 3-6) is classified as  Pathogenic  variant.\nMSH2 Gene Phenotype Description : Lynch syndrome-1 (LYNCH1), also known as hereditary nonpolyposis colorectal cancer (HNPCC1), is caused by heterozygous mutation in the mismatch repair gene MSH2 (609309) on chromosome 2p21-p16. Lynch syndrome (LYNCH), also called hereditary nonpolyposis colorectal cancer, is defined as an autosomal dominant predisposition to a spectrum of cancers, primarily of the colorectum and endometrium, which exhibit impaired DNA mismatch repair (MMR) activity (summary by Lynch et al., 2015).\nClinical Indication:\nBirendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion.\nPathogenic deletion identified in relation to phenotype\n*Genetic test results are reported based on the recommendations of American College of Medical Genetics\nHBB Gene Phenotype Description : Direct sequencing of specific regions of genomic DNA became feasible with the invention of the polymerase chain reaction (PCR) which permits amplification of specific regions of DNA. Recently, human mitochondrial DNA was amplified and directly sequenced. Using a thermostable DNA polymerase of T. aquaticus (Saiki, R.K. et al., manuscript in preparation) in the PCR, we have applied a combination of PCR and direct sequence analysis of the amplified product to a human single- copy gene. We studied the genomic DNA of five patients with beta-thalassaemia whose mutant alleles were uncharacterized, and found two previously undescribed mutations, along with three known alleles. One new allele is a frameshift at codons 106-107 and the other is an A-C transversion at the cap site (+1) of the beta-globin gene. This latter is the first natural mutation observed at the cap site and it occurs in a gene which is poorly expressed.\nCase Specific Recommendations: 1. Segregation analysis of the variant by Sanger /Exome sequencing/ MLPA is recommended.\nRecommendations  Genetic counseling is advised for interpretation on the consequences of the variant(s).  We recommend confirming the presence of these variants by Sanger Sequencing/ MLPA.  Segregation analysis of the variant by Sanger /Exome sequencing/ MLPA is recommended.  The significance/classification of the variants might change based on parental and family members genetic testing.  For questions about this report, or for assistance in locating nearby genetic counseling services, please contact the Laboratory:  contact@sngenelab.com .  If results obtained do not match the clinical findings, additional testing should be considered as per referring clinician's recommendation.\n\nReferences : 1. Richards S, Aziz N, Bale S, et al. Standards and guidelines for the interpretation of sequence variants: a joint consensus recommendation of the American College of Medical Genetics and Genomics and the Association for Molecular Pathology, Genetics in Medicine, 2015 May;17(5):405-24\n2. Kalia S.S. et al., Recommendations for reporting of secondary findings in clinical exome and genome sequencing, 2016 update(ACMG SF v2.0): a policy statement of the American College of Medical Genetics and Genomics. Genet Med., 19(2):249-255, 2017.\n4. McKenna, A., et al., The Genome Analysis Toolkit: a MapReduce framework for analyzing next-generation DNA sequencing data. Genome Res, 2010. 20(9): p. 1297-303\n5. 1000 Genomes Project Consortium et al., A global reference for human genetic variation. Nature, 526(7571): 68-74, 2015.\n6. Lek M. et al., Analysis of protein-coding genetic variation in 60,706 humans. Nature, 536(7616):285-91, 2016.\n7. McLaren, W., et al., Deriving the consequences of genomic variants with the Ensembl API and SNP Effect Predictor. Bioinformatics, 2010. 26(16): p. 2069-70.\nAppendix 2: COVERAGE SUMMARY\n\n\n------------------ End Of Report ------------------"
+  "raw_full_text": "NGS Hereditary Cancer Panel on the Illumina Novaseq X NGS Platform\nSample Description: Sample quality is optimum for the test.\nKey Findings:\n*Genetic test results are reported based on the recommendations of American College of Medical Genetics\nVariant Interpretation & Clinical correlation:\nMSH2 :Deletion Exon 3-6; The submitted sample shows Heterozygous deletion of exon 3-6 of gene MSH2 on chromosome 2. A 6.4kb deletion detected on cytoband 2p21 (?_47,410,089-47,416,441_?). This variant is absent in our internal database.\nBased on above evidence, this variant (MSH2:Deletion Exon 3-6) is classified as  Pathogenic  variant.\nMSH2 Gene Phenotype Description : Lynch syndrome-1 (LYNCH1), also known as hereditary nonpolyposis colorectal cancer (HNPCC1), is caused by heterozygous mutation in the mismatch repair gene MSH2 (609309) on chromosome 2p21-p16. Lynch syndrome (LYNCH), also called hereditary nonpolyposis colorectal cancer, is defined as an autosomal dominant predisposition to a spectrum of cancers, primarily of the colorectum and endometrium, which exhibit impaired DNA mismatch repair (MMR) activity (summary by Lynch et al., 2015).\nClinical Indication:\nBirendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion.\nPathogenic deletion identified in relation to phenotype\nAdditional Findings :\n*Genetic test results are reported based on the recommendations of American College of Medical Genetics\nHBB Gene Phenotype Description : Direct sequencing of specific regions of genomic DNA became feasible with the invention of the polymerase chain reaction (PCR) which permits amplification of specific regions of DNA. Recently, human mitochondrial DNA was amplified and directly sequenced. Using a thermostable DNA polymerase of T. aquaticus (Saiki, R.K. et al., manuscript in preparation) in the PCR, we have applied a combination of PCR and direct sequence analysis of the amplified product to a human single- copy gene. We studied the genomic DNA of five patients with beta-thalassaemia whose mutant alleles were uncharacterized, and found two previously undescribed mutations, along with three known alleles. One new allele is a frameshift at codons 106-107 and the other is an A-C transversion at the cap site (+1) of the beta-globin gene. This latter is the first natural mutation observed at the cap site and it occurs in a gene which is poorly expressed.\nCase Specific Recommendations: 1. Segregation analysis of the variant by Sanger /Exome sequencing/ MLPA is recommended.\nRecommendations  Genetic counseling is advised for interpretation on the consequences of the variant(s).  We recommend confirming the presence of these variants by Sanger Sequencing/ MLPA.  Segregation analysis of the variant by Sanger /Exome sequencing/ MLPA is recommended.  The significance/classification of the variants might change based on parental and family members genetic testing.  For questions about this report, or for assistance in locating nearby genetic counseling services, please contact the Laboratory:  contact@sngenelab.com .  If results obtained do not match the clinical findings, additional testing should be considered as per referring clinician's recommendation.\n This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study.\norigin of the sequence data in such regions.  Sequence and copy number variants are reported according to the Human Genome Variation Society (HGVS).  The transcript used for clinical reporting generally represents the canonical transcript, which is usually the longest coding transcript with strong/multiple supporting evidence. However, clinically relevant variants annotated in alternate complete coding transcripts could also be reported.\nReferences : 1. Richards S, Aziz N, Bale S, et al. Standards and guidelines for the interpretation of sequence variants: a joint consensus recommendation of the American College of Medical Genetics and Genomics and the Association for Molecular Pathology, Genetics in Medicine, 2015 May;17(5):405-24\n2. Kalia S.S. et al., Recommendations for reporting of secondary findings in clinical exome and genome sequencing, 2016 update(ACMG SF v2.0): a policy statement of the American College of Medical Genetics and Genomics. Genet Med., 19(2):249-255, 2017.\n3. Meyer, L.R., et al., The UCSC Genome Browser database: extensions and updates 2013. Nucleic Acids Res, 2013. 41(D1): p.D64-9.\n4. McKenna, A., et al., The Genome Analysis Toolkit: a MapReduce framework for analyzing next-generation DNA sequencing data. Genome Res, 2010. 20(9): p. 1297-303\n5. 1000 Genomes Project Consortium et al., A global reference for human genetic variation. Nature, 526(7571): 68-74, 2015.\n6. Lek M. et al., Analysis of protein-coding genetic variation in 60,706 humans. Nature, 536(7616):285-91, 2016.\n7. McLaren, W., et al., Deriving the consequences of genomic variants with the Ensembl API and SNP Effect Predictor. Bioinformatics, 2010. 26(16): p. 2069-70.\nAppendix 2: COVERAGE SUMMARY\n\n\nPIK3R1 100.00% PRKCD 100.00% RAC2 100.00% RASGRP1 100.00% RHOH 100.00% STAT3 100.00% STK4 100.00% TPP2 100.00% XIAP 100.00% CREBBP 100.00% MYD88 100.00% STAT6 100.00% B2M 100.00% EP300 100.00% NOTCH1 100.00% TET2 100.00% BCL2 100.00% NOTCH2 100.00% TNFAIP3 100.00% FOXO1 100.00% TNFRSF14 100.00% GNA13 100.00% PIM1 100.00% CD79A 100.00% KMT2D 100.00% CD79B 100.00% MYC 100.00% SOCS1 100.00% FAN1 100.00% CDK12 100.00% CHEK1 100.00% CUL2 100.00% DIS3 100.00% ERBB2 100.00% ESR2 100.00% TDO2 100.00% GFAP 100.00% MED12 100.00% PPP2R2A 100.00% RAD54L 100.00% SLC45A2 100.00% SPOP 100.00% TYR 100.00% MBD4 100.00% HBB 100.00%\n------------------ End Of Report ------------------"
 }

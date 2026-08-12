@@ -1,138 +1,182 @@
 {
+  "document_page": {
+    "paper_size": "A4",
+    "width_pt": 595.6,
+    "height_pt": 842.0,
+    "margins_pt": {
+      "top": 36.0,
+      "bottom": 36.0,
+      "left": 36.0,
+      "right": 36.0
+    },
+    "header_distance_pt": 18.0,
+    "footer_distance_pt": 18.0
+  },
+  "typography": {
+    "primary_family": "Cambria",
+    "secondary_family": "Calibri",
+    "symbol_family": "Symbol",
+    "table_header_family": "Cambria, 'Times New Roman', serif",
+    "line_spacing": 1.15,
+    "paragraph_space_after_pt": 4.0,
+    "sizes_pt": {
+      "document_title": 14.0,
+      "section_heading": 13.0,
+      "banner_heading": 10.0,
+      "body": 10.0,
+      "table_header": 9.5,
+      "table_body": 9.5,
+      "footer": 9.0,
+      "small": 8.0,
+      "superscript": 6.5
+    }
+  },
   "colors": {
     "primary": "#1f497d",
     "secondary": "#008080",
     "accent_orange": "#ed7d31",
     "accent_red": "#ff0000",
     "banner_dark": "#404040",
-    "text": {
-      "primary": "#000000",
-      "secondary": "#242729",
-      "dark": "#0d0d0d",
-      "white": "#ffffff",
-      "teal": "#008080",
-      "orange": "#ed7d31",
-      "red": "#ff0000"
-    },
-    "background": {
-      "page": "#ffffff",
-      "container": "#525659",
-      "primary_blue": "#1f497d",
-      "banner_dark": "#404040",
-      "transparent": "transparent"
-    },
-    "border": {
-      "primary": "#1f497d"
-    },
-    "status": {
-      "warning": "#ff0000",
-      "highlight": "#ed7d31",
-      "info": "#008080"
-    }
+    "text_primary": "#000000",
+    "text_secondary": "#242729",
+    "text_dark": "#0d0d0d",
+    "text_light": "#ffffff",
+    "text_teal": "#008080",
+    "text_orange": "#ed7d31",
+    "text_red": "#ff0000",
+    "background_page": "#ffffff",
+    "background_container": "#525659",
+    "border_primary": "#1f497d",
+    "border_header": "#cbd5e1",
+    "alternating_row_bg": "#f8fafc"
   },
-  "fonts": {
-    "families": {
-      "primary": "Cambria, serif",
-      "primary_bold": "Cambria, Bold, serif",
-      "primary_italic": "Cambria, Italic, serif",
-      "primary_bold_italic": "Cambria, BoldItalic, serif",
-      "table_header": "Cambria, 'Times New Roman', serif",
-      "system": "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-      "symbol": "Symbol, sans-serif",
-      "calibri": "Calibri, sans-serif"
+  "headers_and_footers": {
+    "header": {
+      "show_logo": true,
+      "logo_image_path": "assets/header_image1.png",
+      "logo_width_pt": 540.0,
+      "logo_alignment": "center",
+      "show_metadata_table": true,
+      "metadata_table": {
+        "border_color": "#cbd5e1",
+        "border_size": "2",
+        "label_font_weight": "bold",
+        "value_font_weight": "normal",
+        "column_widths_pt": [95.0, 175.0, 95.0, 175.0],
+        "cell_padding_pt": {
+          "top": 2,
+          "bottom": 2,
+          "left": 4,
+          "right": 4
+        }
+      }
     },
-    "sizes": {
-      "body_pt": 10.0,
-      "banner_pt": 13.0,
-      "title_pt": 14.0,
-      "table_header_pt": 9.5,
-      "superscript_pt": 6.5
-    },
-    "line_heights": {
-      "body_pt": 10.0,
-      "title_pt": 14.0,
-      "table_header_ratio": 1.15
-    }
-  },
-  "layout": {
-    "page": {
-      "width_pt": 595.6,
-      "height_pt": 842.0,
-      "margin_pt": 0.0,
-      "page_gap_px": 20,
-      "shadow": "0 4px 12px rgba(0,0,0,0.3)"
-    },
-    "content": {
-      "left_offset_pt": 35.5,
-      "right_boundary_pt": 559.5,
-      "width_pt": 524.0,
-      "indented_left_pt": 53.5,
-      "bullet_indent_pt": 18.0,
-      "header_region_end_pt": 205.0,
-      "table_left_offset_pt": 30.1
+    "footer": {
+      "show_signatures": true,
+      "signature_image_path": "assets/footer_signatures.png",
+      "signature_width_pt": 540.0,
+      "signature_alignment": "center",
+      "show_page_number": true,
+      "page_number_text": "Page {page} of {total}",
+      "font_size_pt": 9.0,
+      "text_color": "#404040"
     }
   },
   "components": {
-    "blue_section_banner": {
-      "background_color": "#1f497d",
-      "text_color": "#ffffff",
-      "padding": "2px 6px",
-      "width_pt": 524.0,
-      "border_radius_px": 2,
-      "display": "inline-block",
-      "font_family": "Cambria, serif",
-      "font_size_pt": 10.0
+    "report_title": {
+      "font_family": "Cambria",
+      "font_size_pt": 14.0,
+      "font_weight": "bold",
+      "text_color": "#008080",
+      "alignment": "center",
+      "space_before_pt": 4.0,
+      "space_after_pt": 12.0
     },
     "black_banner": {
       "background_color": "#404040",
       "text_color": "#ffffff",
-      "padding": "4px 0",
-      "width_pt": 524.0,
-      "font_family": "Cambria, serif",
+      "font_family": "Cambria",
       "font_size_pt": 13.0,
       "font_weight": "bold",
-      "text_align": "center",
-      "border_radius_px": 0
+      "alignment": "center",
+      "space_before_pt": 6.0,
+      "space_after_pt": 6.0
     },
-    "table_header_cell": {
+    "blue_section_banner": {
       "background_color": "#1f497d",
       "text_color": "#ffffff",
-      "font_family": "Cambria, 'Times New Roman', serif",
-      "font_size_pt": 9.5,
+      "font_family": "Cambria",
+      "font_size_pt": 10.0,
       "font_weight": "bold",
-      "border": "1px solid #1f497d",
-      "padding": "2px 4px",
-      "line_height_ratio": 1.15,
-      "text_align": "center",
-      "display": "flex",
-      "align_items": "center",
-      "justify_content": "center",
-      "z_index": 15
+      "alignment": "left",
+      "space_before_pt": 4.0,
+      "space_after_pt": 4.0,
+      "padding": "2px 6px",
+      "border_radius_px": 2
     },
-    "table_grid_cell": {
-      "border": "1px solid #1f497d",
+    "teal_heading": {
+      "font_family": "Cambria",
+      "font_size_pt": 10.0,
+      "font_weight": "bold",
+      "text_color": "#008080",
+      "space_before_pt": 4.0,
+      "space_after_pt": 2.0
+    },
+    "gene_variant_highlight": {
+      "font_family": "Cambria",
+      "font_size_pt": 10.0,
+      "font_weight": "bold",
+      "font_style": "italic",
+      "text_color": "#ed7d31"
+    },
+    "warning_note": {
+      "font_family": "Cambria",
+      "font_size_pt": 10.0,
+      "font_style": "italic",
+      "text_color": "#ff0000"
+    },
+    "data_table": {
+      "header_background_color": "#1f497d",
+      "header_text_color": "#ffffff",
+      "header_font_weight": "bold",
+      "header_font_size_pt": 9.5,
+      "body_font_size_pt": 9.5,
+      "border_color": "#1f497d",
+      "border_size": "4",
+      "cell_padding_pt": {
+        "top": 3,
+        "bottom": 3,
+        "left": 4,
+        "right": 4
+      },
+      "alignment": "center"
+    },
+    "content_box": {
+      "border_color": "#1f497d",
+      "border_size": "4",
       "background_color": "transparent",
-      "z_index": 4
+      "title_font_size_pt": 10.0,
+      "title_font_weight": "bold",
+      "title_text_color": "#1f497d",
+      "body_font_size_pt": 9.5,
+      "body_text_color": "#000000",
+      "space_before_pt": 4.0,
+      "space_after_pt": 4.0
     },
-    "section_content_box": {
-      "border": "1px solid #1f497d",
-      "background_color": "transparent",
-      "z_index": 4
-    },
-    "bullet_list_item": {
-      "bullet_char": "&#xf0b7;",
-      "bullet_font_family": "Symbol, sans-serif",
-      "bullet_left_pt": 35.4,
-      "text_left_pt": 53.4,
+    "bullet_list": {
+      "bullet_char": "•",
+      "bullet_font_family": "Symbol",
       "indent_pt": 18.0,
-      "font_size_pt": 10.0
+      "font_size_pt": 9.5
     },
     "end_of_report_marker": {
-      "font_family": "Calibri, sans-serif",
+      "text": "------------------ End Of Report ------------------",
+      "font_family": "Calibri",
       "font_size_pt": 10.0,
       "text_color": "#000000",
-      "text_align": "center",
-      "text_pattern": "------------------ End Of Report ------------------"
+      "alignment": "center",
+      "space_before_pt": 12.0,
+      "space_after_pt": 12.0
     }
   },
   "table_styles": {
@@ -141,8 +185,6 @@
       "header_background": "#1f497d",
       "header_text_color": "#ffffff",
       "border_color": "#1f497d",
-      "start_left_pt": 30.1,
-      "total_width_pt": 535.1,
       "columns": [
         { "name": "Gene & Transcript", "width_pt": 97.9 },
         { "name": "Location", "width_pt": 58.1 },
@@ -162,18 +204,120 @@
         { "name": "Data", "width_pt": 292.4 }
       ]
     },
-    "gene_coverage_grid": {
-      "type": "6-column repeating gene grid",
-      "column_width_pt": 89.0,
-      "row_height_pt": 13.2,
-      "header_height_pt": 32.0,
-      "gene_font": "Cambria, Italic, serif",
-      "percentage_font": "Cambria, serif"
-    },
     "acmg_classification": {
-      "type": "2-column classification definition table",
-      "column_1_width_pt": 104.8,
-      "column_2_width_pt": 430.4
+      "type": "2-column classification table",
+      "header_background": "#1f497d",
+      "header_text_color": "#ffffff",
+      "border_color": "#1f497d",
+      "columns": [
+        { "name": "Category", "width_pt": 104.8 },
+        { "name": "Definition", "width_pt": 430.4 }
+      ]
+    }
+  },
+  "fonts": {
+    "families": {
+      "primary": "Cambria",
+      "secondary": "Calibri",
+      "symbol": "Symbol"
+    },
+    "sizes": {
+      "body_pt": 10.0,
+      "banner_pt": 13.0,
+      "title_pt": 14.0,
+      "table_header_pt": 9.5,
+      "superscript_pt": 6.5
+    }
+  },
+  "word": {
+    "layout": {
+      "element_flow": [
+        "header_metadata",
+        "headings",
+        "banners",
+        "content_boxes",
+        "tables",
+        "paragraphs",
+        "bullet_lists",
+        "signatures",
+        "end_of_report_marker"
+      ],
+      "spacing": {
+        "default_line_spacing": 1.15,
+        "paragraph_space_before_pt": 0.0,
+        "paragraph_space_after_pt": 4.0,
+        "heading_space_before_pt": 8.0,
+        "heading_space_after_pt": 4.0,
+        "table_space_before_pt": 6.0,
+        "table_space_after_pt": 6.0,
+        "content_box_space_before_pt": 6.0,
+        "content_box_space_after_pt": 6.0,
+        "banner_space_before_pt": 6.0,
+        "banner_space_after_pt": 6.0
+      },
+      "boxes": {
+        "border_color": "#1f497d",
+        "border_size": "4",
+        "background_color": "#ffffff",
+        "title_font_size_pt": 10.0,
+        "title_font_weight": "bold",
+        "title_text_color": "#1f497d",
+        "body_font_size_pt": 9.5,
+        "body_text_color": "#000000",
+        "cell_padding_pt": {
+          "top": 4,
+          "bottom": 4,
+          "left": 6,
+          "right": 6
+        }
+      },
+      "tables": {
+        "alignment": "center",
+        "header_background_color": "#1f497d",
+        "header_text_color": "#ffffff",
+        "header_font_weight": "bold",
+        "header_font_size_pt": 9.5,
+        "body_font_size_pt": 9.5,
+        "border_color": "#1f497d",
+        "border_size": "4",
+        "alternating_row_bg": "#f8fafc",
+        "cell_padding_pt": {
+          "top": 3,
+          "bottom": 3,
+          "left": 4,
+          "right": 4
+        },
+        "autofit": true,
+        "cant_split_rows": true
+      },
+      "banners": {
+        "black_banner": {
+          "background_color": "#404040",
+          "text_color": "#ffffff",
+          "font_size_pt": 13.0,
+          "font_weight": "bold",
+          "alignment": "center"
+        },
+        "blue_banner": {
+          "background_color": "#1f497d",
+          "text_color": "#ffffff",
+          "font_size_pt": 10.0,
+          "font_weight": "bold",
+          "alignment": "left"
+        }
+      }
+    },
+    "pagination": {
+      "respect_page_breaks": true,
+      "keep_with_next_headings": true,
+      "page_numbering": {
+        "enabled": true,
+        "text_format": "Page {page} of {total}",
+        "font_size_pt": 9.0,
+        "alignment": "center"
+      },
+      "repeat_table_headers": true,
+      "prevent_orphan_rows": true
     }
   }
 }

@@ -7,6 +7,11 @@
     "total_key_value_pairs": 3,
     "total_images_and_graphs": 0
   },
+  "metadata": {
+    "Methodology": "Next Generation Sequencing (Massively Parallel Sequencing)",
+    "Sample": "EDTA Blood",
+    "Final conclusion": "The patient is found to have L248V mutation."
+  },
   "extracted_key_value_pairs": {
     "Methodology": "Next Generation Sequencing (Massively Parallel Sequencing)",
     "Sample": "EDTA Blood",
@@ -17,6 +22,82 @@
     "Sample": "EDTA Blood",
     "Final conclusion": "The patient is found to have L248V mutation."
   },
+  "sections": [
+    {
+      "section_type": "blue_banner",
+      "title": "Test Description:",
+      "page": 1,
+      "bbox": [
+        41.1,
+        347.84,
+        119.86,
+        357.84
+      ],
+      "content_text": [
+        "Total RNA was extracted and nested reverse transcription PCR was performed to detect the BCR-ABL1 transcript and ABL1 kinase domain (KD) region was thereafter sequenced by Next Generation Sequencing for detection of mutant alleles.",
+        "Methodology: Next Generation Sequencing (Massively Parallel Sequencing)"
+      ],
+      "paragraphs": [
+        "Total RNA was extracted and nested reverse transcription PCR was performed to detect the BCR-ABL1 transcript and ABL1 kinase domain (KD) region was thereafter sequenced by Next Generation Sequencing for detection of mutant alleles.",
+        "Methodology: Next Generation Sequencing (Massively Parallel Sequencing)"
+      ]
+    },
+    {
+      "section_type": "content_box",
+      "title": "General Content / Notes",
+      "page": 3,
+      "bbox": [
+        41.1,
+        362.37,
+        247.55,
+        386.09
+      ],
+      "content_text": [
+        "Final conclusion: The patient is found to have L248V mutation.",
+        "Sr. No."
+      ],
+      "paragraphs": [
+        "Final conclusion: The patient is found to have L248V mutation.",
+        "Sr. No."
+      ]
+    },
+    {
+      "section_type": "content_box",
+      "title": "IC50 (Imatinib)2",
+      "page": 3,
+      "bbox": [
+        235.73,
+        469.99,
+        286.73,
+        490.62
+      ],
+      "content_text": [
+        "Sr. No."
+      ],
+      "paragraphs": [
+        "Sr. No."
+      ]
+    },
+    {
+      "section_type": "content_box",
+      "title": "General Content / Notes",
+      "page": 4,
+      "bbox": [
+        24.45,
+        343.69,
+        267.47,
+        354.58
+      ],
+      "content_text": [
+        "17 Q252H Negative I 4.8",
+        "18 L387M Negative S 4.3"
+      ],
+      "paragraphs": [
+        "17 Q252H Negative I 4.8",
+        "18 L387M Negative S 4.3"
+      ]
+    }
+  ],
   "tables": [],
   "all_tables": [],
   "content_sections": [
@@ -26,9 +107,9 @@
       "type": "content_section_box",
       "bbox": [
         41.1,
-        346.44,
+        347.84,
         119.86,
-        358.16
+        357.84
       ],
       "content_text": [
         "Total RNA was extracted and nested reverse transcription PCR was performed to detect the BCR-ABL1 transcript and ABL1 kinase domain (KD) region was thereafter sequenced by Next Generation Sequencing for detection of mutant alleles.",
@@ -41,9 +122,9 @@
       "type": "content_section_box",
       "bbox": [
         41.1,
-        360.98,
+        362.37,
         247.55,
-        386.42
+        386.09
       ],
       "content_text": [
         "Final conclusion: The patient is found to have L248V mutation.",
@@ -56,9 +137,9 @@
       "type": "content_section_box",
       "bbox": [
         235.73,
-        468.66,
+        469.99,
         286.73,
-        490.93
+        490.62
       ],
       "content_text": [
         "Sr. No."
@@ -70,9 +151,9 @@
       "type": "content_section_box",
       "bbox": [
         24.45,
-        342.37,
+        343.69,
         267.47,
-        354.89
+        354.58
       ],
       "content_text": [
         "17 Q252H Negative I 4.8",
@@ -87,9 +168,9 @@
       "type": "content_section_box",
       "bbox": [
         41.1,
-        346.44,
+        347.84,
         119.86,
-        358.16
+        357.84
       ],
       "content_text": [
         "Total RNA was extracted and nested reverse transcription PCR was performed to detect the BCR-ABL1 transcript and ABL1 kinase domain (KD) region was thereafter sequenced by Next Generation Sequencing for detection of mutant alleles.",
@@ -102,9 +183,9 @@
       "type": "content_section_box",
       "bbox": [
         41.1,
-        360.98,
+        362.37,
         247.55,
-        386.42
+        386.09
       ],
       "content_text": [
         "Final conclusion: The patient is found to have L248V mutation.",
@@ -117,9 +198,9 @@
       "type": "content_section_box",
       "bbox": [
         235.73,
-        468.66,
+        469.99,
         286.73,
-        490.93
+        490.62
       ],
       "content_text": [
         "Sr. No."
@@ -131,9 +212,9 @@
       "type": "content_section_box",
       "bbox": [
         24.45,
-        342.37,
+        343.69,
         267.47,
-        354.89
+        354.58
       ],
       "content_text": [
         "17 Q252H Negative I 4.8",
@@ -163,9 +244,9 @@
           "type": "content_section_box",
           "bbox": [
             41.1,
-            346.44,
+            347.84,
             119.86,
-            358.16
+            357.84
           ],
           "content_text": [
             "Total RNA was extracted and nested reverse transcription PCR was performed to detect the BCR-ABL1 transcript and ABL1 kinase domain (KD) region was thereafter sequenced by Next Generation Sequencing for detection of mutant alleles.",
@@ -180,9 +261,9 @@
           "page": 1,
           "bbox": [
             41.1,
-            346.44,
+            347.84,
             119.86,
-            358.16
+            357.84
           ],
           "text": "Test Description:",
           "max_font_size": 10.0,
@@ -193,9 +274,9 @@
           "page": 1,
           "bbox": [
             172.41,
-            399.2,
+            400.59,
             503.18,
-            446.09
+            445.76
           ],
           "text": "Total RNA was extracted and nested reverse transcription PCR was performed to detect the BCR-ABL1 transcript and ABL1 kinase domain (KD) region was thereafter sequenced by Next Generation Sequencing for detection of mutant alleles.",
           "max_font_size": 10.0,
@@ -206,9 +287,9 @@
           "page": 1,
           "bbox": [
             41.1,
-            452.59,
+            453.99,
             431.1,
-            464.31
+            463.99
           ],
           "text": "Methodology: Next Generation Sequencing (Massively Parallel Sequencing)",
           "max_font_size": 10.0,
@@ -219,9 +300,9 @@
           "page": 1,
           "bbox": [
             41.1,
-            476.82,
+            478.21,
             224.1,
-            488.54
+            488.21
           ],
           "text": "Sample: EDTA Blood",
           "max_font_size": 10.0,
@@ -264,9 +345,9 @@
           "type": "content_section_box",
           "bbox": [
             41.1,
-            360.98,
+            362.37,
             247.55,
-            386.42
+            386.09
           ],
           "content_text": [
             "Final conclusion: The patient is found to have L248V mutation.",
@@ -279,9 +360,9 @@
           "type": "content_section_box",
           "bbox": [
             235.73,
-            468.66,
+            469.99,
             286.73,
-            490.93
+            490.62
           ],
           "content_text": [
             "Sr. No."
@@ -295,9 +376,9 @@
           "page": 3,
           "bbox": [
             41.1,
-            360.98,
+            362.37,
             247.55,
-            386.42
+            386.09
           ],
           "text": "Final conclusion: The patient is found to have L248V mutation.",
           "max_font_size": 10.0,
@@ -308,9 +389,9 @@
           "page": 3,
           "bbox": [
             22.68,
-            457.52,
+            458.85,
             36.73,
-            479.8
+            479.49
           ],
           "text": "Sr. No.",
           "max_font_size": 9.5,
@@ -321,9 +402,9 @@
           "page": 3,
           "bbox": [
             53.07,
-            457.52,
+            458.85,
             97.27,
-            468.66
+            468.35
           ],
           "text": "Mutations",
           "max_font_size": 9.5,
@@ -334,9 +415,9 @@
           "page": 3,
           "bbox": [
             57.66,
-            468.66,
+            469.99,
             92.67,
-            479.8
+            479.49
           ],
           "text": "covered",
           "max_font_size": 9.5,
@@ -347,9 +428,9 @@
           "page": 3,
           "bbox": [
             114.97,
-            457.52,
+            458.85,
             154.82,
-            468.66
+            468.35
           ],
           "text": "Mutation",
           "max_font_size": 9.5,
@@ -360,9 +441,9 @@
           "page": 3,
           "bbox": [
             121.03,
-            468.66,
+            469.99,
             148.76,
-            479.8
+            479.49
           ],
           "text": "Result",
           "max_font_size": 9.5,
@@ -373,9 +454,9 @@
           "page": 3,
           "bbox": [
             170.76,
-            457.52,
+            458.85,
             219.36,
-            479.8
+            479.49
           ],
           "text": "Sensitivity to Imatinib",
           "max_font_size": 9.5,
@@ -386,9 +467,9 @@
           "page": 3,
           "bbox": [
             237.13,
-            446.39,
+            447.71,
             285.35,
-            468.66
+            468.35
           ],
           "text": "Mean fold Increase in",
           "max_font_size": 9.5,
@@ -399,9 +480,9 @@
           "page": 3,
           "bbox": [
             235.73,
-            468.66,
+            469.99,
             286.73,
-            490.93
+            490.62
           ],
           "text": "IC50 (Imatinib)2",
           "max_font_size": 9.5,
@@ -412,9 +493,9 @@
           "page": 3,
           "bbox": [
             303.22,
-            457.52,
+            458.85,
             317.27,
-            479.8
+            479.49
           ],
           "text": "Sr. No.",
           "max_font_size": 9.5,
@@ -425,9 +506,9 @@
           "page": 3,
           "bbox": [
             333.51,
-            457.52,
+            458.85,
             377.7,
-            468.66
+            468.35
           ],
           "text": "Mutations",
           "max_font_size": 9.5,
@@ -438,9 +519,9 @@
           "page": 3,
           "bbox": [
             338.1,
-            468.66,
+            469.99,
             373.1,
-            479.8
+            479.49
           ],
           "text": "covered",
           "max_font_size": 9.5,
@@ -451,9 +532,9 @@
           "page": 3,
           "bbox": [
             395.35,
-            457.52,
+            458.85,
             435.19,
-            468.66
+            468.35
           ],
           "text": "Mutation",
           "max_font_size": 9.5,
@@ -464,9 +545,9 @@
           "page": 3,
           "bbox": [
             401.4,
-            468.66,
+            469.99,
             429.14,
-            479.8
+            479.49
           ],
           "text": "Result",
           "max_font_size": 9.5,
@@ -477,9 +558,9 @@
           "page": 3,
           "bbox": [
             451.14,
-            457.52,
+            458.85,
             499.74,
-            479.8
+            479.49
           ],
           "text": "Sensitivity to Imatinib",
           "max_font_size": 9.5,
@@ -490,9 +571,9 @@
           "page": 3,
           "bbox": [
             517.45,
-            446.39,
+            447.71,
             565.67,
-            468.66
+            468.35
           ],
           "text": "Mean fold Increase in",
           "max_font_size": 9.5,
@@ -518,9 +599,9 @@
           "type": "content_section_box",
           "bbox": [
             24.45,
-            342.37,
+            343.69,
             267.47,
-            354.89
+            354.58
           ],
           "content_text": [
             "17 Q252H Negative I 4.8",
@@ -535,9 +616,9 @@
           "page": 4,
           "bbox": [
             24.45,
-            342.37,
+            343.69,
             267.47,
-            354.89
+            354.58
           ],
           "text": "17 Q252H Negative I 4.8",
           "max_font_size": 9.5,
@@ -548,9 +629,9 @@
           "page": 4,
           "bbox": [
             24.45,
-            356.77,
+            358.09,
             267.47,
-            369.29
+            368.98
           ],
           "text": "18 L387M Negative S 4.3",
           "max_font_size": 9.5,
@@ -561,9 +642,9 @@
           "page": 4,
           "bbox": [
             35.45,
-            400.93,
+            402.04,
             146.1,
-            410.3
+            410.04
           ],
           "text": "SENSITIVE- S",
           "max_font_size": 8.0,
@@ -574,9 +655,9 @@
           "page": 4,
           "bbox": [
             35.45,
-            421.71,
+            422.83,
             148.65,
-            431.09
+            430.83
           ],
           "text": "RESISTANT- R",
           "max_font_size": 8.0,
@@ -587,9 +668,9 @@
           "page": 4,
           "bbox": [
             35.45,
-            442.5,
+            443.61,
             149.0,
-            451.88
+            451.61
           ],
           "text": "INTERMEDIATE REPSPONE- I",
           "max_font_size": 8.0,
@@ -600,9 +681,9 @@
           "page": 4,
           "bbox": [
             35.45,
-            463.28,
+            464.4,
             153.45,
-            472.66
+            472.4
           ],
           "text": "NOT APPLICABLE- NA",
           "max_font_size": 8.0,
@@ -629,9 +710,9 @@
           "page": 5,
           "bbox": [
             35.45,
-            367.62,
+            368.87,
             85.45,
-            378.16
+            377.87
           ],
           "text": "Limitations:",
           "max_font_size": 9.0,

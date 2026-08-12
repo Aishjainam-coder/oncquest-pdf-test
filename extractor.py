@@ -166,11 +166,14 @@ def detect_dynamic_header_footer_bounds(doc) -> dict:
     page_count = len(doc)
 
     header_kw = [
-        'case id', 'sample type', 'patient name', 'uhid', 'reg no', 'ref by', 'referred by',
+        'neuberg', 'center for genomic medicine', 'genomic medicine', 'neuberg diagnostics',
+        'laboratory report', 'mc-6200', 'case id', 'sample type', 'patient name', 'uhid', 'reg no',
+        'ref by', 'referred by', 'dis.loc.', 'pt id', 'pt. id', 'pt. loc.', 'ph #', 'ref id', 'ref id 2',
         'age/gender', 'age / sex', 'date & time collected', 'date & time received', 'date & time reported',
+        'registration date & time', 'sample date & time', 'report date & time',
         'date collected', 'date received', 'date reported', 'report version', 'bill. loc.',
         'lab no', 'barcode', 'qr code for report', 'report verification', 'patient information',
-        'patient details', 'patient metadata', 'demographics'
+        'patient details', 'patient metadata', 'demographics', 'sample coll.by', 'acc. remarks'
     ]
 
     footer_kw = [
@@ -223,8 +226,8 @@ def detect_dynamic_header_footer_bounds(doc) -> dict:
                 continue
             norm_t = re.sub(r'\s+', ' ', text.lower())
 
-            # Check Header match (top 35% of page)
-            if y0 < 0.35 * H:
+            # Check Header match (top 28% of page)
+            if y0 < 0.28 * H:
                 is_hdr = False
                 if norm_t in repeated_top:
                     is_hdr = True
@@ -239,8 +242,8 @@ def detect_dynamic_header_footer_bounds(doc) -> dict:
                     if y1 > header_y1:
                         header_y1 = y1
 
-            # Check Footer match (bottom 35% of page)
-            if y1 > 0.65 * H:
+            # Check Footer match (bottom 16% of page ONLY)
+            if y0 > 0.82 * H:
                 is_ftr = False
                 if norm_t in repeated_bot:
                     is_ftr = True
@@ -255,23 +258,23 @@ def detect_dynamic_header_footer_bounds(doc) -> dict:
                     if y0 < footer_y0:
                         footer_y0 = y0
 
-        # B) Analyze image bboxes
+        # B) Analyze image bboxes (top 20% for header, bottom 15% for footer)
         img_infos = page.get_image_info(xrefs=True)
         for info in img_infos:
             bbox = info.get("bbox")
             if not bbox:
                 continue
             iy0, iy1 = bbox[1], bbox[3]
-            if iy0 < 0.30 * H:
+            if iy0 < 0.20 * H:
                 if iy1 > header_y1:
                     header_y1 = iy1
-            if iy1 > 0.70 * H:
+            if iy0 > 0.84 * H:
                 if iy0 < footer_y0:
                     footer_y0 = iy0
 
-        # Add buffer
-        final_hdr_cutoff = min(header_y1 + 5.0, 0.40 * H) if header_y1 > 0 else 0.0
-        final_ftr_cutoff = max(footer_y0 - 5.0, 0.60 * H) if footer_y0 < H else H
+        # Add buffer - Header capped at 0.26*H (~218px), Footer floored at 0.84*H (~707px)
+        final_hdr_cutoff = min(header_y1 + 2.0, 0.26 * H) if header_y1 > 0 else 0.0
+        final_ftr_cutoff = max(footer_y0 - 2.0, 0.84 * H) if footer_y0 < H else H
 
         page_bounds[p_idx] = {
             "header_y_cutoff": round(final_hdr_cutoff, 2),
@@ -282,22 +285,28 @@ def detect_dynamic_header_footer_bounds(doc) -> dict:
 
 
 def is_patient_sample_header_block(text: str, y0: float) -> bool:
-    """Identify and filter out top Patient Details and Sample Details header card blocks."""
+    """Identify and filter out top Patient Details, Lab Header, and Sample Details header card blocks."""
     norm = re.sub(r'\s+', ' ', text.lower().strip())
-    if y0 < 320:
-        if norm in ['patient details', 'sample details', 'patient information', 'sample information', 'demographics']:
+    if y0 < 340:
+        if any(kw in norm for kw in [
+            'neuberg', 'center for genomic medicine', 'genomic medicine', 'neuberg diagnostics',
+            'laboratory report', 'mc-6200', 'a unit of neuberg'
+        ]):
+            return True
+        if norm in ['patient details', 'sample details', 'patient information', 'sample information', 'demographics', 'laboratory report']:
             return True
         if any(kw in norm for kw in [
             'registration date & time', 'sample date & time', 'report date & time',
-            'ref id 1.', 'pt. loc.', 'pt. id', 'neuberg center for genomic medicine',
-            'orion intelligent genomics', 'qr code for report verification',
-            'sex / age', 'case id :', 'case id:', 'case id', 'bill. loc.', 'ref by :',
-            'sample type :', 'sample type:'
+            'registration date', 'sample date', 'report date', 'sample coll.by', 'acc. remarks',
+            'ref id 1.', 'ref id 2', 'ref id', 'ph #', 'dis.loc.', 'pt. loc.', 'pt. id', 'pt id',
+            'neuberg center for genomic medicine', 'orion intelligent genomics',
+            'qr code for report verification', 'sex / age', 'sex/age', 'case id :', 'case id:',
+            'case id', 'bill. loc.', 'ref by :', 'ref by', 'sample type :', 'sample type:'
         ]):
             return True
-        if 'name' in norm and ('mr.' in norm or 'mrs.' in norm or 'ms.' in norm or 'master' in norm or 'dr.' in norm or 'oqg' in norm):
+        if 'name' in norm and ('mr.' in norm or 'mrs.' in norm or 'ms.' in norm or 'master' in norm or 'dr.' in norm or 'oqg' in norm or '1007' in norm):
             return True
-        if norm.startswith(': name') or norm.startswith('name :'):
+        if norm.startswith(': name') or norm.startswith('name :') or norm.startswith('name'):
             return True
     return False
 
@@ -328,9 +337,11 @@ def extract_report_data(pdf_path: str) -> dict:
     header_kv_ignore_keys = [
         'case id', 'sample type', 'patient name', 'uhid', 'reg no', 'ref by', 'referred by',
         'age/gender', 'age / sex', 'date & time collected', 'date & time received', 'date & time reported',
-        'date collected', 'date received', 'date reported', 'report version', 'bill. loc.',
+        'registration date', 'sample date', 'report date', 'date collected', 'date received', 'date reported',
+        'report version', 'bill. loc.', 'dis.loc.', 'pt id', 'pt. id', 'pt. loc.', 'ph #', 'ref id',
+        'sample coll.by', 'acc. remarks', 'neuberg', 'genomic medicine', 'laboratory report', 'mc-6200',
         'collected', 'received', 'reported', 'lab no', 'barcode', 'qr code',
-        'pt. id', 'accession.id', 'centre details'
+        'accession.id', 'centre details'
     ]
 
     full_text_pages = []
@@ -374,6 +385,7 @@ def extract_report_data(pdf_path: str) -> dict:
                             "page": page_num + 1,
                             "table_index": len(page_tables) + 1,
                             "bbox": t_bbox,
+                            "type": "table",
                             "headers": headers,
                             "rows": rows
                         }
@@ -419,9 +431,11 @@ def extract_report_data(pdf_path: str) -> dict:
                     if is_patient_sample_header_block(clean_b_text, b_bbox[1]):
                         continue
 
+                    is_hd_cand = (max_size >= 11.5 or (is_bold and len(clean_b_text) < 70)) and not clean_b_text.endswith(('.', ',', ';', '?'))
                     block_obj = {
                         "page": page_num + 1,
                         "bbox": b_bbox,
+                        "type": "heading" if is_hd_cand else "paragraph",
                         "text": clean_b_text,
                         "max_font_size": round(max_size, 2),
                         "is_bold": is_bold,
@@ -441,14 +455,19 @@ def extract_report_data(pdf_path: str) -> dict:
                 filtered_page_kv[k] = v
                 all_kv_pairs[k] = v
 
-        # 3. Extract Images & Graphs in body region ONLY
+        # 3. Extract Images & Graphs in body region ONLY (excluding header/footer logos)
         raw_images = extract_page_images_and_graphs(doc, page_num, page)
         page_images = []
         for img in raw_images:
             img_bbox = img.get("bbox")
             if img_bbox:
-                if img_bbox[1] < hy_cutoff or img_bbox[3] > fy_cutoff:
+                y0, y1 = img_bbox[1], img_bbox[3]
+                # Filter out header logo (y0 < 120) and footer logos (y0 >= 700 or y1 >= 720)
+                if y0 < 120 or y1 <= hy_cutoff:
                     continue
+                if y0 >= 700 or y1 >= 720:
+                    continue
+            img["type"] = "image"
             page_images.append(img)
             all_images_list.append(img)
 
@@ -470,7 +489,7 @@ def extract_report_data(pdf_path: str) -> dict:
                 current_box = {
                     "page": page_num + 1,
                     "title": t,
-                    "type": "content_section_box",
+                    "type": "box",
                     "bbox": b["bbox"],
                     "content_text": []
                 }
@@ -479,7 +498,7 @@ def extract_report_data(pdf_path: str) -> dict:
                     current_box = {
                         "page": page_num + 1,
                         "title": "General Content / Notes",
-                        "type": "content_section_box",
+                        "type": "box",
                         "bbox": b["bbox"],
                         "content_text": [t]
                     }
@@ -492,11 +511,50 @@ def extract_report_data(pdf_path: str) -> dict:
         for box in page_boxes:
             all_boxes_list.append(box)
 
+        # Build unified per-page content list sorted by bbox top-Y
+        page_content_items = []
+        if filtered_page_kv:
+            page_content_items.append({
+                "page": page_num + 1,
+                "type": "key_value",
+                "pairs": filtered_page_kv,
+                "bbox": [35.0, hy_cutoff + 5.0, 560.0, hy_cutoff + 45.0]
+            })
+        for box in page_boxes:
+            page_content_items.append({
+                "page": page_num + 1,
+                "type": "banner" if "REPORT" in box.get("title", "").upper() or "CLINICAL" in box.get("title", "").upper() else "box",
+                "title": box.get("title"),
+                "text": box.get("content_text"),
+                "content_text": box.get("content_text"),
+                "bbox": box.get("bbox")
+            })
+        for tbl in page_tables:
+            page_content_items.append({
+                "page": page_num + 1,
+                "type": "table",
+                "headers": tbl.get("headers", []),
+                "rows": tbl.get("rows", []),
+                "bbox": tbl.get("bbox")
+            })
+        for img in page_images:
+            page_content_items.append({
+                "page": page_num + 1,
+                "type": "image",
+                "data_uri": img.get("data_uri"),
+                "width": img.get("width"),
+                "height": img.get("height"),
+                "bbox": img.get("bbox")
+            })
+
+        page_content_items.sort(key=lambda item: item.get("bbox", [0, 0, 0, 0])[1] if item.get("bbox") else 0.0)
+
         pages_list.append({
             "page_number": page_num + 1,
             "dimensions": {"width": round(rect.width, 2), "height": round(rect.height, 2)},
             "header_y_cutoff": hy_cutoff,
             "footer_y_cutoff": fy_cutoff,
+            "content": page_content_items,
             "key_value_pairs": filtered_page_kv,
             "boxes_and_sections": page_boxes,
             "tables": page_tables,
@@ -504,6 +562,58 @@ def extract_report_data(pdf_path: str) -> dict:
             "text_blocks": page_blocks,
             "page_text": page_body_text
         })
+
+    # Build top-to-bottom ordered document flow sections
+    ordered_sections = []
+    
+    # 1. Banners & Main Titles identification
+    for box in all_boxes_list:
+        title = box.get("title", "").strip()
+        t_upper = title.upper()
+        if "REPORT" in t_upper or "CERTIFICATE" in t_upper or "INVOICE" in t_upper or "STATEMENT" in t_upper or len(title) > 60:
+            section_type = "banner"
+        else:
+            section_type = "banner" if box.get("page") == 1 and len(ordered_sections) < 2 else "box"
+
+        box_item = {
+            "type": section_type,
+            "section_type": section_type,
+            "title": title,
+            "page": box.get("page", 1),
+            "bbox": box.get("bbox", [0, 0, 0, 0]),
+            "content_text": box.get("content_text", []),
+            "paragraphs": box.get("content_text", [])
+        }
+        ordered_sections.append(box_item)
+
+    # 2. Add Tables into ordered flow
+    for tbl in all_tables_list:
+        ordered_sections.append({
+            "type": "table",
+            "section_type": "table",
+            "title": f"Data Table (Page {tbl.get('page', 1)})",
+            "page": tbl.get("page", 1),
+            "bbox": tbl.get("bbox", [0, 0, 0, 0]),
+            "headers": tbl.get("headers", []),
+            "rows": tbl.get("rows", [])
+        })
+
+    # 3. Add Images & Graphs into ordered flow
+    for img in all_images_list:
+        ordered_sections.append({
+            "type": "image",
+            "section_type": "image",
+            "title": f"Image (Page {img.get('page', 1)})",
+            "page": img.get("page", 1),
+            "bbox": img.get("bbox", [0, 0, 0, 0]),
+            "data_uri": img.get("data_uri"),
+            "mime_type": img.get("mime_type", "image/png"),
+            "width": img.get("width"),
+            "height": img.get("height")
+        })
+
+    # Sort sections primarily by page, secondarily by y0 bbox coordinate
+    ordered_sections.sort(key=lambda s: (s.get("page", 1), s.get("bbox", [0, 0, 0, 0])[1] if s.get("bbox") else 0))
 
     full_document_text = "\n".join(full_text_pages)
 
@@ -518,8 +628,11 @@ def extract_report_data(pdf_path: str) -> dict:
 
     extracted_data = {
         "document_summary": doc_summary,
+        "metadata": all_kv_pairs,
         "extracted_key_value_pairs": all_kv_pairs,
         "all_key_value_pairs": all_kv_pairs,
+        "content": ordered_sections,
+        "sections": ordered_sections,
         "tables": all_tables_list,
         "all_tables": all_tables_list,
         "content_sections": all_boxes_list,

@@ -2,16 +2,16 @@
 Universal PDF Processor, Renderer & Word (.docx) Converter
 ===========================================================
 Clean Streamlit App:
-- Upload PDF
-- Extracts JSON in background (saved to extracted_jsons/ folder)
-- Live Rendered HTML Result & Output PDF Result
-- 1-Click Convert Result PDF to Word (.docx)
+- Upload PDF or JSON document
+- Converts JSON + theme.json → Word (.docx) DIRECTLY ✅
+- Live Rendered HTML & PDF Preview options
 """
 
 import os
 import tempfile
 import base64
 import json
+import io
 from pathlib import Path
 import streamlit as st
 import fitz  # PyMuPDF
@@ -22,6 +22,7 @@ from converter import (
     generate_dynamic_template_html,
     convert_json_to_docx,
     convert_html_to_docx,
+    convert_pdf_to_word,
     render_html_to_pdf_and_preview
 )
 from extractor import extract_report_data
@@ -30,9 +31,19 @@ from extractor import extract_report_data
 Path("extracted_jsons").mkdir(exist_ok=True)
 Path("output").mkdir(exist_ok=True)
 
+# Load base theme.json if present
+theme_json_defaults = {}
+theme_file_path = Path("theme.json")
+if theme_file_path.exists():
+    try:
+        with open(theme_file_path, "r", encoding="utf-8") as f_theme:
+            theme_json_defaults = json.load(f_theme)
+    except Exception:
+        pass
+
 # Configure Streamlit Page
 st.set_page_config(
-    page_title="PDF Processor, HTML & Word Converter",
+    page_title="PDF & JSON to Word Converter",
     page_icon="📄",
     layout="wide",
     initial_sidebar_state="collapsed"
@@ -65,6 +76,14 @@ st.markdown("""
         margin-bottom: 0;
     }
 
+    .word-success-box {
+        background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+        border: 1px solid #10b981;
+        border-radius: 10px;
+        padding: 1.2rem;
+        margin-bottom: 1.5rem;
+    }
+
     /* Primary Action Buttons */
     div.stButton > button:first-child {
         background: linear-gradient(135deg, #1f497d 0%, #0f172a 100%);
@@ -88,7 +107,7 @@ st.markdown("""
 # Minimal Sidebar Settings
 st.sidebar.title("⚙️ Render Settings")
 
-st.sidebar.info("📌 **PDF Layout Mode:** Exact Input PDF Layout (Preserve Coordinates)")
+st.sidebar.info("📌 **Pipeline Mode:** High-Fidelity PDF & JSON → Word (.docx)")
 use_template = False
 
 theme_preset = st.sidebar.selectbox(
@@ -121,8 +140,8 @@ theme_config = {
 # App Header
 st.markdown("""
 <div class="header-card">
-    <div class="header-title">⚡ Universal PDF Processor & Document Renderer</div>
-    <div class="header-subtitle">Upload any PDF document to automatically process structured data, view Rendered HTML & Output PDF results, and convert the result to Word (.docx).</div>
+    <div class="header-title">⚡ Universal PDF & JSON → Word (.docx) Converter</div>
+    <div class="header-subtitle">Direct High-Fidelity Pipeline: <b>PDF/JSON → Word (.docx) Directly ✅</b>. Preserves 100% exact layout, text, tables, fonts & colors.</div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -141,10 +160,11 @@ if "file_bytes" not in st.session_state:
     st.session_state.file_bytes = None
 
 # 1. Upload Section
-uploaded_file = st.file_uploader("📤 Choose ANY PDF report, lab test, invoice, or document", type=["pdf"], key="pdf_uploader")
+uploaded_file = st.file_uploader("📤 Choose ANY PDF report or extracted JSON file", type=["pdf", "json"], key="file_uploader")
 
 if uploaded_file is not None:
     file_bytes = uploaded_file.getvalue()
+    file_ext = Path(uploaded_file.name).suffix.lower()
     
     # If a new file is uploaded, reset state for new file
     if st.session_state.file_name != uploaded_file.name or st.session_state.file_bytes != file_bytes:
@@ -157,12 +177,14 @@ if uploaded_file is not None:
 
     # File Info Summary
     file_size_kb = len(file_bytes) / 1024.0
-    try:
-        temp_doc = fitz.open(stream=file_bytes, filetype="pdf")
-        page_count = len(temp_doc)
-        temp_doc.close()
-    except Exception:
-        page_count = "Unknown"
+    page_count = "N/A"
+    if file_ext == ".pdf":
+        try:
+            temp_doc = fitz.open(stream=file_bytes, filetype="pdf")
+            page_count = len(temp_doc)
+            temp_doc.close()
+        except Exception:
+            page_count = "Unknown"
 
     col_i1, col_i2, col_i3 = st.columns(3)
     with col_i1:
@@ -170,138 +192,109 @@ if uploaded_file is not None:
     with col_i2:
         st.info(f"⚖️ **Size:** `{file_size_kb:.1f} KB`")
     with col_i3:
-        st.info(f"📑 **Pages:** `{page_count}`")
+        st.info(f"📑 **Type/Pages:** `{file_ext.upper()} | {page_count}`")
 
     st.markdown("---")
 
-    # Action Button to Process PDF
-    btn_process = st.button("⚡ Process PDF & Render Results", use_container_width=True, type="primary")
+    # Action Button to Process & Convert directly to Word
+    btn_process = st.button("⚡ Convert to Word (.docx) Directly", use_container_width=True, type="primary")
 
     # Processing Workflow
-    if btn_process or st.session_state.html_content == "":
-        with st.spinner("Extracting JSON silently & rendering HTML and Output PDF..."):
+    if btn_process or st.session_state.docx_bytes is None:
+        with st.spinner("Processing End Result HTML → Word (.docx)..."):
             try:
-                with tempfile.TemporaryDirectory() as tmp_dir:
-                    pdf_input_path = Path(tmp_dir) / uploaded_file.name
-                    with open(pdf_input_path, "wb") as f_in:
-                        f_in.write(file_bytes)
-
-                    # Step 1: Extract structured JSON data
-                    extracted_data = extract_report_data(str(pdf_input_path))
+                if file_ext == ".json":
+                    # Direct JSON Input -> Render Word (.docx) directly using theme.json
+                    extracted_data = json.loads(file_bytes.decode("utf-8"))
                     st.session_state.extracted_data = extracted_data
-
-                    # Save extracted JSON silently in background folder
-                    try:
-                        json_out_dir = Path("extracted_jsons")
-                        json_out_dir.mkdir(exist_ok=True)
-                        json_file_path = json_out_dir / f"{Path(uploaded_file.name).stem}.json"
-                        with open(json_file_path, "w", encoding="utf-8") as f_json:
-                            json.dump(extracted_data, f_json, indent=2, ensure_ascii=False)
-                    except Exception as e_json:
-                        st.warning(f"Could not save JSON to extracted_jsons folder: {e_json}")
-
-                    # Step 2: Render HTML Content
-                    doc_title_use = uploaded_file.name
-                    if use_template:
-                        html_content = generate_dynamic_template_html(extracted_data, doc_title=doc_title_use, theme_config=theme_config)
-                    else:
-                        doc_fitz = fitz.open(str(pdf_input_path))
-                        html_content = render_exact_pdf_layout_html(doc_fitz, doc_title=doc_title_use, theme_config=theme_config)
-                        doc_fitz.close()
-
+                    html_content = generate_dynamic_template_html(extracted_data, doc_title=uploaded_file.name, theme_config=theme_config)
                     st.session_state.html_content = html_content
+                    st.session_state.docx_bytes = convert_json_to_docx(extracted_data, theme_config=theme_config)
+                else:
+                    # PDF Input -> Render Clean HTML End Result (Header/Footer Excluded & Theme Styled) -> Convert HTML to Word
+                    with tempfile.TemporaryDirectory() as tmp_dir:
+                        pdf_input_path = Path(tmp_dir) / uploaded_file.name
+                        pdf_input_path.write_bytes(file_bytes)
 
-                    # Step 3: Render Output PDF from HTML
-                    tmp_html_file = Path(tmp_dir) / f"{Path(uploaded_file.name).stem}_render.html"
-                    tmp_pdf_file = Path(tmp_dir) / f"{Path(uploaded_file.name).stem}_result.pdf"
-                    tmp_html_file.write_text(html_content, encoding="utf-8")
+                        # Silent JSON extraction
+                        try:
+                            extracted_data = extract_report_data(str(pdf_input_path))
+                            st.session_state.extracted_data = extracted_data
+                            
+                            json_out_dir = Path("extracted_jsons")
+                            json_out_dir.mkdir(exist_ok=True)
+                            json_file_path = json_out_dir / f"{Path(uploaded_file.name).stem}.json"
+                            with open(json_file_path, "w", encoding="utf-8") as f_json:
+                                json.dump(extracted_data, f_json, indent=2, ensure_ascii=False)
+                        except Exception:
+                            pass
 
-                    render_html_to_pdf_and_preview(tmp_html_file, tmp_pdf_file)
+                        # Render Clean End Result HTML (Original repeating headers/footers removed, theme applied)
+                        doc_fitz = fitz.open(str(pdf_input_path))
+                        html_content = render_exact_pdf_layout_html(doc_fitz, doc_title=uploaded_file.name, theme_config=theme_config)
+                        doc_fitz.close()
+                        st.session_state.html_content = html_content
 
-                    if tmp_pdf_file.exists():
-                        with open(tmp_pdf_file, "rb") as f_pdf:
-                            st.session_state.output_pdf_bytes = f_pdf.read()
-                    else:
-                        st.session_state.output_pdf_bytes = file_bytes
+                        # Convert Extracted JSON + theme.json -> Word (.docx)
+                        if st.session_state.extracted_data:
+                            docx_bytes = convert_json_to_docx(st.session_state.extracted_data, theme_config=theme_config)
+                        else:
+                            docx_bytes = convert_html_to_docx(html_content, theme_config=theme_config)
+                        st.session_state.docx_bytes = docx_bytes
 
-                    st.success("✅ PDF processed successfully! JSON saved to `extracted_jsons/` folder.")
+                st.success("✅ Converted Extracted Content + theme.json → Word (.docx) successfully!")
 
             except Exception as e:
-                st.error(f"Error processing PDF document: {e}")
+                st.error(f"Error converting document to Word: {e}")
 
-    # 2. Result Section (Web UI Output)
-    if st.session_state.html_content:
+
+
+    # 2. Direct Word Download & Results Section
+    if st.session_state.docx_bytes:
         st.markdown("---")
-        st.subheader("📊 Conversion Results & Output Preview")
+        
+        # Featured Direct Word Download Card
+        col_w1, col_w2 = st.columns([2, 1])
+        with col_w1:
+            st.markdown("### 📝 Direct Word Document (.docx) Ready!")
+            st.markdown("Your document was styled using **`theme.json`** rules (colors, fonts, borders, tables) and converted directly into a Microsoft Word file.")
+        with col_w2:
+            st.download_button(
+                label="📥 Download Word Document (.docx)",
+                data=st.session_state.docx_bytes,
+                file_name=f"{Path(st.session_state.file_name).stem}_report.docx",
+                mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                use_container_width=True,
+                type="primary"
+            )
 
-        tab_html, tab_pdf = st.tabs(["🌐 Rendered HTML Result", "📄 Output PDF Result"])
+        st.markdown("---")
+        st.subheader("📊 Optional Web & PDF Previews")
+
+        tab_html, tab_pdf = st.tabs(["🌐 HTML Preview", "📄 PDF Preview"])
 
         # Tab 1: Rendered HTML Result
         with tab_html:
-            col_h1, col_h2 = st.columns([3, 1])
-            with col_h1:
-                st.markdown("### 🌐 Rendered HTML Document")
-            with col_h2:
-                st.download_button(
-                    label="🌐 Download HTML (`.html`)",
-                    data=st.session_state.html_content.encode("utf-8"),
-                    file_name=f"{Path(st.session_state.file_name).stem}.html",
-                    mime="text/html",
-                    use_container_width=True
-                )
-            
-            components.html(st.session_state.html_content, height=preview_height, scrolling=True)
+            if st.session_state.html_content:
+                col_h1, col_h2 = st.columns([3, 1])
+                with col_h1:
+                    st.markdown("### 🌐 Rendered HTML Document")
+                with col_h2:
+                    st.download_button(
+                        label="🌐 Download HTML (`.html`)",
+                        data=st.session_state.html_content.encode("utf-8"),
+                        file_name=f"{Path(st.session_state.file_name).stem}.html",
+                        mime="text/html",
+                        use_container_width=True
+                    )
+                components.html(st.session_state.html_content, height=preview_height, scrolling=True)
 
-        # Tab 2: Output PDF Result & Word Conversion
+        # Tab 2: Output PDF Result
         with tab_pdf:
-            col_p1, col_p2 = st.columns([1, 1])
-            with col_p1:
-                st.markdown("### 📄 Output PDF Document")
-            with col_p2:
-                if st.session_state.output_pdf_bytes:
-                    st.download_button(
-                        label="📄 Download Output PDF (`.pdf`)",
-                        data=st.session_state.output_pdf_bytes,
-                        file_name=f"{Path(st.session_state.file_name).stem}_output.pdf",
-                        mime="application/pdf",
-                        use_container_width=True
-                    )
-
-            st.markdown("---")
-
-            # Word (.docx) Conversion Box under Result PDF
-            col_w1, col_w2 = st.columns([1, 1])
-            with col_w1:
-                st.markdown("#### 📝 Convert Result PDF to Word (.docx)")
-                btn_conv_word = st.button("📝 Convert Result PDF to Word (.docx)", use_container_width=True, type="primary")
-
-                if btn_conv_word:
-                    with st.spinner("Converting Document Data to Word (.docx)..."):
-                        try:
-                            if st.session_state.extracted_data:
-                                docx_data = convert_json_to_docx(st.session_state.extracted_data, theme_config=theme_config)
-                            else:
-                                docx_data = convert_html_to_docx(st.session_state.html_content, theme_config=theme_config)
-                            st.session_state.docx_bytes = docx_data
-                            st.success("✅ Converted Document to Word (.docx) successfully with perfect table alignment!")
-                        except Exception as err_w:
-                            st.error(f"Error converting to Word: {err_w}")
-
-            with col_w2:
-                if st.session_state.docx_bytes:
-                    st.markdown("#### 📥 Ready for Download")
-                    st.download_button(
-                        label="📥 Download Word Document (`.docx`)",
-                        data=st.session_state.docx_bytes,
-                        file_name=f"{Path(st.session_state.file_name).stem}_result.docx",
-                        mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-                        use_container_width=True
-                    )
-
-            st.markdown("---")
-
-            # Embedded Output PDF Display
-            if st.session_state.output_pdf_bytes:
-                b64_pdf = base64.b64encode(st.session_state.output_pdf_bytes).decode("utf-8")
+            if uploaded_file and file_ext == ".pdf":
+                st.markdown("### 📄 Original PDF Document")
+                b64_pdf = base64.b64encode(file_bytes).decode("utf-8")
                 pdf_display = f'<iframe src="data:application/pdf;base64,{b64_pdf}" width="100%" height="{preview_height}px" type="application/pdf"></iframe>'
                 st.markdown(pdf_display, unsafe_allow_html=True)
+            else:
+                st.info("PDF preview available when a PDF file is uploaded.")
