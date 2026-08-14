@@ -962,7 +962,7 @@ def _load_oncquest_theme(theme_config=None):
                 tj = json.load(f)
         except Exception:
             tj = {}
-
+ 
     colors = tj.get("colors", {}) or {}
     text = colors.get("text", {}) or {}
     fonts = tj.get("fonts", {}) or {}
