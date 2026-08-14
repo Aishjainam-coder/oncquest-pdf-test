@@ -48,12 +48,10 @@ if len(sys.argv) > 1:
             print(f"[*] Rendering JSON file to HTML and Word (.docx): {target_path.name}")
             out_html = output_dir / f"{target_path.stem}.html"
             out_docx = output_dir / f"{target_path.stem}.docx"
-            with open(target_path, "r", encoding="utf-8") as f_json:
-                data_json = json.load(f_json)
-            convert_json_to_docx(data_json, output_path=out_docx, theme_config=theme_config)
-            print(f"[+] Successfully converted JSON -> Word (.docx): {out_docx}")
             render_json_file_to_html(target_path, output_path=out_html, theme_config=theme_config)
             print(f"[+] Successfully rendered JSON -> HTML template: {out_html}")
+            convert_html_to_docx(out_html, output_path=out_docx, theme_config=theme_config)
+            print(f"[+] Successfully converted JSON -> HTML -> Word (.docx): {out_docx}")
             sys.exit(0)
         elif target_path.suffix.lower() == ".pdf":
             pdf_files = [target_path]

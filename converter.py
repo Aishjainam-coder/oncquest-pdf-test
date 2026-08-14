@@ -30,6 +30,33 @@ except ImportError:
 from extractor import extract_report_data, detect_dynamic_header_footer_bounds
 
 
+def get_css_color(color_tuple):
+    if not color_tuple:
+        return None
+    try:
+        if isinstance(color_tuple, (list, tuple)):
+            if len(color_tuple) == 3:
+                r = int(color_tuple[0] * 255)
+                g = int(color_tuple[1] * 255)
+                b = int(color_tuple[2] * 255)
+                return f"rgb({r},{g},{b})"
+            elif len(color_tuple) == 1:
+                gray = int(color_tuple[0] * 255)
+                return f"rgb({gray},{gray},{gray})"
+            elif len(color_tuple) == 4:
+                c, m, y, k = color_tuple
+                r = int(255 * (1 - c) * (1 - k))
+                g = int(255 * (1 - m) * (1 - k))
+                b = int(255 * (1 - y) * (1 - k))
+                return f"rgb({r},{g},{b})"
+        elif isinstance(color_tuple, (int, float)):
+            val = int(color_tuple * 255)
+            return f"rgb({val},{val},{val})"
+    except Exception:
+        pass
+    return "black"
+
+
 def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", theme_config: dict = None) -> str:
     """
     Renders an HTML document where body elements stay in their exact visual positions,
@@ -176,14 +203,17 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
             drawings = page.get_drawings()
             for d in drawings:
                 rect = d.get('rect')
-                if not rect or rect.width < 40 or rect.height < 6:
-                    continue
-                # Skip full-page background bounding boxes
-                if rect.width > 550 and rect.height > 800:
+                if not rect:
                     continue
                 rx0, ry0, rx1, ry1 = rect.x0, rect.y0, rect.x1, rect.y1
                 rw, rh = rx1 - rx0, ry1 - ry0
                 
+                # Skip tiny points and full page borders
+                if rw < 1.0 and rh < 1.0:
+                    continue
+                if rw > 550 and rh > 800:
+                    continue
+
                 # Exclude vector lines/drawings in header or footer regions
                 if ry0 < hy_cutoff or ry1 > fy_cutoff:
                     continue
@@ -191,21 +221,42 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
                 if any(abs(ry0 - hy0_r) < 5.0 for hy0_r, _ in header_y_ranges):
                     continue
 
-                fill_col = d.get('fill')
-                stroke_col = d.get('color')
+                fill_col = get_css_color(d.get('fill'))
+                stroke_col = get_css_color(d.get('color'))
+                stroke_w = d.get('width') or 1.0
 
-                if fill_col:
-                    if fill_col[0] < 0.3 and fill_col[1] > 0.4:
-                        vector_html_divs.append(
-                            f"<div class='vector-fill-box' style='left:{rx0:.1f}pt;top:{ry0:.1f}pt;width:{rw:.1f}pt;height:{rh:.1f}pt;background-color:{primary_color};'></div>"
-                        )
-                    elif fill_col[0] < 0.3 and fill_col[1] < 0.3 and fill_col[2] < 0.3:
-                        vector_html_divs.append(
-                            f"<div class='vector-fill-box' style='left:{rx0:.1f}pt;top:{ry0:.1f}pt;width:{rw:.1f}pt;height:{rh:.1f}pt;background-color:#404040;'></div>"
-                        )
-                elif stroke_col and d.get('width', 0) > 0.3:
+                if rh <= 1.5:  # Horizontal line segment
+                    bg_color = stroke_col or "black"
                     vector_html_divs.append(
-                        f"<div class='vector-box' style='left:{rx0:.1f}pt;top:{ry0:.1f}pt;width:{rw:.1f}pt;height:{rh:.1f}pt;'></div>"
+                        f"<div style='position:absolute; left:{rx0:.1f}pt; top:{ry0:.1f}pt; width:{rw:.1f}pt; height:{stroke_w:.1f}pt; background-color:{bg_color}; z-index:2; pointer-events:none;'></div>"
+                    )
+                elif rw <= 1.5:  # Vertical line segment
+                    bg_color = stroke_col or "black"
+                    vector_html_divs.append(
+                        f"<div style='position:absolute; left:{rx0:.1f}pt; top:{ry0:.1f}pt; width:{stroke_w:.1f}pt; height:{rh:.1f}pt; background-color:{bg_color}; z-index:2; pointer-events:none;'></div>"
+                    )
+                else:  # Rectangle box
+                    style_parts = [
+                        "position:absolute;",
+                        f"left:{rx0:.1f}pt;",
+                        f"top:{ry0:.1f}pt;",
+                        f"width:{rw:.1f}pt;",
+                        f"height:{rh:.1f}pt;",
+                        "pointer-events:none;"
+                    ]
+                    if fill_col:
+                        # Use exact background fill color
+                        style_parts.append(f"background-color:{fill_col};")
+                        style_parts.append("z-index:1;")
+                    else:
+                        style_parts.append("background-color:transparent;")
+                        style_parts.append("z-index:2;")
+
+                    if stroke_col:
+                        style_parts.append(f"border:{stroke_w:.1f}pt solid {stroke_col};")
+
+                    vector_html_divs.append(
+                        f"<div style='{' '.join(style_parts)}'></div>"
                     )
         except Exception:
             pass
@@ -334,17 +385,36 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
     accent_red = colors_cfg.get("accent_red", "#ff0000")
     bg_page = colors_cfg.get("background_page", "#ffffff")
     text_color = colors_cfg.get("text_primary", "#0d0d0d")
-    border_color = colors_cfg.get("border_primary", primary_color)
+    border_color = colors_cfg.get("border_table", "#000000")
     table_header_bg = primary_color
     table_header_text = colors_cfg.get("text_light", "#ffffff")
     font_family = typo_cfg.get("primary_family", "Cambria, 'Times New Roman', serif")
+    result_positive_color = colors_cfg.get("result_positive", "#C00000")
+    result_negative_color = colors_cfg.get("result_negative", "#008000")
 
-    show_tables = theme_config.get("show_tables", True)
-    show_sections = theme_config.get("show_sections", True)
-    show_images = theme_config.get("show_images", True)
-    show_badges = theme_config.get("show_badges", True)
+    spacing_cfg = cfg.get("spacing", {})
+    box_padding = spacing_cfg.get("boxPadding", 8)
+    cell_padding_x = spacing_cfg.get("cellPaddingX", 6)
+    cell_padding_y = spacing_cfg.get("cellPaddingY", 4)
+    block_gap = spacing_cfg.get("blockGap", 10)
 
-    badge_rules = theme_config.get("badge_rules", {
+    border_cfg = cfg.get("border", {})
+    border_width = border_cfg.get("width", 1)
+    border_style = border_cfg.get("style", "single")
+    border_color_val = border_cfg.get("color", "#000000")
+
+    css_border_style = "solid"
+    if border_style == "dotted":
+        css_border_style = "dotted"
+    elif border_style == "dashed":
+        css_border_style = "dashed"
+
+    show_tables = theme_config.get("show_tables", True) if theme_config else True
+    show_sections = theme_config.get("show_sections", True) if theme_config else True
+    show_images = theme_config.get("show_images", True) if theme_config else True
+    show_badges = theme_config.get("show_badges", True) if theme_config else True
+
+    badge_rules = (theme_config or {}).get("badge_rules", {
         "danger": ["pathogenic", "positive", "high", "failed", "rejected", "overdue",
                    "invalid", "expired", "critical", "denied", "delinquent", "abnormal"],
         "warning": ["vus", "uncertain", "warning", "pending", "under review",
@@ -353,27 +423,98 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
                     "cleared", "completed", "compliant", "settled"]
     })
 
+    # Keywords that trigger result-level coloring (inline, not badge)
+    _POSITIVE_KEYWORDS = ["positive", "pathogenic", "detected", "high", "abnormal", "msi - high", "msi-high"]
+    _NEGATIVE_KEYWORDS = ["negative", "normal", "not detected", "stable", "msi - stable", "msi-stable", "benign", "likely benign"]
+
+    def _result_color_span(cell_str: str) -> str:
+        """Wrap cell text in a colored span if it matches a clinical result keyword."""
+        cell_lower = cell_str.strip().lower()
+        if any(kw in cell_lower for kw in _NEGATIVE_KEYWORDS):
+            return f"<span style='color:{result_negative_color}; font-weight:bold;'>{cell_str}</span>"
+        if any(kw in cell_lower for kw in _POSITIVE_KEYWORDS):
+            return f"<span style='color:{result_positive_color}; font-weight:bold;'>{cell_str}</span>"
+        return cell_str
+
     tables = data.get("all_tables") or data.get("tables") or []
     sections = data.get("all_boxes_and_sections") or data.get("content_sections") or []
     images = data.get("all_images_and_graphs") or data.get("images_and_graphs") or []
 
-    # 1. Content Section Boxes HTML (clean boxed layout)
+    # Titles to skip (demographics, generic "General Content / Notes")
+    _SKIP_TITLES = {
+        "general content / notes",
+        "patient details & metadata",
+    }
+
+    def _should_skip_section(sec):
+        title = sec.get("title", "").strip()
+        sec_type = sec.get("type", "")
+        if sec_type == "demographics_box":
+            return True
+        if title.startswith("Header & Metadata Box"):
+            return True
+        if title.lower() in _SKIP_TITLES:
+            return True
+        return False
+
+    def _is_reference_fragment(sec):
+        """Detect boxes that look like split reference entries (by checking title and content)."""
+        title = sec.get("title", "").strip()
+        content_text = sec.get("content_text", [])
+        body_str = " ".join(content_text) if isinstance(content_text, list) else str(content_text)
+        
+        combined = (title + " " + body_str).lower()
+        
+        # Explicit reference cues
+        if "pmid" in combined or "doi:" in combined or "et al" in combined:
+            return True
+        if "http" in combined or "www." in combined or ".html" in combined or ".com/" in combined or "release" in combined:
+            return True
+        if "guideline" in combined:
+            return True
+        # Citation year or similar patterns
+        if re.search(r'\b\d{4}\b', title):
+            return True
+        # Starts with a number (like volume info "2;23(8)") and contains punctuation
+        if re.match(r'^\d', title) and any(c in title for c in [';', ':', '(', ')', '-']):
+            return True
+            
+        return False
+
+    # 1. Content Section Boxes HTML — merge references, skip generic boxes
     sections_html = ""
     if show_sections and sections:
+        reference_paragraphs = []  # collect all reference fragments
+        has_references_section = False
+
         for sec in sections:
-            title = sec.get("title", "").strip()
-            sec_type = sec.get("type", "")
-            if sec_type == "demographics_box" or title.startswith("Header & Metadata Box") or title == "Patient Details & Metadata":
+            if _should_skip_section(sec):
                 continue
 
+            title = sec.get("title", "").strip()
             content_text = sec.get("content_text", [])
             if isinstance(content_text, list):
-                body_paragraphs = "".join([f'<p class="section-p">{t.strip()}</p>' for t in content_text if t and t.strip()])
+                body_lines = [t.strip() for t in content_text if t and t.strip()]
             else:
-                body_paragraphs = f'<p class="section-p">{str(content_text).strip()}</p>'
+                body_lines = [str(content_text).strip()] if content_text else []
 
-            if not title and not body_paragraphs:
+            # Check if this is a "References:" section or a reference fragment
+            if title.lower().startswith("references"):
+                has_references_section = True
+                reference_paragraphs.extend(body_lines)
                 continue
+            if _is_reference_fragment(sec):
+                # Merge title + body into a single reference line
+                merged_line = title
+                if body_lines:
+                    merged_line = f"{title} {' '.join(body_lines)}"
+                reference_paragraphs.append(merged_line)
+                continue
+
+            if not title and not body_lines:
+                continue
+
+            body_paragraphs = "".join([f'<p class="section-p">{t}</p>' for t in body_lines])
 
             sec_title_html = f'<div class="section-title">{title}</div>' if title else ''
             sections_html += f"""
@@ -385,25 +526,58 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
             </div>
             """
 
-    # 2. Data Tables HTML
+        # Emit merged references section at the end
+        if reference_paragraphs:
+            ref_body = "".join([f'<p class="section-p">{r}</p>' for r in reference_paragraphs])
+            sections_html += f"""
+            <div class="section-box">
+                <div class="section-title">References</div>
+                <div class="section-body">
+                    {ref_body}
+                </div>
+            </div>
+            """
+
+    # 2. Data Tables HTML — auto-fit by removing empty trailing columns, add result coloring
     tables_html = ""
     if show_tables and tables:
         for t_idx, tab in enumerate(tables):
-            headers = tab.get("headers", [])
-            rows = tab.get("rows", [])
+            headers = list(tab.get("headers", []))
+            rows = [list(r) for r in (tab.get("rows", []))]
             page_n = tab.get("page", 1)
             if not headers and not rows:
                 continue
 
-            th_html = "".join([f"<th>{h}</th>" for h in headers]) if headers else ""
+            # Determine effective column count: trim empty trailing columns
+            raw_ncols = max([len(headers)] + [len(r) for r in rows] + [0])
+            if raw_ncols == 0:
+                continue
+            # Pad to uniform width
+            headers = (headers + [""] * raw_ncols)[:raw_ncols]
+            rows = [(r + [""] * raw_ncols)[:raw_ncols] for r in rows]
+
+            # Find columns where header AND all row cells are empty → remove them
+            keep_cols = []
+            for ci in range(raw_ncols):
+                col_vals = [headers[ci].strip()] + [str(r[ci]).strip() for r in rows]
+                if any(v for v in col_vals):  # at least one non-empty value
+                    keep_cols.append(ci)
+            if not keep_cols:
+                continue
+
+            headers = [headers[ci] for ci in keep_cols]
+            rows = [[r[ci] for ci in keep_cols] for r in rows]
+
+            th_html = "".join([f"<th>{h}</th>" for h in headers]) if any(h.strip() for h in headers) else ""
             tr_html = ""
             for r in rows:
                 tds = ""
                 for cell in r:
                     cell_str = str(cell).replace('\n', '<br>')
                     cell_lower = cell_str.lower()
-                    cell_formatted = cell_str
-                    if show_badges:
+                    cell_formatted = _result_color_span(cell_str)
+                    # Badge logic only if result coloring didn't already wrap it
+                    if cell_formatted == cell_str and show_badges:
                         if any(w in cell_lower for w in badge_rules.get("danger", [])):
                             cell_formatted = f"<span class='badge-danger'>{cell_str}</span>"
                         elif any(w in cell_lower for w in badge_rules.get("warning", [])):
@@ -468,17 +642,17 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
 * {{ box-sizing: border-box; }}
 body {{ margin: 0; padding: 0; background-color: #f1f5f9; font-family: {font_family}; color: {text_color}; }}
 .pdf-container {{ display: flex; flex-direction: column; align-items: center; padding: 20px 0; }}
-.pdf-page {{ background: {bg_page}; width: 595.6pt; min-height: 842.0pt; padding: 35.5pt; margin-bottom: 20px; position: relative; box-shadow: 0 4px 12px rgba(0,0,0,0.15); page-break-after: always; font-family: {font_family}; word-break: normal; overflow-wrap: break-word; }}
-.section-box {{ border: 1px solid {border_color}; border-radius: 6px; margin-bottom: 14pt; position: relative; background: #ffffff; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.04); }}
-.section-title {{ background-color: {primary_color}; color: #ffffff; font-weight: bold; font-size: 10.0pt; padding: 6pt 10pt; display: block; border-top-left-radius: 4px; border-top-right-radius: 4px; letter-spacing: 0.02em; }}
+.report-content {{ background: {bg_page}; width: 595.6pt; padding: 35.5pt; margin-bottom: 20px; position: relative; box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-family: {font_family}; word-break: normal; overflow-wrap: break-word; }}
+.section-box {{ border: {border_width}px {css_border_style} {border_color_val}; margin-bottom: {block_gap}pt; padding: {box_padding}px; width: fit-content; max-width: 100%; box-sizing: border-box; position: relative; background: #ffffff; overflow: visible; }}
+.section-title {{ color: {primary_color}; font-weight: bold; font-size: 10.5pt; padding: 6pt 10pt; display: block; letter-spacing: 0.02em; border-bottom: 2px solid {primary_color}; }}
 .section-body {{ padding: 10pt 12pt; font-size: 9.5pt; line-height: 1.5; color: {text_color}; }}
 .section-p {{ margin: 0 0 6pt 0; text-align: left; word-break: normal; overflow-wrap: break-word; }}
 .section-p:last-child {{ margin-bottom: 0; }}
-.table-card-box {{ margin-top: 14pt; margin-bottom: 14pt; border: 1px solid {border_color}; border-radius: 6px; overflow: hidden; background: #ffffff; box-shadow: 0 2px 5px rgba(0,0,0,0.04); }}
-.table-card-header {{ font-size: 9.5pt; font-weight: bold; color: {primary_color}; padding: 6pt 10pt; background-color: #f8fafc; border-bottom: 1px solid {border_color}; }}
-.table-custom {{ width: 100%; border-collapse: collapse; font-size: 9.5pt; table-layout: auto; }}
-.table-custom th {{ background-color: {table_header_bg}; color: {table_header_text}; font-family: {font_family}; font-size: 9.5pt; font-weight: bold; text-align: center; padding: 7pt 6pt; border: 1px solid {border_color}; word-break: normal; overflow-wrap: break-word; }}
-.table-custom td {{ padding: 6pt 8pt; border: 1px solid {border_color}; vertical-align: top; line-height: 1.35; font-size: 9.5pt; word-break: normal; overflow-wrap: break-word; }}
+.table-card-box {{ margin-top: 14pt; margin-bottom: {block_gap}pt; border: {border_width}px {css_border_style} {border_color_val}; width: fit-content; max-width: 100%; box-sizing: border-box; overflow: visible; background: #ffffff; }}
+.table-card-header {{ font-size: 9.5pt; font-weight: bold; color: {primary_color}; padding: 6pt 10pt; background-color: #f8fafc; border-bottom: 1px solid {border_color_val}; }}
+.table-custom {{ border-collapse: collapse; font-size: 9.5pt; table-layout: auto; width: 100%; }}
+.table-custom th {{ background-color: {table_header_bg}; color: {table_header_text}; font-family: {font_family}; font-size: 9.5pt; font-weight: bold; text-align: center; padding: {cell_padding_y}px {cell_padding_x}px; border: {border_width}px {css_border_style} {border_color_val}; word-break: normal; overflow-wrap: break-word; }}
+.table-custom td {{ padding: {cell_padding_y}px {cell_padding_x}px; border: {border_width}px {css_border_style} {border_color_val}; vertical-align: top; line-height: 1.35; font-size: 9.5pt; word-break: normal; overflow-wrap: break-word; }}
 .badge-danger {{ background: #dc2626; color: #ffffff; padding: 2px 6px; border-radius: 3px; font-weight: bold; display: inline-block; font-size: 8.5pt; }}
 .badge-warning {{ background: #d97706; color: #ffffff; padding: 2px 6px; border-radius: 3px; font-weight: bold; display: inline-block; font-size: 8.5pt; }}
 .badge-success {{ background: #16a34a; color: #ffffff; padding: 2px 6px; border-radius: 3px; font-weight: bold; display: inline-block; font-size: 8.5pt; }}
@@ -490,7 +664,7 @@ body {{ margin: 0; padding: 0; background-color: #f1f5f9; font-family: {font_fam
 </head>
 <body>
 <div class="pdf-container">
-  <div class="pdf-page">
+  <div class="report-content">
     {sections_html}
 
     {tables_html}
@@ -637,8 +811,11 @@ def get_merged_theme_config(theme_config: dict = None) -> dict:
             "text_light": "#ffffff",
             "background_page": "#ffffff",
             "border_primary": "#1f497d",
+            "border_table": "#000000",
             "border_header": "#cbd5e1",
-            "alternating_row_bg": "#f8fafc"
+            "alternating_row_bg": "#f8fafc",
+            "result_positive": "#C00000",
+            "result_negative": "#008000"
         },
         "headers_and_footers": {
             "header": {
@@ -666,6 +843,17 @@ def get_merged_theme_config(theme_config: dict = None) -> dict:
                 "font_size_pt": 9.0,
                 "text_color": "#404040"
             }
+        },
+        "spacing": {
+            "boxPadding": 8,
+            "cellPaddingX": 6,
+            "cellPaddingY": 4,
+            "blockGap": 10
+        },
+        "border": {
+            "width": 1,
+            "style": "single",
+            "color": "#000000"
         },
         "components": {
             "black_banner": {
@@ -800,7 +988,7 @@ def get_merged_theme_config(theme_config: dict = None) -> dict:
             with open(theme_file, "r", encoding="utf-8") as f:
                 tj = json.load(f)
                 if isinstance(tj, dict):
-                    for key in ["document_page", "typography", "colors", "headers_and_footers", "components", "word"]:
+                    for key in ["document_page", "typography", "colors", "headers_and_footers", "components", "word", "spacing", "border"]:
                         if key in tj and isinstance(tj[key], dict):
                             if key in merged and isinstance(merged[key], dict):
                                 merged[key].update(tj[key])
@@ -993,8 +1181,11 @@ def _load_oncquest_theme(theme_config=None):
         "primary": clean_hex(primary, "1f497d"),
         "banner_dark": clean_hex(colors.get("banner_dark"), "404040"),
         "border": clean_hex(border_primary, "1f497d"),
+        "border_table": clean_hex(colors.get("border_table"), "000000"),
         "body_color": clean_hex(text.get("primary"), "000000"),
         "header_text": clean_hex(text.get("white"), "ffffff"),
+        "result_positive": clean_hex(colors.get("result_positive"), "C00000"),
+        "result_negative": clean_hex(colors.get("result_negative"), "008000"),
         "font": clean_font(families.get("primary"), "Cambria"),
         "table_header_font": clean_font(families.get("table_header"), "Cambria"),
         "body_pt": float(sizes.get("body_pt", 10.0)),
@@ -1063,8 +1254,22 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
         cs = OxmlElement("w:cantSplit"); cs.set(qn("w:val"), "true")
         trPr.append(cs)
 
+    # Clinical result keywords for coloring
+    _POS_KW = ["positive", "pathogenic", "detected", "high", "abnormal", "msi - high", "msi-high"]
+    _NEG_KW = ["negative", "normal", "not detected", "stable", "msi - stable", "msi-stable", "benign", "likely benign"]
+
+    def _result_color(cell_text):
+        """Return RGBColor for clinical result or None."""
+        cl = cell_text.strip().lower()
+        if any(kw in cl for kw in _NEG_KW):
+            return rgb(T["result_negative"])
+        if any(kw in cl for kw in _POS_KW):
+            return rgb(T["result_positive"])
+        return None
+
     # ---------- render primitives ----------
-    def add_banner(doc, txt, fill, big=False):
+    def add_banner(doc, txt, fill, big=False, flat=False):
+        """Add a heading banner. flat=True renders colored text without background shading."""
         txt = _clean_text(txt)
         if not txt:
             return
@@ -1072,11 +1277,15 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
         p.paragraph_format.space_before = Pt(6)
         p.paragraph_format.space_after = Pt(3)
         p.paragraph_format.keep_with_next = True  # heading stays with its content
-        shade_para(p, fill)
+        if not flat:
+            shade_para(p, fill)
         run = p.add_run(txt); run.bold = True
         run.font.name = T["font"]
         run.font.size = Pt(T["banner_pt"] if big else T["body_pt"] + 1.0)
-        run.font.color.rgb = rgb(T["header_text"])
+        if flat:
+            run.font.color.rgb = rgb(T["primary"])
+        else:
+            run.font.color.rgb = rgb(T["header_text"])
 
     def add_para(doc, txt):
         txt = _clean_text(txt)
@@ -1093,8 +1302,9 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
         if not kv:
             return
         tbl = doc.add_table(rows=0, cols=2)
-        table_borders(tbl, T["border"])
+        table_borders(tbl, T["border_table"])
         tbl.alignment = WD_TABLE_ALIGNMENT.LEFT
+        tbl.autofit = True
         for k, v in kv.items():
             cells = tbl.add_row().cells
             set_cant_split(tbl.rows[-1])
@@ -1122,10 +1332,23 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
         headers = (headers + [""] * ncols)[:ncols]
         rows = [(r + [""] * ncols)[:ncols] for r in rows]
 
+        # Remove entirely-empty columns (header + all rows empty)
+        keep_cols = []
+        for ci in range(ncols):
+            col_vals = [headers[ci].strip()] + [str(r[ci]).strip() for r in rows]
+            if any(v for v in col_vals):
+                keep_cols.append(ci)
+        if not keep_cols:
+            return
+        headers = [headers[ci] for ci in keep_cols]
+        rows = [[r[ci] for ci in keep_cols] for r in rows]
+        ncols = len(keep_cols)
+
         has_header = any(headers)
         tbl = doc.add_table(rows=1 if has_header else 0, cols=ncols)
-        table_borders(tbl, T["border"])
+        table_borders(tbl, T["border_table"])
         tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
+        tbl.autofit = True
 
         if has_header:
             hrow = tbl.rows[0]
@@ -1145,9 +1368,16 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
             set_cant_split(tbl.rows[-1])   # a row never splits across pages
             for i in range(ncols):
                 cell_margins(cells[i])
-                run = cells[i].paragraphs[0].add_run(r[i])
+                cell_text = r[i]
+                run = cells[i].paragraphs[0].add_run(cell_text)
                 run.font.name = T["font"]; run.font.size = Pt(T["body_pt"])
-                run.font.color.rgb = rgb(T["body_color"])
+                # Apply clinical result coloring
+                rc = _result_color(cell_text)
+                if rc:
+                    run.font.color.rgb = rc
+                    run.bold = True
+                else:
+                    run.font.color.rgb = rgb(T["body_color"])
         doc.add_paragraph().paragraph_format.space_after = Pt(2)
 
     def add_image(doc, img):
@@ -1196,10 +1426,48 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
 
     kv = data.get("all_key_value_pairs") or data.get("extracted_key_value_pairs") or {}
     if kv:
-        add_banner(doc, "DETAILS", T["primary"])
+        add_banner(doc, "DETAILS", T["primary"], flat=True)
         add_kv_table(doc, kv)
 
     seen = set()
+
+    # Titles to skip in DOCX
+    _SKIP_TITLES_DOCX = {
+        "general content / notes",
+        "patient details & metadata",
+    }
+
+    def _should_skip_docx(el):
+        ttl = _clean_text(el.get("title"))
+        sec_type = el.get("type", "")
+        if sec_type == "demographics_box":
+            return True
+        if ttl and ttl.startswith("Header & Metadata Box"):
+            return True
+        if ttl and ttl.lower() in _SKIP_TITLES_DOCX:
+            return True
+        return False
+
+    def _is_ref_fragment_docx(el):
+        ttl = _clean_text(el.get("title"))
+        content_text = content_lines(el)
+        body_str = " ".join(content_text)
+        
+        combined = (ttl + " " + body_str).lower()
+        
+        if "pmid" in combined or "doi:" in combined or "et al" in combined:
+            return True
+        if "http" in combined or "www." in combined or ".html" in combined or ".com/" in combined or "release" in combined:
+            return True
+        if "guideline" in combined:
+            return True
+        if re.search(r'\b\d{4}\b', ttl):
+            return True
+        if re.match(r'^\d', ttl) and any(c in ttl for c in [';', ':', '(', ')', '-']):
+            return True
+        return False
+
+    ref_lines_docx = []  # collect references for merging
 
     def render_page(page):
         boxes = page.get("boxes_and_sections") or []
@@ -1222,9 +1490,30 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
 
         for kind, _pos, el in items:
             if kind == "box":
+                if _should_skip_docx(el):
+                    # Still capture content from skipped boxes (they may have useful text)
+                    for line in content_lines(el):
+                        s = _clean_text(line)
+                        if s and s not in seen:
+                            seen.add(s); add_para(doc, s)
+                    continue
                 ttl = _clean_text(el.get("title"))
-                if ttl and ttl.lower() != "general content / notes":
-                    add_banner(doc, ttl, T["primary"])
+                # Handle references
+                if ttl and ttl.lower().startswith("references"):
+                    for line in content_lines(el):
+                        s = _clean_text(line)
+                        if s:
+                            ref_lines_docx.append(s)
+                    continue
+                if _is_ref_fragment_docx(el):
+                    merged = ttl
+                    body = [_clean_text(l) for l in content_lines(el) if _clean_text(l)]
+                    if body:
+                        merged = f"{ttl} {' '.join(body)}"
+                    ref_lines_docx.append(merged)
+                    continue
+                if ttl:
+                    add_banner(doc, ttl, T["primary"], flat=True)
                 for line in content_lines(el):
                     s = _clean_text(line)
                     if s and s not in seen:
@@ -1244,9 +1533,24 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
             render_page(page)
     else:
         for sec in data.get("all_boxes_and_sections") or data.get("content_sections") or []:
+            if _should_skip_docx(sec):
+                continue
             ttl = _clean_text(sec.get("title"))
-            if ttl and ttl.lower() != "general content / notes":
-                add_banner(doc, ttl, T["primary"])
+            if ttl and ttl.lower().startswith("references"):
+                for line in content_lines(sec):
+                    s = _clean_text(line)
+                    if s:
+                        ref_lines_docx.append(s)
+                continue
+            if _is_ref_fragment_docx(sec):
+                merged = ttl
+                body = [_clean_text(l) for l in content_lines(sec) if _clean_text(l)]
+                if body:
+                    merged = f"{ttl} {' '.join(body)}"
+                ref_lines_docx.append(merged)
+                continue
+            if ttl:
+                add_banner(doc, ttl, T["primary"], flat=True)
             for line in content_lines(sec):
                 s = _clean_text(line)
                 if s and s not in seen:
@@ -1255,6 +1559,13 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
             add_data_table(doc, tb)
         for im in data.get("all_images_and_graphs") or data.get("images_and_graphs") or []:
             add_image(doc, im)
+
+    # Emit merged references section
+    if ref_lines_docx:
+        add_banner(doc, "References", T["primary"], flat=True)
+        for rl in ref_lines_docx:
+            if rl not in seen:
+                seen.add(rl); add_para(doc, rl)
 
     end = doc.add_paragraph(); end.alignment = WD_ALIGN_PARAGRAPH.CENTER
     er = end.add_run(T["eor_text"])
@@ -1476,45 +1787,74 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
             b_bbox = b.get("bbox", [0, 0, 0, 0])
             if b_bbox[1] < hy_cutoff or b_bbox[3] > fy_cutoff:
                 continue
-            for line in b.get("lines", []):
-                l_bbox = line.get("bbox", [0, 0, 0, 0])
-                lx0, ly0, lx1, ly1 = l_bbox
-                if ly0 < hy_cutoff or ly1 > fy_cutoff:
-                    continue
-                spans = line.get("spans", [])
 
-                if not spans:
-                    continue
-
-                spans_html = []
-                for s in spans:
-                    raw_text = s.get("text", "")
-                    if not raw_text:
+            lines = b.get("lines")
+            if lines:
+                for line in lines:
+                    l_bbox = line.get("bbox", [0, 0, 0, 0])
+                    lx0, ly0, lx1, ly1 = l_bbox
+                    if ly0 < hy_cutoff or ly1 > fy_cutoff:
                         continue
-                    clean_t = sanitize_text(raw_text)
-                    font_name = s.get("font", "")
-                    font_family = get_font_family(font_name)
-                    size = s.get("size", 10.0)
-                    color = s.get("color", "#000000")
-                    is_bold = s.get("bold") or ("bold" in font_name.lower())
-                    is_italic = s.get("italic") or ("italic" in font_name.lower())
+                    spans = line.get("spans", [])
 
-                    font_wt = "bold" if is_bold else "normal"
-                    font_st = "italic" if is_italic else "normal"
+                    if not spans:
+                        continue
 
-                    span_style = (
-                        f"font-size:{size:.2f}pt; "
-                        f"color:{color}; "
-                        f"font-family:{font_family}; "
-                        f"font-weight:{font_wt}; "
-                        f"font-style:{font_st};"
-                    )
-                    spans_html.append(f"<span style='{span_style}'>{clean_t}</span>")
+                    spans_html = []
+                    for s in spans:
+                        raw_text = s.get("text", "")
+                        if not raw_text:
+                            continue
+                        clean_t = sanitize_text(raw_text)
+                        font_name = s.get("font", "")
+                        font_family = get_font_family(font_name)
+                        size = s.get("size", 10.0)
+                        color = s.get("color", "#000000")
+                        is_bold = s.get("bold") or ("bold" in font_name.lower())
+                        is_italic = s.get("italic") or ("italic" in font_name.lower())
 
-                if spans_html:
-                    html_parts.append(
-                        f"<p style='left:{lx0:.2f}pt; top:{ly0:.2f}pt;'>{''.join(spans_html)}</p>"
-                    )
+                        font_wt = "bold" if is_bold else "normal"
+                        font_st = "italic" if is_italic else "normal"
+
+                        span_style = (
+                            f"font-size:{size:.2f}pt; "
+                            f"color:{color}; "
+                            f"font-family:{font_family}; "
+                            f"font-weight:{font_wt}; "
+                            f"font-style:{font_st};"
+                        )
+                        spans_html.append(f"<span style='{span_style}'>{clean_t}</span>")
+
+                    if spans_html:
+                        html_parts.append(
+                            f"<p style='left:{lx0:.2f}pt; top:{ly0:.2f}pt;'>{''.join(spans_html)}</p>"
+                        )
+            else:
+                raw_text = b.get("text", "")
+                if not raw_text:
+                    continue
+                clean_t = sanitize_text(raw_text)
+                font_name = b.get("font", "")
+                font_family = get_font_family(font_name)
+                size = b.get("max_font_size") or b.get("size") or 10.0
+                color = b.get("color", "#000000")
+                is_bold = b.get("is_bold") or b.get("bold") or ("bold" in font_name.lower())
+                is_italic = b.get("is_italic") or b.get("italic") or ("italic" in font_name.lower())
+
+                font_wt = "bold" if is_bold else "normal"
+                font_st = "italic" if is_italic else "normal"
+
+                span_style = (
+                    f"font-size:{size:.2f}pt; "
+                    f"color:{color}; "
+                    f"font-family:{font_family}; "
+                    f"font-weight:{font_wt}; "
+                    f"font-style:{font_st};"
+                )
+                lx0, ly0 = b_bbox[0], b_bbox[1]
+                html_parts.append(
+                    f"<p style='left:{lx0:.2f}pt; top:{ly0:.2f}pt; {span_style}'>{clean_t}</p>"
+                )
 
         html_parts.append("</div>")
 
@@ -1537,6 +1877,43 @@ def convert_html_to_docx(html_input, output_path: str = None, theme_config: dict
     and then trigger HTML -> Word conversion on demand.
     Returns bytes of the Word file, or writes to output_path if provided.
     """
+    import tempfile
+
+    # Try high-fidelity PDF -> Word conversion using Playwright and pdf2docx
+    if sync_playwright is not None and PDF2DocxConverter is not None:
+        try:
+            with tempfile.TemporaryDirectory() as tmp_dir:
+                tmp_dir_path = Path(tmp_dir)
+                html_file_path = tmp_dir_path / "temp.html"
+
+                if isinstance(html_input, (str, Path)) and os.path.exists(str(html_input)) and os.path.isfile(str(html_input)):
+                    with open(str(html_input), "r", encoding="utf-8") as f:
+                        html_content = f.read()
+                else:
+                    html_content = str(html_input)
+
+                html_file_path.write_text(html_content, encoding="utf-8")
+
+                compiled_pdf = tmp_dir_path / "compiled.pdf"
+                render_html_to_pdf_and_preview(html_file_path, compiled_pdf)
+
+                if compiled_pdf.exists() and compiled_pdf.stat().st_size > 0:
+                    out_docx_path = tmp_dir_path / "output.docx"
+                    success = convert_pdf_to_word(compiled_pdf, out_docx_path, theme_config=theme_config)
+                    if success and out_docx_path.exists():
+                        if output_path:
+                            out_p = Path(output_path)
+                            out_p.parent.mkdir(parents=True, exist_ok=True)
+                            with open(out_docx_path, "rb") as f_in, open(out_p, "wb") as f_out:
+                                f_out.write(f_in.read())
+                            return None
+                        else:
+                            with open(out_docx_path, "rb") as f_in:
+                                return f_in.read()
+        except Exception as e:
+            print(f"[*] Note: PDF-based HTML-to-Word conversion failed: {e}. Falling back to direct HTML parse.")
+
+    # Original Fallback Implementation
     from docx import Document
     from docx.shared import Inches
     from bs4 import BeautifulSoup
@@ -1670,12 +2047,9 @@ def convert_pdf_full_pipeline(pdf_path, output_dir=None, theme_config: dict = No
     # Step 2: JSON -> HTML
     print(f"\n[Step 2/4] Rendering JSON to HTML...")
     out_html = output_dir / f"{stem}_template.html"
-    if extracted_data:
-        full_html = generate_dynamic_template_html(extracted_data, doc_title=pdf_path.name, theme_config=theme_config)
-    else:
-        doc = fitz.open(str(pdf_path))
-        full_html = render_exact_pdf_layout_html(doc, doc_title=pdf_path.name, theme_config=theme_config)
-        doc.close()
+    doc = fitz.open(str(pdf_path))
+    full_html = render_exact_pdf_layout_html(doc, doc_title=pdf_path.name, theme_config=theme_config)
+    doc.close()
 
     with open(out_html, "w", encoding="utf-8") as f_html:
         f_html.write(full_html)
@@ -1747,6 +2121,7 @@ def get_page_section_overlays(page, page_left_str, page_width_str, hy_cutoff: fl
     """
     Extract section bounding boxes based on bold section headings in body region ONLY.
     """
+    return []
     spans = []
     blocks = page.get_text('dict')['blocks']
     for b in blocks:

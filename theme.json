@@ -47,8 +47,11 @@
     "background_page": "#ffffff",
     "background_container": "#525659",
     "border_primary": "#1f497d",
+    "border_table": "#000000",
     "border_header": "#cbd5e1",
-    "alternating_row_bg": "#f8fafc"
+    "alternating_row_bg": "#f8fafc",
+    "result_positive": "#C00000",
+    "result_negative": "#008000"
   },
   "headers_and_footers": {
     "header": {
@@ -319,5 +322,16 @@
       "repeat_table_headers": true,
       "prevent_orphan_rows": true
     }
+  },
+  "spacing": {
+    "boxPadding": 8,
+    "cellPaddingX": 6,
+    "cellPaddingY": 4,
+    "blockGap": 10
+  },
+  "border": {
+    "width": 1,
+    "style": "single",
+    "color": "#000000"
   }
 }

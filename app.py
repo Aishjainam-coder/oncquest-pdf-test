@@ -209,7 +209,28 @@ if uploaded_file is not None:
                     st.session_state.extracted_data = extracted_data
                     html_content = generate_dynamic_template_html(extracted_data, doc_title=uploaded_file.name, theme_config=theme_config)
                     st.session_state.html_content = html_content
-                    st.session_state.docx_bytes = convert_json_to_docx(extracted_data, theme_config=theme_config)
+
+                    with tempfile.TemporaryDirectory() as tmp_dir:
+                        html_tmp = Path(tmp_dir) / "temp.html"
+                        html_tmp.write_text(html_content, encoding="utf-8")
+                        compiled_pdf_tmp = Path(tmp_dir) / "compiled.pdf"
+
+                        # Compile Intermediate PDF from HTML
+                        render_html_to_pdf_and_preview(html_tmp, compiled_pdf_tmp)
+                        if compiled_pdf_tmp.exists():
+                            st.session_state.compiled_pdf_bytes = compiled_pdf_tmp.read_bytes()
+
+                            # Convert Compiled Result PDF -> Word (.docx) using pdf2docx
+                            out_docx_tmp = Path(tmp_dir) / "output.docx"
+                            convert_pdf_to_word(compiled_pdf_tmp, out_docx_tmp)
+                            if out_docx_tmp.exists():
+                                st.session_state.docx_bytes = out_docx_tmp.read_bytes()
+                            else:
+                                st.session_state.docx_bytes = None
+                        else:
+                            st.session_state.compiled_pdf_bytes = None
+                            # Fallback if Playwright PDF rendering failed
+                            st.session_state.docx_bytes = convert_json_to_docx(extracted_data, theme_config=theme_config)
                 else:
                     # PDF Input -> Render Clean HTML End Result (Header/Footer Excluded & Theme Styled) -> Convert HTML to Word
                     with tempfile.TemporaryDirectory() as tmp_dir:
