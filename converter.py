@@ -27,6 +27,98 @@ try:
 except ImportError:
     PDF2DocxConverter = None
 
+def replace_sng_gen_lab(text: str) -> str:
+    if not isinstance(text, str):
+        return text
+    pattern = re.compile(r"SNG\s+Gene?(?:['’‘]|&[a-zA-Z0-9#]+;)?s\s+Lab\s+pvt\.?\s*ltd", re.IGNORECASE)
+    return pattern.sub("Laboratory", text)
+
+
+def replace_test_name_in_html(html: str) -> str:
+    """
+    Replaces the SNG test report test name with 'TEST NAME' in rendered HTML.
+    All uploaded PDFs are SNG test reports (same format, only page count differs).
+    The test name always appears as:
+      Line 1: 'Liquidseq Actionable Genomic Profiling Panel'
+      Line 2: 'On Illumina Novaseq 6000 Platform'
+    Both lines are replaced — line 1 becomes 'TEST NAME', line 2 is cleared.
+    Preserves all HTML tags, positioning, and formatting.
+    """
+    if not isinstance(html, str):
+        return html
+
+    # Replace the main test name line with 'TEST NAME'
+    html = re.sub(
+        r'(?<=\>)\s*Liquidseq\s+Actionable\s+Genomic\s+Profiling\s+Panel\s*(?=\<)',
+        'TEST NAME',
+        html, flags=re.IGNORECASE
+    )
+    # Clear the subtitle line (already covered by the main test name above)
+    html = re.sub(
+        r'(?<=\>)\s*On\s+Illumina\s+Novaseq\s+6000\s+Platform\s*(?=\<)',
+        '',
+        html, flags=re.IGNORECASE
+    )
+
+    return html
+
+
+
+def replace_sng_in_structure(obj):
+    if isinstance(obj, dict):
+        return {k: replace_sng_in_structure(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [replace_sng_in_structure(item) for item in obj]
+    elif isinstance(obj, str):
+        return replace_sng_gen_lab(obj)
+    return obj
+
+
+def replace_sng_in_docx_obj(doc):
+    import re
+    pattern = re.compile(r"SNG\s+Gene?(?:['’‘]|&[a-zA-Z0-9#]+;)?s\s+Lab\s+pvt\.?\s*ltd", re.IGNORECASE)
+    replacement = "Laboratory"
+    
+    # 1. Replace in paragraphs
+    for p in doc.paragraphs:
+        for run in p.runs:
+            if pattern.search(run.text):
+                run.text = pattern.sub(replacement, run.text)
+        if pattern.search(p.text):
+            p.text = pattern.sub(replacement, p.text)
+            
+    # 2. Replace in tables
+    for table in doc.tables:
+        for row in table.rows:
+            for cell in row.cells:
+                for p in cell.paragraphs:
+                    for run in p.runs:
+                        if pattern.search(run.text):
+                            run.text = pattern.sub(replacement, run.text)
+                    if pattern.search(p.text):
+                        p.text = pattern.sub(replacement, p.text)
+                        
+    # 3. Replace in headers and footers
+    for section in doc.sections:
+        for header in [section.header, section.first_page_header, section.even_page_header]:
+            if header is not None:
+                for p in header.paragraphs:
+                    for run in p.runs:
+                        if pattern.search(run.text):
+                            run.text = pattern.sub(replacement, run.text)
+                    if pattern.search(p.text):
+                        p.text = pattern.sub(replacement, p.text)
+                        
+        for footer in [section.footer, section.first_page_footer, section.even_page_footer]:
+            if footer is not None:
+                for p in footer.paragraphs:
+                    for run in p.runs:
+                        if pattern.search(run.text):
+                            run.text = pattern.sub(replacement, run.text)
+                    if pattern.search(p.text):
+                        p.text = pattern.sub(replacement, p.text)
+
+
 from extractor import extract_report_data, detect_dynamic_header_footer_bounds
 
 
@@ -134,6 +226,26 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
         "<div class='pdf-container'>",
     ]
 
+    import base64
+    from pathlib import Path
+    header_image2_b64 = ""
+    header_image2_path = Path("assets/header_image2.jpeg")
+    if header_image2_path.exists():
+        try:
+            with open(header_image2_path, "rb") as img_f:
+                header_image2_b64 = base64.b64encode(img_f.read()).decode("utf-8")
+        except Exception:
+            pass
+
+    sig_image_b64 = ""
+    sig_image_path = Path("assets/dr_vinay_signature.png")
+    if sig_image_path.exists():
+        try:
+            with open(sig_image_path, "rb") as sig_f:
+                sig_image_b64 = base64.b64encode(sig_f.read()).decode("utf-8")
+        except Exception:
+            pass
+
     for page_num in range(len(doc)):
         page = doc[page_num]
         page_left_val, page_width_val = _get_page_bounds(page, fallback_left, fallback_width)
@@ -144,6 +256,15 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
         fy_cutoff = page_bounds[page_num]["footer_y_cutoff"]
 
         html_parts.append(f"<div class='pdf-page' id='page-{page_num+1}'>")
+        if header_image2_b64:
+            img_tag = (
+                f'<img src="data:image/jpeg;base64,{header_image2_b64}" '
+                f'style="position:absolute !important; left:440.0pt !important; '
+                f'top:15.0pt !important; width:130.0pt !important; '
+                f'height:auto !important; z-index:100 !important; '
+                f'object-fit:contain !important;" />'
+            )
+            html_parts.append(img_tag)
         page_html = page.get_text("html")
 
         # 1. Extract PyMuPDF table headers & grid coordinates in body region ONLY
@@ -151,12 +272,15 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
         table_header_html_divs = []
         table_grid_html_divs = []
         header_y_ranges = []
+        kept_table_bboxes = []
 
         for tab in tabs.tables:
             if hasattr(tab, 'bbox'):
                 tx0, ty0, tx1, ty1 = tab.bbox
-                if ty0 < hy_cutoff or ty1 > fy_cutoff:
+                t_mid = (ty0 + ty1) / 2.0
+                if t_mid < hy_cutoff or t_mid > fy_cutoff:
                     continue
+                kept_table_bboxes.append(tab.bbox)
 
             valid_cells = [c for c in tab.cells if c]
             if valid_cells:
@@ -214,9 +338,15 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
                 if rw > 550 and rh > 800:
                     continue
 
-                # Exclude vector lines/drawings in header or footer regions
-                if ry0 < hy_cutoff or ry1 > fy_cutoff:
-                    continue
+                # Exclude vector lines/drawings in header or footer regions, unless they are part of kept tables
+                is_table_vector = False
+                for tx0, ty0, tx1, ty1 in kept_table_bboxes:
+                    if (tx0 - 2.0) <= rx0 <= rx1 <= (tx1 + 2.0) and (ty0 - 2.0) <= ry0 <= ry1 <= (ty1 + 2.0):
+                        is_table_vector = True
+                        break
+                if not is_table_vector:
+                    if ry0 < hy_cutoff or ry1 > fy_cutoff:
+                        continue
 
                 if any(abs(ry0 - hy0_r) < 5.0 for hy0_r, _ in header_y_ranges):
                     continue
@@ -269,8 +399,26 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
         # HIDE raw <p> tags that fall inside header/footer regions or table headers
         def filter_hdr_ftr_and_table_p(match):
             p_tag = match.group(0)
+            
+            # Filter out standalone page numbering
+            text_val = re.sub(r'<[^>]+>', '', p_tag).strip()
+            if re.match(r'^Page\s+\d+\s+of\s+\d+$', text_val, re.IGNORECASE):
+                return ""
+
             top_m = re.search(r'top:\s*([\d.]+)pt', p_tag)
-            if top_m:
+            left_m = re.search(r'left:\s*([\d.]+)pt', p_tag)
+            if top_m and left_m:
+                y_val = float(top_m.group(1))
+                x_val = float(left_m.group(1))
+                is_inside_table = False
+                for tx0, ty0, tx1, ty1 in kept_table_bboxes:
+                    if (tx0 - 5.0) <= x_val <= (tx1 + 5.0) and (ty0 - 5.0) <= y_val <= (ty1 + 5.0):
+                        is_inside_table = True
+                        break
+                if not is_inside_table:
+                    if y_val < hy_cutoff or y_val > fy_cutoff:
+                        return ""
+            elif top_m:
                 y_val = float(top_m.group(1))
                 if y_val < hy_cutoff or y_val > fy_cutoff:
                     return ""
@@ -332,8 +480,14 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
                 if not xref or not bbox:
                     continue
                 x0, y0, x1, y1 = bbox
-                if y0 < hy_cutoff or y1 > fy_cutoff:
-                    continue
+                is_inside_table = False
+                for tx0, ty0, tx1, ty1 in kept_table_bboxes:
+                    if (tx0 - 5.0) <= x0 <= x1 <= (tx1 + 5.0) and (ty0 - 5.0) <= y0 <= y1 <= (ty1 + 5.0):
+                        is_inside_table = True
+                        break
+                if not is_inside_table:
+                    if y0 < hy_cutoff or y1 > fy_cutoff or y0 >= 690.0:
+                        continue
                 w_pt = max(1.0, x1 - x0)
                 h_pt = max(1.0, y1 - y0)
                 try:
@@ -364,10 +518,24 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
         html_parts.extend(table_header_html_divs)
         html_parts.extend(table_grid_html_divs)
         html_parts.extend(exact_image_html_divs)
+        if sig_image_b64:
+            sig_tag = (
+                f"<div class='page-signature-block' style='position:absolute !important; "
+                f"right:40.0pt !important; top:725.0pt !important; width:90.0pt !important; "
+                f"height:88.0pt !important; z-index:100 !important; text-align:left !important; pointer-events:none !important;'>"
+                f"  <img src='data:image/png;base64,{sig_image_b64}' style='position:relative !important; "
+                f"width:90.0pt !important; height:88.0pt !important; display:block !important; "
+                f"transform:none !important; opacity:1 !important; visibility:visible !important;' />"
+                f"</div>"
+            )
+            html_parts.append(sig_tag)
         html_parts.append("</div>")
 
     html_parts.append("</div></body></html>")
-    return "\n".join(html_parts)
+    full_html = "\n".join(html_parts)
+    full_html = replace_sng_gen_lab(full_html)
+    full_html = replace_test_name_in_html(full_html)
+    return full_html
 
 
 def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Document", theme_config: dict = None) -> str:
@@ -375,6 +543,7 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
     Renders extracted PDF JSON data dynamically into a clean HTML report template.
     Does NOT recreate vendor logos, patient header cards, or footer signatures.
     """
+    data = replace_sng_in_structure(data)
     cfg = get_merged_theme_config(theme_config)
     colors_cfg = cfg.get("colors", {})
     typo_cfg = cfg.get("typography", {})
@@ -629,6 +798,23 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
             </div>
             """
 
+    header_image2_path = Path("assets/header_image2.jpeg")
+    header_image2_html = ""
+    if header_image2_path.exists():
+        try:
+            import base64
+            with open(header_image2_path, "rb") as img_f:
+                header_image2_b64 = base64.b64encode(img_f.read()).decode("utf-8")
+            header_image2_html = (
+                f'<img src="data:image/jpeg;base64,{header_image2_b64}" '
+                f'style="position:absolute !important; left:440.0pt !important; '
+                f'top:15.0pt !important; width:130.0pt !important; '
+                f'height:auto !important; z-index:100 !important; '
+                f'object-fit:contain !important;" />'
+            )
+        except Exception:
+            pass
+
     oncquest_logo_html = ""
     patient_table_html = ""
 
@@ -665,6 +851,7 @@ body {{ margin: 0; padding: 0; background-color: #f1f5f9; font-family: {font_fam
 <body>
 <div class="pdf-container">
   <div class="report-content">
+    {header_image2_html}
     {sections_html}
 
     {tables_html}
@@ -674,7 +861,7 @@ body {{ margin: 0; padding: 0; background-color: #f1f5f9; font-family: {font_fam
 </div>
 </body>
 </html>"""
-    return html_content
+    return replace_sng_gen_lab(html_content)
 
 
 
@@ -1207,6 +1394,7 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
     from docx.oxml.ns import qn
     from docx.oxml import OxmlElement
 
+    data = replace_sng_in_structure(data)
     T = _load_oncquest_theme(theme_config)
 
     def rgb(hx):
@@ -1572,6 +1760,7 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
     er.font.name = T["eor_font"]; er.font.size = Pt(T["eor_pt"])
     er.font.color.rgb = rgb(T["eor_color"])
 
+    replace_sng_in_docx_obj(doc)
     if output_path:
         out_p = Path(output_path)
         out_p.parent.mkdir(parents=True, exist_ok=True)
@@ -1592,6 +1781,7 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
     json_p = Path(json_path)
     with open(json_p, "r", encoding="utf-8") as f:
         data = json.load(f)
+    data = replace_sng_in_structure(data)
 
     source_file = data.get("source_file", json_p.stem + ".pdf")
     doc_title = Path(source_file).stem
@@ -1736,6 +1926,17 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
         "<div class='pdf-container'>"
     ]
 
+    import base64
+    from pathlib import Path
+    header_image2_b64 = ""
+    header_image2_path = Path("assets/header_image2.jpeg")
+    if header_image2_path.exists():
+        try:
+            with open(header_image2_path, "rb") as img_f:
+                header_image2_b64 = base64.b64encode(img_f.read()).decode("utf-8")
+        except Exception:
+            pass
+
     for p in pages:
         p_num = p.get("page_number", 1)
         pw = p.get("width", 595.0)
@@ -1744,6 +1945,15 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
         fy_cutoff = p.get("footer_y_cutoff", ph)
 
         html_parts.append(f"<div class='pdf-page' id='page-{p_num}' style='width:{pw:.1f}pt; min-height:{ph:.1f}pt;'>")
+        if header_image2_b64:
+            img_tag = (
+                f'<img src="data:image/jpeg;base64,{header_image2_b64}" '
+                f'style="position:absolute !important; left:440.0pt !important; '
+                f'top:15.0pt !important; width:130.0pt !important; '
+                f'height:auto !important; z-index:100 !important; '
+                f'object-fit:contain !important;" />'
+            )
+            html_parts.append(img_tag)
 
         # 1. Render Vector Drawings in body region ONLY
         for d in p.get("drawings", []):
@@ -1774,7 +1984,7 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
             data_uri = img.get("data_uri")
             if bbox and data_uri:
                 x0, y0, x1, y1 = bbox
-                if y0 < hy_cutoff or y1 > fy_cutoff:
+                if y0 < hy_cutoff or y1 > fy_cutoff or y0 >= 690.0:
                     continue
                 w = max(1.0, x1 - x0)
                 h = max(1.0, y1 - y0)
@@ -1860,6 +2070,8 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
 
     html_parts.append("</div></body></html>")
     full_html = "\n".join(html_parts)
+    full_html = replace_sng_gen_lab(full_html)
+    full_html = replace_test_name_in_html(full_html)
 
     if output_path:
         out_p = Path(output_path)
@@ -1879,18 +2091,20 @@ def convert_html_to_docx(html_input, output_path: str = None, theme_config: dict
     """
     import tempfile
 
+    if isinstance(html_input, (str, Path)) and os.path.exists(str(html_input)) and os.path.isfile(str(html_input)):
+        with open(str(html_input), "r", encoding="utf-8") as f:
+            html_content = f.read()
+    else:
+        html_content = str(html_input)
+
+    html_content = replace_sng_gen_lab(html_content)
+
     # Try high-fidelity PDF -> Word conversion using Playwright and pdf2docx
     if sync_playwright is not None and PDF2DocxConverter is not None:
         try:
             with tempfile.TemporaryDirectory() as tmp_dir:
                 tmp_dir_path = Path(tmp_dir)
                 html_file_path = tmp_dir_path / "temp.html"
-
-                if isinstance(html_input, (str, Path)) and os.path.exists(str(html_input)) and os.path.isfile(str(html_input)):
-                    with open(str(html_input), "r", encoding="utf-8") as f:
-                        html_content = f.read()
-                else:
-                    html_content = str(html_input)
 
                 html_file_path.write_text(html_content, encoding="utf-8")
 
@@ -1922,12 +2136,6 @@ def convert_html_to_docx(html_input, output_path: str = None, theme_config: dict
     except ImportError:
         HtmlToDocx = None
 
-    if isinstance(html_input, (str, Path)) and os.path.exists(str(html_input)) and os.path.isfile(str(html_input)):
-        with open(str(html_input), "r", encoding="utf-8") as f:
-            html_content = f.read()
-    else:
-        html_content = str(html_input)
-
     doc = Document()
     for section in doc.sections:
         section.top_margin = Inches(0.75)
@@ -1954,6 +2162,7 @@ def convert_html_to_docx(html_input, output_path: str = None, theme_config: dict
     if not converted_with_htmldocx:
         _parse_html_soup_to_docx(soup, doc)
 
+    replace_sng_in_docx_obj(doc)
     if output_path:
         out_p = Path(output_path)
         out_p.parent.mkdir(parents=True, exist_ok=True)
@@ -2074,8 +2283,15 @@ def convert_pdf_full_pipeline(pdf_path, output_dir=None, theme_config: dict = No
 
 def convert_pdf_to_word(pdf_path, docx_path, theme_config: dict = None):
     """
-    Convert PDF to Word (.docx) directly using pdf2docx Converter (pdftoDoc logic).
+    Convert PDF to Word (.docx) directly using pdf2docx Converter (pdftoDoc logic),
+    redacting signature images from the PDF body first and injecting them into footers.
     """
+    import fitz
+    import docx
+    from docx.shared import Inches
+    from docx.enum.text import WD_ALIGN_PARAGRAPH
+    import os
+    
     pdf_p = str(Path(pdf_path).absolute())
     docx_p = str(Path(docx_path).absolute())
     Path(docx_p).parent.mkdir(parents=True, exist_ok=True)
@@ -2084,15 +2300,76 @@ def convert_pdf_to_word(pdf_path, docx_path, theme_config: dict = None):
         print("[!] Error: pdf2docx is not installed. Run 'pip install pdf2docx'")
         return False
 
+    # 1. Create a temporary PDF with signature area redacted (whited out)
+    temp_pdf_path = docx_p + ".temp_redacted.pdf"
     try:
-        cv_obj = PDF2DocxConverter(pdf_p)
+        doc = fitz.open(pdf_p)
+        for page_num in range(len(doc)):
+            page = doc[page_num]
+            # Redact the signature bbox [450, 715, 570, 820]
+            rect = fitz.Rect(450, 715, 570, 820)
+            page.add_redact_annot(rect, fill=(1, 1, 1)) # White solid fill
+            page.apply_redactions()
+        doc.save(temp_pdf_path)
+        doc.close()
+    except Exception as e_redact:
+        print(f"   [!] PDF Redaction failed: {e_redact}")
+        temp_pdf_path = pdf_p  # Fallback to original PDF if redaction fails
+
+    # 2. Convert the redacted PDF to Word
+    try:
+        cv_obj = PDF2DocxConverter(temp_pdf_path)
         cv_obj.convert(docx_p)
         cv_obj.close()
         print(f"   [+] File Converted Successfully: {docx_p}")
-        return True
     except Exception as e:
         print(f"   [!] Conversion Failed: {e}")
+        if temp_pdf_path != pdf_p and os.path.exists(temp_pdf_path):
+            try:
+                os.remove(temp_pdf_path)
+            except Exception:
+                pass
         return False
+
+    # Clean up temporary PDF
+    if temp_pdf_path != pdf_p and os.path.exists(temp_pdf_path):
+        try:
+            os.remove(temp_pdf_path)
+        except Exception:
+            pass
+
+    # 3. Post-process the generated Word document (signature injection and SNG replacement)
+    try:
+        doc_word = docx.Document(docx_p)
+        
+        # Inject signature if present
+        sig_image_path = Path("assets/dr_vinay_signature.png")
+        if sig_image_path.exists():
+            for s_idx, section in enumerate(doc_word.sections):
+                # Add signature to all footer types (default, first page, even page)
+                footers = [section.footer, section.first_page_footer, section.even_page_footer]
+                for footer in footers:
+                    if footer is not None:
+                        # Only add signature if it is the first section or NOT linked to previous section
+                        if s_idx == 0 or not footer.is_linked_to_previous:
+                            if len(footer.paragraphs) == 1 and footer.paragraphs[0].text == "":
+                                p = footer.paragraphs[0]
+                            else:
+                                p = footer.add_paragraph()
+                            p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+                            run = p.add_run()
+                            run.add_picture(str(sig_image_path.absolute()), width=Inches(1.25))
+            print(f"   [+] Injected signature image into Word footer of every section.")
+
+        # Perform "SNG Gen's Lab pvt ltd" -> "Laboratory" substitution
+        replace_sng_in_docx_obj(doc_word)
+        
+        doc_word.save(docx_p)
+        print(f"   [+] Post-processed Word document successfully.")
+    except Exception as e_word:
+        print(f"   [!] Failed to post-process Word document: {e_word}")
+
+    return True
 
 
 

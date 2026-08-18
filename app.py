@@ -133,7 +133,7 @@ theme_config = {
     "show_tables": True,
     "show_sections": True,
     "show_images": True,
-    "show_footer_signatures": True,
+    "show_footer_signatures": False,
     "show_badges": True
 }
 

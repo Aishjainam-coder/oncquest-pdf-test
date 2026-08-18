@@ -28,6 +28,23 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(me
 logger = logging.getLogger("UniversalPDFExtractor")
 
 
+def replace_sng_gen_lab(text: str) -> str:
+    if not isinstance(text, str):
+        return text
+    pattern = re.compile(r"SNG\s+Gene?(?:['’‘]|&[a-zA-Z0-9#]+;)?s\s+Lab\s+pvt\.?\s*ltd", re.IGNORECASE)
+    return pattern.sub("Laboratory", text)
+
+
+def replace_sng_in_structure(obj):
+    if isinstance(obj, dict):
+        return {k: replace_sng_in_structure(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [replace_sng_in_structure(item) for item in obj]
+    elif isinstance(obj, str):
+        return replace_sng_gen_lab(obj)
+    return obj
+
+
 def parse_header_key_value_pairs(full_text: str) -> dict:
     """
     Extracts structured key-value header metadata pairs from document text dynamically.
@@ -242,15 +259,19 @@ def detect_dynamic_header_footer_bounds(doc) -> dict:
                     if y1 > header_y1:
                         header_y1 = y1
 
-            # Check Footer match (bottom 16% of page ONLY)
-            if y0 > 0.82 * H:
+            # Check Footer match (bottom 20% of page ONLY)
+            if y0 > 0.80 * H:
                 is_ftr = False
                 if norm_t in repeated_bot:
                     is_ftr = True
                 elif any(kw in norm_t for kw in footer_kw):
-                    is_ftr = True
+                    if 'page ' in norm_t and len(norm_t) > 30 and not any(k in norm_t for k in ['dr.', 'signatory', 'verified', 'reviewed', 'authorized']):
+                        pass
+                    else:
+                        is_ftr = True
                 elif re.search(r'page\s+\d+', norm_t):
-                    is_ftr = True
+                    if len(norm_t) < 30:
+                        is_ftr = True
                 elif y0 > 0.88 * H:
                     is_ftr = True
 
@@ -258,7 +279,7 @@ def detect_dynamic_header_footer_bounds(doc) -> dict:
                     if y0 < footer_y0:
                         footer_y0 = y0
 
-        # B) Analyze image bboxes (top 20% for header, bottom 15% for footer)
+        # B) Analyze image bboxes (top 20% for header, bottom 20% for footer)
         img_infos = page.get_image_info(xrefs=True)
         for info in img_infos:
             bbox = info.get("bbox")
@@ -268,13 +289,13 @@ def detect_dynamic_header_footer_bounds(doc) -> dict:
             if iy0 < 0.20 * H:
                 if iy1 > header_y1:
                     header_y1 = iy1
-            if iy0 > 0.84 * H:
+            if iy0 > 0.80 * H:
                 if iy0 < footer_y0:
                     footer_y0 = iy0
 
-        # Add buffer - Header capped at 0.26*H (~218px), Footer floored at 0.84*H (~707px)
+        # Add buffer - Header capped at 0.26*H (~218px), Footer floored at 0.80*H (~673px)
         final_hdr_cutoff = min(header_y1 + 2.0, 0.26 * H) if header_y1 > 0 else 0.0
-        final_ftr_cutoff = max(footer_y0 - 2.0, 0.84 * H) if footer_y0 < H else H
+        final_ftr_cutoff = max(footer_y0 - 2.0, 0.80 * H) if footer_y0 < H else H
 
         page_bounds[p_idx] = {
             "header_y_cutoff": round(final_hdr_cutoff, 2),
@@ -371,9 +392,11 @@ def extract_report_data(pdf_path: str) -> dict:
                 table_list = list(tf)
                 for t_idx, table in enumerate(table_list):
                     t_bbox = [round(c, 2) for c in table.bbox]
-                    # Exclude tables inside header or footer regions on EVERY page
-                    if t_bbox[1] < hy_cutoff or t_bbox[3] > fy_cutoff:
+                    # Exclude tables inside header or footer regions on EVERY page using midpoint check
+                    t_mid = (t_bbox[1] + t_bbox[3]) / 2.0
+                    if t_mid < hy_cutoff or t_mid > fy_cutoff:
                         continue
+
 
                     table_data = table.extract()
                     if table_data and len(table_data) > 0:
@@ -642,6 +665,8 @@ def extract_report_data(pdf_path: str) -> dict:
         "pages": pages_list,
         "raw_full_text": full_document_text
     }
+
+    extracted_data = replace_sng_in_structure(extracted_data)
 
     try:
         doc.close()

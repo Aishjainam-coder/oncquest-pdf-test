@@ -75,7 +75,7 @@
       }
     },
     "footer": {
-      "show_signatures": true,
+      "show_signatures": false,
       "signature_image_path": "assets/footer_signatures.png",
       "signature_width_pt": 540.0,
       "signature_alignment": "center",

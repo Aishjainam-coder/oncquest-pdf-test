@@ -1,0 +1,391 @@
+PDF Path: output/TestReport_DULAL NAHA (KOL2604070057)_2600128556_11d3f985-7e08-40be-91b4-48b35be363ee_compiled.pdf
+Total Pages: 10
+
+=========================================
+PAGE 1
+=========================================
+Total Blocks: 18
+  Block 1 (bbox: [262.0, 202.7, 333.4, 219.1], type: 0):
+    "TEST NAME"
+  Block 2 (bbox: [35.8, 255.3, 150.7, 279.0], type: 0):
+    "Clinical Indication: Metastatic Adenocarcinoma"
+  Block 3 (bbox: [219.2, 295.0, 380.3, 320.2], type: 0):
+    "Positive (Clinically significant Variant detected)"
+  Block 4 (bbox: [46.5, 336.6, 147.8, 350.7], type: 0):
+    "Report Highlights:"
+  Block 5 (bbox: [52.2, 365.2, 518.4, 376.4], type: 0):
+    "Tier I Tier II Tier III MSI Therapies Clinical Trials"
+  Block 6 (bbox: [56.5, 367.8, 521.9, 379.5], type: 0):
+    "Tier I Tier II Tier III MSI Therapies Clinical Trials"
+  Block 7 (bbox: [61.8, 389.5, 493.2, 401.2], type: 0):
+    "0 1 0 Stable 0 43"
+  Block 8 (bbox: [46.5, 416.8, 120.7, 430.9], type: 0):
+    "Key Findings:"
+  Block 9 (bbox: [59.2, 445.5, 544.2, 456.6], type: 0):
+    "Tier Gene & Transcript Variant Exon Coverage/ VAF"
+  Block 10 (bbox: [63.3, 448.0, 545.8, 459.7], type: 0):
+    "Tier Gene & Transcript Variant Exon Coverage/VAF"
+  Block 11 (bbox: [62.5, 469.0, 205.4, 492.7], type: 0):
+    "IIC TP53 NM_000546.6"
+  Block 12 (bbox: [292.6, 469.0, 527.6, 492.7], type: 0):
+    "c.405C>A p.(C135*) 5 691x / 93.13%"
+  Block 13 (bbox: [35.7, 496.8, 438.1, 522.0], type: 0):
+    "*Genetic test results are reported based on the recommendations of AMP-ASCO-CAP guidelines. **Public data sources included in relevant targeted therapies, guidelines: EMA, FDA, ESMO, NCCN."
+  Block 14 (bbox: [46.5, 533.1, 220.4, 547.2], type: 0):
+    "Multi-Gene Biomarkers Results:"
+  Block 15 (bbox: [103.4, 562.5, 517.8, 573.6], type: 0):
+    "Assay Biomarker Result Interpretation"
+  Block 16 (bbox: [106.5, 565.0, 522.1, 576.7], type: 0):
+    "Assay Biomarker Result Interpretation"
+  Block 17 (bbox: [76.0, 588.3, 543.3, 600.0], type: 0):
+    "Microsatellite Instability (MSI) Stable Stable Microsatellite detected"
+  Block 18 (bbox: [35.7, 606.3, 530.6, 631.5], type: 0):
+    "# Correlation of the genetic findings with the clinical condition of the patient is required to arrive at accurate diagnosis, prognosis or therapeutic decisions."
+
+=========================================
+PAGE 2
+=========================================
+Total Blocks: 14
+  Block 1 (bbox: [47.5, 206.1, 162.6, 220.2], type: 0):
+    "Clinical Significance:"
+  Block 2 (bbox: [103.1, 236.2, 405.9, 247.4], type: 0):
+    "Variant Therapy"
+  Block 3 (bbox: [106.8, 238.8, 410.3, 250.5], type: 0):
+    "Variant Therapy"
+  Block 4 (bbox: [269.6, 265.0, 516.2, 276.7], type: 0):
+    "In This Cancer In Other Cancer"
+  Block 5 (bbox: [98.7, 289.0, 139.3, 327.7], type: 0):
+    "IIC TP53 p.(C135*)"
+  Block 6 (bbox: [214.2, 299.1, 428.2, 313.2], type: 0):
+    "▪None* ▪None*"
+  Block 7 (bbox: [83.2, 354.0, 518.1, 365.1], type: 0):
+    "Variant Diagnostic Significance Prognostic Significance"
+  Block 8 (bbox: [87.0, 356.5, 521.7, 368.2], type: 0):
+    "Variant Diagnostic Significance Prognostic Significance"
+  Block 9 (bbox: [78.8, 378.3, 398.7, 401.2], type: 0):
+    "TP53 p.(C135*) None* None*"
+  Block 10 (bbox: [46.5, 416.8, 175.6, 430.9], type: 0):
+    "Biomarker Description:"
+  Block 11 (bbox: [72.7, 446.2, 408.2, 457.4], type: 0):
+    "Variant Biomarker Description"
+  Block 12 (bbox: [76.5, 448.8, 411.6, 460.5], type: 0):
+    "Variant Biomarker Description"
+  Block 13 (bbox: [153.5, 469.8, 546.4, 692.2], type: 0):
+    "The TP53 gene encodes the tumor suppressor protein p53, which binds to DNA and activates transcription in response to diverse cellular stresses to induce cell cycle arrest, apoptosis, or DNA repair[1]. In unstressed cells, TP53 is kept inactive by targeted degradation via MDM2, a substrate recognition factor for ubiquitin-dependent proteolysis[2]. Alterations in TP53 are required for oncogenesis as they result in loss of protein function and gain of transforming potential[3]. Germline mutations in TP53 are the underlying cause of Li-Fraumeni syndrome, a complex hereditary cancer predisposition disorder associated with early-onset cancers[4,5]. TP53 is the most frequently mutated gene in the cancer genome with approximately half of all cancers experiencing TP53 mutations. Ovarian, head and neck, esophageal, and lung squamous cancers have particularly high TP53 mutation rates (60-90%)[6,7,8,9,10,11]. Approximately two-thirds of TP53 mutations are missense mutations and several recurrent missense mutations are common, including substitutions at codons R158, R175, Y220, R248, R273, and R282[6,7]. Invariably, recurrent missense mutations in TP53 inactivate its ability to bind DNA and activate transcription of target genes[12,13,14,15]. Alterations in TP53 are also observed in pediatric cancers[6,7]. Somatic mutations are observed in 53% of non-Hodgkin lymphoma, 24% of soft tissue sarcoma, 19% of glioma, 13% of bone cancer, 9% of B-lymphoblastic leukemia/lymphoma, 4% of embryonal tumors, 3% of Wilms tumor and leukemia, 2% of T- lymphoblastic leukemia/lymphoma, and less than 1% of peripheral nervous system cancers (5 in 1158 cases )[6,7]. Biallelic loss of TP53 is observed in 10% of bone cancer, 2% of Wilms"
+  Block 14 (bbox: [35.8, 550.0, 99.1, 608.2], type: 0):
+    "TP53 NM_000546.6 chr17:7578525 c.405C>A p.(C135*)"
+
+=========================================
+PAGE 3
+=========================================
+Total Blocks: 22
+  Block 1 (bbox: [153.5, 207.3, 560.5, 430.5], type: 0):
+    "tumor, and less than 1% of B-lymphoblastic leukemia/lymphoma (2 in 731 cases) and leukemia (1 in 250 cases)[6,7]. The small molecule p53 reactivator, PC14586[16] (2020), received a fast track designation by the FDA for advanced tumors harboring a TP53 Y220C mutation. The FDA has granted fast track designation to the p53 reactivator, eprenetapopt[17], (2019) and breakthrough designation[18] (2020) in combination with azacitidine or azacitidine and venetoclax for acute myeloid leukemia patients (AML) and myelodysplastic syndrome (MDS) harboring a TP53 mutation, respectively. In addition to investigational therapies aimed at restoring wild-type TP53 activity, compounds that induce synthetic lethality are also under clinical evaluation[19,20]. TP53 mutation are a diagnostic marker of SHH-activated, TP53-mutant medulloblastoma[21]. TP53 mutations confer poor prognosis and poor risk in multiple blood cancers including AML, MDS, myeloproliferative neoplasms (MPN), and chronic lymphocytic leukemia (CLL), and acute lymphoblastic leukemia (ALL)[22,23,24,25,26,27]. In mantle cell lymphoma, TP53 mutations are associated with poor prognosis when treated with conventional therapy including hematopoietic cell transplant[28]. Mono- and bi-allelic mutations in TP53 confer unique characteristics in MDS, with multi-hit patients also experiencing associations with complex karyotype, few co-occurring mutations, and high-risk disease presentation as well as predicted death and leukemic transformation independent of the IPSS-R staging system[29]."
+  Block 2 (bbox: [154.2, 212.2, 559.7, 245.1], type: 0):
+    "tumor, and less than 1% of B-lymphoblastic leukemia/lymphoma (2 in 731 cases) and leukemia (1 in 250 cases)[6,7]. The small molecule p53 reactivator, PC14586[16] (2020), received a fast track designation by the FDA for advanced tumors harboring a TP53 Y220C"
+  Block 3 (bbox: [154.6, 245.2, 558.8, 267.6], type: 0):
+    "mutation. The FDA has granted fast track designation to the p53 reactivator, eprenetapopt[17], (2019) and breakthrough designation[18] (2020) in combination with"
+  Block 4 (bbox: [156.7, 267.0, 557.2, 289.4], type: 0):
+    "azacitidine or azacitidine and venetoclax for acute myeloid leukemia patients (AML) and myelodysplastic syndrome (MDS) harboring a TP53 mutation, respectively. In addition to"
+  Block 5 (bbox: [155.6, 288.7, 558.0, 321.6], type: 0):
+    "investigational therapies aimed at restoring wild-type TP53 activity, compounds that induce synthetic lethality are also under clinical evaluation[19,20]. TP53 mutation are a diagnostic marker of SHH-activated, TP53-mutant medulloblastoma[21]. TP53 mutations"
+  Block 6 (bbox: [157.3, 321.7, 556.2, 344.1], type: 0):
+    "confer poor prognosis and poor risk in multiple blood cancers including AML, MDS, myeloproliferative neoplasms (MPN), and chronic lymphocytic leukemia (CLL), and acute"
+  Block 7 (bbox: [153.1, 343.5, 560.5, 376.4], type: 0):
+    "lymphoblastic leukemia (ALL)[22,23,24,25,26,27]. In mantle cell lymphoma, TP53 mutations are associated with poor prognosis when treated with conventional therapy including hematopoietic cell transplant[28]. Mono- and bi-allelic mutations in TP53 confer"
+  Block 8 (bbox: [152.7, 376.5, 560.9, 398.1], type: 0):
+    "unique characteristics in MDS, with multi-hit patients also experiencing associations with complex karyotype, few co-occurring mutations, and high-risk disease presentation as well"
+  Block 9 (bbox: [169.3, 398.2, 544.1, 409.4], type: 0):
+    "as predicted death and leukemic transformation independent of the IPSS-R staging"
+  Block 10 (bbox: [330.0, 408.7, 383.6, 419.9], type: 0):
+    "system[29]."
+  Block 11 (bbox: [46.5, 446.1, 187.8, 460.2], type: 0):
+    "Therapy & Clinical Trials:"
+  Block 12 (bbox: [35.8, 480.3, 150.2, 492.0], type: 0):
+    "TP53 p.(C135*) c.405C>A"
+  Block 13 (bbox: [147.2, 498.7, 551.2, 509.9], type: 0):
+    "Therapy FDA NCCN EMA ESMO Trials"
+  Block 14 (bbox: [151.1, 501.3, 555.3, 513.0], type: 0):
+    "Therapy FDA NCCN EMA ESMO Trials"
+  Block 15 (bbox: [35.8, 520.3, 541.4, 534.7], type: 0):
+    "niraparib X X X X II"
+  Block 16 (bbox: [35.8, 542.8, 541.4, 558.0], type: 0):
+    "atezolizumab X X X X II"
+  Block 17 (bbox: [35.8, 566.1, 541.4, 580.5], type: 0):
+    "azenosertib X X X X II"
+  Block 18 (bbox: [35.8, 588.6, 544.9, 603.0], type: 0):
+    "ART-6043, olaparib, niraparib X X X X I/II"
+  Block 19 (bbox: [35.8, 611.1, 544.9, 625.5], type: 0):
+    "ATRN-119 X X X X I/II"
+  Block 20 (bbox: [35.8, 633.6, 544.9, 648.0], type: 0):
+    "niraparib, GSK-101 X X X X I/II"
+  Block 21 (bbox: [35.8, 656.1, 544.9, 670.5], type: 0):
+    "VB-15010 X X X X I/II"
+  Block 22 (bbox: [35.8, 678.6, 540.0, 693.0], type: 0):
+    "GenSci-122 X X X X I"
+
+=========================================
+PAGE 4
+=========================================
+Total Blocks: 22
+  Block 1 (bbox: [146.3, 209.2, 539.8, 220.4], type: 0):
+    "GH-2616 X X X X I"
+  Block 2 (bbox: [35.8, 209.8, 540.0, 224.2], type: 0):
+    "GH-2616 X X X X I"
+  Block 3 (bbox: [35.8, 232.3, 540.0, 246.7], type: 0):
+    "HRS-1167 X X X X I"
+  Block 4 (bbox: [35.8, 254.8, 540.0, 269.2], type: 0):
+    "HS-10502 X X X X I"
+  Block 5 (bbox: [35.8, 277.3, 540.0, 291.7], type: 0):
+    "SIM-0501 X X X X I"
+  Block 6 (bbox: [35.8, 299.8, 540.0, 314.2], type: 0):
+    "talazoparib, palbociclib, axitinib, crizotinib X X X X I"
+  Block 7 (bbox: [35.8, 322.3, 540.0, 337.5], type: 0):
+    "XL-309, olaparib X X X X I"
+  Block 8 (bbox: [35.8, 345.6, 542.8, 360.0], type: 0):
+    "pembrolizumab, chemotherapy X X X X IV"
+  Block 9 (bbox: [35.8, 368.1, 542.8, 382.5], type: 0):
+    "hormone therapy, chemotherapy X X X X III"
+  Block 10 (bbox: [35.8, 390.6, 542.8, 405.0], type: 0):
+    "olaparib, chemotherapy, radiation therapy X X X X III"
+  Block 11 (bbox: [35.8, 413.1, 542.8, 427.5], type: 0):
+    "saruparib, hormone therapy X X X X III"
+  Block 12 (bbox: [35.8, 435.6, 547.6, 450.0], type: 0):
+    "niraparib, radiation therapy X X X X II/III"
+  Block 13 (bbox: [35.8, 458.1, 547.6, 472.5], type: 0):
+    "olaparib + chemotherapy X X X X II/III"
+  Block 14 (bbox: [35.8, 482.5, 541.4, 505.5], type: 0):
+    "abiraterone + niraparib, hormone therapy, radiation therapy, steroid X X X X II"
+  Block 15 (bbox: [35.8, 512.8, 541.4, 527.2], type: 0):
+    "camrelizumab, fluzoparib, chemotherapy X X X X II"
+  Block 16 (bbox: [35.8, 535.3, 541.4, 549.7], type: 0):
+    "eflornithine X X X X II"
+  Block 17 (bbox: [35.8, 557.8, 541.4, 572.2], type: 0):
+    "hormone therapy, hormone therapy + chemotherapy X X X X II"
+  Block 18 (bbox: [35.8, 580.3, 541.4, 594.7], type: 0):
+    "lunresertib, trastuzumab, chemotherapy, camonsertib X X X X II"
+  Block 19 (bbox: [35.8, 602.8, 541.4, 617.2], type: 0):
+    "niraparib, dostarlimab X X X X II"
+  Block 20 (bbox: [35.8, 625.3, 541.4, 639.7], type: 0):
+    "olaparib X X X X II"
+  Block 21 (bbox: [35.8, 647.8, 541.4, 662.2], type: 0):
+    "olaparib + hormone therapy X X X X II"
+  Block 22 (bbox: [35.8, 670.3, 541.4, 684.7], type: 0):
+    "olaparib, chemotherapy X X X X II"
+
+=========================================
+PAGE 5
+=========================================
+Total Blocks: 17
+  Block 1 (bbox: [116.8, 209.2, 541.7, 220.4], type: 0):
+    "olaparib, durvalumab X X X X II"
+  Block 2 (bbox: [35.8, 209.8, 541.4, 224.2], type: 0):
+    "olaparib, durvalumab X X X X II"
+  Block 3 (bbox: [35.8, 232.3, 541.4, 246.7], type: 0):
+    "olaparib, pembrolizumab X X X X II"
+  Block 4 (bbox: [35.8, 254.8, 541.4, 269.2], type: 0):
+    "sintilimab, chemotherapy X X X X II"
+  Block 5 (bbox: [35.8, 277.3, 544.9, 291.7], type: 0):
+    "fluzoparib, camrelizumab, chemotherapy X X X X I/II"
+  Block 6 (bbox: [35.8, 299.8, 544.9, 314.2], type: 0):
+    "IMP-1734 X X X X I/II"
+  Block 7 (bbox: [35.8, 322.3, 544.9, 337.5], type: 0):
+    "tislelizumab, radiation therapy X X X X I/II"
+  Block 8 (bbox: [35.8, 345.6, 540.0, 360.0], type: 0):
+    "A2A-252 X X X X I"
+  Block 9 (bbox: [35.8, 368.1, 540.0, 382.5], type: 0):
+    "GB-3010 X X X X I"
+  Block 10 (bbox: [35.8, 390.6, 540.0, 405.0], type: 0):
+    "lunresertib, camonsertib, Debio-0123 X X X X I"
+  Block 11 (bbox: [35.8, 413.1, 540.0, 427.5], type: 0):
+    "SC0245 X X X X I"
+  Block 12 (bbox: [35.8, 433.2, 521.7, 458.2], type: 0):
+    "📝Note: ✓: In this Cancer Type, ✓: In Other Cancer Type, ✓✓: both In this and Other Cancer Type, X : No Evidence.⚠️: Caution for Use"
+  Block 13 (bbox: [40.3, 471.3, 113.7, 483.0], type: 0):
+    "Test Description"
+  Block 14 (bbox: [35.8, 487.0, 509.5, 510.7], type: 0):
+    "Liquidseq Actionable Genomic Profiling Panel is advancing precision oncology research through the analysis of multiple relevant biomarkers in a single next-generation sequencing (NGS) test."
+  Block 15 (bbox: [35.8, 530.5, 542.4, 577.5], type: 0):
+    "The Liquidseq Actionable Genomic Profiling assay analyses 34 unique genes (28 DNA + 6 Fusions driver genes) for single gene and multiple gene biomarker insights, detects single gene biomarkers from all variant types including SNVs, indels, CNVs, known and novel fusions, and splice variants. Analyze complex multi-gene biomarkers for mutational signatures, including microsatellite instability (MSI) for immunotherapy research."
+  Block 16 (bbox: [35.8, 597.3, 501.4, 620.2], type: 0):
+    "The performance of the panel was verified using both commercially sourced reference controls and cell-free DNA (cfTNA)samples."
+  Block 17 (bbox: [35.7, 638.5, 534.7, 686.2], type: 0):
+    "Test Methodology Extraction & Library Preparation: Cell free Total Nucleic acid (cfTNA) extracted from the liquid biopsy sample is used for targeted gene capture using a custom designed hybrid capture panel. In process quality controls were determined for prepared library."
+
+=========================================
+PAGE 6
+=========================================
+Total Blocks: 10
+  Block 1 (bbox: [35.8, 207.3, 531.0, 231.0], type: 0):
+    "Sequencing: The libraries were sequenced at mean depth: >25,000x on Illumina Novaseq- next generation sequencing platform."
+  Block 2 (bbox: [35.7, 244.0, 545.0, 303.0], type: 0):
+    "Data Analysis: Sequencing data analyzed using a customized and validated bioinformatics pipeline capable of detecting various classes of genomic alterations, including single nucleotide variants (SNVs), Indels, copy number variations (CNVs) and fusions. As part of the streamlined bioinformatics workflow, Multi-gene Biomarkers such as Microsatellite Instability (MSI) Score is calculated. Reportable genomic alterations and fusions are prioritized, classified, and reported based on AMP-ASCO-CAP guidelines and NCCN guidelines."
+  Block 3 (bbox: [35.7, 307.0, 539.4, 330.7], type: 0):
+    "Limit of Detection (LOD): The LOD for SNVs and Short InDels is 0.1% Variant allele Frequency (VAF) and for Fusions is 05 supporting reads."
+  Block 4 (bbox: [40.2, 349.0, 65.7, 360.7], type: 0):
+    "Notes"
+  Block 5 (bbox: [35.7, 364.8, 527.9, 399.7], type: 0):
+    "Treatment decisions should not be based solely on the results of this test. Findings must be interpreted in the context of the patient’s complete clinical profile—including pathological, radiological, and family history—to guide diagnosis, prognosis, and therapeutic decisions."
+  Block 6 (bbox: [35.7, 419.5, 529.6, 478.5], type: 0):
+    "Therapy-related information in this report is derived from multiple sources including FDA-approved drug data, NCCN guidelines, peer-reviewed literature, standard clinical databases, and biomarker evidence strength. However, therapy options listed may not be suitable or beneficial for all patients. This report aims to provide a summary of potentially effective treatments, therapies that may pose increased risks, and those that may have limited benefit, based on genomic alterations identified. Prognostic and diagnostic biomarkers relevant to the disease context may also be reported."
+  Block 7 (bbox: [35.7, 498.3, 529.2, 521.2], type: 0):
+    "SN Genelab Pvt Ltd does not guarantee completeness, accuracy, or eligibility for trial enrollment. Physicians must verify eligibility criteria for specific trials independently."
+  Block 8 (bbox: [35.7, 541.0, 537.2, 576.7], type: 0):
+    "Identification of a genomic alteration does not guarantee therapeutic efficacy or predict ineffectiveness. Final decisions on treatment should rest with the treating physician. The absence of reported therapeutic options does not imply ineffectiveness or lack of safety of any medication selected independently."
+  Block 9 (bbox: [35.7, 596.5, 519.4, 631.5], type: 0):
+    "All variant classifications and related clinical information are based on the latest evidence from peer-reviewed publications, public clinical databases, and medical guidelines (e.g., NCCN, ASCO, AMP) available at the time of report generation. However, literature is continuously evolving, and classification may change with emerging evidence."
+  Block 10 (bbox: [35.7, 651.3, 532.7, 674.2], type: 0):
+    "The assay is designed and validated for somatic variant detection, it does not differentiate between somatic and germline variants. If indicated, germline testing and genetic counselling are recommended."
+
+=========================================
+PAGE 7
+=========================================
+Total Blocks: 12
+  Block 1 (bbox: [35.7, 211.8, 536.3, 246.7], type: 0):
+    "Poor-quality cfDNA/ Previous or Ongoing therapy may fail QC thresholds at various stages such as cfDNA extraction, library preparation, or bioinformatics, and may result in assay failure or compromised results, such as low gene coverage or shallow variant depth."
+  Block 2 (bbox: [35.7, 266.5, 536.0, 289.5], type: 0):
+    "Variants with lower allele frequencies may be reported if they are of strong or potential clinical relevance, or if previously detected in the same patient. False positives or negatives below assay sensitivity cannot be ruled out."
+  Block 3 (bbox: [35.7, 309.3, 511.3, 333.0], type: 0):
+    "CNVs/gene amplifications reported, Confirmation using orthogonal methods such as DDPCR is recommended when clinically indicated."
+  Block 4 (bbox: [35.7, 352.8, 399.5, 364.5], type: 0):
+    "Variants in non-coding regions or deep intronic sequences are not assessed in this assay."
+  Block 5 (bbox: [35.7, 368.5, 317.8, 380.2], type: 0):
+    "This assay is under the scope of NABL as Liquidseq Actionable Panel."
+  Block 6 (bbox: [35.8, 398.5, 492.8, 483.7], type: 0):
+    "DNA Gene List AKT1 ALK APC ATM BRAF BRCA1 BRCA2 CTNNB1 EGFR ERBB2 ERBB3 ESR1 FOXL2 GNA11 GNAQ HRAS IDH1 IDH2 KIT KRAS MET NRAS PDGFRA PIK3CA POLE RAF1 RET TP53"
+  Block 7 (bbox: [35.8, 498.3, 494.3, 534.7], type: 0):
+    "RNA Gene List ALK MET NTRK1 NTRK2 NTRK3 ROS1"
+  Block 8 (bbox: [35.8, 548.5, 359.0, 597.0], type: 0):
+    "MSI % of Unstable Loci MSI - Stable 0-19% MSI - Low / Intermediate 20-30% MSI - High >30%"
+  Block 9 (bbox: [139.4, 551.2, 457.3, 562.4], type: 0):
+    "MSI % of Unstable Loci"
+  Block 10 (bbox: [35.8, 611.5, 533.9, 659.2], type: 0):
+    "Tier Interpretation Tier IA Variants of Strong Clinical Significance: Biomarkers that predict response or resistance to US FDA- approved therapies for a specific type of tumor or have been included in professional guidelines as therapeutic, diagnostic, and/or prognostic biomarkers for specific types of tumors."
+  Block 11 (bbox: [67.3, 614.2, 376.9, 625.4], type: 0):
+    "Tier Interpretation"
+  Block 12 (bbox: [35.8, 671.5, 534.9, 694.5], type: 0):
+    "Tier IB Variants of Strong Clinical Significance: Biomarkers that predict response or resistance to a therapy based on well-powered studies with consensus from experts in the field, or have diagnostic and/or"
+
+=========================================
+PAGE 8
+=========================================
+Total Blocks: 23
+  Block 1 (bbox: [128.3, 207.3, 529.4, 219.0], type: 0):
+    "prognostic significance of certain diseases based on well-powered studies with expert consensus."
+  Block 2 (bbox: [126.8, 209.2, 561.9, 220.4], type: 0):
+    "prognostic significance of certain diseases based on well-powered studies with expert consensus."
+  Block 3 (bbox: [35.8, 231.3, 542.5, 278.2], type: 0):
+    "Tier IIC Variants of Potential Clinical Significance: biomarkers that predict response or resistance to therapies approved by FDA or professional societies for a different tumor type (i.e., off-label use of a drug), serve as inclusion criteria for clinical trials, or have diagnostic and/or prognostic significance based on the results of multiple small studies."
+  Block 4 (bbox: [35.8, 290.5, 535.9, 325.5], type: 0):
+    "Tier IID Variants of Potential Clinical Significance: Biomarkers that show plausible therapeutic significance based on preclinical studies or may assist disease diagnosis and/or prognosis themselves or along with other biomarkers based on small studies or multiple case reports with no consensus."
+  Block 5 (bbox: [35.8, 337.8, 541.7, 372.7], type: 0):
+    "Tier III Variants of Unknown clinical significance (VUS): Not observed at a significant allele frequency in the general or specific subpopulation or pancancer or tumor specific variant databases. No convincing published evidence of cancer Association"
+  Block 6 (bbox: [35.8, 385.0, 88.5, 396.7], type: 0):
+    "References:"
+  Block 7 (bbox: [35.8, 403.0, 551.0, 428.2], type: 0):
+    "1. O&#x27;Leary et al. Reference sequence (RefSeq) database at NCBI: current status, taxonomic expansion, and functional annotation. Nucleic Acids Res. 2016 Jan 4;44(D1):D733-45. PMID: 26553804"
+  Block 8 (bbox: [35.8, 433.8, 446.2, 445.5], type: 0):
+    "Nag et al. The MDM2-p53 pathway revisited. J Biomed Res. 2013 Jul;27(4):254-71. PMID: 23885265"
+  Block 9 (bbox: [35.8, 451.8, 533.7, 463.5], type: 0):
+    "Muller et al. Mutant p53 in cancer: new functions and therapeutic opportunities. Cancer Cell. 2014 Mar 17;25(3):304-17."
+  Block 10 (bbox: [53.8, 465.3, 124.0, 477.0], type: 0):
+    "PMID: 24651012"
+  Block 11 (bbox: [35.8, 482.5, 548.9, 494.2], type: 0):
+    "Olivier et al. TP53 mutations in human cancers: origins, consequences, and clinical use. Cold Spring Harb Perspect Biol. 2010"
+  Block 12 (bbox: [53.8, 496.0, 201.9, 507.7], type: 0):
+    "Jan;2(1):a001008. PMID: 20182602"
+  Block 13 (bbox: [35.8, 513.3, 553.4, 525.0], type: 0):
+    "Guha et al. Inherited TP53 Mutations and the Li-Fraumeni Syndrome. Cold Spring Harb Perspect Med. 2017 Apr 3;7(4). PMID:"
+  Block 14 (bbox: [53.8, 526.8, 96.1, 538.5], type: 0):
+    "28270529"
+  Block 15 (bbox: [35.8, 544.0, 558.1, 555.7], type: 0):
+    "Cerami et al. The cBio cancer genomics portal: an open platform for exploring multidimensional cancer genomics data. Cancer"
+  Block 16 (bbox: [53.8, 557.5, 247.3, 569.2], type: 0):
+    "Discov. 2012 May;2(5):401-4. PMID: 22588877"
+  Block 17 (bbox: [35.8, 575.5, 556.4, 587.2], type: 0):
+    "Weinstein et al. The Cancer Genome Atlas Pan-Cancer analysis project. Nat. Genet. 2013 Oct;45(10):1113-20. PMID: 24071849"
+  Block 18 (bbox: [35.8, 592.8, 549.0, 604.5], type: 0):
+    "Peter et al. Comprehensive genomic characterization of squamous cell lung cancers. Nature. 2012 Sep 27;489(7417):519-25."
+  Block 19 (bbox: [53.8, 606.3, 124.0, 618.0], type: 0):
+    "PMID: 22960745"
+  Block 20 (bbox: [35.8, 623.5, 555.9, 635.2], type: 0):
+    "Cancer Genome Atlas Network. Comprehensive genomic characterization of head and neck squamous cell carcinomas. Nature."
+  Block 21 (bbox: [53.8, 637.0, 257.1, 648.7], type: 0):
+    "2015 Jan 29;517(7536):576-82. PMID: 25631445"
+  Block 22 (bbox: [35.8, 655.0, 553.6, 666.7], type: 0):
+    "Campbell et al. Distinct patterns of somatic genome alterations in lung adenocarcinomas and squamous cell carcinomas. Nat."
+  Block 23 (bbox: [53.8, 668.5, 251.4, 680.2], type: 0):
+    "Genet. 2016 Jun;48(6):607-16. PMID: 27158780"
+
+=========================================
+PAGE 9
+=========================================
+Total Blocks: 28
+  Block 1 (bbox: [35.8, 207.3, 543.9, 219.0], type: 0):
+    "Cancer Genome Atlas Research Network. Integrated genomic characterization of oesophageal carcinoma. Nature. 2017 Jan"
+  Block 2 (bbox: [53.7, 220.8, 410.1, 232.5], type: 0):
+    "12;541(7636):169-175. doi: 10.1038/nature20805. Epub 2017 Jan 4. PMID: 28052061"
+  Block 3 (bbox: [35.7, 238.0, 524.9, 249.7], type: 0):
+    "Olivier et al. The IARC TP53 database: new online mutation analysis and recommendations to users. Hum. Mutat. 2002"
+  Block 4 (bbox: [53.7, 251.5, 199.8, 263.2], type: 0):
+    "Jun;19(6):607-14. PMID: 12007217"
+  Block 5 (bbox: [35.7, 268.8, 550.0, 280.5], type: 0):
+    "Rivlin et al. Mutations in the p53 Tumor Suppressor Gene: Important Milestones at the Various Steps of Tumorigenesis. Genes"
+  Block 6 (bbox: [53.7, 282.3, 251.8, 294.0], type: 0):
+    "Cancer. 2011 Apr;2(4):466-74. PMID: 21779514"
+  Block 7 (bbox: [35.8, 299.5, 521.7, 311.2], type: 0):
+    "Petitjean et al. TP53 mutations in human cancers: functional selection and impact on cancer prognosis and outcomes."
+  Block 8 (bbox: [53.7, 313.0, 287.4, 324.7], type: 0):
+    "Oncogene. 2007 Apr 2;26(15):2157-65. PMID: 17401424"
+  Block 9 (bbox: [35.7, 331.0, 550.4, 342.7], type: 0):
+    "Soussi et al. Recommendations for analyzing and reporting TP53 gene variants in the high-throughput sequencing era. Hum."
+  Block 10 (bbox: [53.7, 344.5, 252.9, 356.2], type: 0):
+    "Mutat. 2014 Jun;35(6):766-78. PMID: 24729566"
+  Block 11 (bbox: [35.7, 361.8, 520.9, 373.5], type: 0):
+    "https://www.globenewswire.com/news-release/2020/10/13/2107498/0/en/PMV-Pharma-Granted-FDA-Fast-Track-"
+  Block 12 (bbox: [53.7, 375.3, 515.3, 400.5], type: 0):
+    "Designation-of-PC14586-for-the-Treatment-of-Advanced-Cancer-Patients-that-have-Tumors-with-a-p53-Y220C- Mutation.html"
+  Block 13 (bbox: [35.7, 406.0, 508.5, 417.7], type: 0):
+    "https://ir.aprea.com//news-releases/news-release-details/aprea-therapeutics-receives-fda-fast-track-designation"
+  Block 14 (bbox: [35.7, 424.0, 542.3, 435.7], type: 0):
+    "http://vp280.alertir.com/en/pressreleases/karolinska-development%27s-portfolio-company-aprea-therapeutics-receives-"
+  Block 15 (bbox: [53.7, 437.5, 255.4, 449.2], type: 0):
+    "fda-breakthrough-therapy-designation-1769167"
+  Block 16 (bbox: [35.7, 454.8, 560.2, 480.0], type: 0):
+    "Parrales et al. Targeting Oncogenic Mutant p53 for Cancer Therapy. Front Oncol. 2015 Dec 21;5:288. doi: 10.3389/fonc.2015.00288. eCollection 2015. PMID: 26732534"
+  Block 17 (bbox: [35.7, 485.5, 534.5, 497.2], type: 0):
+    "Zhao et al. Molecularly targeted therapies for p53-mutant cancers. Cell. Mol. Life Sci. 2017 Nov;74(22):4171-4187. PMID:"
+  Block 18 (bbox: [53.7, 499.0, 96.0, 510.7], type: 0):
+    "28643165"
+  Block 19 (bbox: [35.7, 516.3, 523.7, 528.0], type: 0):
+    "Louis et al. The 2021 WHO Classification of Tumors of the Central Nervous System: a summary. Neuro Oncol. 2021 Aug"
+  Block 20 (bbox: [53.7, 529.8, 207.3, 541.5], type: 0):
+    "2;23(8):1231-1251. PMID: 34185076"
+  Block 21 (bbox: [35.7, 547.8, 354.7, 559.5], type: 0):
+    "NCCN Guidelines&amp;reg; - NCCN-Acute Myeloid Leukemia [Version 2.2025]"
+  Block 22 (bbox: [35.7, 565.0, 537.9, 576.7], type: 0):
+    "Döhner et al. Diagnosis and management of AML in adults: 2022 recommendations from an international expert panel on"
+  Block 23 (bbox: [53.7, 578.5, 366.9, 590.2], type: 0):
+    "behalf of the ELN. Blood. 2022 Sep 22;140(12):1345-1377. PMID: 35797463"
+  Block 24 (bbox: [35.7, 595.8, 367.0, 607.5], type: 0):
+    "NCCN Guidelines&amp;reg; - NCCN-Myelodysplastic Syndromes [Version 2.2025]"
+  Block 25 (bbox: [35.7, 613.8, 377.5, 625.5], type: 0):
+    "NCCN Guidelines&amp;reg; - NCCN-Myeloproliferative Neoplasms [Version 1.2025]"
+  Block 26 (bbox: [35.7, 631.0, 514.3, 642.7], type: 0):
+    "NCCN Guidelines&amp;reg; - NCCN-Chronic Lymphocytic Leukemia/Small Lymphocytic Lymphoma [Version 3.2025]"
+  Block 27 (bbox: [35.7, 648.3, 382.5, 660.0], type: 0):
+    "NCCN Guidelines&amp;reg; - NCCN-Acute Lymphoblastic Leukemia [Version 3.2024]"
+  Block 28 (bbox: [35.7, 666.3, 330.3, 678.0], type: 0):
+    "NCCN Guidelines&amp;reg; - NCCN-B-Cell Lymphomas [Version 2.2025]"
+
+=========================================
+PAGE 10
+=========================================
+Total Blocks: 3
+  Block 1 (bbox: [35.8, 207.3, 542.2, 219.0], type: 0):
+    "Bernard et al. Implications of TP53 allelic state for genome stability, clinical presentation and outcomes in myelodysplastic"
+  Block 2 (bbox: [53.8, 220.8, 265.4, 232.5], type: 0):
+    "syndromes. Nat. Med. 2020 Aug 3. PMID: 32747829"
+  Block 3 (bbox: [212.0, 261.3, 382.4, 273.0], type: 0):
+    "------------------ End Of Report ------------------"
+

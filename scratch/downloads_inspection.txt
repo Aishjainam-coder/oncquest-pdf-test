@@ -1,0 +1,454 @@
+================================================================================
+File: c:\Users\aishwarya.jain\Downloads\Oncquest-main\Oncquest-main\outsourcing pdf\TestReport_DULAL NAHA (KOL2604070057)_2600128556_11d3f985-7e08-40be-91b4-48b35be363ee.pdf
+================================================================================
+Number of pages: 10
+Page height: 841.9000244140625
+All text blocks on page 1:
+  [36.9, 82.4, 105.1, 104.3] QR Code for report verification
+  [35.5, 116.1, 522.2, 199.8] Case ID : 2600128556 Sample Type : BLOOD IN CCF DNA TUBE Name : MR. DULAL NAHA (KOL2604070057) Date & Time Collected : 07-Apr-2026 12:00 AM Sex/Age : Male/70 Years Date & Time Received : 20-Apr-2026 12:16 PM Bill. Loc. : OncQuest Laboratories Ltd., New Delhi Date & Time Reported : 30-Apr-2026 05:55 PM Ref. By : Report Version : 1 Indication :
+  [488.8, 768.6, 526.0, 780.8] MC-7414
+  [40.8, 737.4, 427.3, 771.8] Dr.Nirmal A. Vaniawala Dr. Salil Vaniawala Dr. Salil Vaniawala MD (Path. & Bact.) M.Sc Ph.D.(Human Genetics) Consulting Geneticist
+  [352.5, 749.9, 446.0, 769.4] M.Sc Ph.D.(Human Genetics) Consulting Geneticist
+  [154.9, 203.7, 440.5, 220.1] Liquidseq Actionable Genomic Profiling Panel
+  [185.3, 221.4, 410.1, 237.8] On Illumina Novaseq 6000 Platform
+  [35.5, 252.3, 154.3, 275.7] Clinical Indication: Metastatic Adenocarcinoma
+  [214.4, 291.5, 380.9, 317.1] Positive (Clinically significant Variant detected)
+  [46.2, 334.9, 147.0, 349.0] Report Highlights:
+  [51.7, 364.7, 519.4, 376.4] Tier I Tier II Tier III MSI Therapies Clinical Trials
+  [61.5, 385.9, 493.2, 397.6] 0 1 0 Stable 0 43
+  [46.2, 414.9, 120.7, 428.9] Key Findings:
+  [58.5, 444.6, 544.5, 456.3] Tier Gene & Transcript Variant Exon Coverage/VAF
+  [62.2, 465.8, 206.4, 489.3] IIC TP53 NM_000546.6
+  [292.3, 465.8, 528.1, 489.3] c.405C>A p.(C135*) 5 691x / 93.13%
+  [35.4, 493.8, 439.8, 519.0] *Genetic test results are reported based on the recommendations of AMP-ASCO-CAP guidelines. **Public data sources included in relevant targeted therapies, guidelines: EMA, FDA, ESMO, NCCN.
+  [46.2, 531.8, 221.9, 545.9] Multi-Gene Biomarkers Results:
+  [101.7, 561.6, 518.0, 573.3] Assay Biomarker Result Interpretation
+  [75.7, 584.8, 547.9, 596.5] Microsatellite Instability (MSI) Stable Stable Microsatellite detected
+  [35.4, 603.0, 531.4, 628.2] # Correlation of the genetic findings with the clinical condition of the patient is required to arrive at accurate diagnosis, prognosis or therapeutic decisions.
+  [285.1, 689.0, 330.4, 697.9] Page 1 of 10
+
+
+================================================================================
+File: c:\Users\aishwarya.jain\Downloads\Oncquest-main\Oncquest-main\output\TestReport_DULAL NAHA (KOL2604070057)_2600128556_11d3f985-7e08-40be-91b4-48b35be363ee_compiled.pdf
+================================================================================
+Number of pages: 10
+Page height: 841.9199829101562
+All text blocks on page 1:
+  [155.2, 205.7, 440.1, 222.1] Liquidseq Actionable Genomic Profiling Panel
+  [185.6, 223.7, 410.1, 240.1] On Illumina Novaseq 6000 Platform
+  [35.8, 255.3, 150.7, 279.0] Clinical Indication: Metastatic Adenocarcinoma
+  [219.2, 295.0, 380.3, 320.2] Positive (Clinically significant Variant detected)
+  [46.5, 336.6, 147.8, 350.7] Report Highlights:
+  [56.5, 367.8, 521.9, 379.5] Tier I Tier II Tier III MSI Therapies Clinical Trials
+  [61.8, 389.5, 493.2, 401.2] 0 1 0 Stable 0 43
+  [46.5, 416.8, 120.7, 430.9] Key Findings:
+  [63.3, 448.0, 545.8, 459.7] Tier Gene & Transcript Variant Exon Coverage/VAF
+  [62.5, 469.0, 205.4, 492.7] IIC TP53 NM_000546.6
+  [292.6, 469.0, 527.6, 492.7] c.405C>A p.(C135*) 5 691x / 93.13%
+  [35.7, 496.8, 438.1, 522.0] *Genetic test results are reported based on the recommendations of AMP-ASCO-CAP guidelines. **Public data sources included in relevant targeted therapies, guidelines: EMA, FDA, ESMO, NCCN.
+  [46.5, 533.1, 220.4, 547.2] Multi-Gene Biomarkers Results:
+  [106.5, 565.0, 522.1, 576.7] Assay Biomarker Result Interpretation
+  [76.0, 588.3, 543.3, 600.0] Microsatellite Instability (MSI) Stable Stable Microsatellite detected
+  [35.7, 606.3, 530.6, 631.5] # Correlation of the genetic findings with the clinical condition of the patient is required to arrive at accurate diagnosis, prognosis or therapeutic decisions.
+  [52.2, 365.2, 518.4, 376.4] Tier I Tier II Tier III MSI Therapies Clinical Trials
+  [59.2, 445.5, 544.2, 456.6] Tier Gene & Transcript Variant Exon Coverage/ VAF
+  [103.4, 562.5, 517.8, 573.6] Assay Biomarker Result Interpretation
+
+
+================================================================================
+File: c:\Users\aishwarya.jain\Downloads\Oncquest-main\Oncquest-main\output\exact_position_test_compiled.pdf
+================================================================================
+Number of pages: 10
+Page height: 841.9199829101562
+All text blocks on page 1:
+  [155.2, 205.7, 440.1, 222.1] Liquidseq Actionable Genomic Profiling Panel
+  [185.6, 223.7, 410.1, 240.1] On Illumina Novaseq 6000 Platform
+  [35.8, 255.3, 150.7, 279.0] Clinical Indication: Metastatic Adenocarcinoma
+  [219.2, 295.0, 380.3, 320.2] Positive (Clinically significant Variant detected)
+  [46.5, 336.6, 147.8, 350.7] Report Highlights:
+  [61.8, 389.5, 493.2, 401.2] 0 1 0 Stable 0 43
+  [46.5, 416.8, 120.7, 430.9] Key Findings:
+  [62.5, 469.0, 205.4, 492.7] IIC TP53 NM_000546.6
+  [292.6, 469.0, 527.6, 492.7] c.405C>A p.(C135*) 5 691x / 93.13%
+  [35.7, 496.8, 438.1, 522.0] *Genetic test results are reported based on the recommendations of AMP-ASCO-CAP guidelines. **Public data sources included in relevant targeted therapies, guidelines: EMA, FDA, ESMO, NCCN.
+  [46.5, 533.1, 220.4, 547.2] Multi-Gene Biomarkers Results:
+  [76.0, 588.3, 543.3, 600.0] Microsatellite Instability (MSI) Stable Stable Microsatellite detected
+  [35.7, 606.3, 530.6, 631.5] # Correlation of the genetic findings with the clinical condition of the patient is required to arrive at accurate diagnosis, prognosis or therapeutic decisions.
+  [285.4, 693.7, 326.8, 703.0] Page 1 of 10
+  [52.2, 365.2, 518.4, 376.4] Tier I Tier II Tier III MSI Therapies Clinical Trials
+  [59.2, 445.5, 544.2, 456.6] Tier Gene & Transcript Variant Exon Coverage/ VAF
+  [103.4, 562.5, 517.8, 573.6] Assay Biomarker Result Interpretation
+
+
+================================================================================
+File: c:\Users\aishwarya.jain\Downloads\Oncquest-main\Oncquest-main\output\test_debug.pdf
+================================================================================
+Number of pages: 20
+Page height: 792.0
+All text blocks on page 1:
+
+
+================================================================================
+File: c:\Users\aishwarya.jain\Downloads\TestReport_BASANTI DEVI 10078040 OQG2604170493_60400127778_42f516a3-ebf4-4187-a505-e2b8c4b5e928_target_output.pdf
+================================================================================
+Number of pages: 3
+Page height: 841.9199829101562
+All text blocks on page 1:
+  [35.8, 50.4, 560.3, 71.5] ONCQUEST LABORATORIES Diagnostic & Genomic Excellence
+  [44.6, 99.0, 458.5, 110.1] Patient Name: Ms. BASANTI DEVI 10078040 Sample ID: 60400127778
+  [44.6, 120.7, 417.9, 131.9] Age / Gender: 50 Years / Female Lab ID: N/A
+  [44.6, 142.5, 417.9, 153.6] Ref. Doctor: N/A Report Date: N/A
+  [256.5, 177.4, 339.1, 192.6] PERFORMED.
+  [233.1, 297.1, 362.5, 309.9] KEY GENETIC FINDINGS
+  [47.6, 334.5, 547.5, 356.9] Gene & Transcript Location Variant Zygosity Phenotype Clinical Significance
+  [42.6, 369.7, 126.8, 416.1] Next Generation Sequencing (Massively Parallel Sequencing)
+  [147.3, 369.7, 213.1, 428.1] Next Generation Sequencing (Massively Parallel Sequencing)
+  [225.9, 369.7, 304.8, 416.1] Next Generation Sequencing (Massively Parallel Sequencing)
+  [409.3, 369.7, 475.0, 428.1] Next Generation Sequencing (Massively Parallel Sequencing)
+  [42.6, 441.7, 459.4, 452.9] EDTA Blood EDTA Blood EDTA Blood EDTA Blood
+  [44.0, 531.7, 99.1, 554.1] Test Description:
+  [115.0, 480.7, 551.9, 514.4] Chronic myeloid leukemia (CML) is characterized by the presence of the Philadelphia chromosome, the product of t(9;22)(q34;q11) translocation. This translocation results in BCR- ABL1 fusion protein with constitutive ABL1 tyrosine kinase activity. The kinase inhibitor imatinib
+  [118.4, 514.5, 548.6, 525.6] (STI571, Gleevec®) inhibits ABL1 kinase activity and is now the standard of care for early phase
+  [114.3, 525.7, 552.6, 548.1] CML. Prolonged treatment with imatinib can lead to drug resistance, especially in patients with advanced disease. A large portion of resistant patients have acquired point mutations in the ABL1
+  [115.4, 548.2, 551.6, 570.6] kinase domain that renders the kinase resistant to the drug. Sites of point mutations in ABL1 associated with imatinib resistance span the entire kinase domain but often cluster in important
+  [113.6, 570.7, 553.4, 593.1] hotspots.(1,2) Total RNA was extracted and nested reverse transcription PCR was performed to detect the BCR-ABL1 transcript and ABL1 kinase domain (KD) region was thereafter sequenced by
+  [199.6, 593.2, 467.6, 604.4] Next Generation Sequencing for detection of mutant alleles.
+  [42.6, 617.2, 362.1, 628.4] Methodology: Next Generation Sequencing (Massively Parallel Sequencing)
+  [42.6, 642.0, 163.8, 653.1] Sample: EDTA Blood
+  [89.0, 681.7, 501.9, 692.9] Test results and Interpretation: PATHOGENIC MUTATION DETECTED
+  [42.6, 705.7, 317.7, 716.9] Mutation Nomenclature: L248V
+  [42.6, 729.7, 316.6, 740.9] Coverage: >500x
+  [44.6, 214.8, 256.6, 226.5] CLINICAL INDICATION & SAMPLE DESCRIPTION
+  [46.6, 237.7, 188.3, 248.9] Clinical Indication: Not Specified
+  [46.6, 255.0, 219.7, 266.1] Sample Description: Whole Blood EDTA
+
+
+================================================================================
+File: c:\Users\aishwarya.jain\Downloads\TestReport_BIRENDRA KR TRIPATHI (KOL2604200324)_2600132470_e5d40a68-7e61-43d6-aae0-577a57bb598a_target_output.pdf
+================================================================================
+Number of pages: 11
+Page height: 841.9199829101562
+All text blocks on page 1:
+  [35.8, 50.4, 560.3, 71.5] ONCQUEST LABORATORIES Diagnostic & Genomic Excellence
+  [44.6, 99.0, 453.3, 110.1] Patient Name: MR. BIRENDRA KR TRIPATHI Sample ID: 2600132470
+  [44.6, 120.7, 470.9, 131.9] Age / Gender: 49 Years / Male Lab ID: KOL2604200324
+  [44.6, 142.5, 497.4, 153.6] Ref. Doctor: N/A Report Date: 20-May-2026 06:11 AM
+  [42.4, 177.4, 553.7, 192.6] NGS HEREDITARY CANCER PANEL ON THE ILLUMINA NOVASEQ X NGS PLATFORM
+  [233.1, 297.1, 362.5, 309.9] KEY GENETIC FINDINGS
+  [54.1, 334.5, 548.2, 356.9] Gene & Transcript Location Variant Zygosity Phenotype Clinical Significance
+  [42.6, 369.7, 222.5, 416.1] MSH2 (+) NM 000251.3 _ 2p21 (? 47,410,089- _ 47,416,441 ?) _ Exon 3-6
+  [238.1, 369.7, 383.8, 404.1] c.367-? c.1076+? _ 6.4kb Heterozygous /Autosomal Dominant
+  [413.8, 369.7, 463.1, 392.1] Lynch syndrome 1
+  [493.8, 371.4, 537.1, 381.4] Pathogenic
+  [42.6, 429.7, 147.8, 452.9] HBB (-) NM 000518.5 _ (chr11:g.5227071T>G)
+  [160.5, 429.7, 311.6, 464.9] Exon 1 c.-50A>C (5' prime UTR variant) 49x/51%
+  [327.6, 429.7, 383.8, 464.9] Heterozygous /Autosomal Recessive
+  [413.8, 429.7, 464.1, 476.1] c.-50A>C (5' prime UTR variant) 49x/51%
+  [493.8, 431.4, 538.0, 462.4] Pathogenic (PM2, PM3, PP5)
+  [42.6, 489.7, 225.2, 584.1] Variant A change in a gene. This could be disease causing (pathogenic) or not disease causing (benign).
+  [238.1, 489.7, 518.9, 500.9] Variant Variant
+  [42.6, 597.7, 224.6, 727.4] Benign A variant which is known not to be responsible for disease has been detected. Generally, no further action is warranted on such variants when detected.
+  [238.1, 597.7, 517.8, 608.9] Benign Benign
+  [42.6, 741.0, 224.6, 835.4] Likely Benign A variant which is very unlikely to contribute to the development of disease however, the
+  [238.1, 741.0, 546.0, 752.1] Likely Benign Likely Benign
+  [44.6, 214.8, 256.6, 226.5] CLINICAL INDICATION & SAMPLE DESCRIPTION
+  [46.6, 237.7, 500.4, 248.9] Clinical Indication: Gene & Transcript Location Variant Zygosity/ Inheritance Phenotype Clinical Significance
+  [46.6, 255.0, 253.0, 266.1] Sample Description: EDTA PERIPHERAL BLOOD
+
+
+================================================================================
+File: c:\Users\aishwarya.jain\Downloads\TestReport_DEVIKA 2908914 OQG2603250447_60300129567_39c65aa4-7a37-4af2-a4e6-46c303a638fe_target_output.pdf
+================================================================================
+Number of pages: 5
+Page height: 841.9199829101562
+All text blocks on page 1:
+  [21.3, 316.3, 78.9, 323.1] Summary Of Variants
+  [21.8, 222.0, 265.1, 227.6] Salient features: Chronic calcific pancreatitis, intrapancreatic ductal calculi, polypoidal lesion in the distal pancreatic duct
+  [21.8, 229.5, 126.9, 235.1] Clinical suspicion: Pancreatic exocrine insufficiency
+  [21.3, 252.6, 102.5, 259.3] Test Results and Interpretation
+  [210.4, 277.4, 383.8, 284.0] ON PHENOTYPE BASED ANALYSIS:  VARIANT/S DETECTED.
+  [102.5, 291.7, 409.9, 298.3] PRSS1 variants are low-depth, low-complexity variants, and hence confirmation via sanger sequencing is recommended.
+  [24.3, 351.8, 133.4, 363.3] CTRC (NM_007272.3) Exon 3/Exon 8 -
+  [182.2, 351.8, 208.2, 369.3] c.217G>A p.Ala73Thr [101x /186x]
+  [261.1, 351.8, 463.1, 363.3] Heterozygous Pathogenic {Pancreatitis, chronic, susceptibility to}
+  [497.5, 351.8, 539.6, 357.3] Autosomal dominant
+  [24.3, 373.5, 133.4, 385.1] PRSS1 (NM_002769.5) Exon 1/Exon 5 -
+  [182.2, 373.5, 205.7, 391.1] c.40C>G p.Leu14Val [54x /243x]
+  [261.1, 373.5, 539.6, 379.1] Heterozygous Uncertain significance Pancreatitis, hereditary Autosomal dominant
+  [24.3, 394.5, 133.4, 406.1] PRSS1 (NM_002769.5) Exon 2/Exon 5 -
+  [182.2, 394.5, 205.7, 412.1] c.86A>T p.Asn29Ile [85x /531x]
+  [261.1, 394.5, 539.6, 400.1] Heterozygous Pathogenic Pancreatitis, hereditary Autosomal dominant
+  [38.0, 342.0, 85.2, 363.6] Gene and Transcript
+  [112.3, 342.0, 168.7, 353.1] Exon/Intron
+  [121.9, 352.5, 159.3, 363.6] Number
+  [187.2, 342.0, 561.2, 363.6] Variant Nomenclature Zygosity Classification OMIM Phenotype Inheritance
+
+
+================================================================================
+File: c:\Users\aishwarya.jain\Downloads\TestReport_DULAL NAHA (KOL2604070057)_2600128556_11d3f985-7e08-40be-91b4-48b35be363ee.pdf
+================================================================================
+Number of pages: 10
+Page height: 841.9000244140625
+All text blocks on page 1:
+  [36.9, 82.4, 105.1, 104.3] QR Code for report verification
+  [35.5, 116.1, 522.2, 199.8] Case ID : 2600128556 Sample Type : BLOOD IN CCF DNA TUBE Name : MR. DULAL NAHA (KOL2604070057) Date & Time Collected : 07-Apr-2026 12:00 AM Sex/Age : Male/70 Years Date & Time Received : 20-Apr-2026 12:16 PM Bill. Loc. : OncQuest Laboratories Ltd., New Delhi Date & Time Reported : 30-Apr-2026 05:55 PM Ref. By : Report Version : 1 Indication :
+  [488.8, 768.6, 526.0, 780.8] MC-7414
+  [40.8, 737.4, 427.3, 771.8] Dr.Nirmal A. Vaniawala Dr. Salil Vaniawala Dr. Salil Vaniawala MD (Path. & Bact.) M.Sc Ph.D.(Human Genetics) Consulting Geneticist
+  [352.5, 749.9, 446.0, 769.4] M.Sc Ph.D.(Human Genetics) Consulting Geneticist
+  [154.9, 203.7, 440.5, 220.1] Liquidseq Actionable Genomic Profiling Panel
+  [185.3, 221.4, 410.1, 237.8] On Illumina Novaseq 6000 Platform
+  [35.5, 252.3, 154.3, 275.7] Clinical Indication: Metastatic Adenocarcinoma
+  [214.4, 291.5, 380.9, 317.1] Positive (Clinically significant Variant detected)
+  [46.2, 334.9, 147.0, 349.0] Report Highlights:
+  [51.7, 364.7, 519.4, 376.4] Tier I Tier II Tier III MSI Therapies Clinical Trials
+  [61.5, 385.9, 493.2, 397.6] 0 1 0 Stable 0 43
+  [46.2, 414.9, 120.7, 428.9] Key Findings:
+  [58.5, 444.6, 544.5, 456.3] Tier Gene & Transcript Variant Exon Coverage/VAF
+  [62.2, 465.8, 206.4, 489.3] IIC TP53 NM_000546.6
+  [292.3, 465.8, 528.1, 489.3] c.405C>A p.(C135*) 5 691x / 93.13%
+  [35.4, 493.8, 439.8, 519.0] *Genetic test results are reported based on the recommendations of AMP-ASCO-CAP guidelines. **Public data sources included in relevant targeted therapies, guidelines: EMA, FDA, ESMO, NCCN.
+  [46.2, 531.8, 221.9, 545.9] Multi-Gene Biomarkers Results:
+  [101.7, 561.6, 518.0, 573.3] Assay Biomarker Result Interpretation
+  [75.7, 584.8, 547.9, 596.5] Microsatellite Instability (MSI) Stable Stable Microsatellite detected
+  [35.4, 603.0, 531.4, 628.2] # Correlation of the genetic findings with the clinical condition of the patient is required to arrive at accurate diagnosis, prognosis or therapeutic decisions.
+  [285.1, 689.0, 330.4, 697.9] Page 1 of 10
+
+
+================================================================================
+File: c:\Users\aishwarya.jain\Downloads\TestReport_SAROJ DEVI (OQG2604250052)_2600133939_1eb3f888-f97e-4181-b84d-d9536de7af26_output (1).pdf
+================================================================================
+Number of pages: 19
+Page height: 841.9199829101562
+All text blocks on page 1:
+  [35.8, 50.4, 517.8, 113.5] TESTREPORT_SAROJ DEVI (OQG2604250052)_2600133939_1EB3F888-F97E-4181- B84D-D9536DE7AF26
+  [35.8, 115.2, 178.6, 125.7] Universal Dynamic Document Report
+  [44.6, 154.5, 486.8, 176.9] Date & Time Collected: 25-Apr-2026 07 Date & Time Received: 27-Apr-2026 12
+  [44.6, 189.7, 548.3, 212.1] Date & Time Reported: 11-May-2026 06 Table: The Breast and Ovarian Cancer Extended Panel Gene List.
+  [44.6, 241.5, 108.4, 252.6] No Guarantee:
+  [159.8, 225.0, 284.9, 269.9] By providing drug and clinical trial information for the reported diagnosis, SN GeneLab Pvt. Ltd. is not
+  [306.5, 241.5, 336.1, 252.6] Drugs:
+  [421.7, 225.0, 544.0, 269.9] The drugs listed on the report are not ranked in any specific order as to predicted efficacy or appropriateness
+  [44.6, 299.2, 78.4, 310.4] LoFreq:
+  [159.8, 282.7, 287.8, 327.6] A sequence-quality aware, ultra-sensitive variant caller for uncovering cell- population heterogeneity
+  [306.5, 294.0, 533.4, 316.4] Mutationtaster2: mutation prediction for the deep-sequencing age.
+  [44.6, 340.5, 475.5, 351.6] 11: 361-62. Report Date: 11 May 2026
+  [44.6, 381.0, 375.5, 392.1] Sample Cancer Type: Breast Cancer Tier Reference:
+  [421.7, 364.5, 548.7, 409.4] Li et al.  Standards and Guidelines for the Interpretation and Reporting of Sequence Variants in Cancer
+  [44.6, 422.2, 469.7, 433.4] Cancer type: Breast Cancer Label as of: 2025-03-07
+  [44.6, 446.2, 538.0, 457.4] Variant class: PIK3CA C420R mutation Other criteria: ERBB2 negative, ER positive
+  [44.6, 475.5, 124.3, 509.1] NCCN Recommendation category:
+  [159.8, 486.7, 354.5, 497.9] 1 Reference:
+  [421.7, 470.2, 544.6, 515.1] ESMO Clinical Practice Guidelines - ESMO-Metastatic Breast Cancer [Ann Oncol (2021) VOLUME 32, ISSUE 12,
+  [44.6, 528.0, 442.3, 539.1] 1 score: 2 DOI: https
+  [44.6, 574.5, 115.2, 585.6] SEQUEL-Breast:
+  [159.8, 557.2, 289.0, 602.1] A Phase II study on the combination of alpelisib and fulvestrant after progression on
+  [306.5, 574.5, 363.7, 585.6] Background:
+  [421.7, 552.0, 542.6, 608.1] The PIK3CA gene encodes the phosphatidylinositol-4,5- bisphosphate 3-kinase catalytic subunit alpha of the class I
+  [44.6, 637.5, 113.7, 659.9] Alterations and prevalence:
+  [159.8, 621.0, 266.1, 677.1] Recurrent somatic activating mutations in PIK3CA are common in diverse cancers and are observed
+  [306.5, 643.5, 396.0, 654.6] Potential relevance:
+  [421.7, 626.2, 550.2, 671.1] The PI3K inhibitor, alpelisib18, is FDA-approved (2019) in combination with fulvestrant for the treatment of patients
+  [44.6, 701.2, 390.3, 712.4] PMID: 21216929 PI3K-Akt pathway:
+  [421.7, 690.0, 550.5, 723.6] its functions and alterations in human cancer. Apoptosis. 2004 Nov;9(6)
+  [44.6, 747.7, 116.2, 758.9] PI3K signalling:
+  [159.8, 736.5, 273.6, 770.1] the path to discovery and understanding. Nat. Rev. Mol. Cell Biol. 2012 Feb
+  [306.5, 741.7, 401.8, 764.1] PI3K pathway alterations in cancer:
+  [421.7, 741.7, 547.6, 764.1] variations on a theme. Oncogene. 2008 Sep 18;27(41)
+  [44.6, 788.2, 381.9, 810.6] Hallmarks of cancer: the next generation. Cell. 2011 Mar 4;144(5) The cBio cancer genomics portal:
+  [421.7, 783.0, 547.6, 816.6] an open platform for exploring multidimensional cancer genomics data. Cancer
+
+
+================================================================================
+File: c:\Users\aishwarya.jain\Downloads\TestReport_SAROJ DEVI (OQG2604250052)_2600133939_1eb3f888-f97e-4181-b84d-d9536de7af26_output.pdf
+================================================================================
+Number of pages: 19
+Page height: 841.9199829101562
+All text blocks on page 1:
+  [35.8, 50.4, 517.8, 113.5] TESTREPORT_SAROJ DEVI (OQG2604250052)_2600133939_1EB3F888-F97E-4181- B84D-D9536DE7AF26
+  [35.8, 115.2, 178.6, 125.7] Universal Dynamic Document Report
+  [44.6, 154.5, 486.8, 176.9] Date & Time Collected: 25-Apr-2026 07 Date & Time Received: 27-Apr-2026 12
+  [44.6, 189.7, 548.3, 212.1] Date & Time Reported: 11-May-2026 06 Table: The Breast and Ovarian Cancer Extended Panel Gene List.
+  [44.6, 241.5, 108.4, 252.6] No Guarantee:
+  [159.8, 225.0, 284.9, 269.9] By providing drug and clinical trial information for the reported diagnosis, SN GeneLab Pvt. Ltd. is not
+  [306.5, 241.5, 336.1, 252.6] Drugs:
+  [421.7, 225.0, 544.0, 269.9] The drugs listed on the report are not ranked in any specific order as to predicted efficacy or appropriateness
+  [44.6, 299.2, 78.4, 310.4] LoFreq:
+  [159.8, 282.7, 287.8, 327.6] A sequence-quality aware, ultra-sensitive variant caller for uncovering cell- population heterogeneity
+  [306.5, 294.0, 533.4, 316.4] Mutationtaster2: mutation prediction for the deep-sequencing age.
+  [44.6, 340.5, 475.5, 351.6] 11: 361-62. Report Date: 11 May 2026
+  [44.6, 381.0, 375.5, 392.1] Sample Cancer Type: Breast Cancer Tier Reference:
+  [421.7, 364.5, 548.7, 409.4] Li et al.  Standards and Guidelines for the Interpretation and Reporting of Sequence Variants in Cancer
+  [44.6, 422.2, 469.7, 433.4] Cancer type: Breast Cancer Label as of: 2025-03-07
+  [44.6, 446.2, 538.0, 457.4] Variant class: PIK3CA C420R mutation Other criteria: ERBB2 negative, ER positive
+  [44.6, 475.5, 124.3, 509.1] NCCN Recommendation category:
+  [159.8, 486.7, 354.5, 497.9] 1 Reference:
+  [421.7, 470.2, 544.6, 515.1] ESMO Clinical Practice Guidelines - ESMO-Metastatic Breast Cancer [Ann Oncol (2021) VOLUME 32, ISSUE 12,
+  [44.6, 528.0, 442.3, 539.1] 1 score: 2 DOI: https
+  [44.6, 574.5, 115.2, 585.6] SEQUEL-Breast:
+  [159.8, 557.2, 289.0, 602.1] A Phase II study on the combination of alpelisib and fulvestrant after progression on
+  [306.5, 574.5, 363.7, 585.6] Background:
+  [421.7, 552.0, 542.6, 608.1] The PIK3CA gene encodes the phosphatidylinositol-4,5- bisphosphate 3-kinase catalytic subunit alpha of the class I
+  [44.6, 637.5, 113.7, 659.9] Alterations and prevalence:
+  [159.8, 621.0, 266.1, 677.1] Recurrent somatic activating mutations in PIK3CA are common in diverse cancers and are observed
+  [306.5, 643.5, 396.0, 654.6] Potential relevance:
+  [421.7, 626.2, 550.2, 671.1] The PI3K inhibitor, alpelisib18, is FDA-approved (2019) in combination with fulvestrant for the treatment of patients
+  [44.6, 701.2, 390.3, 712.4] PMID: 21216929 PI3K-Akt pathway:
+  [421.7, 690.0, 550.5, 723.6] its functions and alterations in human cancer. Apoptosis. 2004 Nov;9(6)
+  [44.6, 747.7, 116.2, 758.9] PI3K signalling:
+  [159.8, 736.5, 273.6, 770.1] the path to discovery and understanding. Nat. Rev. Mol. Cell Biol. 2012 Feb
+  [306.5, 741.7, 401.8, 764.1] PI3K pathway alterations in cancer:
+  [421.7, 741.7, 547.6, 764.1] variations on a theme. Oncogene. 2008 Sep 18;27(41)
+  [44.6, 788.2, 381.9, 810.6] Hallmarks of cancer: the next generation. Cell. 2011 Mar 4;144(5) The cBio cancer genomics portal:
+  [421.7, 783.0, 547.6, 816.6] an open platform for exploring multidimensional cancer genomics data. Cancer
+
+
+================================================================================
+File: c:\Users\aishwarya.jain\Downloads\vendor pdf_output (1).pdf
+================================================================================
+Number of pages: 9
+Page height: 841.9199829101562
+All text blocks on page 1:
+  [35.8, 53.4, 178.6, 86.0] VENDOR PDF Universal Dynamic Document Report
+  [44.6, 117.0, 432.2, 128.1] 2026-03-25 16: 51 2026-04-19 14: 45
+  [44.6, 158.2, 118.4, 169.4] Salient features:
+  [159.8, 141.0, 286.2, 185.9] Chronic calcific pancreatitis, intrapancreatic ductal calculi, polypoidal lesion in the distal pancreatic duct
+  [306.5, 152.2, 501.5, 174.6] Clinical suspicion: Pancreatic exocrine insufficiency
+  [44.6, 198.7, 479.5, 221.1] ON PHENOTYPE BASED ANALYSIS: VARIANT/S DETECTED. Case Id: 60300129567
+  [44.6, 234.0, 541.0, 256.4] Patient Name: DEVIKA 2908914 OQG2603250447 Phone: 07961618111 / 6357244307
+  [44.6, 269.2, 487.6, 280.4] Email: contact@ncgmglobal.com | chr1: g.15767073G>A
+  [44.6, 315.7, 77.2, 326.9] REVEL:
+  [159.8, 293.2, 285.1, 349.4] The REVEL score for an individual missense variant can range from 0 to 1, with higher scores reflecting greater likeliho
+  [306.5, 315.7, 367.2, 326.9] CTRC variant:
+  [421.7, 304.5, 506.5, 338.1] case-control studies and metaanalysis. Pancreatology. 2023.
+  [44.6, 373.5, 327.9, 384.6] OMIM GENE ID: 276000] RAP:
+  [421.7, 362.2, 551.3, 395.9] >1 episode of AP), with frequent progression to chronic pancreatitis (CP). Mani
+  [44.6, 408.7, 401.7, 431.1] chr7: g.142458451A>T Laboratory reporting protocol:
+  [421.7, 408.7, 537.8, 431.1] The analysis is based on the provided phenotype
+  [44.6, 455.2, 113.9, 477.6] Analyzed genes include:
+  [159.8, 444.0, 283.6, 488.9] MT-ND1, MT-ND2, MT-ND3, MT-ND4L, MT-ND4, MT-ND5, MT-ND6, MT-CYB, MT-CO1, MT-CO2, MT-CO3, MT-
+  [306.5, 455.2, 452.5, 477.6] Bioinformatics pipeline version: v16.1.1
+  [257.0, 516.9, 338.9, 531.5] VENDOR PDF
+  [46.6, 559.8, 367.3, 571.5] : Name DEVIKA : Sex / Age Female/ 19 Years : Case ID 60300129567
+  [48.6, 588.7, 463.7, 599.9] : Ref By : PT. ID 2908914 OQG2603250447 : Test Name ORION (V2) (WES-Whole Exome Sequencing)
+  [48.6, 609.0, 203.2, 620.1] : Bill. Loc. Oncquest Laboratories Ltd.
+  [46.6, 653.5, 116.8, 665.2] Sample Details
+  [48.6, 683.2, 547.7, 694.4] : Registration Date & Time 2026-03-25 16:51:18 : Sample Type Whole Blood EDTA : Sample Date & Time 2026-03-25
+  [48.6, 697.5, 84.6, 708.6] 16:51:00
+  [46.6, 742.0, 239.8, 753.7] Summary of the Clinical History Provided
+  [48.6, 771.0, 547.4, 782.1] Salient features: Chronic calcific pancreatitis, intrapancreatic ductal calculi, polypoidal lesion in the distal pancreatic
+  [48.6, 785.2, 283.0, 796.4] duct Clinical suspicion: Pancreatic exocrine insufficiency
+
+
+================================================================================
+File: c:\Users\aishwarya.jain\Downloads\vendor pdf_output (2).pdf
+================================================================================
+Number of pages: 5
+Page height: 841.9199829101562
+All text blocks on page 1:
+  [45.1, 291.9, 99.3, 298.4] Summary Of Variants
+  [45.0, 76.2, 82.5, 82.7] Patient Details
+  [42.2, 97.0, 462.5, 102.3] : Name DEVIKA : Sex / Age Female/ 19 Years : Case ID 60300129567
+  [42.2, 105.9, 522.9, 111.3] : Ref By : PT. ID 2908914 OQG2603250447 : Test Name ORION (V2) (WES-Whole Exome Sequencing)
+  [42.2, 114.8, 144.9, 120.2] : Bill. Loc. Oncquest Laboratories Ltd.
+  [45.0, 132.3, 82.9, 138.9] Sample Details
+  [43.3, 156.6, 494.4, 161.9] : Registration Date & Time 2026-03-25 16:51:18 : Sample Type Whole Blood EDTA : Sample Date & Time 2026-03-25 16:51:00
+  [43.3, 165.5, 333.9, 170.8] : Ref ID 1. - : Report Date & Time 2026-04-19 14:45:21
+  [45.1, 183.0, 150.5, 189.5] Summary of the Clinical History Provided
+  [45.6, 206.6, 280.1, 211.9] Salient features: Chronic calcific pancreatitis, intrapancreatic ductal calculi, polypoidal lesion in the distal pancreatic duct
+  [45.6, 213.4, 145.3, 218.7] Clinical suspicion: Pancreatic exocrine insufficiency
+  [45.1, 233.7, 124.7, 240.2] Test Results and Interpretation
+  [217.8, 256.4, 363.0, 262.8] ON PHENOTYPE BASED ANALYSIS:  VARIANT/S DETECTED.
+  [119.3, 269.4, 419.7, 275.8] PRSS1 variants are low-depth, low-complexity variants, and hence confirmation via sanger sequencing is recommended.
+  [120.1, 330.5, 218.0, 341.3] - p.Ala73Thr [101x /186x]
+  [407.9, 330.5, 440.8, 335.8] susceptibility to}
+  [47.9, 344.9, 148.8, 355.7] PRSS1 (NM_002769.5) Exon 1/Exon 5 -
+  [192.0, 344.9, 215.5, 361.2] c.40C>G p.Leu14Val [54x /243x]
+  [264.1, 344.9, 520.6, 350.2] Heterozygous Uncertain significance Pancreatitis, hereditary Autosomal dominant
+  [47.9, 364.0, 148.8, 374.9] PRSS1 (NM_002769.5) Exon 2/Exon 5 -
+  [192.0, 364.0, 215.5, 380.3] c.86A>T p.Asn29Ile [85x /531x]
+  [264.1, 364.0, 520.6, 369.4] Heterozygous Pathogenic Pancreatitis, hereditary Autosomal dominant
+  [31.8, 681.9, 543.6, 699.1] Case Id: 60300129567 Patient Name: DEVIKA 2908914 OQG2603250447 Page 1 of 5
+  [60.3, 308.1, 103.4, 328.5] Gene and Transcript
+  [128.2, 308.1, 179.7, 318.3] Exon/Intron
+  [136.9, 318.4, 171.1, 328.5] Number
+  [196.6, 308.1, 538.0, 328.5] Variant Nomenclature Zygosity Classification OMIM Phenotype Inheritance
+  [118.4, 712.1, 488.9, 731.8] NEUBERG CENTER FOR GENOMIC MEDICINE (A Unit Of Neuberg Diagnostics Private Limited) GTPL House Lane, Near East Ebony, Sindhu Bhavan Road, Bodakdev, Ahmedabad |
+  [155.8, 731.9, 451.5, 742.1] Phone: 07961618111 / 6357244307 Email: contact@ncgmglobal.com |
+  [259.2, 741.5, 347.6, 751.7] www.ncgmglobal.com
+
+
+================================================================================
+File: c:\Users\aishwarya.jain\Downloads\vendor pdf_output (3).pdf
+================================================================================
+Number of pages: 5
+Page height: 841.9199829101562
+All text blocks on page 1:
+  [45.1, 291.9, 99.3, 298.4] Summary Of Variants
+  [45.0, 76.2, 82.5, 82.7] Patient Details
+  [42.2, 97.0, 462.5, 102.3] : Name DEVIKA : Sex / Age Female/ 19 Years : Case ID 60300129567
+  [42.2, 105.9, 522.9, 111.3] : Ref By : PT. ID 2908914 OQG2603250447 : Test Name ORION (V2) (WES-Whole Exome Sequencing)
+  [42.2, 114.8, 144.9, 120.2] : Bill. Loc. Oncquest Laboratories Ltd.
+  [45.0, 132.3, 82.9, 138.9] Sample Details
+  [43.3, 156.6, 494.4, 161.9] : Registration Date & Time 2026-03-25 16:51:18 : Sample Type Whole Blood EDTA : Sample Date & Time 2026-03-25 16:51:00
+  [43.3, 165.5, 333.9, 170.8] : Ref ID 1. - : Report Date & Time 2026-04-19 14:45:21
+  [45.1, 183.0, 150.5, 189.5] Summary of the Clinical History Provided
+  [45.6, 206.6, 280.1, 211.9] Salient features: Chronic calcific pancreatitis, intrapancreatic ductal calculi, polypoidal lesion in the distal pancreatic duct
+  [45.6, 213.4, 145.3, 218.7] Clinical suspicion: Pancreatic exocrine insufficiency
+  [45.1, 233.7, 124.7, 240.2] Test Results and Interpretation
+  [217.8, 256.4, 363.0, 262.8] ON PHENOTYPE BASED ANALYSIS:  VARIANT/S DETECTED.
+  [119.3, 269.4, 419.7, 275.8] PRSS1 variants are low-depth, low-complexity variants, and hence confirmation via sanger sequencing is recommended.
+  [120.1, 330.5, 218.0, 341.3] - p.Ala73Thr [101x /186x]
+  [407.9, 330.5, 440.8, 335.8] susceptibility to}
+  [47.9, 344.9, 148.8, 355.7] PRSS1 (NM_002769.5) Exon 1/Exon 5 -
+  [192.0, 344.9, 215.5, 361.2] c.40C>G p.Leu14Val [54x /243x]
+  [264.1, 344.9, 520.6, 350.2] Heterozygous Uncertain significance Pancreatitis, hereditary Autosomal dominant
+  [47.9, 364.0, 148.8, 374.9] PRSS1 (NM_002769.5) Exon 2/Exon 5 -
+  [192.0, 364.0, 215.5, 380.3] c.86A>T p.Asn29Ile [85x /531x]
+  [264.1, 364.0, 520.6, 369.4] Heterozygous Pathogenic Pancreatitis, hereditary Autosomal dominant
+  [31.8, 681.9, 543.6, 699.1] Case Id: 60300129567 Patient Name: DEVIKA 2908914 OQG2603250447 Page 1 of 5
+  [60.3, 308.1, 103.4, 328.5] Gene and Transcript
+  [128.2, 308.1, 179.7, 318.3] Exon/Intron
+  [136.9, 318.4, 171.1, 328.5] Number
+  [196.6, 308.1, 538.0, 328.5] Variant Nomenclature Zygosity Classification OMIM Phenotype Inheritance
+  [118.4, 712.1, 488.9, 731.8] NEUBERG CENTER FOR GENOMIC MEDICINE (A Unit Of Neuberg Diagnostics Private Limited) GTPL House Lane, Near East Ebony, Sindhu Bhavan Road, Bodakdev, Ahmedabad |
+  [155.8, 731.9, 451.5, 742.1] Phone: 07961618111 / 6357244307 Email: contact@ncgmglobal.com |
+  [259.2, 741.5, 347.6, 751.7] www.ncgmglobal.com
+
+
+================================================================================
+File: c:\Users\aishwarya.jain\Downloads\vendor pdf_output.pdf
+================================================================================
+Number of pages: 9
+Page height: 841.9199829101562
+All text blocks on page 1:
+  [35.8, 53.4, 178.6, 86.0] VENDOR PDF Universal Dynamic Document Report
+  [44.6, 117.0, 432.2, 128.1] 2026-03-25 16: 51 2026-04-19 14: 45
+  [44.6, 158.2, 118.4, 169.4] Salient features:
+  [159.8, 141.0, 286.2, 185.9] Chronic calcific pancreatitis, intrapancreatic ductal calculi, polypoidal lesion in the distal pancreatic duct
+  [306.5, 152.2, 501.5, 174.6] Clinical suspicion: Pancreatic exocrine insufficiency
+  [44.6, 198.7, 479.5, 221.1] ON PHENOTYPE BASED ANALYSIS: VARIANT/S DETECTED. Case Id: 60300129567
+  [44.6, 234.0, 541.0, 256.4] Patient Name: DEVIKA 2908914 OQG2603250447 Phone: 07961618111 / 6357244307
+  [44.6, 269.2, 487.6, 280.4] Email: contact@ncgmglobal.com | chr1: g.15767073G>A
+  [44.6, 315.7, 77.2, 326.9] REVEL:
+  [159.8, 293.2, 285.1, 349.4] The REVEL score for an individual missense variant can range from 0 to 1, with higher scores reflecting greater likeliho
+  [306.5, 315.7, 367.2, 326.9] CTRC variant:
+  [421.7, 304.5, 506.5, 338.1] case-control studies and metaanalysis. Pancreatology. 2023.
+  [44.6, 373.5, 327.9, 384.6] OMIM GENE ID: 276000] RAP:
+  [421.7, 362.2, 551.3, 395.9] >1 episode of AP), with frequent progression to chronic pancreatitis (CP). Mani
+  [44.6, 408.7, 401.7, 431.1] chr7: g.142458451A>T Laboratory reporting protocol:
+  [421.7, 408.7, 537.8, 431.1] The analysis is based on the provided phenotype
+  [44.6, 455.2, 113.9, 477.6] Analyzed genes include:
+  [159.8, 444.0, 283.6, 488.9] MT-ND1, MT-ND2, MT-ND3, MT-ND4L, MT-ND4, MT-ND5, MT-ND6, MT-CYB, MT-CO1, MT-CO2, MT-CO3, MT-
+  [306.5, 455.2, 452.5, 477.6] Bioinformatics pipeline version: v16.1.1
+  [257.0, 516.9, 338.9, 531.5] VENDOR PDF
+  [46.6, 559.8, 367.3, 571.5] : Name DEVIKA : Sex / Age Female/ 19 Years : Case ID 60300129567
+  [48.6, 588.7, 463.7, 599.9] : Ref By : PT. ID 2908914 OQG2603250447 : Test Name ORION (V2) (WES-Whole Exome Sequencing)
+  [48.6, 609.0, 203.2, 620.1] : Bill. Loc. Oncquest Laboratories Ltd.
+  [46.6, 653.5, 116.8, 665.2] Sample Details
+  [48.6, 683.2, 547.7, 694.4] : Registration Date & Time 2026-03-25 16:51:18 : Sample Type Whole Blood EDTA : Sample Date & Time 2026-03-25
+  [48.6, 697.5, 84.6, 708.6] 16:51:00
+  [46.6, 742.0, 239.8, 753.7] Summary of the Clinical History Provided
+  [48.6, 771.0, 547.4, 782.1] Salient features: Chronic calcific pancreatitis, intrapancreatic ductal calculi, polypoidal lesion in the distal pancreatic
+  [48.6, 785.2, 283.0, 796.4] duct Clinical suspicion: Pancreatic exocrine insufficiency
+
+

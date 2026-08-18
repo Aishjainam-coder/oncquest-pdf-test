@@ -1,0 +1,514 @@
+Original PDF: c:\Users\aishwarya.jain\Downloads\Oncquest-main\Oncquest-main\outsourcing pdf\TestReport_DULAL NAHA (KOL2604070057)_2600128556_11d3f985-7e08-40be-91b4-48b35be363ee.pdf
+Compiled PDF: c:\Users\aishwarya.jain\Downloads\Oncquest-main\Oncquest-main\output\TestReport_DULAL NAHA (KOL2604070057)_2600128556_11d3f985-7e08-40be-91b4-48b35be363ee_compiled.pdf
+Original pages: 10
+Compiled pages: 10
+
+
+=========================================
+--- Page 1 Comparison ---
+=========================================
+[Page 1] Differences found:
+--- Original_Page_1
++++ Compiled_Page_1
+@@ -1,32 +1,3 @@
+-QR Code for
+-report verification
+-Case ID
+-: 2600128556
+-Sample Type
+-: BLOOD IN CCF DNA TUBE
+-Name
+-: MR. DULAL NAHA (KOL2604070057)
+-Date & Time Collected : 07-Apr-2026 12:00 AM
+-Sex/Age
+-: Male/70 Years
+-Date & Time Received : 20-Apr-2026 12:16 PM
+-Bill. Loc.
+-: OncQuest Laboratories Ltd., New Delhi
+-Date & Time Reported : 30-Apr-2026 05:55 PM
+-Ref. By
+-:
+-Report Version
+-: 1
+-Indication :
+-MC-7414
+-Dr.Nirmal A. Vaniawala
+-Dr. Salil Vaniawala
+-Dr. Salil Vaniawala
+-MD (Path. & Bact.)
+-M.Sc Ph.D.(Human Genetics) Consulting
+-Geneticist
+-M.Sc Ph.D.(Human Genetics)
+-Consulting Geneticist
+ Liquidseq Actionable Genomic Profiling Panel
+ On Illumina Novaseq 6000 Platform
+ Clinical Indication:
+@@ -71,4 +42,17 @@
+ Stable Microsatellite detected
+ # Correlation of the genetic findings with the clinical condition of the patient is required to arrive at accurate diagnosis,
+ prognosis or therapeutic decisions.
+-Page 1 of 10
++Tier I
++Tier II
++Tier III
++MSI
++Therapies
++Clinical Trials
++Tier
++Gene & Transcript
++Variant
++Exon
++Coverage/ VAF
++Assay Biomarker
++Result
++Interpretation
+
+=========================================
+--- Page 2 Comparison ---
+=========================================
+[Page 2] Differences found:
+--- Original_Page_2
++++ Compiled_Page_2
+@@ -1,32 +1,3 @@
+-QR Code for
+-report verification
+-Case ID
+-: 2600128556
+-Sample Type
+-: BLOOD IN CCF DNA TUBE
+-Name
+-: MR. DULAL NAHA (KOL2604070057)
+-Date & Time Collected : 07-Apr-2026 12:00 AM
+-Sex/Age
+-: Male/70 Years
+-Date & Time Received : 20-Apr-2026 12:16 PM
+-Bill. Loc.
+-: OncQuest Laboratories Ltd., New Delhi
+-Date & Time Reported : 30-Apr-2026 05:55 PM
+-Ref. By
+-:
+-Report Version
+-: 1
+-Indication :
+-MC-7414
+-Dr.Nirmal A. Vaniawala
+-Dr. Salil Vaniawala
+-Dr. Salil Vaniawala
+-MD (Path. & Bact.)
+-M.Sc Ph.D.(Human Genetics) Consulting
+-Geneticist
+-M.Sc Ph.D.(Human Genetics)
+-Consulting Geneticist
+ Clinical Significance:
+ Variant
+ Therapy
+@@ -71,4 +42,10 @@
+ leukemia/lymphoma, 4% of embryonal tumors, 3% of Wilms tumor and leukemia, 2% of T-
+ lymphoblastic leukemia/lymphoma, and less than 1% of peripheral nervous system cancers (5
+ in 1158 cases )[6,7]. Biallelic loss of TP53 is observed in 10% of bone cancer, 2% of Wilms
+-Page 2 of 10
++Variant
++Therapy
++Variant
++Diagnostic Significance
++Prognostic Significance
++Variant
++Biomarker Description
+
+=========================================
+--- Page 3 Comparison ---
+=========================================
+[Page 3] Differences found:
+--- Original_Page_3
++++ Compiled_Page_3
+@@ -1,32 +1,3 @@
+-QR Code for
+-report verification
+-Case ID
+-: 2600128556
+-Sample Type
+-: BLOOD IN CCF DNA TUBE
+-Name
+-: MR. DULAL NAHA (KOL2604070057)
+-Date & Time Collected : 07-Apr-2026 12:00 AM
+-Sex/Age
+-: Male/70 Years
+-Date & Time Received : 20-Apr-2026 12:16 PM
+-Bill. Loc.
+-: OncQuest Laboratories Ltd., New Delhi
+-Date & Time Reported : 30-Apr-2026 05:55 PM
+-Ref. By
+-:
+-Report Version
+-: 1
+-Indication :
+-MC-7414
+-Dr.Nirmal A. Vaniawala
+-Dr. Salil Vaniawala
+-Dr. Salil Vaniawala
+-MD (Path. & Bact.)
+-M.Sc Ph.D.(Human Genetics) Consulting
+-Geneticist
+-M.Sc Ph.D.(Human Genetics)
+-Consulting Geneticist
+ tumor, and less than 1% of B-lymphoblastic leukemia/lymphoma (2 in 731 cases) and
+ leukemia
+ (1
+@@ -116,4 +87,28 @@
+ X
+ X
+ I
+-Page 3 of 10
++tumor, and less than 1% of B-lymphoblastic leukemia/lymphoma (2 in 731 cases) and
++leukemia (1 in 250 cases)[6,7]. The small molecule p53 reactivator, PC14586[16] (2020),
++received a fast track designation by the FDA for advanced tumors harboring a TP53 Y220C
++mutation. The FDA has granted fast track designation to the p53 reactivator,
++eprenetapopt[17], (2019) and breakthrough designation[18] (2020) in combination with
++azacitidine or azacitidine and venetoclax for acute myeloid leukemia patients (AML) and
++myelodysplastic syndrome (MDS) harboring a TP53 mutation, respectively. In addition to
++investigational therapies aimed at restoring wild-type TP53 activity, compounds that
++induce synthetic lethality are also under clinical evaluation[19,20]. TP53 mutation are a
++diagnostic marker of SHH-activated, TP53-mutant medulloblastoma[21]. TP53 mutations
++confer poor prognosis and poor risk in multiple blood cancers including AML, MDS,
++myeloproliferative neoplasms (MPN), and chronic lymphocytic leukemia (CLL), and acute
++lymphoblastic leukemia (ALL)[22,23,24,25,26,27]. In mantle cell lymphoma, TP53
++mutations are associated with poor prognosis when treated with conventional therapy
++including hematopoietic cell transplant[28]. Mono- and bi-allelic mutations in TP53 confer
++unique characteristics in MDS, with multi-hit patients also experiencing associations with
++complex karyotype, few co-occurring mutations, and high-risk disease presentation as well
++as predicted death and leukemic transformation independent of the IPSS-R staging
++system[29].
++Therapy
++FDA
++NCCN
++EMA
++ESMO
++Trials
+
+=========================================
+--- Page 4 Comparison ---
+=========================================
+[Page 4] Differences found:
+--- Original_Page_4
++++ Compiled_Page_4
+@@ -1,32 +1,3 @@
+-QR Code for
+-report verification
+-Case ID
+-: 2600128556
+-Sample Type
+-: BLOOD IN CCF DNA TUBE
+-Name
+-: MR. DULAL NAHA (KOL2604070057)
+-Date & Time Collected : 07-Apr-2026 12:00 AM
+-Sex/Age
+-: Male/70 Years
+-Date & Time Received : 20-Apr-2026 12:16 PM
+-Bill. Loc.
+-: OncQuest Laboratories Ltd., New Delhi
+-Date & Time Reported : 30-Apr-2026 05:55 PM
+-Ref. By
+-:
+-Report Version
+-: 1
+-Indication :
+-MC-7414
+-Dr.Nirmal A. Vaniawala
+-Dr. Salil Vaniawala
+-Dr. Salil Vaniawala
+-MD (Path. & Bact.)
+-M.Sc Ph.D.(Human Genetics) Consulting
+-Geneticist
+-M.Sc Ph.D.(Human Genetics)
+-Consulting Geneticist
+ GH-2616
+ X
+ X
+@@ -154,4 +125,9 @@
+ X
+ X
+ II
+-Page 4 of 10
++GH-2616
++X
++X
++X
++X
++I
+
+=========================================
+--- Page 5 Comparison ---
+=========================================
+[Page 5] Differences found:
+--- Original_Page_5
++++ Compiled_Page_5
+@@ -1,32 +1,3 @@
+-QR Code for
+-report verification
+-Case ID
+-: 2600128556
+-Sample Type
+-: BLOOD IN CCF DNA TUBE
+-Name
+-: MR. DULAL NAHA (KOL2604070057)
+-Date & Time Collected : 07-Apr-2026 12:00 AM
+-Sex/Age
+-: Male/70 Years
+-Date & Time Received : 20-Apr-2026 12:16 PM
+-Bill. Loc.
+-: OncQuest Laboratories Ltd., New Delhi
+-Date & Time Reported : 30-Apr-2026 05:55 PM
+-Ref. By
+-:
+-Report Version
+-: 1
+-Indication :
+-MC-7414
+-Dr.Nirmal A. Vaniawala
+-Dr. Salil Vaniawala
+-Dr. Salil Vaniawala
+-MD (Path. & Bact.)
+-M.Sc Ph.D.(Human Genetics) Consulting
+-Geneticist
+-M.Sc Ph.D.(Human Genetics)
+-Consulting Geneticist
+ olaparib, durvalumab
+ X
+ X
+@@ -102,4 +73,9 @@
+ Extraction & Library Preparation: Cell free Total Nucleic acid (cfTNA) extracted from the liquid biopsy sample is used
+ for targeted gene capture using a custom designed hybrid capture panel. In process quality controls were determined for
+ prepared library.
+-Page 5 of 10
++olaparib, durvalumab
++X
++X
++X
++X
++II
+
+=========================================
+--- Page 6 Comparison ---
+=========================================
+[Page 6] Differences found:
+--- Original_Page_6
++++ Compiled_Page_6
+@@ -1,32 +1,3 @@
+-QR Code for
+-report verification
+-Case ID
+-: 2600128556
+-Sample Type
+-: BLOOD IN CCF DNA TUBE
+-Name
+-: MR. DULAL NAHA (KOL2604070057)
+-Date & Time Collected : 07-Apr-2026 12:00 AM
+-Sex/Age
+-: Male/70 Years
+-Date & Time Received : 20-Apr-2026 12:16 PM
+-Bill. Loc.
+-: OncQuest Laboratories Ltd., New Delhi
+-Date & Time Reported : 30-Apr-2026 05:55 PM
+-Ref. By
+-:
+-Report Version
+-: 1
+-Indication :
+-MC-7414
+-Dr.Nirmal A. Vaniawala
+-Dr. Salil Vaniawala
+-Dr. Salil Vaniawala
+-MD (Path. & Bact.)
+-M.Sc Ph.D.(Human Genetics) Consulting
+-Geneticist
+-M.Sc Ph.D.(Human Genetics)
+-Consulting Geneticist
+ Sequencing: The libraries were sequenced at mean depth: >25,000x on Illumina Novaseq- next generation sequencing
+ platform.
+ Data Analysis: Sequencing data analyzed using a customized and validated bioinformatics pipeline capable of detecting
+@@ -55,4 +26,3 @@
+ generation. However, literature is continuously evolving, and classification may change with emerging evidence.
+ The assay is designed and validated for somatic variant detection, it does not differentiate between somatic and germline
+ variants. If indicated, germline testing and genetic counselling are recommended.
+-Page 6 of 10
+
+=========================================
+--- Page 7 Comparison ---
+=========================================
+[Page 7] Differences found:
+--- Original_Page_7
++++ Compiled_Page_7
+@@ -1,32 +1,3 @@
+-QR Code for
+-report verification
+-Case ID
+-: 2600128556
+-Sample Type
+-: BLOOD IN CCF DNA TUBE
+-Name
+-: MR. DULAL NAHA (KOL2604070057)
+-Date & Time Collected : 07-Apr-2026 12:00 AM
+-Sex/Age
+-: Male/70 Years
+-Date & Time Received : 20-Apr-2026 12:16 PM
+-Bill. Loc.
+-: OncQuest Laboratories Ltd., New Delhi
+-Date & Time Reported : 30-Apr-2026 05:55 PM
+-Ref. By
+-:
+-Report Version
+-: 1
+-Indication :
+-MC-7414
+-Dr.Nirmal A. Vaniawala
+-Dr. Salil Vaniawala
+-Dr. Salil Vaniawala
+-MD (Path. & Bact.)
+-M.Sc Ph.D.(Human Genetics) Consulting
+-Geneticist
+-M.Sc Ph.D.(Human Genetics)
+-Consulting Geneticist
+ Poor-quality cfDNA/ Previous or Ongoing therapy may fail QC thresholds at various stages such as cfDNA extraction,
+ library preparation, or bioinformatics, and may result in assay failure or compromised results, such as low gene coverage
+ or shallow variant depth.
+@@ -89,4 +60,7 @@
+ Tier IB
+ Variants of Strong Clinical Significance: Biomarkers that predict response or resistance to a therapy
+ based on well-powered studies with consensus from experts in the field, or have diagnostic and/or
+-Page 7 of 10
++MSI
++% of Unstable Loci
++Tier
++Interpretation
+
+=========================================
+--- Page 8 Comparison ---
+=========================================
+[Page 8] Differences found:
+--- Original_Page_8
++++ Compiled_Page_8
+@@ -1,32 +1,3 @@
+-QR Code for
+-report verification
+-Case ID
+-: 2600128556
+-Sample Type
+-: BLOOD IN CCF DNA TUBE
+-Name
+-: MR. DULAL NAHA (KOL2604070057)
+-Date & Time Collected : 07-Apr-2026 12:00 AM
+-Sex/Age
+-: Male/70 Years
+-Date & Time Received : 20-Apr-2026 12:16 PM
+-Bill. Loc.
+-: OncQuest Laboratories Ltd., New Delhi
+-Date & Time Reported : 30-Apr-2026 05:55 PM
+-Ref. By
+-:
+-Report Version
+-: 1
+-Indication :
+-MC-7414
+-Dr.Nirmal A. Vaniawala
+-Dr. Salil Vaniawala
+-Dr. Salil Vaniawala
+-MD (Path. & Bact.)
+-M.Sc Ph.D.(Human Genetics) Consulting
+-Geneticist
+-M.Sc Ph.D.(Human Genetics)
+-Consulting Geneticist
+ prognostic significance of certain diseases based on well-powered studies with expert consensus.
+ Tier IIC
+ Variants of Potential Clinical Significance: biomarkers that predict response or resistance to
+@@ -61,4 +32,4 @@
+ 2015 Jan 29;517(7536):576-82. PMID: 25631445
+ Campbell et al. Distinct patterns of somatic genome alterations in lung adenocarcinomas and squamous cell carcinomas. Nat.
+ Genet. 2016 Jun;48(6):607-16. PMID: 27158780
+-Page 8 of 10
++prognostic significance of certain diseases based on well-powered studies with expert consensus.
+
+=========================================
+--- Page 9 Comparison ---
+=========================================
+[Page 9] Differences found:
+--- Original_Page_9
++++ Compiled_Page_9
+@@ -1,32 +1,3 @@
+-QR Code for
+-report verification
+-Case ID
+-: 2600128556
+-Sample Type
+-: BLOOD IN CCF DNA TUBE
+-Name
+-: MR. DULAL NAHA (KOL2604070057)
+-Date & Time Collected : 07-Apr-2026 12:00 AM
+-Sex/Age
+-: Male/70 Years
+-Date & Time Received : 20-Apr-2026 12:16 PM
+-Bill. Loc.
+-: OncQuest Laboratories Ltd., New Delhi
+-Date & Time Reported : 30-Apr-2026 05:55 PM
+-Ref. By
+-:
+-Report Version
+-: 1
+-Indication :
+-MC-7414
+-Dr.Nirmal A. Vaniawala
+-Dr. Salil Vaniawala
+-Dr. Salil Vaniawala
+-MD (Path. & Bact.)
+-M.Sc Ph.D.(Human Genetics) Consulting
+-Geneticist
+-M.Sc Ph.D.(Human Genetics)
+-Consulting Geneticist
+ Cancer Genome Atlas Research Network. Integrated genomic characterization of oesophageal carcinoma. Nature. 2017 Jan
+ 12;541(7636):169-175. doi: 10.1038/nature20805. Epub 2017 Jan 4. PMID: 28052061
+ Olivier et al. The IARC TP53 database: new online mutation analysis and recommendations to users. Hum. Mutat. 2002
+@@ -72,4 +43,3 @@
+ NCCN Guidelines&amp;reg; - NCCN-Chronic Lymphocytic Leukemia/Small Lymphocytic Lymphoma [Version 3.2025]
+ NCCN Guidelines&amp;reg; - NCCN-Acute Lymphoblastic Leukemia [Version 3.2024]
+ NCCN Guidelines&amp;reg; - NCCN-B-Cell Lymphomas [Version 2.2025]
+-Page 9 of 10
+
+=========================================
+--- Page 10 Comparison ---
+=========================================
+[Page 10] Differences found:
+--- Original_Page_10
++++ Compiled_Page_10
+@@ -1,33 +1,3 @@
+-QR Code for
+-report verification
+-Case ID
+-: 2600128556
+-Sample Type
+-: BLOOD IN CCF DNA TUBE
+-Name
+-: MR. DULAL NAHA (KOL2604070057)
+-Date & Time Collected : 07-Apr-2026 12:00 AM
+-Sex/Age
+-: Male/70 Years
+-Date & Time Received : 20-Apr-2026 12:16 PM
+-Bill. Loc.
+-: OncQuest Laboratories Ltd., New Delhi
+-Date & Time Reported : 30-Apr-2026 05:55 PM
+-Ref. By
+-:
+-Report Version
+-: 1
+-Indication :
+-MC-7414
+-Dr.Nirmal A. Vaniawala
+-Dr. Salil Vaniawala
+-Dr. Salil Vaniawala
+-MD (Path. & Bact.)
+-M.Sc Ph.D.(Human Genetics) Consulting
+-Geneticist
+-M.Sc Ph.D.(Human Genetics)
+-Consulting Geneticist
+ Bernard et al. Implications of TP53 allelic state for genome stability, clinical presentation and outcomes in myelodysplastic
+ syndromes. Nat. Med. 2020 Aug 3. PMID: 32747829
+ ------------------ End Of Report ------------------
+-Page 10 of 10
