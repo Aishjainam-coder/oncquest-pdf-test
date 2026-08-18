@@ -200,7 +200,7 @@ def detect_dynamic_header_footer_bounds(doc) -> dict:
         'nabl', 'cap accredited', 'iso 15189', 'mc-7414', 'page '
     ]
 
-    # Step 1: Detect multi-page repeated strings in top 35% and bottom 35%
+    # Step 1: Detect multi-page repeated strings in top 25% and bottom 12%
     top_str_counts = defaultdict(int)
     bot_str_counts = defaultdict(int)
 
@@ -216,9 +216,9 @@ def detect_dynamic_header_footer_bounds(doc) -> dict:
             if not text:
                 continue
             norm_t = re.sub(r'\s+', ' ', text.lower())
-            if y0 < 0.35 * H:
+            if y0 < 0.25 * H:
                 top_str_counts[norm_t] += 1
-            elif y1 > 0.65 * H:
+            elif y0 > 0.88 * H:
                 bot_str_counts[norm_t] += 1
 
     repeated_top = {t for t, count in top_str_counts.items() if count >= 2 or (page_count == 1 and count >= 1)}
@@ -243,8 +243,8 @@ def detect_dynamic_header_footer_bounds(doc) -> dict:
                 continue
             norm_t = re.sub(r'\s+', ' ', text.lower())
 
-            # Check Header match (top 28% of page)
-            if y0 < 0.28 * H:
+            # Check Header match (top 25% of page)
+            if y0 < 0.25 * H:
                 is_hdr = False
                 if norm_t in repeated_top:
                     is_hdr = True
@@ -252,15 +252,13 @@ def detect_dynamic_header_footer_bounds(doc) -> dict:
                     is_hdr = True
                 elif re.search(r'page\s+\d+', norm_t):
                     is_hdr = True
-                elif y1 < 0.15 * H:
-                    is_hdr = True
 
                 if is_hdr:
                     if y1 > header_y1:
                         header_y1 = y1
 
-            # Check Footer match (bottom 20% of page ONLY)
-            if y0 > 0.80 * H:
+            # Check Footer match (bottom 15% of page ONLY)
+            if y0 > 0.85 * H:
                 is_ftr = False
                 if norm_t in repeated_bot:
                     is_ftr = True
@@ -272,14 +270,14 @@ def detect_dynamic_header_footer_bounds(doc) -> dict:
                 elif re.search(r'page\s+\d+', norm_t):
                     if len(norm_t) < 30:
                         is_ftr = True
-                elif y0 > 0.88 * H:
+                elif y0 > 0.90 * H:
                     is_ftr = True
 
                 if is_ftr:
                     if y0 < footer_y0:
                         footer_y0 = y0
 
-        # B) Analyze image bboxes (top 20% for header, bottom 20% for footer)
+        # B) Analyze image bboxes (top 20% for header, bottom 15% for footer)
         img_infos = page.get_image_info(xrefs=True)
         for info in img_infos:
             bbox = info.get("bbox")
@@ -289,13 +287,12 @@ def detect_dynamic_header_footer_bounds(doc) -> dict:
             if iy0 < 0.20 * H:
                 if iy1 > header_y1:
                     header_y1 = iy1
-            if iy0 > 0.80 * H:
+            if iy0 > 0.85 * H:
                 if iy0 < footer_y0:
                     footer_y0 = iy0
 
-        # Add buffer - Header capped at 0.26*H (~218px), Footer floored at 0.80*H (~673px)
-        final_hdr_cutoff = min(header_y1 + 2.0, 0.26 * H) if header_y1 > 0 else 0.0
-        final_ftr_cutoff = max(footer_y0 - 2.0, 0.80 * H) if footer_y0 < H else H
+        final_hdr_cutoff = min(header_y1 + 2.0, 0.25 * H) if header_y1 > 0 else 0.0
+        final_ftr_cutoff = max(footer_y0 - 2.0, 0.85 * H) if footer_y0 < H else H
 
         page_bounds[p_idx] = {
             "header_y_cutoff": round(final_hdr_cutoff, 2),
@@ -327,7 +324,7 @@ def is_patient_sample_header_block(text: str, y0: float) -> bool:
             return True
         if 'name' in norm and ('mr.' in norm or 'mrs.' in norm or 'ms.' in norm or 'master' in norm or 'dr.' in norm or 'oqg' in norm or '1007' in norm):
             return True
-        if norm.startswith(': name') or norm.startswith('name :') or norm.startswith('name'):
+        if norm.startswith(': name') or norm.startswith('name :') or re.match(r'^name\s*:\s*(mr|mrs|ms|dr|master)', norm):
             return True
     return False
 
