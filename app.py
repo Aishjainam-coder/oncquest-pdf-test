@@ -208,6 +208,8 @@ if uploaded_file is not None:
                     extracted_data = json.loads(file_bytes.decode("utf-8"))
                     st.session_state.extracted_data = extracted_data
                     html_content = generate_dynamic_template_html(extracted_data, doc_title=uploaded_file.name, theme_config=theme_config)
+                    # Replace "SN Genelab Pvt Ltd" with "Laboratory"
+                    html_content = html_content.replace("SN Genelab Pvt Ltd", "Laboratory")
                     st.session_state.html_content = html_content
 
                     with tempfile.TemporaryDirectory() as tmp_dir:
@@ -245,8 +247,11 @@ if uploaded_file is not None:
                             json_out_dir = Path("extracted_jsons")
                             json_out_dir.mkdir(exist_ok=True)
                             json_file_path = json_out_dir / f"{Path(uploaded_file.name).stem}.json"
+                            # Replace "SN Genelab Pvt Ltd" with "Laboratory" in JSON
+                            json_str = json.dumps(extracted_data, indent=2, ensure_ascii=False)
+                            json_str = json_str.replace("SN Genelab Pvt Ltd", "Laboratory")
                             with open(json_file_path, "w", encoding="utf-8") as f_json:
-                                json.dump(extracted_data, f_json, indent=2, ensure_ascii=False)
+                                f_json.write(json_str)
                         except Exception:
                             pass
 
@@ -254,6 +259,8 @@ if uploaded_file is not None:
                         doc_fitz = fitz.open(str(pdf_input_path))
                         html_content = render_exact_pdf_layout_html(doc_fitz, doc_title=uploaded_file.name, theme_config=theme_config)
                         doc_fitz.close()
+                        # Replace "SN Genelab Pvt Ltd" with "Laboratory"
+                        html_content = html_content.replace("SN Genelab Pvt Ltd", "Laboratory")
                         st.session_state.html_content = html_content
 
                         # Compile Intermediate PDF from HTML

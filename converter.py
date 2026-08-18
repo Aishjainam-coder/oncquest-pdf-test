@@ -2249,8 +2249,11 @@ def convert_pdf_full_pipeline(pdf_path, output_dir=None, theme_config: dict = No
     extracted_data = extract_report_data(str(pdf_path))
     json_path = json_dir / f"{stem}.json"
     if extracted_data:
+        # Replace "SN Genelab Pvt Ltd" with "Laboratory" in extracted JSON data
+        json_str = json.dumps(extracted_data, indent=2, ensure_ascii=False)
+        json_str = json_str.replace("SN Genelab Pvt Ltd", "Laboratory")
         with open(json_path, "w", encoding="utf-8") as f_json:
-            json.dump(extracted_data, f_json, indent=2, ensure_ascii=False)
+            f_json.write(json_str)
         print(f"   [+] JSON saved: {json_path}")
 
     # Step 2: JSON -> HTML
@@ -2259,6 +2262,9 @@ def convert_pdf_full_pipeline(pdf_path, output_dir=None, theme_config: dict = No
     doc = fitz.open(str(pdf_path))
     full_html = render_exact_pdf_layout_html(doc, doc_title=pdf_path.name, theme_config=theme_config)
     doc.close()
+
+    # Replace "SN Genelab Pvt Ltd" with "Laboratory" in the generated HTML
+    full_html = full_html.replace("SN Genelab Pvt Ltd", "Laboratory")
 
     with open(out_html, "w", encoding="utf-8") as f_html:
         f_html.write(full_html)
