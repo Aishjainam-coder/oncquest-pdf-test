@@ -53,6 +53,18 @@ def parse_header_key_value_pairs(full_text: str) -> dict:
     kv_dict = {}
     lines = full_text.split('\n')
     
+    # Pre-process lines to join split keys and values (e.g. key on line 1, : value on line 2)
+    joined_lines = []
+    i = 0
+    while i < len(lines):
+        line = lines[i].strip()
+        if i + 1 < len(lines) and lines[i+1].strip().startswith(':'):
+            joined_lines.append(f"{line} {lines[i+1].strip()}")
+            i += 2
+        else:
+            joined_lines.append(line)
+            i += 1
+            
     ignore_keywords = [
         'received from', 'responsibility', 'presumed that', 'http', 'www',
         'copyright', 'printed on', 'page', 'all rights reserved', 'disclaimer',
@@ -61,17 +73,18 @@ def parse_header_key_value_pairs(full_text: str) -> dict:
 
     prose_verbs = [' is ', ' are ', ' was ', ' were ', ' to ', ' by ', ' from ', ' with ', ' that ', ' which ']
 
-    for line in lines:
-        line_str = line.strip()
+    for line_str in joined_lines:
         if not line_str or len(line_str) > 250:
             continue
 
-        # Find key-value patterns like "Label: Value" or "Label: Value    Label2: Value2"
-        # Regex captures keys starting with Alphanumeric (2-35 chars), avoiding full prose sentences
-        matches = re.findall(r'([A-Za-z0-9][A-Za-z0-9\s/&#\-_]{1,35}):\s*([^\n\t:]{1,120})', line_str)
-        for k_cand, v_cand in matches:
-            k = k_cand.strip()
-            v = v_cand.strip()
+        # Split by 2 or more spaces to handle multiple KV pairs on same line
+        parts = re.split(r'\s{2,}', line_str)
+        for part in parts:
+            if ':' not in part:
+                continue
+            idx = part.find(':')
+            k = part[:idx].strip()
+            v = part[idx+1:].strip()
 
             # Clean key validation
             if not k or len(k) < 2 or len(k) > 35:
@@ -89,9 +102,6 @@ def parse_header_key_value_pairs(full_text: str) -> dict:
             
             # Clean value validation
             if v and len(v) < 150:
-                # Truncate if next pair was concatenated in value
-                if '   ' in v:
-                    v = re.split(r'\s{3,}', v)[0].strip()
                 kv_dict[k] = v
 
     return kv_dict
@@ -468,7 +478,9 @@ def extract_report_data(pdf_path: str) -> dict:
         page_body_text = "\n".join(body_text_lines)
         full_text_pages.append(page_body_text)
 
-        page_kv = parse_header_key_value_pairs(page_body_text)
+        # Extract demographics and metadata from the full page text (including header region)
+        page_full_text = page.get_text("text")
+        page_kv = parse_header_key_value_pairs(page_full_text)
         filtered_page_kv = {}
         for k, v in page_kv.items():
             if not any(hk in k.lower() for hk in header_kv_ignore_keys):

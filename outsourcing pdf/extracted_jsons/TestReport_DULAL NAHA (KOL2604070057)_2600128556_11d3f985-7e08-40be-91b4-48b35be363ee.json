@@ -4,41 +4,38 @@
     "total_pages": 10,
     "total_tables": 15,
     "total_boxes": 24,
-    "total_key_value_pairs": 9,
+    "total_key_value_pairs": 8,
     "total_images_and_graphs": 0
   },
   "metadata": {
-    "Clinical Indication": "Metastatic Adenocarcinoma",
-    "guidelines": "EMA, FDA, ESMO, NCCN.",
-    "Note": "✓",
-    "Sequencing": "The libraries were sequenced at mean depth",
-    "PMID": "32747829",
-    "Mutant p53 in cancer": "new functions and therapeutic opportunities. Cancer Cell. 2014 Mar 17;25(3)",
-    "TP53 mutations in human cancers": "functional selection and impact on cancer prognosis and outcomes.",
-    "The cBio cancer genomics portal": "an open platform for exploring multidimensional cancer genomics data. Cancer",
-    "doi": "10.3389/fonc.2015.00288. eCollection 2015. PMID"
+    "Name": "MR. DULAL NAHA (KOL2604070057)",
+    "Sex/Age": "Male/70 Years",
+    "chr17": "7578525",
+    "📝Note": "✓: In this Cancer Type, ✓: In Other Cancer Type, ✓✓: both In this and Other Cancer Type, X : No Evidence.⚠️:",
+    "Extraction & Library Preparation": "Cell free Total Nucleic acid (cfTNA) extracted from the liquid biopsy sample is used",
+    "Sequencing": "The libraries were sequenced at mean depth: >25,000x on Illumina Novaseq- next generation sequencing",
+    "Data Analysis": "Sequencing data analyzed using a customized and validated bioinformatics pipeline capable of detecting",
+    "PMID": "22960745"
   },
   "extracted_key_value_pairs": {
-    "Clinical Indication": "Metastatic Adenocarcinoma",
-    "guidelines": "EMA, FDA, ESMO, NCCN.",
-    "Note": "✓",
-    "Sequencing": "The libraries were sequenced at mean depth",
-    "PMID": "32747829",
-    "Mutant p53 in cancer": "new functions and therapeutic opportunities. Cancer Cell. 2014 Mar 17;25(3)",
-    "TP53 mutations in human cancers": "functional selection and impact on cancer prognosis and outcomes.",
-    "The cBio cancer genomics portal": "an open platform for exploring multidimensional cancer genomics data. Cancer",
-    "doi": "10.3389/fonc.2015.00288. eCollection 2015. PMID"
+    "Name": "MR. DULAL NAHA (KOL2604070057)",
+    "Sex/Age": "Male/70 Years",
+    "chr17": "7578525",
+    "📝Note": "✓: In this Cancer Type, ✓: In Other Cancer Type, ✓✓: both In this and Other Cancer Type, X : No Evidence.⚠️:",
+    "Extraction & Library Preparation": "Cell free Total Nucleic acid (cfTNA) extracted from the liquid biopsy sample is used",
+    "Sequencing": "The libraries were sequenced at mean depth: >25,000x on Illumina Novaseq- next generation sequencing",
+    "Data Analysis": "Sequencing data analyzed using a customized and validated bioinformatics pipeline capable of detecting",
+    "PMID": "22960745"
   },
   "all_key_value_pairs": {
-    "Clinical Indication": "Metastatic Adenocarcinoma",
-    "guidelines": "EMA, FDA, ESMO, NCCN.",
-    "Note": "✓",
-    "Sequencing": "The libraries were sequenced at mean depth",
-    "PMID": "32747829",
-    "Mutant p53 in cancer": "new functions and therapeutic opportunities. Cancer Cell. 2014 Mar 17;25(3)",
-    "TP53 mutations in human cancers": "functional selection and impact on cancer prognosis and outcomes.",
-    "The cBio cancer genomics portal": "an open platform for exploring multidimensional cancer genomics data. Cancer",
-    "doi": "10.3389/fonc.2015.00288. eCollection 2015. PMID"
+    "Name": "MR. DULAL NAHA (KOL2604070057)",
+    "Sex/Age": "Male/70 Years",
+    "chr17": "7578525",
+    "📝Note": "✓: In this Cancer Type, ✓: In Other Cancer Type, ✓✓: both In this and Other Cancer Type, X : No Evidence.⚠️:",
+    "Extraction & Library Preparation": "Cell free Total Nucleic acid (cfTNA) extracted from the liquid biopsy sample is used",
+    "Sequencing": "The libraries were sequenced at mean depth: >25,000x on Illumina Novaseq- next generation sequencing",
+    "Data Analysis": "Sequencing data analyzed using a customized and validated bioinformatics pipeline capable of detecting",
+    "PMID": "22960745"
   },
   "content": [
     {
@@ -4628,8 +4625,8 @@
           "page": 1,
           "type": "key_value",
           "pairs": {
-            "Clinical Indication": "Metastatic Adenocarcinoma",
-            "guidelines": "EMA, FDA, ESMO, NCCN."
+            "Name": "MR. DULAL NAHA (KOL2604070057)",
+            "Sex/Age": "Male/70 Years"
           },
           "bbox": [
             35.0,
@@ -4750,8 +4747,8 @@
         }
       ],
       "key_value_pairs": {
-        "Clinical Indication": "Metastatic Adenocarcinoma",
-        "guidelines": "EMA, FDA, ESMO, NCCN."
+        "Name": "MR. DULAL NAHA (KOL2604070057)",
+        "Sex/Age": "Male/70 Years"
       },
       "boxes_and_sections": [
         {
@@ -4978,6 +4975,21 @@
       "content": [
         {
           "page": 2,
+          "type": "key_value",
+          "pairs": {
+            "Name": "MR. DULAL NAHA (KOL2604070057)",
+            "Sex/Age": "Male/70 Years",
+            "chr17": "7578525"
+          },
+          "bbox": [
+            35.0,
+            206.79,
+            560.0,
+            246.79
+          ]
+        },
+        {
+          "page": 2,
           "type": "table",
           "headers": [
             "Variant",
@@ -5046,7 +5058,11 @@
           ]
         }
       ],
-      "key_value_pairs": {},
+      "key_value_pairs": {
+        "Name": "MR. DULAL NAHA (KOL2604070057)",
+        "Sex/Age": "Male/70 Years",
+        "chr17": "7578525"
+      },
       "boxes_and_sections": [],
       "tables": [
         {
@@ -5181,6 +5197,20 @@
         },
         {
           "page": 3,
+          "type": "key_value",
+          "pairs": {
+            "Name": "MR. DULAL NAHA (KOL2604070057)",
+            "Sex/Age": "Male/70 Years"
+          },
+          "bbox": [
+            35.0,
+            206.79,
+            560.0,
+            246.79
+          ]
+        },
+        {
+          "page": 3,
           "type": "table",
           "headers": [
             "Therapy",
@@ -5264,7 +5294,10 @@
           ]
         }
       ],
-      "key_value_pairs": {},
+      "key_value_pairs": {
+        "Name": "MR. DULAL NAHA (KOL2604070057)",
+        "Sex/Age": "Male/70 Years"
+      },
       "boxes_and_sections": [],
       "tables": [
         {
@@ -5590,9 +5623,26 @@
             565.23,
             687.16
           ]
+        },
+        {
+          "page": 4,
+          "type": "key_value",
+          "pairs": {
+            "Name": "MR. DULAL NAHA (KOL2604070057)",
+            "Sex/Age": "Male/70 Years"
+          },
+          "bbox": [
+            35.0,
+            206.79,
+            560.0,
+            246.79
+          ]
         }
       ],
-      "key_value_pairs": {},
+      "key_value_pairs": {
+        "Name": "MR. DULAL NAHA (KOL2604070057)",
+        "Sex/Age": "Male/70 Years"
+      },
       "boxes_and_sections": [],
       "tables": [
         {
@@ -5886,7 +5936,10 @@
           "page": 5,
           "type": "key_value",
           "pairs": {
-            "Note": "✓"
+            "Name": "MR. DULAL NAHA (KOL2604070057)",
+            "Sex/Age": "Male/70 Years",
+            "📝Note": "✓: In this Cancer Type, ✓: In Other Cancer Type, ✓✓: both In this and Other Cancer Type, X : No Evidence.⚠️:",
+            "Extraction & Library Preparation": "Cell free Total Nucleic acid (cfTNA) extracted from the liquid biopsy sample is used"
           },
           "bbox": [
             35.0,
@@ -5937,7 +5990,10 @@
         }
       ],
       "key_value_pairs": {
-        "Note": "✓"
+        "Name": "MR. DULAL NAHA (KOL2604070057)",
+        "Sex/Age": "Male/70 Years",
+        "📝Note": "✓: In this Cancer Type, ✓: In Other Cancer Type, ✓✓: both In this and Other Cancer Type, X : No Evidence.⚠️:",
+        "Extraction & Library Preparation": "Cell free Total Nucleic acid (cfTNA) extracted from the liquid biopsy sample is used"
       },
       "boxes_and_sections": [
         {
@@ -6190,7 +6246,10 @@
           "page": 6,
           "type": "key_value",
           "pairs": {
-            "Sequencing": "The libraries were sequenced at mean depth"
+            "Name": "MR. DULAL NAHA (KOL2604070057)",
+            "Sex/Age": "Male/70 Years",
+            "Sequencing": "The libraries were sequenced at mean depth: >25,000x on Illumina Novaseq- next generation sequencing",
+            "Data Analysis": "Sequencing data analyzed using a customized and validated bioinformatics pipeline capable of detecting"
           },
           "bbox": [
             35.0,
@@ -6228,7 +6287,10 @@
         }
       ],
       "key_value_pairs": {
-        "Sequencing": "The libraries were sequenced at mean depth"
+        "Name": "MR. DULAL NAHA (KOL2604070057)",
+        "Sex/Age": "Male/70 Years",
+        "Sequencing": "The libraries were sequenced at mean depth: >25,000x on Illumina Novaseq- next generation sequencing",
+        "Data Analysis": "Sequencing data analyzed using a customized and validated bioinformatics pipeline capable of detecting"
       },
       "boxes_and_sections": [
         {
@@ -6424,6 +6486,20 @@
       "content": [
         {
           "page": 7,
+          "type": "key_value",
+          "pairs": {
+            "Name": "MR. DULAL NAHA (KOL2604070057)",
+            "Sex/Age": "Male/70 Years"
+          },
+          "bbox": [
+            35.0,
+            206.79,
+            560.0,
+            246.79
+          ]
+        },
+        {
+          "page": 7,
           "type": "box",
           "title": "General Content / Notes",
           "text": [
@@ -6594,7 +6670,10 @@
           ]
         }
       ],
-      "key_value_pairs": {},
+      "key_value_pairs": {
+        "Name": "MR. DULAL NAHA (KOL2604070057)",
+        "Sex/Age": "Male/70 Years"
+      },
       "boxes_and_sections": [
         {
           "page": 7,
@@ -6883,10 +6962,9 @@
           "page": 8,
           "type": "key_value",
           "pairs": {
-            "PMID": "27158780",
-            "Mutant p53 in cancer": "new functions and therapeutic opportunities. Cancer Cell. 2014 Mar 17;25(3)",
-            "TP53 mutations in human cancers": "origins, consequences, and clinical use. Cold Spring Harb Perspect Biol. 2010",
-            "The cBio cancer genomics portal": "an open platform for exploring multidimensional cancer genomics data. Cancer"
+            "Name": "MR. DULAL NAHA (KOL2604070057)",
+            "Sex/Age": "Male/70 Years",
+            "PMID": "22960745"
           },
           "bbox": [
             35.0,
@@ -7022,10 +7100,9 @@
         }
       ],
       "key_value_pairs": {
-        "PMID": "27158780",
-        "Mutant p53 in cancer": "new functions and therapeutic opportunities. Cancer Cell. 2014 Mar 17;25(3)",
-        "TP53 mutations in human cancers": "origins, consequences, and clinical use. Cold Spring Harb Perspect Biol. 2010",
-        "The cBio cancer genomics portal": "an open platform for exploring multidimensional cancer genomics data. Cancer"
+        "Name": "MR. DULAL NAHA (KOL2604070057)",
+        "Sex/Age": "Male/70 Years",
+        "PMID": "22960745"
       },
       "boxes_and_sections": [
         {
@@ -7452,9 +7529,8 @@
           "page": 9,
           "type": "key_value",
           "pairs": {
-            "doi": "10.3389/fonc.2015.00288. eCollection 2015. PMID",
-            "PMID": "35797463",
-            "TP53 mutations in human cancers": "functional selection and impact on cancer prognosis and outcomes."
+            "Name": "MR. DULAL NAHA (KOL2604070057)",
+            "Sex/Age": "Male/70 Years"
           },
           "bbox": [
             35.0,
@@ -7604,9 +7680,8 @@
         }
       ],
       "key_value_pairs": {
-        "doi": "10.3389/fonc.2015.00288. eCollection 2015. PMID",
-        "PMID": "35797463",
-        "TP53 mutations in human cancers": "functional selection and impact on cancer prognosis and outcomes."
+        "Name": "MR. DULAL NAHA (KOL2604070057)",
+        "Sex/Age": "Male/70 Years"
       },
       "boxes_and_sections": [
         {
@@ -8162,7 +8237,8 @@
           "page": 10,
           "type": "key_value",
           "pairs": {
-            "PMID": "32747829"
+            "Name": "MR. DULAL NAHA (KOL2604070057)",
+            "Sex/Age": "Male/70 Years"
           },
           "bbox": [
             35.0,
@@ -8190,7 +8266,8 @@
         }
       ],
       "key_value_pairs": {
-        "PMID": "32747829"
+        "Name": "MR. DULAL NAHA (KOL2604070057)",
+        "Sex/Age": "Male/70 Years"
       },
       "boxes_and_sections": [
         {

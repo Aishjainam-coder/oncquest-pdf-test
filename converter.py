@@ -1793,6 +1793,8 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
     secondary_color = colors_cfg.get("secondary", "#008080")
     accent_orange = colors_cfg.get("accent_orange", "#ed7d31")
     accent_red = colors_cfg.get("accent_red", "#ff0000")
+    result_positive_color = colors_cfg.get("result_positive", "#C00000")
+    result_negative_color = colors_cfg.get("result_negative", "#008000")
 
     def sanitize_text(text: str) -> str:
         if not text:
@@ -1816,6 +1818,17 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
             return "Cambria, Georgia, serif"
         return "Calibri, Arial, sans-serif"
 
+    _POSITIVE_KEYWORDS = ["positive", "pathogenic", "detected", "high", "abnormal", "msi - high", "msi-high"]
+    _NEGATIVE_KEYWORDS = ["negative", "normal", "not detected", "stable", "msi - stable", "msi-stable", "benign", "likely benign"]
+
+    def _result_color_span(cell_str: str) -> str:
+        cell_lower = cell_str.strip().lower()
+        if any(kw in cell_lower for kw in _NEGATIVE_KEYWORDS):
+            return f"<span style='color:{result_negative_color}; font-weight:bold;'>{cell_str}</span>"
+        if any(kw in cell_lower for kw in _POSITIVE_KEYWORDS):
+            return f"<span style='color:{result_positive_color}; font-weight:bold;'>{cell_str}</span>"
+        return cell_str
+
     html_parts = [
         "<!DOCTYPE html>",
         "<html lang='en'>",
@@ -1835,6 +1848,7 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
           --font-primary: 'Calibri', 'Inter', sans-serif;
           --page-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
         }}
+        @page {{ size: 595.0pt 842.0pt; margin: 0; }}
         * {{ box-sizing: border-box; margin: 0; padding: 0; }}
         body {{
           margin: 0;
@@ -1909,6 +1923,17 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
           z-index: 5;
           object-fit: contain;
         }}
+        .pdf-page table th, .pdf-page table td {{
+          border: 1px solid var(--color-primary);
+          padding: 4px;
+          text-align: left;
+          vertical-align: middle;
+          font-family: var(--font-primary);
+        }}
+        .pdf-page table th {{
+          font-weight: bold;
+          text-align: center;
+        }}
         @media print {{
           .header-bar {{ display: none; }}
           body {{ background: #ffffff; }}
@@ -1927,7 +1952,6 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
     ]
 
     import base64
-    from pathlib import Path
     header_image2_b64 = ""
     header_image2_path = Path("assets/header_image2.jpeg")
     if header_image2_path.exists():
@@ -1939,8 +1963,12 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
 
     for p in pages:
         p_num = p.get("page_number", 1)
-        pw = p.get("width", 595.0)
-        ph = p.get("height", 842.0)
+        pw = 595.0
+        ph = 842.0
+        dimensions = p.get("dimensions")
+        if isinstance(dimensions, dict):
+            pw = dimensions.get("width", 595.0)
+            ph = dimensions.get("height", 842.0)
         hy_cutoff = p.get("header_y_cutoff", 0.0)
         fy_cutoff = p.get("footer_y_cutoff", ph)
 
@@ -2064,6 +2092,77 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
                 lx0, ly0 = b_bbox[0], b_bbox[1]
                 html_parts.append(
                     f"<p style='left:{lx0:.2f}pt; top:{ly0:.2f}pt; {span_style}'>{clean_t}</p>"
+                )
+
+        # 4. Render Key-Value blocks and Tables in body region ONLY
+        for item in p.get("content", []):
+            itype = item.get("type")
+            bbox = item.get("bbox")
+            if not bbox or len(bbox) < 4:
+                continue
+            x0, y0, x1, y1 = bbox
+            if y0 < hy_cutoff or y1 > fy_cutoff:
+                continue
+            w = max(1.0, x1 - x0)
+            h = max(1.0, y1 - y0)
+
+            if itype == "key_value":
+                pairs = item.get("pairs", {})
+                if not pairs:
+                    continue
+                tr_html = ""
+                for k, v in pairs.items():
+                    tr_html += (
+                        f"<tr>"
+                        f"<td style='font-weight: bold; border: none !important; padding: 2px 4px; color: var(--color-primary); width: 120pt;'>{sanitize_text(k)}:</td>"
+                        f"<td style='border: none !important; padding: 2px 4px;'>{sanitize_text(str(v))}</td>"
+                        f"</tr>"
+                    )
+                table_style = (
+                    f"position: absolute !important; "
+                    f"left: {x0:.2f}pt; "
+                    f"top: {y0:.2f}pt; "
+                    f"width: {w:.2f}pt; "
+                    f"height: {h:.2f}pt; "
+                    f"border-collapse: collapse; "
+                    f"border: none; "
+                    f"z-index: 15; "
+                    f"font-size: 9.0pt;"
+                )
+                html_parts.append(
+                    f"<table style='{table_style}'>"
+                    f"<tbody>{tr_html}</tbody>"
+                    f"</table>"
+                )
+
+            elif itype == "table":
+                headers = item.get("headers", [])
+                rows = item.get("rows", [])
+                if not headers and not rows:
+                    continue
+
+                th_html = "".join([f"<th>{sanitize_text(h)}</th>" for h in headers]) if any(h.strip() for h in headers) else ""
+                tr_html = ""
+                for r in rows:
+                    tds = "".join([f"<td>{_result_color_span(sanitize_text(str(cell)))}</td>" for cell in r])
+                    tr_html += f"<tr>{tds}</tr>"
+
+                table_style = (
+                    f"position: absolute !important; "
+                    f"left: {x0:.2f}pt; "
+                    f"top: {y0:.2f}pt; "
+                    f"width: {w:.2f}pt; "
+                    f"height: {h:.2f}pt; "
+                    f"border-collapse: collapse; "
+                    f"border: 1px solid var(--color-primary); "
+                    f"z-index: 15; "
+                    f"font-size: 8.5pt;"
+                )
+                html_parts.append(
+                    f"<table style='{table_style}'>"
+                    f"<thead><tr style='background-color: var(--color-primary); color: #ffffff;'>{th_html}</tr></thead>"
+                    f"<tbody>{tr_html}</tbody>"
+                    f"</table>"
                 )
 
         html_parts.append("</div>")
