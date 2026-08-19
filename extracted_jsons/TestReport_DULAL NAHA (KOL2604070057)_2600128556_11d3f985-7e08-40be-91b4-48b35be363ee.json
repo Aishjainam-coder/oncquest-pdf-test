@@ -4,6 +4,7 @@
     "total_pages": 10,
     "total_tables": 15,
     "total_boxes": 24,
+<<<<<<< HEAD
     "total_key_value_pairs": 8,
     "total_images_and_graphs": 0
   },
@@ -36,6 +37,46 @@
     "Sequencing": "The libraries were sequenced at mean depth: >25,000x on Illumina Novaseq- next generation sequencing",
     "Data Analysis": "Sequencing data analyzed using a customized and validated bioinformatics pipeline capable of detecting",
     "PMID": "22960745"
+=======
+    "total_key_value_pairs": 10,
+    "total_images_and_graphs": 0
+  },
+  "metadata": {
+    "Case ID": "2600128556",
+    "Sample Type": "BLOOD IN CCF DNA TUBE",
+    "Name": "MR. DULAL NAHA (KOL2604070057)",
+    "Date & Time Collected": "07-Apr-2026 12:00 AM",
+    "Sex/Age": "Male/70 Years",
+    "Date & Time Received": "20-Apr-2026 12:16 PM",
+    "Date & Time Reported": "30-Apr-2026 05:55 PM",
+    "Report Version": "1",
+    "Clinical Indication": "Metastatic Adenocarcinoma",
+    "guidelines": "EMA, FDA, ESMO, NCCN."
+  },
+  "extracted_key_value_pairs": {
+    "Case ID": "2600128556",
+    "Sample Type": "BLOOD IN CCF DNA TUBE",
+    "Name": "MR. DULAL NAHA (KOL2604070057)",
+    "Date & Time Collected": "07-Apr-2026 12:00 AM",
+    "Sex/Age": "Male/70 Years",
+    "Date & Time Received": "20-Apr-2026 12:16 PM",
+    "Date & Time Reported": "30-Apr-2026 05:55 PM",
+    "Report Version": "1",
+    "Clinical Indication": "Metastatic Adenocarcinoma",
+    "guidelines": "EMA, FDA, ESMO, NCCN."
+  },
+  "all_key_value_pairs": {
+    "Case ID": "2600128556",
+    "Sample Type": "BLOOD IN CCF DNA TUBE",
+    "Name": "MR. DULAL NAHA (KOL2604070057)",
+    "Date & Time Collected": "07-Apr-2026 12:00 AM",
+    "Sex/Age": "Male/70 Years",
+    "Date & Time Received": "20-Apr-2026 12:16 PM",
+    "Date & Time Reported": "30-Apr-2026 05:55 PM",
+    "Report Version": "1",
+    "Clinical Indication": "Metastatic Adenocarcinoma",
+    "guidelines": "EMA, FDA, ESMO, NCCN."
+>>>>>>> 546d53c3af5d4986968311cb43179aa71c7116a7
   },
   "content": [
     {
@@ -5962,6 +6003,7 @@
         },
         {
           "page": 5,
+<<<<<<< HEAD
           "type": "key_value",
           "pairs": {
             "Name": "MR. DULAL NAHA (KOL2604070057)",
@@ -5978,6 +6020,8 @@
         },
         {
           "page": 5,
+=======
+>>>>>>> 546d53c3af5d4986968311cb43179aa71c7116a7
           "type": "box",
           "title": "General Content / Notes",
           "text": [
@@ -6017,12 +6061,16 @@
           ]
         }
       ],
+<<<<<<< HEAD
       "key_value_pairs": {
         "Name": "MR. DULAL NAHA (KOL2604070057)",
         "Sex/Age": "Male/70 Years",
         "📝Note": "✓: In this Cancer Type, ✓: In Other Cancer Type, ✓✓: both In this and Other Cancer Type, X : No Evidence.⚠️:",
         "Extraction & Library Preparation": "Cell free Total Nucleic acid (cfTNA) extracted from the liquid biopsy sample is used"
       },
+=======
+      "key_value_pairs": {},
+>>>>>>> 546d53c3af5d4986968311cb43179aa71c7116a7
       "boxes_and_sections": [
         {
           "page": 5,
@@ -6272,6 +6320,7 @@
         },
         {
           "page": 6,
+<<<<<<< HEAD
           "type": "key_value",
           "pairs": {
             "Name": "MR. DULAL NAHA (KOL2604070057)",
@@ -6288,6 +6337,8 @@
         },
         {
           "page": 6,
+=======
+>>>>>>> 546d53c3af5d4986968311cb43179aa71c7116a7
           "type": "box",
           "title": "Notes",
           "text": [
@@ -6314,12 +6365,16 @@
           ]
         }
       ],
+<<<<<<< HEAD
       "key_value_pairs": {
         "Name": "MR. DULAL NAHA (KOL2604070057)",
         "Sex/Age": "Male/70 Years",
         "Sequencing": "The libraries were sequenced at mean depth: >25,000x on Illumina Novaseq- next generation sequencing",
         "Data Analysis": "Sequencing data analyzed using a customized and validated bioinformatics pipeline capable of detecting"
       },
+=======
+      "key_value_pairs": {},
+>>>>>>> 546d53c3af5d4986968311cb43179aa71c7116a7
       "boxes_and_sections": [
         {
           "page": 6,
@@ -6988,6 +7043,7 @@
         },
         {
           "page": 8,
+<<<<<<< HEAD
           "type": "key_value",
           "pairs": {
             "Name": "MR. DULAL NAHA (KOL2604070057)",
@@ -7003,6 +7059,8 @@
         },
         {
           "page": 8,
+=======
+>>>>>>> 546d53c3af5d4986968311cb43179aa71c7116a7
           "type": "box",
           "title": "References:",
           "text": [
@@ -7127,11 +7185,15 @@
           ]
         }
       ],
+<<<<<<< HEAD
       "key_value_pairs": {
         "Name": "MR. DULAL NAHA (KOL2604070057)",
         "Sex/Age": "Male/70 Years",
         "PMID": "22960745"
       },
+=======
+      "key_value_pairs": {},
+>>>>>>> 546d53c3af5d4986968311cb43179aa71c7116a7
       "boxes_and_sections": [
         {
           "page": 8,
@@ -7555,6 +7617,7 @@
         },
         {
           "page": 9,
+<<<<<<< HEAD
           "type": "key_value",
           "pairs": {
             "Name": "MR. DULAL NAHA (KOL2604070057)",
@@ -7569,6 +7632,8 @@
         },
         {
           "page": 9,
+=======
+>>>>>>> 546d53c3af5d4986968311cb43179aa71c7116a7
           "type": "box",
           "title": "Jun;19(6):607-14. PMID: 12007217",
           "text": [
@@ -7707,10 +7772,14 @@
           ]
         }
       ],
+<<<<<<< HEAD
       "key_value_pairs": {
         "Name": "MR. DULAL NAHA (KOL2604070057)",
         "Sex/Age": "Male/70 Years"
       },
+=======
+      "key_value_pairs": {},
+>>>>>>> 546d53c3af5d4986968311cb43179aa71c7116a7
       "boxes_and_sections": [
         {
           "page": 9,
@@ -8263,6 +8332,7 @@
         },
         {
           "page": 10,
+<<<<<<< HEAD
           "type": "key_value",
           "pairs": {
             "Name": "MR. DULAL NAHA (KOL2604070057)",
@@ -8277,6 +8347,8 @@
         },
         {
           "page": 10,
+=======
+>>>>>>> 546d53c3af5d4986968311cb43179aa71c7116a7
           "type": "box",
           "title": "syndromes. Nat. Med. 2020 Aug 3. PMID: 32747829",
           "text": [
@@ -8293,10 +8365,14 @@
           ]
         }
       ],
+<<<<<<< HEAD
       "key_value_pairs": {
         "Name": "MR. DULAL NAHA (KOL2604070057)",
         "Sex/Age": "Male/70 Years"
       },
+=======
+      "key_value_pairs": {},
+>>>>>>> 546d53c3af5d4986968311cb43179aa71c7116a7
       "boxes_and_sections": [
         {
           "page": 10,

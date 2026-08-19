@@ -51,7 +51,7 @@ if len(sys.argv) > 1:
             render_json_file_to_html(target_path, output_path=out_html, theme_config=theme_config)
             print(f"[+] Successfully rendered JSON -> HTML template: {out_html}")
             convert_html_to_docx(out_html, output_path=out_docx, theme_config=theme_config)
-            print(f"[+] Successfully converted JSON -> HTML -> Word (.docx): {out_docx}")
+            print(f"[+] Successfully converted HTML -> Word (.docx) (exact HTML fidelity): {out_docx}")
             sys.exit(0)
         elif target_path.suffix.lower() == ".pdf":
             pdf_files = [target_path]

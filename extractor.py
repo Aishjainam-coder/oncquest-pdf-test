@@ -51,7 +51,10 @@ def parse_header_key_value_pairs(full_text: str) -> dict:
     Enforces strict criteria for keys (short labels, no prose sentences) to ensure accuracy.
     """
     kv_dict = {}
-    lines = full_text.split('\n')
+    
+    # Normalize: Join lines starting with a colon to the previous key line
+    normalized_text = re.sub(r'\n\s*:', ':', full_text)
+    lines = normalized_text.split('\n')
     
     # Pre-process lines to join split keys and values (e.g. key on line 1, : value on line 2)
     joined_lines = []
@@ -77,6 +80,7 @@ def parse_header_key_value_pairs(full_text: str) -> dict:
         if not line_str or len(line_str) > 250:
             continue
 
+<<<<<<< HEAD
         # Split by 2 or more spaces to handle multiple KV pairs on same line
         parts = re.split(r'\s{2,}', line_str)
         for part in parts:
@@ -85,6 +89,13 @@ def parse_header_key_value_pairs(full_text: str) -> dict:
             idx = part.find(':')
             k = part[:idx].strip()
             v = part[idx+1:].strip()
+=======
+        # Find key-value patterns like "Label: Value" (allowing colons in value for times)
+        matches = re.findall(r'([A-Za-z0-9][A-Za-z0-9\s/&#\-_]{1,35}):\s*([^\n\t]{1,120})', line_str)
+        for k_cand, v_cand in matches:
+            k = k_cand.strip()
+            v = v_cand.strip()
+>>>>>>> 546d53c3af5d4986968311cb43179aa71c7116a7
 
             # Clean key validation
             if not k or len(k) < 2 or len(k) > 35:
@@ -435,6 +446,26 @@ def extract_report_data(pdf_path: str) -> dict:
 
                 # Exclude text blocks inside header or footer regions on EVERY page
                 if b_bbox[1] < hy_cutoff or b_bbox[3] > fy_cutoff:
+                    if page_num == 0 and b_bbox[1] < hy_cutoff:
+                        block_text_runs = []
+                        for line in block["lines"]:
+                            for span in line["spans"]:
+                                txt = span.get("text", "").strip()
+                                if txt:
+                                    block_text_runs.append(span.get("text", ""))
+                        clean_block_text = " ".join(block_text_runs).strip()
+                        if is_patient_sample_header_block(clean_block_text, b_bbox[1]):
+                            lines_list = []
+                            for line in block["lines"]:
+                                line_text = " ".join(span.get("text", "") for span in line["spans"]).strip()
+                                if line_text:
+                                    lines_list.append(line_text)
+                            raw_block_text = "\n".join(lines_list)
+                            norm_block_text = re.sub(r'\n\s*:', ':', raw_block_text)
+                            parsed_kv = parse_header_key_value_pairs(norm_block_text)
+                            for k, v in parsed_kv.items():
+                                if not any(kw in k.lower() for kw in ['neuberg', 'laboratory report', 'barcode', 'qr code', 'acc. remarks', 'accession.id', 'centre details']):
+                                    all_kv_pairs[k] = v
                     continue
 
                 b_text = ""
@@ -459,6 +490,18 @@ def extract_report_data(pdf_path: str) -> dict:
                     if any(kw in clean_b_text.lower() for kw in ['reviewed by', 'authorized signatory', 'mc-7414']):
                         continue
                     if is_patient_sample_header_block(clean_b_text, b_bbox[1]):
+                        if page_num == 0:
+                            lines_list = []
+                            for line in block["lines"]:
+                                line_text = " ".join(span.get("text", "") for span in line["spans"]).strip()
+                                if line_text:
+                                    lines_list.append(line_text)
+                            raw_block_text = "\n".join(lines_list)
+                            norm_block_text = re.sub(r'\n\s*:', ':', raw_block_text)
+                            parsed_kv = parse_header_key_value_pairs(norm_block_text)
+                            for k, v in parsed_kv.items():
+                                if not any(kw in k.lower() for kw in ['neuberg', 'laboratory report', 'barcode', 'qr code', 'acc. remarks', 'accession.id', 'centre details']):
+                                    all_kv_pairs[k] = v
                         continue
 
                     is_hd_cand = (max_size >= 11.5 or (is_bold and len(clean_b_text) < 70)) and not clean_b_text.endswith(('.', ',', ';', '?'))
@@ -478,14 +521,19 @@ def extract_report_data(pdf_path: str) -> dict:
         page_body_text = "\n".join(body_text_lines)
         full_text_pages.append(page_body_text)
 
+<<<<<<< HEAD
         # Extract demographics and metadata from the full page text (including header region)
         page_full_text = page.get_text("text")
         page_kv = parse_header_key_value_pairs(page_full_text)
+=======
+>>>>>>> 546d53c3af5d4986968311cb43179aa71c7116a7
         filtered_page_kv = {}
-        for k, v in page_kv.items():
-            if not any(hk in k.lower() for hk in header_kv_ignore_keys):
-                filtered_page_kv[k] = v
-                all_kv_pairs[k] = v
+        if page_num == 0:
+            page_kv = parse_header_key_value_pairs(page_body_text)
+            for k, v in page_kv.items():
+                if not any(hk in k.lower() for hk in header_kv_ignore_keys):
+                    filtered_page_kv[k] = v
+                    all_kv_pairs[k] = v
 
         # 3. Extract Images & Graphs in body region ONLY (excluding header/footer logos)
         raw_images = extract_page_images_and_graphs(doc, page_num, page)
