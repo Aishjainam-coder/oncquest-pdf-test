@@ -4,41 +4,44 @@
     "total_pages": 10,
     "total_tables": 15,
     "total_boxes": 24,
-    "total_key_value_pairs": 9,
+    "total_key_value_pairs": 10,
     "total_images_and_graphs": 0
   },
   "metadata": {
+    "Case ID": "2600128556",
+    "Sample Type": "BLOOD IN CCF DNA TUBE",
+    "Name": "MR. DULAL NAHA (KOL2604070057)",
+    "Date & Time Collected": "07-Apr-2026 12:00 AM",
+    "Sex/Age": "Male/70 Years",
+    "Date & Time Received": "20-Apr-2026 12:16 PM",
+    "Date & Time Reported": "30-Apr-2026 05:55 PM",
+    "Report Version": "1",
     "Clinical Indication": "Metastatic Adenocarcinoma",
-    "guidelines": "EMA, FDA, ESMO, NCCN.",
-    "Note": "✓",
-    "Sequencing": "The libraries were sequenced at mean depth",
-    "PMID": "32747829",
-    "Mutant p53 in cancer": "new functions and therapeutic opportunities. Cancer Cell. 2014 Mar 17;25(3)",
-    "TP53 mutations in human cancers": "functional selection and impact on cancer prognosis and outcomes.",
-    "The cBio cancer genomics portal": "an open platform for exploring multidimensional cancer genomics data. Cancer",
-    "doi": "10.3389/fonc.2015.00288. eCollection 2015. PMID"
+    "guidelines": "EMA, FDA, ESMO, NCCN."
   },
   "extracted_key_value_pairs": {
+    "Case ID": "2600128556",
+    "Sample Type": "BLOOD IN CCF DNA TUBE",
+    "Name": "MR. DULAL NAHA (KOL2604070057)",
+    "Date & Time Collected": "07-Apr-2026 12:00 AM",
+    "Sex/Age": "Male/70 Years",
+    "Date & Time Received": "20-Apr-2026 12:16 PM",
+    "Date & Time Reported": "30-Apr-2026 05:55 PM",
+    "Report Version": "1",
     "Clinical Indication": "Metastatic Adenocarcinoma",
-    "guidelines": "EMA, FDA, ESMO, NCCN.",
-    "Note": "✓",
-    "Sequencing": "The libraries were sequenced at mean depth",
-    "PMID": "32747829",
-    "Mutant p53 in cancer": "new functions and therapeutic opportunities. Cancer Cell. 2014 Mar 17;25(3)",
-    "TP53 mutations in human cancers": "functional selection and impact on cancer prognosis and outcomes.",
-    "The cBio cancer genomics portal": "an open platform for exploring multidimensional cancer genomics data. Cancer",
-    "doi": "10.3389/fonc.2015.00288. eCollection 2015. PMID"
+    "guidelines": "EMA, FDA, ESMO, NCCN."
   },
   "all_key_value_pairs": {
+    "Case ID": "2600128556",
+    "Sample Type": "BLOOD IN CCF DNA TUBE",
+    "Name": "MR. DULAL NAHA (KOL2604070057)",
+    "Date & Time Collected": "07-Apr-2026 12:00 AM",
+    "Sex/Age": "Male/70 Years",
+    "Date & Time Received": "20-Apr-2026 12:16 PM",
+    "Date & Time Reported": "30-Apr-2026 05:55 PM",
+    "Report Version": "1",
     "Clinical Indication": "Metastatic Adenocarcinoma",
-    "guidelines": "EMA, FDA, ESMO, NCCN.",
-    "Note": "✓",
-    "Sequencing": "The libraries were sequenced at mean depth",
-    "PMID": "32747829",
-    "Mutant p53 in cancer": "new functions and therapeutic opportunities. Cancer Cell. 2014 Mar 17;25(3)",
-    "TP53 mutations in human cancers": "functional selection and impact on cancer prognosis and outcomes.",
-    "The cBio cancer genomics portal": "an open platform for exploring multidimensional cancer genomics data. Cancer",
-    "doi": "10.3389/fonc.2015.00288. eCollection 2015. PMID"
+    "guidelines": "EMA, FDA, ESMO, NCCN."
   },
   "content": [
     {
@@ -5884,19 +5887,6 @@
         },
         {
           "page": 5,
-          "type": "key_value",
-          "pairs": {
-            "Note": "✓"
-          },
-          "bbox": [
-            35.0,
-            206.79,
-            560.0,
-            246.79
-          ]
-        },
-        {
-          "page": 5,
           "type": "box",
           "title": "General Content / Notes",
           "text": [
@@ -5936,9 +5926,7 @@
           ]
         }
       ],
-      "key_value_pairs": {
-        "Note": "✓"
-      },
+      "key_value_pairs": {},
       "boxes_and_sections": [
         {
           "page": 5,
@@ -6188,19 +6176,6 @@
         },
         {
           "page": 6,
-          "type": "key_value",
-          "pairs": {
-            "Sequencing": "The libraries were sequenced at mean depth"
-          },
-          "bbox": [
-            35.0,
-            206.79,
-            560.0,
-            246.79
-          ]
-        },
-        {
-          "page": 6,
           "type": "box",
           "title": "Notes",
           "text": [
@@ -6227,9 +6202,7 @@
           ]
         }
       ],
-      "key_value_pairs": {
-        "Sequencing": "The libraries were sequenced at mean depth"
-      },
+      "key_value_pairs": {},
       "boxes_and_sections": [
         {
           "page": 6,
@@ -6881,22 +6854,6 @@
         },
         {
           "page": 8,
-          "type": "key_value",
-          "pairs": {
-            "PMID": "27158780",
-            "Mutant p53 in cancer": "new functions and therapeutic opportunities. Cancer Cell. 2014 Mar 17;25(3)",
-            "TP53 mutations in human cancers": "origins, consequences, and clinical use. Cold Spring Harb Perspect Biol. 2010",
-            "The cBio cancer genomics portal": "an open platform for exploring multidimensional cancer genomics data. Cancer"
-          },
-          "bbox": [
-            35.0,
-            206.79,
-            560.0,
-            246.79
-          ]
-        },
-        {
-          "page": 8,
           "type": "box",
           "title": "References:",
           "text": [
@@ -7021,12 +6978,7 @@
           ]
         }
       ],
-      "key_value_pairs": {
-        "PMID": "27158780",
-        "Mutant p53 in cancer": "new functions and therapeutic opportunities. Cancer Cell. 2014 Mar 17;25(3)",
-        "TP53 mutations in human cancers": "origins, consequences, and clinical use. Cold Spring Harb Perspect Biol. 2010",
-        "The cBio cancer genomics portal": "an open platform for exploring multidimensional cancer genomics data. Cancer"
-      },
+      "key_value_pairs": {},
       "boxes_and_sections": [
         {
           "page": 8,
@@ -7450,21 +7402,6 @@
         },
         {
           "page": 9,
-          "type": "key_value",
-          "pairs": {
-            "doi": "10.3389/fonc.2015.00288. eCollection 2015. PMID",
-            "PMID": "35797463",
-            "TP53 mutations in human cancers": "functional selection and impact on cancer prognosis and outcomes."
-          },
-          "bbox": [
-            35.0,
-            206.79,
-            560.0,
-            246.79
-          ]
-        },
-        {
-          "page": 9,
           "type": "box",
           "title": "Jun;19(6):607-14. PMID: 12007217",
           "text": [
@@ -7603,11 +7540,7 @@
           ]
         }
       ],
-      "key_value_pairs": {
-        "doi": "10.3389/fonc.2015.00288. eCollection 2015. PMID",
-        "PMID": "35797463",
-        "TP53 mutations in human cancers": "functional selection and impact on cancer prognosis and outcomes."
-      },
+      "key_value_pairs": {},
       "boxes_and_sections": [
         {
           "page": 9,
@@ -8160,19 +8093,6 @@
         },
         {
           "page": 10,
-          "type": "key_value",
-          "pairs": {
-            "PMID": "32747829"
-          },
-          "bbox": [
-            35.0,
-            206.79,
-            560.0,
-            246.79
-          ]
-        },
-        {
-          "page": 10,
           "type": "box",
           "title": "syndromes. Nat. Med. 2020 Aug 3. PMID: 32747829",
           "text": [
@@ -8189,9 +8109,7 @@
           ]
         }
       ],
-      "key_value_pairs": {
-        "PMID": "32747829"
-      },
+      "key_value_pairs": {},
       "boxes_and_sections": [
         {
           "page": 10,

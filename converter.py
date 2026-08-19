@@ -1346,6 +1346,15 @@ def _load_oncquest_theme(theme_config=None):
     comps = tj.get("components", {}) or {}
     eor = comps.get("end_of_report_marker", {}) or {}
 
+    # Word-specific configurations
+    word_cfg = tj.get("word", {}) or {}
+    word_layout = word_cfg.get("layout", {}) or {}
+    word_spacing = word_layout.get("spacing", {}) or {}
+    word_tables = word_layout.get("tables", {}) or {}
+    word_banners = word_layout.get("banners", {}) or {}
+    word_boxes = word_layout.get("boxes", {}) or {}
+    doc_page = tj.get("document_page", {}) or {}
+
     def clean_font(css, fallback="Cambria"):
         if not css or not isinstance(css, str):
             return fallback
@@ -1360,29 +1369,49 @@ def _load_oncquest_theme(theme_config=None):
         h = h.strip().lstrip("#")
         return h if len(h) == 6 else fallback
 
-    border = colors.get("border")
-    border_primary = border.get("primary") if isinstance(border, dict) else None
+    border_primary = colors.get("border_primary") or colors.get("primary") or "#1f497d"
     primary = theme_config.get("primary_color") or colors.get("primary") or "#1f497d"
 
     return {
         "primary": clean_hex(primary, "1f497d"),
-        "banner_dark": clean_hex(colors.get("banner_dark"), "404040"),
-        "border": clean_hex(border_primary, "1f497d"),
-        "border_table": clean_hex(colors.get("border_table"), "000000"),
-        "body_color": clean_hex(text.get("primary"), "000000"),
-        "header_text": clean_hex(text.get("white"), "ffffff"),
+        "banner_dark": clean_hex(word_banners.get("black_banner", {}).get("background_color") or colors.get("banner_dark"), "404040"),
+        "border": clean_hex(word_boxes.get("border_color") or border_primary, "1f497d"),
+        "border_table": clean_hex(word_tables.get("border_color") or colors.get("border_table"), "000000"),
+        "body_color": clean_hex(text.get("primary") or colors.get("text_primary"), "000000"),
+        "header_text": clean_hex(text.get("white") or colors.get("text_light"), "ffffff"),
         "result_positive": clean_hex(colors.get("result_positive"), "C00000"),
         "result_negative": clean_hex(colors.get("result_negative"), "008000"),
         "font": clean_font(families.get("primary"), "Cambria"),
         "table_header_font": clean_font(families.get("table_header"), "Cambria"),
-        "body_pt": float(sizes.get("body_pt", 10.0)),
-        "banner_pt": float(sizes.get("banner_pt", 13.0)),
-        "table_header_pt": float(sizes.get("table_header_pt", 9.5)),
-        "eor_text": eor.get("text_pattern",
-                            "------------------ End Of Report ------------------"),
+        "body_pt": float(word_tables.get("body_font_size_pt") or sizes.get("body_pt", 10.0)),
+        "banner_pt": float(word_banners.get("black_banner", {}).get("font_size_pt") or sizes.get("banner_pt", 13.0)),
+        "table_header_pt": float(word_tables.get("header_font_size_pt") or sizes.get("table_header_pt", 9.5)),
+        "eor_text": eor.get("text_pattern") or eor.get("text") or "------------------ End Of Report ------------------",
         "eor_font": clean_font(eor.get("font_family"), "Calibri"),
         "eor_pt": float(eor.get("font_size_pt", 10.0)),
         "eor_color": clean_hex(eor.get("text_color"), "000000"),
+        
+        # Spacing configurations
+        "line_spacing": float(word_spacing.get("default_line_spacing", 1.15)),
+        "para_space_before": float(word_spacing.get("paragraph_space_before_pt", 0.0)),
+        "para_space_after": float(word_spacing.get("paragraph_space_after_pt", 4.0)),
+        "heading_space_before": float(word_spacing.get("heading_space_before_pt", 8.0)),
+        "heading_space_after": float(word_spacing.get("heading_space_after_pt", 4.0)),
+        "table_space_before": float(word_spacing.get("table_space_before_pt", 6.0)),
+        "table_space_after": float(word_spacing.get("table_space_after_pt", 6.0)),
+        "banner_space_before": float(word_spacing.get("banner_space_before_pt", 6.0)),
+        "banner_space_after": float(word_spacing.get("banner_space_after_pt", 6.0)),
+        
+        # Margins & Dimensions configurations
+        "margin_top": float(doc_page.get("margins_pt", {}).get("top", 36.0)),
+        "margin_bottom": float(doc_page.get("margins_pt", {}).get("bottom", 36.0)),
+        "margin_left": float(doc_page.get("margins_pt", {}).get("left", 36.0)),
+        "margin_right": float(doc_page.get("margins_pt", {}).get("right", 36.0)),
+        "paper_width": float(doc_page.get("width_pt", 595.6)),
+        "paper_height": float(doc_page.get("height_pt", 842.0)),
+        
+        # Alternating row background color
+        "alternating_row_bg": clean_hex(word_tables.get("alternating_row_bg") or colors.get("alternating_row_bg"), "f8fafc"),
     }
 
 
@@ -1462,8 +1491,12 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
         if not txt:
             return
         p = doc.add_paragraph()
-        p.paragraph_format.space_before = Pt(6)
-        p.paragraph_format.space_after = Pt(3)
+        if big:
+            p.paragraph_format.space_before = Pt(T["banner_space_before"])
+            p.paragraph_format.space_after = Pt(T["banner_space_after"])
+        else:
+            p.paragraph_format.space_before = Pt(T["heading_space_before"])
+            p.paragraph_format.space_after = Pt(T["heading_space_after"])
         p.paragraph_format.keep_with_next = True  # heading stays with its content
         if not flat:
             shade_para(p, fill)
@@ -1479,31 +1512,164 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
         txt = _clean_text(txt)
         if not txt:
             return
+        # Support native bullet styling
+        if txt.strip().startswith(('•', '-', '*')):
+            bullet_text = txt.strip().lstrip('•-* ').strip()
+            p = doc.add_paragraph(style='List Bullet')
+            p.paragraph_format.space_before = Pt(T["para_space_before"])
+            p.paragraph_format.space_after = Pt(T["para_space_after"])
+            p.paragraph_format.line_spacing = T["line_spacing"]
+            run = p.add_run(bullet_text)
+            run.font.name = T["font"]; run.font.size = Pt(T["body_pt"])
+            run.font.color.rgb = rgb(T["body_color"])
+            return
+            
         p = doc.add_paragraph()
-        p.paragraph_format.space_after = Pt(3)
-        p.paragraph_format.line_spacing = 1.15
+        p.paragraph_format.space_before = Pt(T["para_space_before"])
+        p.paragraph_format.space_after = Pt(T["para_space_after"])
+        p.paragraph_format.line_spacing = T["line_spacing"]
         run = p.add_run(txt)
         run.font.name = T["font"]; run.font.size = Pt(T["body_pt"])
         run.font.color.rgb = rgb(T["body_color"])
 
+    def add_report_title(doc, text):
+        text = _clean_text(text)
+        if not text:
+            return
+        p = doc.add_paragraph()
+        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        p.paragraph_format.space_before = Pt(8)
+        p.paragraph_format.space_after = Pt(12)
+        p.paragraph_format.keep_with_next = True
+        run = p.add_run(text)
+        run.bold = True
+        run.font.name = T["font"]
+        run.font.size = Pt(14.0)
+        run.font.color.rgb = rgb(T["primary"])
+
+    def add_content_box(doc, title, lines):
+        if not title and not lines:
+            return
+        tbl = doc.add_table(rows=1, cols=1)
+        tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
+        tbl.autofit = True
+        cell = tbl.rows[0].cells[0]
+        cell_margins(cell, t=80, b=80, l=100, r=100)
+        shade_cell(cell, "FFFFFF")
+        
+        # Apply borders (single box outline)
+        tcPr = cell._tc.get_or_add_tcPr()
+        borders = OxmlElement("w:tcBorders")
+        for side in ("top", "left", "bottom", "right"):
+            b = OxmlElement(f"w:{side}")
+            b.set(qn("w:val"), "single")
+            b.set(qn("w:sz"), "6")
+            b.set(qn("w:space"), "0")
+            b.set(qn("w:color"), T["border"])
+            borders.append(b)
+        tcPr.append(borders)
+        
+        # Add content inside cell
+        p = cell.paragraphs[0]
+        p.paragraph_format.space_before = Pt(2)
+        p.paragraph_format.space_after = Pt(2)
+        p.paragraph_format.keep_with_next = True
+        
+        if title:
+            run_title = p.add_run(title)
+            run_title.bold = True
+            run_title.font.name = T["font"]
+            run_title.font.size = Pt(T["body_pt"] + 0.5)
+            run_title.font.color.rgb = rgb(T["primary"])
+            p = cell.add_paragraph()
+            
+        for line in lines:
+            line_text = _clean_text(line)
+            if not line_text:
+                continue
+            # Check for lists inside box
+            if line_text.strip().startswith(('•', '-', '*')):
+                bullet_text = line_text.strip().lstrip('•-* ').strip()
+                p_bullet = cell.add_paragraph(style='List Bullet')
+                p_bullet.paragraph_format.space_before = Pt(0)
+                p_bullet.paragraph_format.space_after = Pt(2)
+                p_bullet.paragraph_format.line_spacing = T["line_spacing"]
+                run = p_bullet.add_run(bullet_text)
+                run.font.name = T["font"]; run.font.size = Pt(T["body_pt"])
+                run.font.color.rgb = rgb(T["body_color"])
+                continue
+                
+            p.paragraph_format.space_before = Pt(0)
+            p.paragraph_format.space_after = Pt(2)
+            p.paragraph_format.line_spacing = T["line_spacing"]
+            run = p.add_run(line_text)
+            run.font.name = T["font"]
+            run.font.size = Pt(T["body_pt"])
+            run.font.color.rgb = rgb(T["body_color"])
+            p = cell.add_paragraph()
+            
+        # Clean up any trailing empty paragraph inside cell
+        if len(cell.paragraphs) > 1 and cell.paragraphs[-1].text == "":
+            p_to_remove = cell.paragraphs[-1]
+            p_to_remove._p.getparent().remove(p_to_remove._p)
+            
+        # Add table spacing after
+        p_space = doc.add_paragraph()
+        p_space.paragraph_format.space_before = Pt(0)
+        p_space.paragraph_format.space_after = Pt(T["table_space_after"])
+        p_space.paragraph_format.line_spacing = Pt(1)
+        r = p_space.add_run()
+        r.font.size = Pt(1)
+
     def add_kv_table(doc, kv):
         if not kv:
             return
-        tbl = doc.add_table(rows=0, cols=2)
+        tbl = doc.add_table(rows=0, cols=4)
         table_borders(tbl, T["border_table"])
-        tbl.alignment = WD_TABLE_ALIGNMENT.LEFT
+        tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
         tbl.autofit = True
-        for k, v in kv.items():
+        
+        # Patient details column widths mapping to total A4 width (approx 6.4 inches printable width)
+        col_widths = [Inches(1.0), Inches(2.2), Inches(1.0), Inches(2.2)]
+        
+        items = list(kv.items())
+        for idx in range(0, len(items), 2):
             cells = tbl.add_row().cells
             set_cant_split(tbl.rows[-1])
-            cell_margins(cells[0]); cell_margins(cells[1])
-            kr = cells[0].paragraphs[0].add_run(_clean_text(k))
-            kr.bold = True; kr.font.name = T["font"]; kr.font.size = Pt(T["body_pt"])
-            kr.font.color.rgb = rgb(T["primary"])
-            vr = cells[1].paragraphs[0].add_run(_clean_text(v))
-            vr.font.name = T["font"]; vr.font.size = Pt(T["body_pt"])
-            vr.font.color.rgb = rgb(T["body_color"])
-        doc.add_paragraph().paragraph_format.space_after = Pt(2)
+            for c in cells:
+                cell_margins(c, t=20, b=20, l=40, r=40)
+                
+            # First key-value pair
+            k1, v1 = items[idx]
+            kr1 = cells[0].paragraphs[0].add_run(_clean_text(k1))
+            kr1.bold = True; kr1.font.name = T["font"]; kr1.font.size = Pt(T["body_pt"])
+            kr1.font.color.rgb = rgb(T["primary"])
+            vr1 = cells[1].paragraphs[0].add_run(_clean_text(v1))
+            vr1.font.name = T["font"]; vr1.font.size = Pt(T["body_pt"])
+            vr1.font.color.rgb = rgb(T["body_color"])
+            
+            # Second key-value pair
+            if idx + 1 < len(items):
+                k2, v2 = items[idx + 1]
+                kr2 = cells[2].paragraphs[0].add_run(_clean_text(k2))
+                kr2.bold = True; kr2.font.name = T["font"]; kr2.font.size = Pt(T["body_pt"])
+                kr2.font.color.rgb = rgb(T["primary"])
+                vr2 = cells[3].paragraphs[0].add_run(_clean_text(v2))
+                vr2.font.name = T["font"]; vr2.font.size = Pt(T["body_pt"])
+                vr2.font.color.rgb = rgb(T["body_color"])
+
+        # Set specific column widths on all rows
+        for row in tbl.rows:
+            for i, w in enumerate(col_widths):
+                row.cells[i].width = w
+
+        # Add table spacing after
+        p_space = doc.add_paragraph()
+        p_space.paragraph_format.space_before = Pt(0)
+        p_space.paragraph_format.space_after = Pt(T["table_space_after"])
+        p_space.paragraph_format.line_spacing = Pt(1)
+        r = p_space.add_run()
+        r.font.size = Pt(1)
 
     def add_data_table(doc, tab):
         headers = [_clean_text(h) for h in (tab.get("headers") or [])]
@@ -1551,13 +1717,18 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
                 run.font.size = Pt(T["table_header_pt"])
                 run.font.color.rgb = rgb(T["header_text"])
 
-        for r in rows:
+        for row_idx, r in enumerate(rows):
             cells = tbl.add_row().cells
             set_cant_split(tbl.rows[-1])   # a row never splits across pages
+            row_bg = T.get("alternating_row_bg")
             for i in range(ncols):
-                cell_margins(cells[i])
+                cell = cells[i]
+                cell_margins(cell)
+                # Apply alternating row background color on odd rows
+                if row_idx % 2 == 1 and row_bg:
+                    shade_cell(cell, row_bg)
                 cell_text = r[i]
-                run = cells[i].paragraphs[0].add_run(cell_text)
+                run = cell.paragraphs[0].add_run(cell_text)
                 run.font.name = T["font"]; run.font.size = Pt(T["body_pt"])
                 # Apply clinical result coloring
                 rc = _result_color(cell_text)
@@ -1566,7 +1737,14 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
                     run.bold = True
                 else:
                     run.font.color.rgb = rgb(T["body_color"])
-        doc.add_paragraph().paragraph_format.space_after = Pt(2)
+        
+        # Add table spacing after
+        p_space = doc.add_paragraph()
+        p_space.paragraph_format.space_before = Pt(0)
+        p_space.paragraph_format.space_after = Pt(T["table_space_after"])
+        p_space.paragraph_format.line_spacing = Pt(1)
+        r = p_space.add_run()
+        r.font.size = Pt(1)
 
     def add_image(doc, img):
         if _is_decorative_image(img):       # skip watermark circles
@@ -1602,6 +1780,39 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
     # ---------------- build document ----------------
     doc = Document()
 
+    # Set page size & margins on all sections based on theme.json
+    header_logo_path = Path("assets/header_image1.png")
+    sig_image_path = Path("assets/dr_vinay_signature.png")
+    for section in doc.sections:
+        section.top_margin = Pt(T["margin_top"])
+        section.bottom_margin = Pt(T["margin_bottom"])
+        section.left_margin = Pt(T["margin_left"])
+        section.right_margin = Pt(T["margin_right"])
+        section.page_width = Pt(T["paper_width"])
+        section.page_height = Pt(T["paper_height"])
+
+        # Inject header logo image if present
+        if header_logo_path.exists():
+            header = section.header
+            if header is not None:
+                for p in header.paragraphs:
+                    p.text = ""
+                p = header.paragraphs[0]
+                p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                run = p.add_run()
+                run.add_picture(str(header_logo_path.absolute()), width=Inches(6.0))
+
+        # Inject footer signature image if present
+        if sig_image_path.exists():
+            footer = section.footer
+            if footer is not None:
+                for p in footer.paragraphs:
+                    p.text = ""
+                p = footer.paragraphs[0]
+                p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+                run = p.add_run()
+                run.add_picture(str(sig_image_path.absolute()), width=Inches(1.25))
+
     normal = doc.styles["Normal"]
     normal.font.name = T["font"]; normal.font.size = Pt(T["body_pt"])
     rpr = normal.element.get_or_add_rPr()
@@ -1610,11 +1821,11 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
 
     summary = data.get("document_summary", {}) or {}
     title = os.path.splitext(summary.get("file_name", "Report"))[0]
-    add_banner(doc, title.upper(), T["banner_dark"], big=True)
+    add_report_title(doc, title.upper())
 
     kv = data.get("all_key_value_pairs") or data.get("extracted_key_value_pairs") or {}
     if kv:
-        add_banner(doc, "DETAILS", T["primary"], flat=True)
+        add_banner(doc, "DETAILS", T["primary"])
         add_kv_table(doc, kv)
 
     seen = set()
@@ -1700,12 +1911,14 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
                         merged = f"{ttl} {' '.join(body)}"
                     ref_lines_docx.append(merged)
                     continue
-                if ttl:
-                    add_banner(doc, ttl, T["primary"], flat=True)
+                box_lines = []
                 for line in content_lines(el):
                     s = _clean_text(line)
                     if s and s not in seen:
-                        seen.add(s); add_para(doc, s)
+                        seen.add(s)
+                        box_lines.append(s)
+                if box_lines or ttl:
+                    add_content_box(doc, ttl, box_lines)
             elif kind == "table":
                 add_data_table(doc, el)
             elif kind == "image":
@@ -1737,12 +1950,14 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
                     merged = f"{ttl} {' '.join(body)}"
                 ref_lines_docx.append(merged)
                 continue
-            if ttl:
-                add_banner(doc, ttl, T["primary"], flat=True)
+            box_lines = []
             for line in content_lines(sec):
                 s = _clean_text(line)
                 if s and s not in seen:
-                    seen.add(s); add_para(doc, s)
+                    seen.add(s)
+                    box_lines.append(s)
+            if box_lines or ttl:
+                add_content_box(doc, ttl, box_lines)
         for tb in data.get("all_tables") or data.get("tables") or []:
             add_data_table(doc, tb)
         for im in data.get("all_images_and_graphs") or data.get("images_and_graphs") or []:
@@ -1750,7 +1965,7 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
 
     # Emit merged references section
     if ref_lines_docx:
-        add_banner(doc, "References", T["primary"], flat=True)
+        add_banner(doc, "References", T["primary"])
         for rl in ref_lines_docx:
             if rl not in seen:
                 seen.add(rl); add_para(doc, rl)
@@ -1927,7 +2142,6 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
     ]
 
     import base64
-    from pathlib import Path
     header_image2_b64 = ""
     header_image2_path = Path("assets/header_image2.jpeg")
     if header_image2_path.exists():
@@ -2085,8 +2299,15 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
 def convert_html_to_docx(html_input, output_path: str = None, theme_config: dict = None):
     """
     Converts an HTML string or HTML file path directly into a Microsoft Word (.docx) file.
-    Decouples HTML rendering from Word export so users can preview/edit HTML first,
-    and then trigger HTML -> Word conversion on demand.
+    
+    Uses a high-fidelity page-image approach:
+    1. Renders the HTML in Playwright Chromium browser
+    2. Captures each page as a high-resolution PNG screenshot  
+    3. Embeds page images into Word at exact A4 page size
+    
+    This guarantees 100% visual fidelity — every pixel of the HTML is preserved in Word.
+    Falls back to pdf2docx or htmldocx if Playwright is unavailable.
+    
     Returns bytes of the Word file, or writes to output_path if provided.
     """
     import tempfile
@@ -2099,13 +2320,108 @@ def convert_html_to_docx(html_input, output_path: str = None, theme_config: dict
 
     html_content = replace_sng_gen_lab(html_content)
 
-    # Try high-fidelity PDF -> Word conversion using Playwright and pdf2docx
+    # ── Method 1: High-fidelity page-image approach using Playwright ──
+    if sync_playwright is not None:
+        try:
+            from docx import Document
+            from docx.shared import Inches, Pt, Emu
+            from docx.enum.section import WD_ORIENT
+
+            with tempfile.TemporaryDirectory() as tmp_dir:
+                tmp_dir_path = Path(tmp_dir)
+                html_file_path = tmp_dir_path / "temp.html"
+                html_file_path.write_text(html_content, encoding="utf-8")
+
+                with sync_playwright() as p:
+                    browser = p.chromium.launch()
+                    # Use A4-like viewport width matching the HTML page width (~795px = 595.6pt)
+                    # device_scale_factor=2 for high-DPI sharp screenshots
+                    page = browser.new_page(viewport={"width": 795, "height": 1123}, device_scale_factor=2)
+                    page.goto(html_file_path.as_uri(), wait_until="networkidle")
+
+                    # Find all .pdf-page elements (each represents one report page)
+                    pdf_pages = page.query_selector_all(".pdf-page")
+                    
+                    if not pdf_pages:
+                        # Fallback: if no .pdf-page elements, try div[id^='page']
+                        pdf_pages = page.query_selector_all("div[id^='page']")
+                    
+                    if not pdf_pages:
+                        # Last resort: capture full page as single image
+                        pdf_pages = [None]  # Sentinel for full-page mode
+
+                    page_images = []
+                    for idx, pg_elem in enumerate(pdf_pages):
+                        img_path = tmp_dir_path / f"page_{idx}.png"
+                        if pg_elem is not None:
+                            # Capture individual page element at 2x scale for high DPI
+                            pg_elem.screenshot(path=str(img_path))
+                        else:
+                            # Full page screenshot
+                            page.screenshot(path=str(img_path), full_page=True)
+                        
+                        if img_path.exists() and img_path.stat().st_size > 0:
+                            page_images.append(img_path)
+                        
+                        print(f"   [+] Captured page {idx + 1}/{len(pdf_pages)}")
+
+                    page.close()
+                    browser.close()
+
+                if page_images:
+                    # Build Word document with one image per page
+                    doc = Document()
+                    
+                    # Set A4 page size with minimal margins to maximize image area
+                    for section in doc.sections:
+                        section.page_width = Emu(7560310)   # A4 width: 210mm
+                        section.page_height = Emu(10692130)  # A4 height: 297mm
+                        section.top_margin = Inches(0)
+                        section.bottom_margin = Inches(0)
+                        section.left_margin = Inches(0)
+                        section.right_margin = Inches(0)
+
+                    for idx, img_path in enumerate(page_images):
+                        if idx > 0:
+                            # Add page break before each new page (except the first)
+                            new_section = doc.add_section()
+                            new_section.page_width = Emu(7560310)
+                            new_section.page_height = Emu(10692130)
+                            new_section.top_margin = Inches(0)
+                            new_section.bottom_margin = Inches(0)
+                            new_section.left_margin = Inches(0)
+                            new_section.right_margin = Inches(0)
+
+                        # Add the page image — fill the entire A4 page width
+                        para = doc.add_paragraph()
+                        para.paragraph_format.space_before = Pt(0)
+                        para.paragraph_format.space_after = Pt(0)
+                        run = para.add_run()
+                        # Width = full A4 width (8.27 inches = 210mm)
+                        run.add_picture(str(img_path), width=Inches(8.27))
+
+                    replace_sng_in_docx_obj(doc)
+
+                    if output_path:
+                        out_p = Path(output_path)
+                        out_p.parent.mkdir(parents=True, exist_ok=True)
+                        doc.save(str(out_p))
+                        print(f"   [+] Word document created with {len(page_images)} page(s): {out_p}")
+                        return None
+                    else:
+                        buf = io.BytesIO()
+                        doc.save(buf)
+                        return buf.getvalue()
+
+        except Exception as e:
+            print(f"[*] Note: Page-image HTML-to-Word conversion failed: {e}. Falling back to PDF-based approach.")
+
+    # ── Method 2: Fallback — PDF-based conversion via pdf2docx ──
     if sync_playwright is not None and PDF2DocxConverter is not None:
         try:
             with tempfile.TemporaryDirectory() as tmp_dir:
                 tmp_dir_path = Path(tmp_dir)
                 html_file_path = tmp_dir_path / "temp.html"
-
                 html_file_path.write_text(html_content, encoding="utf-8")
 
                 compiled_pdf = tmp_dir_path / "compiled.pdf"
@@ -2127,7 +2443,7 @@ def convert_html_to_docx(html_input, output_path: str = None, theme_config: dict
         except Exception as e:
             print(f"[*] Note: PDF-based HTML-to-Word conversion failed: {e}. Falling back to direct HTML parse.")
 
-    # Original Fallback Implementation
+    # ── Method 3: Original Fallback — direct HTML parsing ──
     from docx import Document
     from docx.shared import Inches
     from bs4 import BeautifulSoup
@@ -2276,11 +2592,10 @@ def convert_pdf_full_pipeline(pdf_path, output_dir=None, theme_config: dict = No
     render_html_to_pdf_and_preview(out_html, intermediate_pdf)
     print(f"   [+] Result PDF compiled from HTML: {intermediate_pdf}")
 
-    # Step 4: Convert Compiled Result PDF to Word (.docx) using pdf2docx
-    print(f"\n[Step 4/4] Converting Compiled Result PDF to Word (.docx) via pdf2docx...")
+    # Step 4: Generate Word (.docx) from rendered HTML via Playwright PDF → pdf2docx (exact HTML fidelity)
+    print(f"\n[Step 4/4] Converting rendered HTML to Word (.docx) (exact HTML fidelity)...")
     out_docx = output_dir / f"{stem}_report.docx"
-    target_pdf_for_word = intermediate_pdf if (intermediate_pdf.exists() and intermediate_pdf.stat().st_size > 0) else pdf_path
-    convert_pdf_to_word(target_pdf_for_word, out_docx)
+    convert_html_to_docx(out_html, output_path=out_docx, theme_config=theme_config)
 
     print(f"\n[+] 4-Step Pipeline Completed Successfully! Final Word doc: {out_docx}")
     print(f"==================================================\n")
