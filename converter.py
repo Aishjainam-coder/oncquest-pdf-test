@@ -2420,8 +2420,8 @@ def convert_html_to_docx(html_input, output_path: str = None, theme_config: dict
 
     html_content = replace_sng_gen_lab(html_content)
 
-    # ── Method 1: High-fidelity page-image approach using Playwright ──
-    if sync_playwright is not None:
+    # ── Method 1: High-fidelity page-image approach using Playwright (DISABLED) ──
+    if False:
         try:
             from docx import Document
             from docx.shared import Inches, Pt, Emu

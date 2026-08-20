@@ -80,22 +80,11 @@ def parse_header_key_value_pairs(full_text: str) -> dict:
         if not line_str or len(line_str) > 250:
             continue
 
-<<<<<<< HEAD
-        # Split by 2 or more spaces to handle multiple KV pairs on same line
-        parts = re.split(r'\s{2,}', line_str)
-        for part in parts:
-            if ':' not in part:
-                continue
-            idx = part.find(':')
-            k = part[:idx].strip()
-            v = part[idx+1:].strip()
-=======
         # Find key-value patterns like "Label: Value" (allowing colons in value for times)
         matches = re.findall(r'([A-Za-z0-9][A-Za-z0-9\s/&#\-_]{1,35}):\s*([^\n\t]{1,120})', line_str)
         for k_cand, v_cand in matches:
             k = k_cand.strip()
             v = v_cand.strip()
->>>>>>> 546d53c3af5d4986968311cb43179aa71c7116a7
 
             # Clean key validation
             if not k or len(k) < 2 or len(k) > 35:
@@ -521,12 +510,6 @@ def extract_report_data(pdf_path: str) -> dict:
         page_body_text = "\n".join(body_text_lines)
         full_text_pages.append(page_body_text)
 
-<<<<<<< HEAD
-        # Extract demographics and metadata from the full page text (including header region)
-        page_full_text = page.get_text("text")
-        page_kv = parse_header_key_value_pairs(page_full_text)
-=======
->>>>>>> 546d53c3af5d4986968311cb43179aa71c7116a7
         filtered_page_kv = {}
         if page_num == 0:
             page_kv = parse_header_key_value_pairs(page_body_text)
