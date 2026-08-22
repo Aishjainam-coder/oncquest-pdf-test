@@ -1,0 +1,20 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Local run outputs and intermediate files
+output/
+output_images/
+extracted_jsons/
+backup_pdfs/
+outsourcing pdf/output/
+outsourcing pdf/extracted_jsons/
+*.tmp
+
+# Isolated local virtualenv (see requirements.txt)
+.venv-oncquest/
+.venv/
+venv/
+
+# macOS
+.DS_Store
