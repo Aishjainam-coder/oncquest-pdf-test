@@ -1,0 +1,21 @@
+# Runtime dependencies for the Streamlit PDF -> JSON -> DOCX app.
+#
+# Isolated setup:
+#   python3 -m venv .venv-oncquest
+#   .venv-oncquest/bin/pip install -r requirements.txt
+#   .venv-oncquest/bin/playwright install chromium
+#
+# Teardown: rm -rf .venv-oncquest  (plus `playwright uninstall --all` for browsers)
+
+streamlit>=1.40,<2
+pymupdf>=1.24,<2
+python-docx>=1.1,<2
+pillow>=12.3
+beautifulsoup4>=4.12,<5
+playwright>=1.47,<2
+pdf2docx>=0.5.8,<0.6
+
+# Optional: converter.py's Method-3 HTML fallback uses htmldocx when importable
+# and falls back to its own parser otherwise. Unmaintained (last release 2021);
+# left out of the default install on purpose. Uncomment only if you need it.
+# htmldocx==0.0.6
