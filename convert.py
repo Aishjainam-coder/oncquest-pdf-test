@@ -5,6 +5,9 @@ Processes any input PDF document (lab report, invoice, certificate, bill, etc.),
 extracts full structured JSON data (key-values, tables, content boxes, images, graphs),
 and renders it into a dynamic HTML template with customizable design themes.
 """
+import pymupdf
+pymupdf._g_out_message = None
+
 import sys
 import shutil
 import json
@@ -50,8 +53,23 @@ if len(sys.argv) > 1:
             out_docx = output_dir / f"{target_path.stem}.docx"
             render_json_file_to_html(target_path, output_path=out_html, theme_config=theme_config)
             print(f"[+] Successfully rendered JSON -> HTML template: {out_html}")
-            convert_html_to_docx(out_html, output_path=out_docx, theme_config=theme_config)
-            print(f"[+] Successfully converted HTML -> Word (.docx) (exact HTML fidelity): {out_docx}")
+            
+            # Load JSON content
+            with open(target_path, "r", encoding="utf-8") as f_json:
+                json_data = json.load(f_json)
+                
+            # Convert JSON directly to DOCX
+            print(f"[*] Converting JSON directly to Word (.docx)...")
+            convert_json_to_docx(json_data, output_path=out_docx, theme_config=theme_config)
+            print(f"[+] Successfully converted JSON -> Word (.docx) (direct rendering): {out_docx}")
+            
+            # Validate output DOCX content
+            try:
+                from converter import validate_docx_conversion
+                validate_docx_conversion(json_data, out_docx)
+            except Exception as e_val:
+                print(f"   [!] Validation error: {e_val}")
+                
             sys.exit(0)
         elif target_path.suffix.lower() == ".pdf":
             pdf_files = [target_path]

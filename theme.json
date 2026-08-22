@@ -1,8 +1,93 @@
 {
+  "page": {
+    "width": 595.28,
+    "height": 841.89,
+    "margin_top": 36.0,
+    "margin_bottom": 36.0,
+    "margin_left": 36.0,
+    "margin_right": 36.0,
+    "unit": "pt"
+  },
+  "styles": {
+    "heading": {
+      "font_family": "Cambria",
+      "font_size": 13.0,
+      "bold": true,
+      "text_color": "#1f497d",
+      "alignment": "left",
+      "spacing_before": 8.0,
+      "spacing_after": 4.0
+    },
+    "subheading": {
+      "font_family": "Cambria",
+      "font_size": 11.0,
+      "bold": true,
+      "text_color": "#008080",
+      "alignment": "left",
+      "spacing_before": 6.0,
+      "spacing_after": 3.0
+    },
+    "paragraph": {
+      "font_family": "Cambria",
+      "font_size": 10.0,
+      "line_spacing": 1.15,
+      "text_color": "#000000",
+      "spacing_after": 4.0
+    },
+    "table": {
+      "font_family": "Cambria",
+      "font_size": 9.5,
+      "header_background_color": "#1f497d",
+      "header_text_color": "#ffffff",
+      "header_bold": true,
+      "border_color": "#1f497d",
+      "border_width": 0.5,
+      "cell_padding_top": 3.0,
+      "cell_padding_bottom": 3.0,
+      "cell_padding_left": 4.0,
+      "cell_padding_right": 4.0,
+      "alignment": "center"
+    },
+    "key_value": {
+      "font_family": "Cambria",
+      "font_size": 10.0,
+      "border_color": "#cbd5e1",
+      "border_width": 0.25,
+      "label_bold": true,
+      "alignment": "center"
+    },
+    "image": {
+      "alignment": "center",
+      "max_width_pt": 450.0
+    },
+    "header": {
+      "height_pt": 60.0,
+      "show_logo": true,
+      "logo_image_path": "assets/header_image1.png",
+      "logo_width_pt": 540.0,
+      "logo_alignment": "center"
+    },
+    "footer": {
+      "height_pt": 40.0,
+      "show_signatures": true,
+      "signature_image_path": "assets/dr_vinay_signature.png",
+      "signature_width_pt": 90.0,
+      "signature_alignment": "right"
+    },
+    "end_of_report_marker": {
+      "text": "------------------ End Of Report ------------------",
+      "font_family": "Calibri",
+      "font_size_pt": 10.0,
+      "text_color": "#000000",
+      "alignment": "center",
+      "space_before_pt": 12.0,
+      "space_after_pt": 12.0
+    }
+  },
   "document_page": {
     "paper_size": "A4",
-    "width_pt": 595.6,
-    "height_pt": 842.0,
+    "width_pt": 595.28,
+    "height_pt": 841.89,
     "margins_pt": {
       "top": 36.0,
       "bottom": 36.0,
@@ -75,10 +160,10 @@
       }
     },
     "footer": {
-      "show_signatures": false,
-      "signature_image_path": "assets/footer_signatures.png",
-      "signature_width_pt": 540.0,
-      "signature_alignment": "center",
+      "show_signatures": true,
+      "signature_image_path": "assets/dr_vinay_signature.png",
+      "signature_width_pt": 90.0,
+      "signature_alignment": "right",
       "show_page_number": true,
       "page_number_text": "Page {page} of {total}",
       "font_size_pt": 9.0,

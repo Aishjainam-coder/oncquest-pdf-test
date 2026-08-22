@@ -19,7 +19,7 @@ import base64
 import logging
 
 try:
-    import fitz  # PyMuPDF
+    import pymupdf as fitz  # PyMuPDF
 except ImportError:
     fitz = None
 
@@ -31,7 +31,7 @@ logger = logging.getLogger("UniversalPDFExtractor")
 def replace_sng_gen_lab(text: str) -> str:
     if not isinstance(text, str):
         return text
-    pattern = re.compile(r"SNG\s+Gene?(?:['’‘]|&[a-zA-Z0-9#]+;)?s\s+Lab\s+pvt\.?\s*ltd", re.IGNORECASE)
+    pattern = re.compile(r"(?:SNG\s+Gene?(?:['’‘]|&[a-zA-Z0-9#]+;)?s\s+Lab|SN\s+Genelab)\s+pvt\.?\s*ltd", re.IGNORECASE)
     return pattern.sub("Laboratory", text)
 
 
@@ -339,6 +339,102 @@ def is_patient_sample_header_block(text: str, y0: float) -> bool:
     return False
 
 
+def format_bbox(bbox_list):
+    """Convert bounding box from [x0, y0, x1, y1] to dictionary format with normalized points coordinates."""
+    if not bbox_list or len(bbox_list) < 4:
+        return None
+    x0 = round(bbox_list[0], 2)
+    y0 = round(bbox_list[1], 2)
+    x1 = round(bbox_list[2], 2)
+    y1 = round(bbox_list[3], 2)
+    return {
+        "x": x0,
+        "y": y0,
+        "width": round(x1 - x0, 2),
+        "height": round(y1 - y0, 2),
+        "unit": "pt",
+        "x0": x0,
+        "y0": y0,
+        "x1": x1,
+        "y1": y1
+    }
+
+
+def sanitize_headers(headers):
+    """Sanitize and deduplicate table headers to guarantee unique dictionary keys."""
+    sanitized = []
+    seen = {}
+    for idx, h in enumerate(headers):
+        h_str = str(h).strip()
+        if not h_str:
+            h_str = f"Column {idx + 1}"
+        if h_str in seen:
+            seen[h_str] += 1
+            h_str = f"{h_str}_{seen[h_str]}"
+        else:
+            seen[h_str] = 1
+        sanitized.append(h_str)
+    return sanitized
+
+
+def check_table_continuation(t_curr_bbox, t_prev_bbox, cols_curr, cols_prev, hy_cutoff, fy_cutoff_prev):
+    """Check if a table is a continuation of the last table on the previous page."""
+    if cols_curr != cols_prev or cols_curr == 0:
+        return False
+    
+    # Check horizontal alignment
+    x0_diff = abs(t_curr_bbox[0] - t_prev_bbox[0])
+    x1_diff = abs(t_curr_bbox[2] - t_prev_bbox[2])
+    if x0_diff > 15 or x1_diff > 15:
+        return False
+        
+    # Must start near the top of page body cutoff
+    y0_curr = t_curr_bbox[1]
+    if y0_curr > hy_cutoff + 80:
+        return False
+        
+    # Must end near the bottom of previous page body cutoff
+    y1_prev = t_prev_bbox[3]
+    if y1_prev < fy_cutoff_prev - 180:
+        return False
+        
+    return True
+
+
+def classify_block_type(text, max_font_size, is_bold, font_name):
+    """Semantically classify a text block."""
+    text_stripped = text.strip()
+    if not text_stripped:
+        return "unknown"
+        
+    text_lower = text_stripped.lower()
+    if "pmid" in text_lower or "doi:" in text_lower or text_lower.startswith("http") or "www." in text_lower:
+        return "paragraph"
+        
+    # Check key-value match
+    if ":" in text_stripped:
+        parts = text_stripped.split(":", 1)
+        k = parts[0].strip()
+        v = parts[1].strip()
+        if v and len(k) >= 2 and len(k) <= 35 and k.count(" ") < 4 and not any(c in k for c in [".", ",", ";", "?", "!"]):
+            return "key_value"
+            
+    is_hd_cand = False
+    if max_font_size >= 11.5:
+        is_hd_cand = True
+    elif is_bold and len(text_stripped) < 90:
+        if not text_stripped.endswith(('.', ',', ';', '?')):
+            is_hd_cand = True
+            
+    if is_hd_cand:
+        if max_font_size >= 12.0 or text_stripped.isupper():
+            return "heading"
+        else:
+            return "subheading"
+            
+    return "paragraph"
+
+
 def extract_report_data(pdf_path: str) -> dict:
     """
     Universal extraction engine for ANY PDF document format.
@@ -379,6 +475,11 @@ def extract_report_data(pdf_path: str) -> dict:
     all_kv_pairs = {}
     all_boxes_list = []
     all_images_list = []
+    
+    # New page-by-page structured document flow list
+    document_pages = []
+
+    last_table_prev_page = None
 
     # Iterate through all pages
     for page_num in range(len(doc)):
@@ -393,36 +494,157 @@ def extract_report_data(pdf_path: str) -> dict:
         # 1. Extract Tables on this page in body region ONLY
         page_tables = []
         table_bboxes = []
+        
+        # New page elements list
+        page_elements = []
+        header_elements = []
+        footer_elements = []
+
         try:
             if hasattr(page, "find_tables"):
                 tf = page.find_tables()
                 table_list = list(tf)
+                # Sort tables on this page by top-Y coordinate
+                table_list.sort(key=lambda t: t.bbox[1])
+                
                 for t_idx, table in enumerate(table_list):
                     t_bbox = [round(c, 2) for c in table.bbox]
-                    # Exclude tables inside header or footer regions on EVERY page using midpoint check
                     t_mid = (t_bbox[1] + t_bbox[3]) / 2.0
-                    if t_mid < hy_cutoff or t_mid > fy_cutoff:
-                        continue
-
-
+                    
                     table_data = table.extract()
                     if table_data and len(table_data) > 0:
-                        headers = [str(c).strip().replace("\n", " ") if c else "" for c in table_data[0]]
-                        rows = [[str(cell).strip().replace("\n", " ") if cell else "" for cell in row] for row in table_data[1:]]
-                        table_bboxes.append(t_bbox)
+                        raw_headers = [str(c).strip() if c else "" for c in table_data[0]]
+                        raw_rows = [[str(cell).strip() if cell else "" for cell in row] for row in table_data[1:]]
+                    else:
+                        continue
 
-                        table_obj = {
-                            "page": page_num + 1,
-                            "table_index": len(page_tables) + 1,
-                            "bbox": t_bbox,
+                    # If table is in header / footer area, add to header/footer elements
+                    if t_mid < hy_cutoff:
+                        col_widths = []
+                        if hasattr(table, "cols") and table.cols:
+                            for idx in range(len(table.cols) - 1):
+                                col_widths.append(round(table.cols[idx+1] - table.cols[idx], 2))
+                        columns_with_widths = []
+                        san_headers = sanitize_headers(raw_headers)
+                        for idx, h_name in enumerate(san_headers):
+                            col_item = {"name": h_name}
+                            if idx < len(col_widths):
+                                col_item["width"] = col_widths[idx]
+                            columns_with_widths.append(col_item)
+                        row_dicts = []
+                        for row in raw_rows:
+                            row_dict = {}
+                            for idx, h_name in enumerate(san_headers):
+                                val = row[idx] if idx < len(row) else ""
+                                row_dict[h_name] = val
+                            row_dicts.append(row_dict)
+                        header_elements.append({
                             "type": "table",
-                            "headers": headers,
-                            "rows": rows
-                        }
-                        page_tables.append(table_obj)
-                        all_tables_list.append(table_obj)
+                            "bbox": format_bbox(t_bbox),
+                            "columns": columns_with_widths,
+                            "rows": row_dicts
+                        })
+                        continue
+                    elif t_mid > fy_cutoff:
+                        col_widths = []
+                        if hasattr(table, "cols") and table.cols:
+                            for idx in range(len(table.cols) - 1):
+                                col_widths.append(round(table.cols[idx+1] - table.cols[idx], 2))
+                        columns_with_widths = []
+                        san_headers = sanitize_headers(raw_headers)
+                        for idx, h_name in enumerate(san_headers):
+                            col_item = {"name": h_name}
+                            if idx < len(col_widths):
+                                col_item["width"] = col_widths[idx]
+                            columns_with_widths.append(col_item)
+                        row_dicts = []
+                        for row in raw_rows:
+                            row_dict = {}
+                            for idx, h_name in enumerate(san_headers):
+                                val = row[idx] if idx < len(row) else ""
+                                row_dict[h_name] = val
+                            row_dicts.append(row_dict)
+                        footer_elements.append({
+                            "type": "table",
+                            "bbox": format_bbox(t_bbox),
+                            "columns": columns_with_widths,
+                            "rows": row_dicts
+                        })
+                        continue
+
+                    # Apply continuation check against the last table on the previous page
+                    is_continuation = False
+                    if len(page_tables) == 0 and last_table_prev_page is not None:
+                        prev_bbox = last_table_prev_page.get("bbox", [0, 0, 0, 0])
+                        prev_cols = len(last_table_prev_page.get("headers", []))
+                        prev_fy_cutoff = page_bounds[page_num - 1]["footer_y_cutoff"]
+                        
+                        if check_table_continuation(t_bbox, prev_bbox, len(raw_headers), prev_cols, hy_cutoff, prev_fy_cutoff):
+                            is_continuation = True
+                            
+                            # Prepend the extracted headers as the first data row
+                            if any(raw_headers):
+                                raw_rows.insert(0, raw_headers)
+                                
+                            # Inherit headers from previous page's table
+                            raw_headers = last_table_prev_page.get("raw_headers", last_table_prev_page.get("headers", []))
+                    
+                    # Generate legacy-friendly headers and rows (newline-replaced)
+                    legacy_headers = [h.replace("\n", " ") for h in raw_headers]
+                    legacy_rows = [[cell.replace("\n", " ") for cell in row] for row in raw_rows]
+                    
+                    table_bboxes.append(t_bbox)
+                    
+                    table_obj = {
+                        "page": page_num + 1,
+                        "table_index": len(page_tables) + 1,
+                        "bbox": t_bbox,
+                        "type": "table",
+                        "headers": legacy_headers,
+                        "rows": legacy_rows,
+                        "raw_headers": raw_headers,
+                        "raw_rows": raw_rows,
+                        "is_continuation": is_continuation
+                    }
+                    page_tables.append(table_obj)
+                    all_tables_list.append(table_obj)
+                    
+                    # Map headers to dictionary for the new element format
+                    san_headers = sanitize_headers(raw_headers)
+                    row_dicts = []
+                    for row in raw_rows:
+                        row_dict = {}
+                        for idx, h_name in enumerate(san_headers):
+                            val = row[idx] if idx < len(row) else ""
+                            row_dict[h_name] = val
+                        row_dicts.append(row_dict)
+                    
+                    col_widths = []
+                    if hasattr(table, "cols") and table.cols:
+                        for idx in range(len(table.cols) - 1):
+                            col_widths.append(round(table.cols[idx+1] - table.cols[idx], 2))
+                    columns_with_widths = []
+                    for idx, h_name in enumerate(san_headers):
+                        col_item = {"name": h_name}
+                        if idx < len(col_widths):
+                            col_item["width"] = col_widths[idx]
+                        columns_with_widths.append(col_item)
+                        
+                    page_elements.append({
+                        "type": "table",
+                        "bbox": format_bbox(t_bbox),
+                        "columns": columns_with_widths,
+                        "rows": row_dicts,
+                        "is_continuation": is_continuation
+                    })
         except Exception as t_err:
             logger.debug(f"Page {page_num + 1} table error: {t_err}")
+
+        # Update last active table
+        if page_tables:
+            last_table_prev_page = page_tables[-1]
+        else:
+            last_table_prev_page = None
 
         # 2. Parse text blocks outside tables and strictly inside body region ONLY
         page_blocks = []
@@ -433,35 +655,15 @@ def extract_report_data(pdf_path: str) -> dict:
                 if is_inside_table_bbox(b_bbox, table_bboxes):
                     continue
 
-                # Exclude text blocks inside header or footer regions on EVERY page
-                if b_bbox[1] < hy_cutoff or b_bbox[3] > fy_cutoff:
-                    if page_num == 0 and b_bbox[1] < hy_cutoff:
-                        block_text_runs = []
-                        for line in block["lines"]:
-                            for span in line["spans"]:
-                                txt = span.get("text", "").strip()
-                                if txt:
-                                    block_text_runs.append(span.get("text", ""))
-                        clean_block_text = " ".join(block_text_runs).strip()
-                        if is_patient_sample_header_block(clean_block_text, b_bbox[1]):
-                            lines_list = []
-                            for line in block["lines"]:
-                                line_text = " ".join(span.get("text", "") for span in line["spans"]).strip()
-                                if line_text:
-                                    lines_list.append(line_text)
-                            raw_block_text = "\n".join(lines_list)
-                            norm_block_text = re.sub(r'\n\s*:', ':', raw_block_text)
-                            parsed_kv = parse_header_key_value_pairs(norm_block_text)
-                            for k, v in parsed_kv.items():
-                                if not any(kw in k.lower() for kw in ['neuberg', 'laboratory report', 'barcode', 'qr code', 'acc. remarks', 'accession.id', 'centre details']):
-                                    all_kv_pairs[k] = v
-                    continue
-
                 b_text = ""
                 is_bold = False
                 max_size = 0.0
                 font_name = ""
+                lines_list = []
                 for line in block["lines"]:
+                    line_text = " ".join(span.get("text", "") for span in line["spans"]).strip()
+                    if line_text:
+                        lines_list.append(line_text)
                     for span in line["spans"]:
                         text = span.get("text", "").strip()
                         if text:
@@ -473,39 +675,128 @@ def extract_report_data(pdf_path: str) -> dict:
                             font_name = span.get("font", "")
 
                 clean_b_text = b_text.strip()
-                if clean_b_text:
+                if not clean_b_text:
+                    continue
+
+                sem_type = classify_block_type(clean_b_text, max_size, is_bold, font_name)
+                style_override = {}
+                if max_size:
+                    style_override["font_size"] = round(max_size, 2)
+                if font_name:
+                    style_override["font_family"] = font_name
+                if is_bold:
+                    style_override["bold"] = True
+
+                # Determine if block is in header, footer, or body
+                if b_bbox[1] < hy_cutoff:
                     if re.search(r'^page\s+\d+(\s+of\s+\d+)?$', clean_b_text, re.I):
                         continue
-                    if any(kw in clean_b_text.lower() for kw in ['reviewed by', 'authorized signatory', 'mc-7414']):
-                        continue
-                    if is_patient_sample_header_block(clean_b_text, b_bbox[1]):
-                        if page_num == 0:
-                            lines_list = []
-                            for line in block["lines"]:
-                                line_text = " ".join(span.get("text", "") for span in line["spans"]).strip()
-                                if line_text:
-                                    lines_list.append(line_text)
+                    el_obj = {
+                        "type": sem_type,
+                        "bbox": format_bbox(b_bbox),
+                        "text": clean_b_text
+                    }
+                    if style_override:
+                        el_obj["style_override"] = style_override
+                    header_elements.append(el_obj)
+
+                    if page_num == 0:
+                        is_hdr_card = is_patient_sample_header_block(clean_b_text, b_bbox[1])
+                        if is_hdr_card:
                             raw_block_text = "\n".join(lines_list)
                             norm_block_text = re.sub(r'\n\s*:', ':', raw_block_text)
                             parsed_kv = parse_header_key_value_pairs(norm_block_text)
                             for k, v in parsed_kv.items():
                                 if not any(kw in k.lower() for kw in ['neuberg', 'laboratory report', 'barcode', 'qr code', 'acc. remarks', 'accession.id', 'centre details']):
                                     all_kv_pairs[k] = v
-                        continue
+                            if parsed_kv:
+                                clean_kv = {k: v for k, v in parsed_kv.items() if not any(kw in k.lower() for kw in ['neuberg', 'laboratory report', 'barcode', 'qr code', 'acc. remarks', 'accession.id', 'centre details'])}
+                                if clean_kv:
+                                    page_elements.append({
+                                        "type": "key_value",
+                                        "bbox": format_bbox(b_bbox),
+                                        "data": clean_kv
+                                    })
+                    continue
 
-                    is_hd_cand = (max_size >= 11.5 or (is_bold and len(clean_b_text) < 70)) and not clean_b_text.endswith(('.', ',', ';', '?'))
-                    block_obj = {
-                        "page": page_num + 1,
-                        "bbox": b_bbox,
-                        "type": "heading" if is_hd_cand else "paragraph",
-                        "text": clean_b_text,
-                        "max_font_size": round(max_size, 2),
-                        "is_bold": is_bold,
-                        "font": font_name
+                elif b_bbox[3] > fy_cutoff or b_bbox[1] > fy_cutoff:
+                    if re.search(r'^page\s+\d+(\s+of\s+\d+)?$', clean_b_text, re.I):
+                        continue
+                    role = "signature_block" if any(kw in clean_b_text.lower() for kw in ['reviewed by', 'authorized signatory', 'signatory', 'doctor', 'dr.']) else None
+                    el_obj = {
+                        "type": sem_type,
+                        "bbox": format_bbox(b_bbox),
+                        "text": clean_b_text
                     }
-                    page_blocks.append(block_obj)
-                    text_blocks_with_style.append(block_obj)
-                    body_text_lines.append(clean_b_text)
+                    if role:
+                        el_obj["role"] = role
+                    if style_override:
+                        el_obj["style_override"] = style_override
+                    footer_elements.append(el_obj)
+                    continue
+
+                if re.search(r'^page\s+\d+(\s+of\s+\d+)?$', clean_b_text, re.I):
+                    continue
+                if any(kw in clean_b_text.lower() for kw in ['reviewed by', 'authorized signatory', 'mc-7414']):
+                    continue
+                    
+                is_hdr_card = is_patient_sample_header_block(clean_b_text, b_bbox[1])
+                if is_hdr_card:
+                    if page_num == 0:
+                        raw_block_text = "\n".join(lines_list)
+                        norm_block_text = re.sub(r'\n\s*:', ':', raw_block_text)
+                        parsed_kv = parse_header_key_value_pairs(norm_block_text)
+                        for k, v in parsed_kv.items():
+                            if not any(kw in k.lower() for kw in ['neuberg', 'laboratory report', 'barcode', 'qr code', 'acc. remarks', 'accession.id', 'centre details']):
+                                all_kv_pairs[k] = v
+                        if parsed_kv:
+                            clean_kv = {k: v for k, v in parsed_kv.items() if not any(kw in k.lower() for kw in ['neuberg', 'laboratory report', 'barcode', 'qr code', 'acc. remarks', 'accession.id', 'centre details'])}
+                            if clean_kv:
+                                page_elements.append({
+                                    "type": "key_value",
+                                    "bbox": format_bbox(b_bbox),
+                                    "data": clean_kv
+                                })
+                    continue
+
+                is_hd_cand = (max_size >= 11.5 or (is_bold and len(clean_b_text) < 70)) and not clean_b_text.endswith(('.', ',', ';', '?'))
+                block_obj = {
+                    "page": page_num + 1,
+                    "bbox": b_bbox,
+                    "type": "heading" if is_hd_cand else "paragraph",
+                    "text": clean_b_text,
+                    "max_font_size": round(max_size, 2),
+                    "is_bold": is_bold,
+                    "font": font_name
+                }
+                page_blocks.append(block_obj)
+                text_blocks_with_style.append(block_obj)
+                body_text_lines.append(clean_b_text)
+                
+                if sem_type == "key_value":
+                    raw_block_text = "\n".join(lines_list)
+                    parsed_kv = parse_header_key_value_pairs(raw_block_text)
+                    if parsed_kv:
+                        clean_kv = {k: v for k, v in parsed_kv.items() if not any(kw in k.lower() for kw in ['neuberg', 'laboratory report', 'barcode', 'qr code', 'acc. remarks', 'accession.id', 'centre details'])}
+                        if clean_kv:
+                            for k, v in clean_kv.items():
+                                all_kv_pairs[k] = v
+                            page_elements.append({
+                                "type": "key_value",
+                                "bbox": format_bbox(b_bbox),
+                                "data": clean_kv
+                            })
+                            continue
+                    sem_type = "paragraph"
+                    
+                el_obj = {
+                    "type": sem_type,
+                    "bbox": format_bbox(b_bbox),
+                    "text": clean_b_text
+                }
+                if style_override:
+                    el_obj["style_override"] = style_override
+                page_elements.append(el_obj)
 
         page_body_text = "\n".join(body_text_lines)
         full_text_pages.append(page_body_text)
@@ -518,21 +809,44 @@ def extract_report_data(pdf_path: str) -> dict:
                     filtered_page_kv[k] = v
                     all_kv_pairs[k] = v
 
-        # 3. Extract Images & Graphs in body region ONLY (excluding header/footer logos)
+        # 3. Extract Images & Graphs
         raw_images = extract_page_images_and_graphs(doc, page_num, page)
         page_images = []
         for img in raw_images:
             img_bbox = img.get("bbox")
             if img_bbox:
                 y0, y1 = img_bbox[1], img_bbox[3]
-                # Filter out header logo (y0 < 120) and footer logos (y0 >= 700 or y1 >= 720)
-                if y0 < 120 or y1 <= hy_cutoff:
+                if y1 <= hy_cutoff:
+                    header_elements.append({
+                        "type": "image",
+                        "bbox": format_bbox(img_bbox),
+                        "data_uri": img.get("data_uri"),
+                        "width": img.get("width"),
+                        "height": img.get("height"),
+                        "role": "logo"
+                    })
                     continue
-                if y0 >= 700 or y1 >= 720:
+                elif y0 >= fy_cutoff:
+                    footer_elements.append({
+                        "type": "image",
+                        "bbox": format_bbox(img_bbox),
+                        "data_uri": img.get("data_uri"),
+                        "width": img.get("width"),
+                        "height": img.get("height"),
+                        "role": "signature"
+                    })
                     continue
             img["type"] = "image"
             page_images.append(img)
             all_images_list.append(img)
+            
+            page_elements.append({
+                "type": "image",
+                "bbox": format_bbox(img_bbox or [0, 0, 0, 0]),
+                "data_uri": img.get("data_uri"),
+                "width": img.get("width"),
+                "height": img.get("height")
+            })
 
         # 4. Extract Content Boxes & Sections in body region ONLY
         page_boxes = []
@@ -625,6 +939,95 @@ def extract_report_data(pdf_path: str) -> dict:
             "text_blocks": page_blocks,
             "page_text": page_body_text
         })
+        
+        # Sort and merge new page_elements structure in visual/reading order
+        def get_el_y0(el):
+            bbox = el.get("bbox")
+            if bbox:
+                return (round(bbox.get("y0", 0.0) / 3.0) * 3.0, bbox.get("x0", 0.0))
+            return (0.0, 0.0)
+            
+        page_elements.sort(key=get_el_y0)
+        
+        # Merge adjacent key_values
+        merged_elements = []
+        for el in page_elements:
+            if not merged_elements:
+                merged_elements.append(el)
+                continue
+            prev_el = merged_elements[-1]
+            if el["type"] == "key_value" and prev_el["type"] == "key_value":
+                prev_el["data"].update(el["data"])
+                # Merge bboxes
+                p_bb = prev_el["bbox"]
+                c_bb = el["bbox"]
+                if p_bb and c_bb:
+                    x0 = min(p_bb["x0"], c_bb["x0"])
+                    y0 = min(p_bb["y0"], c_bb["y0"])
+                    x1 = max(p_bb["x1"], c_bb["x1"])
+                    y1 = max(p_bb["y1"], c_bb["y1"])
+                    prev_el["bbox"] = {
+                        "x": x0,
+                        "y": y0,
+                        "width": round(x1 - x0, 2),
+                        "height": round(y1 - y0, 2),
+                        "unit": "pt",
+                        "x0": x0,
+                        "y0": y0,
+                        "x1": x1,
+                        "y1": y1
+                    }
+            else:
+                merged_elements.append(el)
+                
+        # Set table titles based on preceding heading/subheading
+        for i in range(len(merged_elements)):
+            if merged_elements[i]["type"] == "table":
+                if i > 0:
+                    prev = merged_elements[i-1]
+                    if prev["type"] in ["heading", "subheading"]:
+                        p_bbox = prev.get("bbox")
+                        t_bbox = merged_elements[i].get("bbox")
+                        if p_bbox and t_bbox:
+                            if t_bbox["y0"] - p_bbox["y1"] < 40:
+                                merged_elements[i]["title"] = prev["text"]
+                                
+        final_page_elements = []
+        if header_elements:
+            final_page_elements.append({
+                "type": "header",
+                "bbox": {
+                    "x": 0,
+                    "y": 0,
+                    "width": round(rect.width, 2),
+                    "height": round(hy_cutoff, 2),
+                    "unit": "pt"
+                },
+                "elements": header_elements
+            })
+        
+        final_page_elements.extend(merged_elements)
+        
+        if footer_elements:
+            final_page_elements.append({
+                "type": "footer",
+                "bbox": {
+                    "x": 0,
+                    "y": round(fy_cutoff, 2),
+                    "width": round(rect.width, 2),
+                    "height": round(rect.height - fy_cutoff, 2),
+                    "unit": "pt"
+                },
+                "elements": footer_elements
+            })
+
+        document_pages.append({
+            "page_number": page_num + 1,
+            "width": round(rect.width, 2),
+            "height": round(rect.height, 2),
+            "unit": "pt",
+            "elements": final_page_elements
+        })
 
     # Build top-to-bottom ordered document flow sections
     ordered_sections = []
@@ -690,6 +1093,11 @@ def extract_report_data(pdf_path: str) -> dict:
     }
 
     extracted_data = {
+        "document": {
+            "file_name": os.path.basename(pdf_path),
+            "total_pages": len(doc),
+            "pages": document_pages
+        },
         "document_summary": doc_summary,
         "metadata": all_kv_pairs,
         "extracted_key_value_pairs": all_kv_pairs,
@@ -727,6 +1135,35 @@ def extract_report_data(pdf_path: str) -> dict:
         logger.info(f"Saved extracted JSON payload to: {json_save_path}")
     except Exception as e_save:
         logger.warning(f"Could not auto-save JSON to extracted_jsons/: {e_save}")
+
+    # Automatically save Word (.docx) layout into extracted_jsons/ and output/ directories
+    try:
+        from converter import convert_json_to_docx
+        
+        # Load theme config from theme.json if present
+        theme_config = {}
+        theme_json_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "theme.json")
+        if os.path.exists(theme_json_path):
+            try:
+                with open(theme_json_path, "r", encoding="utf-8") as f_theme:
+                    theme_config = json.load(f_theme)
+            except Exception:
+                pass
+
+        # Save to extracted_jsons/ as docx
+        json_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "extracted_jsons")
+        docx_save_path1 = os.path.join(json_dir, f"{pdf_stem}.docx")
+        convert_json_to_docx(extracted_data, output_path=docx_save_path1, theme_config=theme_config)
+        logger.info(f"Saved extracted Word layout to: {docx_save_path1}")
+
+        # Save to output/ as _report.docx
+        output_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output")
+        os.makedirs(output_dir, exist_ok=True)
+        docx_save_path2 = os.path.join(output_dir, f"{pdf_stem}_report.docx")
+        convert_json_to_docx(extracted_data, output_path=docx_save_path2, theme_config=theme_config)
+        logger.info(f"Saved extracted Word layout to: {docx_save_path2}")
+    except Exception as e_word:
+        logger.warning(f"Could not auto-save Word document: {e_word}")
 
     return extracted_data
 

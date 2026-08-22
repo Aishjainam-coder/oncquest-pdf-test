@@ -15,7 +15,11 @@ import base64
 import re
 from pathlib import Path
 from PIL import Image
-import fitz  # PyMuPDF
+import pymupdf as fitz  # PyMuPDF
+import logging
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
+logger = logging.getLogger("UniversalPDFConverter")
 
 try:
     from playwright.sync_api import sync_playwright
@@ -30,7 +34,7 @@ except ImportError:
 def replace_sng_gen_lab(text: str) -> str:
     if not isinstance(text, str):
         return text
-    pattern = re.compile(r"SNG\s+Gene?(?:['’‘]|&[a-zA-Z0-9#]+;)?s\s+Lab\s+pvt\.?\s*ltd", re.IGNORECASE)
+    pattern = re.compile(r"(?:SNG\s+Gene?(?:['’‘]|&[a-zA-Z0-9#]+;)?s\s+Lab|SN\s+Genelab)\s+pvt\.?\s*ltd", re.IGNORECASE)
     return pattern.sub("Laboratory", text)
 
 
@@ -76,47 +80,42 @@ def replace_sng_in_structure(obj):
 
 def replace_sng_in_docx_obj(doc):
     import re
-    pattern = re.compile(r"SNG\s+Gene?(?:['’‘]|&[a-zA-Z0-9#]+;)?s\s+Lab\s+pvt\.?\s*ltd", re.IGNORECASE)
+    pattern = re.compile(r"(?:SNG\s*Gene?(?:['’‘]|&[a-zA-Z0-9#]+;)?s\s*Lab|SN\s*Genelab)\s*pvt\.?\s*ltd", re.IGNORECASE)
     replacement = "Laboratory"
     
-    # 1. Replace in paragraphs
-    for p in doc.paragraphs:
-        for run in p.runs:
-            if pattern.search(run.text):
-                run.text = pattern.sub(replacement, run.text)
-        if pattern.search(p.text):
-            p.text = pattern.sub(replacement, p.text)
-            
-    # 2. Replace in tables
-    for table in doc.tables:
-        for row in table.rows:
-            for cell in row.cells:
-                for p in cell.paragraphs:
-                    for run in p.runs:
-                        if pattern.search(run.text):
-                            run.text = pattern.sub(replacement, run.text)
-                    if pattern.search(p.text):
-                        p.text = pattern.sub(replacement, p.text)
-                        
-    # 3. Replace in headers and footers
+    def replace_in_xml_elements(root_element):
+        for p in root_element.iter():
+            if p.tag.endswith('}p'):
+                t_elements = [t for t in p.iter() if t.tag.endswith('}t')]
+                if not t_elements:
+                    continue
+                
+                # Check individual t elements first
+                replaced = False
+                for t in t_elements:
+                    if t.text and pattern.search(t.text):
+                        t.text = pattern.sub(replacement, t.text)
+                        replaced = True
+                
+                # If not replaced but the combined text matches, we do cross-element replacement
+                if not replaced:
+                    full_text = "".join(t.text for t in t_elements if t.text)
+                    if pattern.search(full_text):
+                        t_elements[0].text = pattern.sub(replacement, full_text)
+                        for t in t_elements[1:]:
+                            t.text = ""
+
+    # Replace in main body
+    replace_in_xml_elements(doc.element)
+
+    # Replace in headers/footers
     for section in doc.sections:
         for header in [section.header, section.first_page_header, section.even_page_header]:
             if header is not None:
-                for p in header.paragraphs:
-                    for run in p.runs:
-                        if pattern.search(run.text):
-                            run.text = pattern.sub(replacement, run.text)
-                    if pattern.search(p.text):
-                        p.text = pattern.sub(replacement, p.text)
-                        
+                replace_in_xml_elements(header._element)
         for footer in [section.footer, section.first_page_footer, section.even_page_footer]:
             if footer is not None:
-                for p in footer.paragraphs:
-                    for run in p.runs:
-                        if pattern.search(run.text):
-                            run.text = pattern.sub(replacement, run.text)
-                    if pattern.search(p.text):
-                        p.text = pattern.sub(replacement, p.text)
+                replace_in_xml_elements(footer._element)
 
 
 from extractor import extract_report_data, detect_dynamic_header_footer_bounds
@@ -1416,6 +1415,7 @@ def _load_oncquest_theme(theme_config=None):
 
 
 def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict = None):
+    logger.info("[DIRECT-EXPORT] Using JSON->DOCX direct pipeline, no pdf2docx")
     from docx import Document
     from docx.shared import Pt, RGBColor, Inches
     from docx.enum.text import WD_ALIGN_PARAGRAPH
@@ -1424,23 +1424,77 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
     from docx.oxml import OxmlElement
 
     data = replace_sng_in_structure(data)
-    T = _load_oncquest_theme(theme_config)
+
+    # Load theme
+    tj = {}
+    tj_path = Path("theme.json")
+    if tj_path.exists():
+        try:
+            with open(tj_path, "r", encoding="utf-8") as f:
+                tj = json.load(f)
+        except Exception:
+            pass
+
+    # Merge theme_config overrides if provided
+    if theme_config:
+        if "colors" not in tj:
+            tj["colors"] = {}
+        if "styles" not in tj:
+            tj["styles"] = {}
+            
+        prim = theme_config.get("primary_color")
+        if prim:
+            tj["colors"]["primary"] = prim
+            
+            if "heading" not in tj["styles"]:
+                tj["styles"]["heading"] = {}
+            tj["styles"]["heading"]["text_color"] = prim
+            
+            if "table" not in tj["styles"]:
+                tj["styles"]["table"] = {}
+            tj["styles"]["table"]["header_background_color"] = prim
+            tj["styles"]["table"]["border_color"] = prim
+            
+            if "key_value" not in tj["styles"]:
+                tj["styles"]["key_value"] = {}
+            tj["styles"]["key_value"]["border_color"] = prim
+
+        show_sig = theme_config.get("show_footer_signatures")
+        if show_sig is not None:
+            if "footer" not in tj["styles"]:
+                tj["styles"]["footer"] = {}
+            tj["styles"]["footer"]["show_signatures"] = show_sig
+
+    page_cfg = tj.get("page", {})
+    default_margin_top = float(page_cfg.get("margin_top", 36.0))
+    default_margin_bottom = float(page_cfg.get("margin_bottom", 36.0))
+    default_margin_left = float(page_cfg.get("margin_left", 36.0))
+    default_margin_right = float(page_cfg.get("margin_right", 36.0))
+    default_width = float(page_cfg.get("width", 595.6))
+    default_height = float(page_cfg.get("height", 842.0))
+
+    theme_styles = tj.get("styles", {})
+    colors_cfg = tj.get("colors", {})
 
     def rgb(hx):
+        if not hx or not isinstance(hx, str):
+            return RGBColor(0, 0, 0)
+        hx = hx.strip().lstrip("#")
+        if len(hx) != 6:
+            return RGBColor(0, 0, 0)
         return RGBColor(int(hx[0:2], 16), int(hx[2:4], 16), int(hx[4:6], 16))
 
-    # ---------- xml helpers ----------
     def shade_cell(cell, fill):
         tcPr = cell._tc.get_or_add_tcPr()
         shd = OxmlElement("w:shd")
         shd.set(qn("w:val"), "clear"); shd.set(qn("w:color"), "auto")
-        shd.set(qn("w:fill"), fill); tcPr.append(shd)
+        shd.set(qn("w:fill"), fill.lstrip("#")); tcPr.append(shd)
 
     def shade_para(paragraph, fill):
         pPr = paragraph._p.get_or_add_pPr()
         shd = OxmlElement("w:shd")
         shd.set(qn("w:val"), "clear"); shd.set(qn("w:color"), "auto")
-        shd.set(qn("w:fill"), fill); pPr.append(shd)
+        shd.set(qn("w:fill"), fill.lstrip("#")); pPr.append(shd)
 
     def cell_margins(cell, t=40, b=40, l=80, r=80):
         tcPr = cell._tc.get_or_add_tcPr()
@@ -1453,6 +1507,7 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
     def table_borders(table, color, sz=4):
         tblPr = table._tbl.tblPr
         b = OxmlElement("w:tblBorders")
+        color = color.lstrip("#")
         for edge in ("top", "left", "bottom", "right", "insideH", "insideV"):
             e = OxmlElement(f"w:{edge}")
             e.set(qn("w:val"), "single"); e.set(qn("w:sz"), str(sz))
@@ -1460,530 +1515,1078 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
         tblPr.append(b)
 
     def set_repeat_header(row):
-        """Make a table's header row repeat on every page."""
         trPr = row._tr.get_or_add_trPr()
         th = OxmlElement("w:tblHeader"); th.set(qn("w:val"), "true")
         trPr.append(th)
 
     def set_cant_split(row):
-        """Prevent a row from splitting across pages."""
         trPr = row._tr.get_or_add_trPr()
         cs = OxmlElement("w:cantSplit"); cs.set(qn("w:val"), "true")
         trPr.append(cs)
 
-    # Clinical result keywords for coloring
     _POS_KW = ["positive", "pathogenic", "detected", "high", "abnormal", "msi - high", "msi-high"]
     _NEG_KW = ["negative", "normal", "not detected", "stable", "msi - stable", "msi-stable", "benign", "likely benign"]
 
     def _result_color(cell_text):
-        """Return RGBColor for clinical result or None."""
         cl = cell_text.strip().lower()
         if any(kw in cl for kw in _NEG_KW):
-            return rgb(T["result_negative"])
+            return rgb(colors_cfg.get("result_negative", "#008000"))
         if any(kw in cl for kw in _POS_KW):
-            return rgb(T["result_positive"])
+            return rgb(colors_cfg.get("result_positive", "#C00000"))
         return None
+    def _clean_text(val):
+        if val is None:
+            return ""
+        return str(val).strip()
 
-    # ---------- render primitives ----------
-    def add_banner(doc, txt, fill, big=False, flat=False):
-        """Add a heading banner. flat=True renders colored text without background shading."""
-        txt = _clean_text(txt)
-        if not txt:
-            return
-        p = doc.add_paragraph()
-        if big:
-            p.paragraph_format.space_before = Pt(T["banner_space_before"])
-            p.paragraph_format.space_after = Pt(T["banner_space_after"])
-        else:
-            p.paragraph_format.space_before = Pt(T["heading_space_before"])
-            p.paragraph_format.space_after = Pt(T["heading_space_after"])
-        p.paragraph_format.keep_with_next = True  # heading stays with its content
-        if not flat:
-            shade_para(p, fill)
-        run = p.add_run(txt); run.bold = True
-        run.font.name = T["font"]
-        run.font.size = Pt(T["banner_pt"] if big else T["body_pt"] + 1.0)
-        if flat:
-            run.font.color.rgb = rgb(T["primary"])
-        else:
-            run.font.color.rgb = rgb(T["header_text"])
+    def flatten_header_footer_content(elements):
+        """Remove header/footer wrapper elements and their nested content entirely.
+        OncQuest branding (logo/signature) is handled by docx header/footer sections.
+        Patient key_value data already exists as a sibling top-level element,
+        so header nested content (QR text, old lab logo, duplicate key_value)
+        is not needed in the body."""
+        return [el for el in elements if el.get("type") not in ("header", "footer")]
 
-    def add_para(doc, txt):
-        txt = _clean_text(txt)
-        if not txt:
-            return
-        # Support native bullet styling
-        if txt.strip().startswith(('•', '-', '*')):
-            bullet_text = txt.strip().lstrip('•-* ').strip()
-            p = doc.add_paragraph(style='List Bullet')
+    def deduplicate_elements(elements):
+        seen_bboxes = []
+        seen_texts = set()
+        cleaned = []
+        for el in elements:
+            el_type = el.get("type")
+            if el_type in ("header", "footer"):
+                cleaned.append(el)
+                continue
+            bbox = el.get("bbox")
+            text = el.get("text") or ""
+            text_str = text.strip().lower()
+            
+            is_dup = False
+            if bbox:
+                for sb in seen_bboxes:
+                    if (abs(bbox.get("x0", 0.0) - sb.get("x0", 0.0)) < 2.0 and
+                        abs(bbox.get("y0", 0.0) - sb.get("y0", 0.0)) < 2.0 and
+                        abs(bbox.get("x1", 0.0) - sb.get("x1", 0.0)) < 2.0 and
+                        abs(bbox.get("y1", 0.0) - sb.get("y1", 0.0)) < 2.0):
+                        is_dup = True
+                        break
+            
+            if text_str and text_str in seen_texts:
+                if len(text_str) > 10:
+                    is_dup = True
+                    
+            if not is_dup:
+                if bbox:
+                    seen_bboxes.append(bbox)
+                if text_str and len(text_str) > 10:
+                    seen_texts.add(text_str)
+                cleaned.append(el)
+            else:
+                if el.get("data") and bbox:
+                    for i, cel in enumerate(cleaned):
+                        cel_bbox = cel.get("bbox")
+                        if cel_bbox and (abs(bbox.get("x0", 0.0) - cel_bbox.get("x0", 0.0)) < 2.0 and
+                                         abs(bbox.get("y0", 0.0) - cel_bbox.get("y0", 0.0)) < 2.0 and
+                                         abs(bbox.get("x1", 0.0) - cel_bbox.get("x1", 0.0)) < 2.0 and
+                                         abs(bbox.get("y1", 0.0) - cel_bbox.get("y1", 0.0)) < 2.0):
+                            if not cel.get("data"):
+                                cleaned[i] = el
+                                break
+        return cleaned
+
+    def get_element_y(el):
+        bbox = el.get("bbox")
+        if bbox:
+            return float(bbox.get("y0", bbox.get("y", 0.0)))
+        return 9999.0
+
+    doc = Document()
+    pages = data.get("document", {}).get("pages")
+    if pages:
+        for p_idx, page_data in enumerate(pages):
+            # Standardize page size to standard A4 (595.28 x 841.89 pt)
+            width = 595.28
+            height = 841.89
+            
+            header_style = theme_styles.get("header", {})
+            footer_style = theme_styles.get("footer", {})
+            header_height = float(header_style.get("height_pt", 60.0))
+            footer_height = float(footer_style.get("height_pt", 40.0))
+
+            # Use only theme-configured header/footer height for margins,
+            # never the PDF's raw content bbox height (which could be huge).
+            hy_cutoff = max(default_margin_top, header_height)
+            fy_cutoff = min(height - default_margin_bottom, height - footer_height)
+
+            if p_idx == 0:
+                section = doc.sections[0]
+            else:
+                section = doc.add_section()
+                
+            section.page_width = Pt(width)
+            section.page_height = Pt(height)
+            section.top_margin = Pt(hy_cutoff)
+            section.bottom_margin = Pt(height - fy_cutoff)
+            section.left_margin = Pt(default_margin_left)
+            section.right_margin = Pt(default_margin_right)
+
+            # Setup customized header with static OncQuest logo
+            header = section.header
+            if header is not None:
+                header.is_linked_to_previous = False
+                for p in header.paragraphs:
+                    p.text = ""
+                header_para = header.paragraphs[0] if header.paragraphs else header.add_paragraph()
+                header_para.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                
+                logo_path = header_style.get("logo_image_path", "assets/header_image1.png")
+                logo_w = float(header_style.get("logo_width_pt", 540.0))
+                if Path(logo_path).exists():
+                    try:
+                        run = header_para.add_run()
+                        run.add_picture(logo_path, width=Inches(logo_w / 72.0))
+                    except Exception as e:
+                        print(f"Error adding header logo: {e}")
+
+            # Setup customized footer with Dr. Vinay Bhatia signature
+            footer = section.footer
+            if footer is not None:
+                footer.is_linked_to_previous = False
+                for p in footer.paragraphs:
+                    p.text = ""
+                
+                if footer_style.get("show_signatures", True):
+                    footer_para = footer.paragraphs[0] if footer.paragraphs else footer.add_paragraph()
+                    footer_para.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+                    
+                    sig_path = footer_style.get("signature_image_path", "assets/dr_vinay_signature.png")
+                    sig_w = float(footer_style.get("signature_width_pt", 90.0))
+                    if Path(sig_path).exists():
+                        try:
+                            run = footer_para.add_run()
+                            run.add_picture(sig_path, width=Inches(sig_w / 72.0))
+                        except Exception as e:
+                            print(f"Error adding footer signature: {e}")
+
+                # Add dynamic "Page X of Y" numbering
+                page_num_cfg = tj.get("word", {}).get("pagination", {}).get("page_numbering", {})
+                if page_num_cfg.get("enabled", True):
+                    p_num = footer.add_paragraph()
+                    p_num.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                    
+                    run_text = p_num.add_run("Page ")
+                    run_text.font.name = "Calibri"
+                    run_text.font.size = Pt(9.0)
+                    run_text.font.color.rgb = rgb("#404040")
+                    
+                    run_page = p_num.add_run()
+                    _add_page_number_to_run(run_page, None)
+                    run_page.font.name = "Calibri"
+                    run_page.font.size = Pt(9.0)
+                    run_page.font.color.rgb = rgb("#404040")
+                    
+                    run_of = p_num.add_run(" of ")
+                    run_of.font.name = "Calibri"
+                    run_of.font.size = Pt(9.0)
+                    run_of.font.color.rgb = rgb("#404040")
+                    
+                    run_numpages = p_num.add_run()
+                    _add_numpages_to_run(run_numpages, None)
+                    run_numpages.font.name = "Calibri"
+                    run_numpages.font.size = Pt(9.0)
+                    run_numpages.font.color.rgb = rgb("#404040")
+
+            # Render Body Elements with deduplication and sorting
+            # Flatten nested header/footer content into the body list first,
+            # then filter out any remaining header/footer wrappers.
+            flattened = flatten_header_footer_content(page_data.get("elements", []))
+            raw_body_elements = [el for el in flattened if el.get("type") not in ("header", "footer")]
+            deduped_body_elements = deduplicate_elements(raw_body_elements)
+            body_elements = sorted(deduped_body_elements, key=get_element_y)
+            preceding_el = None
+            for el in body_elements:
+                el_type = el.get("type")
+                style = theme_styles.get(el_type, {})
+                style_override = el.get("style_override", {})
+                # Filter out font family, size and alignment overrides to maintain consistency
+                filtered_override = {
+                    k: v for k, v in style_override.items()
+                    if k not in ("font_family", "font_size", "font_size_pt")
+                }
+                resolved_style = {**style, **filtered_override}
+
+                # Compute dynamic spacing (gap) relative to preceding elements
+                gap = 0.0
+                c_bbox = el.get("bbox")
+                if c_bbox:
+                    c_y0 = c_bbox.get("y", 0.0)
+                    if preceding_el is None:
+                        gap = max(0.0, c_y0 - hy_cutoff)
+                    else:
+                        p_bbox = preceding_el.get("bbox")
+                        if p_bbox:
+                            p_y1 = p_bbox.get("y", 0.0) + p_bbox.get("height", 0.0)
+                            gap = max(0.0, c_y0 - p_y1)
+
+                if gap > 2.0:
+                    resolved_style["spacing_before"] = min(18.0, gap)
+                else:
+                    resolved_style["spacing_before"] = 0.0
+
+                # Set spacing before table/key_value using paragraph spacers since tables don't support spacing_before
+                if el_type in ("table", "key_value") and resolved_style.get("spacing_before", 0.0) > 2.0:
+                    p_space = doc.add_paragraph()
+                    p_space.paragraph_format.space_before = Pt(0)
+                    p_space.paragraph_format.space_after = Pt(resolved_style.get("spacing_before", 0.0))
+                    p_space.paragraph_format.line_spacing = Pt(1)
+                    r = p_space.add_run(); r.font.size = Pt(1)
+
+                if el_type in ("heading", "subheading"):
+                    txt = _clean_text(el.get("text", ""))
+                    if not txt:
+                        continue
+                    p = doc.add_paragraph()
+                    p.paragraph_format.space_before = Pt(resolved_style.get("spacing_before", 6.0))
+                    p.paragraph_format.space_after = Pt(resolved_style.get("spacing_after", 4.0))
+                    p.paragraph_format.keep_with_next = True
+                    
+                    align_val = resolved_style.get("alignment", "left").lower()
+                    if align_val == "center":
+                        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                    elif align_val == "right":
+                        p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+                    else:
+                        p.alignment = WD_ALIGN_PARAGRAPH.LEFT
+                        
+                    run = p.add_run(txt)
+                    run.bold = resolved_style.get("bold", True)
+                    run.italic = resolved_style.get("italic", False)
+                    run.font.name = resolved_style.get("font_family", "Cambria")
+                    run.font.size = Pt(resolved_style.get("font_size", 11.0))
+                    color_val = resolved_style.get("text_color") or colors_cfg.get("primary", "#1f497d")
+                    run.font.color.rgb = rgb(color_val)
+                    preceding_el = el
+
+                elif el_type == "paragraph":
+                    txt = _clean_text(el.get("text", ""))
+                    if not txt:
+                        continue
+                    
+                    if txt.startswith(('•', '-', '*')):
+                        bullet_text = txt.lstrip('•-* ').strip()
+                        p = doc.add_paragraph(style='List Bullet')
+                        p.paragraph_format.space_before = Pt(resolved_style.get("spacing_before", 0.0))
+                        p.paragraph_format.space_after = Pt(resolved_style.get("spacing_after", 4.0))
+                        p.paragraph_format.line_spacing = resolved_style.get("line_spacing", 1.15)
+                        run = p.add_run(bullet_text)
+                    else:
+                        p = doc.add_paragraph()
+                        p.paragraph_format.space_before = Pt(resolved_style.get("spacing_before", 0.0))
+                        p.paragraph_format.space_after = Pt(resolved_style.get("spacing_after", 4.0))
+                        p.paragraph_format.line_spacing = resolved_style.get("line_spacing", 1.15)
+                        align_val = resolved_style.get("alignment", "left").lower()
+                        if align_val == "center":
+                            p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                        elif align_val == "right":
+                            p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+                        else:
+                            p.alignment = WD_ALIGN_PARAGRAPH.LEFT
+                        run = p.add_run(txt)
+                        
+                    run.font.name = resolved_style.get("font_family", "Cambria")
+                    run.font.size = Pt(resolved_style.get("font_size", 10.0))
+                    color_val = resolved_style.get("text_color") or colors_cfg.get("text_primary", "#000000")
+                    run.font.color.rgb = rgb(color_val)
+                    preceding_el = el
+
+                elif el_type == "key_value":
+                    kv_data = el.get("data", {})
+                    if not kv_data:
+                        continue
+                    
+                    tbl = doc.add_table(rows=0, cols=4)
+                    tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
+                    tbl.allow_autofit = False
+                    border_color = resolved_style.get("border_color", "#cbd5e1")
+                    
+                    b_sz = int(resolved_style.get("border_width", 0.25) * 8)
+                    table_borders(tbl, border_color, sz=max(1, b_sz))
+                    
+                    col_widths = [Inches(1.0), Inches(2.2), Inches(1.0), Inches(2.2)]
+                    items = list(kv_data.items())
+                    for idx in range(0, len(items), 2):
+                        cells = tbl.add_row().cells
+                        set_cant_split(tbl.rows[-1])
+                        for c in cells:
+                            cell_margins(c, t=20, b=20, l=40, r=40)
+                            
+                        k1, v1 = items[idx]
+                        kr1 = cells[0].paragraphs[0].add_run(_clean_text(k1))
+                        kr1.bold = resolved_style.get("label_bold", True)
+                        kr1.font.name = resolved_style.get("font_family", "Cambria")
+                        kr1.font.size = Pt(resolved_style.get("font_size", 10.0))
+                        kr1.font.color.rgb = rgb(colors_cfg.get("primary", "#1f497d"))
+                        
+                        v1_str = _clean_text(v1)
+                        vr1 = cells[1].paragraphs[0].add_run(v1_str)
+                        vr1.font.name = resolved_style.get("font_family", "Cambria")
+                        vr1.font.size = Pt(resolved_style.get("font_size", 10.0))
+                        rc1 = _result_color(v1_str)
+                        if rc1:
+                            vr1.font.color.rgb = rc1
+                            vr1.bold = True
+                        else:
+                            vr1.font.color.rgb = rgb(colors_cfg.get("text_primary", "#000000"))
+                        
+                        if idx + 1 < len(items):
+                            k2, v2 = items[idx + 1]
+                            kr2 = cells[2].paragraphs[0].add_run(_clean_text(k2))
+                            kr2.bold = resolved_style.get("label_bold", True)
+                            kr2.font.name = resolved_style.get("font_family", "Cambria")
+                            kr2.font.size = Pt(resolved_style.get("font_size", 10.0))
+                            kr2.font.color.rgb = rgb(colors_cfg.get("primary", "#1f497d"))
+                            
+                            v2_str = _clean_text(v2)
+                            vr2 = cells[3].paragraphs[0].add_run(v2_str)
+                            vr2.font.name = resolved_style.get("font_family", "Cambria")
+                            vr2.font.size = Pt(resolved_style.get("font_size", 10.0))
+                            rc2 = _result_color(v2_str)
+                            if rc2:
+                                vr2.font.color.rgb = rc2
+                                vr2.bold = True
+                            else:
+                                vr2.font.color.rgb = rgb(colors_cfg.get("text_primary", "#000000"))
+                            
+                    for row in tbl.rows:
+                        for i, w in enumerate(col_widths):
+                            row.cells[i].width = w
+                            
+                    p_space = doc.add_paragraph()
+                    p_space.paragraph_format.space_before = Pt(0)
+                    p_space.paragraph_format.space_after = Pt(4)
+                    p_space.paragraph_format.line_spacing = Pt(1)
+                    r = p_space.add_run(); r.font.size = Pt(1)
+                    preceding_el = el
+
+                elif el_type == "table":
+                    cols_list = el.get("columns", [])
+                    rows_list = el.get("rows", [])
+                    if not cols_list:
+                        continue
+                    
+                    ncols = len(cols_list)
+                    tbl = doc.add_table(rows=1, cols=ncols)
+                    tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
+                    tbl.allow_autofit = False
+                    
+                    border_color = resolved_style.get("border_color", "#1f497d")
+                    b_sz = int(resolved_style.get("border_width", 0.5) * 8)
+                    table_borders(tbl, border_color, sz=max(1, b_sz))
+                    
+                    header_names = []
+                    col_widths = []
+                    for col in cols_list:
+                        if isinstance(col, dict):
+                            header_names.append(col.get("name", ""))
+                            col_widths.append(col.get("width"))
+                        else:
+                            header_names.append(str(col))
+                            col_widths.append(None)
+
+                    # Calculate dynamic column widths if not specified
+                    has_none_width = any(w is None for w in col_widths)
+                    if has_none_width:
+                        left_margin = float(page_cfg.get("margin_left", 36.0))
+                        right_margin = float(page_cfg.get("margin_right", 36.0))
+                        avail_w = 595.28 - (left_margin + right_margin)
+                        
+                        known_w_sum = sum(w for w in col_widths if w is not None)
+                        unspecified_count = sum(1 for w in col_widths if w is None)
+                        remaining_w = max(50.0, avail_w - known_w_sum)
+                        
+                        col_max_lens = []
+                        for i in range(ncols):
+                            if col_widths[i] is None:
+                                h_name = header_names[i]
+                                max_l = len(str(h_name))
+                                for r_val in rows_list:
+                                    if isinstance(r_val, dict):
+                                        val = r_val.get(h_name, "")
+                                    elif isinstance(r_val, list) and i < len(r_val):
+                                        val = r_val[i]
+                                    else:
+                                        val = ""
+                                    max_l = max(max_l, len(_clean_text(val)))
+                                col_max_lens.append((i, max_l))
+                        
+                        base_min = min(45.0, (remaining_w / unspecified_count) * 0.6) if unspecified_count > 0 else 45.0
+                        min_w_sum = base_min * unspecified_count
+                        distribute_w = max(0.0, remaining_w - min_w_sum)
+                        
+                        weights = [max(1, l) ** 0.7 for idx, l in col_max_lens]
+                        total_weight = sum(weights)
+                        
+                        weight_idx = 0
+                        for i in range(ncols):
+                            if col_widths[i] is None:
+                                if total_weight > 0:
+                                    extra = (weights[weight_idx] / total_weight) * distribute_w
+                                else:
+                                    extra = distribute_w / unspecified_count
+                                col_widths[i] = base_min + extra
+                                weight_idx += 1
+                            
+                    hrow = tbl.rows[0]
+                    set_repeat_header(hrow)
+                    set_cant_split(hrow)
+                    header_bg = resolved_style.get("header_background_color", "#1f497d")
+                    header_text_color = resolved_style.get("header_text_color", "#ffffff")
+                    
+                    t_pad = int(resolved_style.get("cell_padding_top", 3.0) * 20)
+                    b_pad = int(resolved_style.get("cell_padding_bottom", 3.0) * 20)
+                    l_pad = int(resolved_style.get("cell_padding_left", 4.0) * 20)
+                    r_pad = int(resolved_style.get("cell_padding_right", 4.0) * 20)
+
+                    for i in range(ncols):
+                        cell = hrow.cells[i]
+                        shade_cell(cell, header_bg)
+                        cell_margins(cell, t=t_pad, b=b_pad, l=l_pad, r=r_pad)
+                        para = cell.paragraphs[0]
+                        para.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                        run = para.add_run(header_names[i])
+                        run.bold = resolved_style.get("header_bold", True)
+                        run.font.name = resolved_style.get("font_family", "Cambria")
+                        run.font.size = Pt(resolved_style.get("font_size", 9.5))
+                        run.font.color.rgb = rgb(header_text_color)
+                        
+                    row_bg = colors_cfg.get("alternating_row_bg", "#f8fafc")
+                    for row_idx, r_val in enumerate(rows_list):
+                        cells = tbl.add_row().cells
+                        set_cant_split(tbl.rows[-1])
+                        
+                        is_alt = (row_idx % 2 == 1)
+                        for i in range(ncols):
+                            cell = cells[i]
+                            if is_alt and row_bg:
+                                shade_cell(cell, row_bg)
+                            cell_margins(cell, t=t_pad, b=b_pad, l=l_pad, r=r_pad)
+                            
+                            h_name = header_names[i]
+                            if isinstance(r_val, dict):
+                                val = r_val.get(h_name, "")
+                            elif isinstance(r_val, list) and i < len(r_val):
+                                val = r_val[i]
+                            else:
+                                val = ""
+                                
+                            run = cell.paragraphs[0].add_run(_clean_text(val))
+                            run.font.name = resolved_style.get("font_family", "Cambria")
+                            run.font.size = Pt(resolved_style.get("font_size", 9.5))
+                            
+                            rc = _result_color(str(val))
+                            if rc:
+                                run.font.color.rgb = rc
+                                run.bold = True
+                            else:
+                                run.font.color.rgb = rgb(colors_cfg.get("text_primary", "#000000"))
+                                
+                    for row in tbl.rows:
+                        for i in range(ncols):
+                            w_pt = col_widths[i]
+                            if w_pt is not None:
+                                row.cells[i].width = Inches(float(w_pt) / 72.0)
+
+                    p_space = doc.add_paragraph()
+                    p_space.paragraph_format.space_before = Pt(0)
+                    p_space.paragraph_format.space_after = Pt(6)
+                    p_space.paragraph_format.line_spacing = Pt(1)
+                    r = p_space.add_run(); r.font.size = Pt(1)
+                    preceding_el = el
+
+                elif el_type == "image":
+                    uri = el.get("data_uri", "")
+                    if not uri or "," not in uri:
+                        continue
+                    try:
+                        raw = base64.b64decode(uri.split(",", 1)[1])
+                        stream = io.BytesIO(raw)
+                        w = float(el.get("width", 0) or 0)
+                        
+                        p = doc.add_paragraph()
+                        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                        p.paragraph_format.space_before = Pt(resolved_style.get("spacing_before", 0.0))
+                        p.paragraph_format.space_after = Pt(6)
+                        
+                        run = p.add_run()
+                        width_in = min(6.0, w / 72.0) if w else 4.0
+                        run.add_picture(stream, width=Inches(max(1.0, width_in)))
+                    except Exception:
+                        pass
+                    preceding_el = el
+                                
+        eor_style = theme_styles.get("end_of_report_marker", {}) or tj.get("components", {}).get("end_of_report_marker", {})
+        p_eor = doc.add_paragraph()
+        p_eor.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        p_eor.paragraph_format.space_before = Pt(12)
+        p_eor.paragraph_format.space_after = Pt(12)
+        run_eor = p_eor.add_run(eor_style.get("text", "------------------ End Of Report ------------------"))
+        run_eor.font.name = eor_style.get("font_family", "Calibri")
+        run_eor.font.size = Pt(eor_style.get("font_size_pt", 10.0))
+        run_eor.font.color.rgb = rgb(eor_style.get("text_color", "#000000"))
+
+        replace_sng_in_docx_obj(doc)
+        if output_path:
+            out_p = Path(output_path)
+            out_p.parent.mkdir(parents=True, exist_ok=True)
+            doc.save(str(out_p))
+            return None
+        buf = io.BytesIO()
+        doc.save(buf)
+        return buf.getvalue()
+        
+    else:
+        T = _load_oncquest_theme(theme_config)
+
+        def rgb_legacy(hx):
+            return RGBColor(int(hx[0:2], 16), int(hx[2:4], 16), int(hx[4:6], 16))
+
+        def shade_cell_legacy(cell, fill):
+            tcPr = cell._tc.get_or_add_tcPr()
+            shd = OxmlElement("w:shd")
+            shd.set(qn("w:val"), "clear"); shd.set(qn("w:color"), "auto")
+            shd.set(qn("w:fill"), fill); tcPr.append(shd)
+
+        def shade_para_legacy(paragraph, fill):
+            pPr = paragraph._p.get_or_add_pPr()
+            shd = OxmlElement("w:shd")
+            shd.set(qn("w:val"), "clear"); shd.set(qn("w:color"), "auto")
+            shd.set(qn("w:fill"), fill); pPr.append(shd)
+
+        def cell_margins_legacy(cell, t=40, b=40, l=80, r=80):
+            tcPr = cell._tc.get_or_add_tcPr()
+            m = OxmlElement("w:tcMar")
+            for tag, val in (("top", t), ("bottom", b), ("start", l), ("end", r)):
+                n = OxmlElement(f"w:{tag}")
+                n.set(qn("w:w"), str(val)); n.set(qn("w:type"), "dxa"); m.append(n)
+            tcPr.append(m)
+
+        def table_borders_legacy(table, color, sz=4):
+            tblPr = table._tbl.tblPr
+            b = OxmlElement("w:tblBorders")
+            for edge in ("top", "left", "bottom", "right", "insideH", "insideV"):
+                e = OxmlElement(f"w:{edge}")
+                e.set(qn("w:val"), "single"); e.set(qn("w:sz"), str(sz))
+                e.set(qn("w:space"), "0"); e.set(qn("w:color"), color); b.append(e)
+            tblPr.append(b)
+
+        def set_repeat_header_legacy(row):
+            trPr = row._tr.get_or_add_trPr()
+            th = OxmlElement("w:tblHeader"); th.set(qn("w:val"), "true")
+            trPr.append(th)
+
+        def set_cant_split_legacy(row):
+            trPr = row._tr.get_or_add_trPr()
+            cs = OxmlElement("w:cantSplit"); cs.set(qn("w:val"), "true")
+            trPr.append(cs)
+
+        def _result_color_legacy(cell_text):
+            cl = cell_text.strip().lower()
+            if any(kw in cl for kw in _NEG_KW):
+                return rgb_legacy(T["result_negative"])
+            if any(kw in cl for kw in _POS_KW):
+                return rgb_legacy(T["result_positive"])
+            return None
+
+        def add_banner(doc, txt, fill, big=False, flat=False):
+            txt = _clean_text(txt)
+            if not txt:
+                return
+            p = doc.add_paragraph()
+            if big:
+                p.paragraph_format.space_before = Pt(T["banner_space_before"])
+                p.paragraph_format.space_after = Pt(T["banner_space_after"])
+            else:
+                p.paragraph_format.space_before = Pt(T["heading_space_before"])
+                p.paragraph_format.space_after = Pt(T["heading_space_after"])
+            p.paragraph_format.keep_with_next = True
+            if not flat:
+                shade_para_legacy(p, fill)
+            run = p.add_run(txt); run.bold = True
+            run.font.name = T["font"]
+            run.font.size = Pt(T["banner_pt"] if big else T["body_pt"] + 1.0)
+            if flat:
+                run.font.color.rgb = rgb_legacy(T["primary"])
+            else:
+                run.font.color.rgb = rgb_legacy(T["header_text"])
+
+        def add_para(doc, txt):
+            txt = _clean_text(txt)
+            if not txt:
+                return
+            if txt.strip().startswith(('•', '-', '*')):
+                bullet_text = txt.strip().lstrip('•-* ').strip()
+                p = doc.add_paragraph(style='List Bullet')
+                p.paragraph_format.space_before = Pt(T["para_space_before"])
+                p.paragraph_format.space_after = Pt(T["para_space_after"])
+                p.paragraph_format.line_spacing = T["line_spacing"]
+                run = p.add_run(bullet_text)
+                run.font.name = T["font"]; run.font.size = Pt(T["body_pt"])
+                run.font.color.rgb = rgb_legacy(T["body_color"])
+                return
+                
+            p = doc.add_paragraph()
             p.paragraph_format.space_before = Pt(T["para_space_before"])
             p.paragraph_format.space_after = Pt(T["para_space_after"])
             p.paragraph_format.line_spacing = T["line_spacing"]
-            run = p.add_run(bullet_text)
+            run = p.add_run(txt)
             run.font.name = T["font"]; run.font.size = Pt(T["body_pt"])
-            run.font.color.rgb = rgb(T["body_color"])
-            return
-            
-        p = doc.add_paragraph()
-        p.paragraph_format.space_before = Pt(T["para_space_before"])
-        p.paragraph_format.space_after = Pt(T["para_space_after"])
-        p.paragraph_format.line_spacing = T["line_spacing"]
-        run = p.add_run(txt)
-        run.font.name = T["font"]; run.font.size = Pt(T["body_pt"])
-        run.font.color.rgb = rgb(T["body_color"])
+            run.font.color.rgb = rgb_legacy(T["body_color"])
 
-    def add_report_title(doc, text):
-        text = _clean_text(text)
-        if not text:
-            return
-        p = doc.add_paragraph()
-        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        p.paragraph_format.space_before = Pt(8)
-        p.paragraph_format.space_after = Pt(12)
-        p.paragraph_format.keep_with_next = True
-        run = p.add_run(text)
-        run.bold = True
-        run.font.name = T["font"]
-        run.font.size = Pt(14.0)
-        run.font.color.rgb = rgb(T["primary"])
-
-    def add_content_box(doc, title, lines):
-        if not title and not lines:
-            return
-        tbl = doc.add_table(rows=1, cols=1)
-        tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
-        tbl.autofit = True
-        cell = tbl.rows[0].cells[0]
-        cell_margins(cell, t=80, b=80, l=100, r=100)
-        shade_cell(cell, "FFFFFF")
-        
-        # Apply borders (single box outline)
-        tcPr = cell._tc.get_or_add_tcPr()
-        borders = OxmlElement("w:tcBorders")
-        for side in ("top", "left", "bottom", "right"):
-            b = OxmlElement(f"w:{side}")
-            b.set(qn("w:val"), "single")
-            b.set(qn("w:sz"), "6")
-            b.set(qn("w:space"), "0")
-            b.set(qn("w:color"), T["border"])
-            borders.append(b)
-        tcPr.append(borders)
-        
-        # Add content inside cell
-        p = cell.paragraphs[0]
-        p.paragraph_format.space_before = Pt(2)
-        p.paragraph_format.space_after = Pt(2)
-        p.paragraph_format.keep_with_next = True
-        
-        if title:
-            run_title = p.add_run(title)
-            run_title.bold = True
-            run_title.font.name = T["font"]
-            run_title.font.size = Pt(T["body_pt"] + 0.5)
-            run_title.font.color.rgb = rgb(T["primary"])
-            p = cell.add_paragraph()
-            
-        for line in lines:
-            line_text = _clean_text(line)
-            if not line_text:
-                continue
-            # Check for lists inside box
-            if line_text.strip().startswith(('•', '-', '*')):
-                bullet_text = line_text.strip().lstrip('•-* ').strip()
-                p_bullet = cell.add_paragraph(style='List Bullet')
-                p_bullet.paragraph_format.space_before = Pt(0)
-                p_bullet.paragraph_format.space_after = Pt(2)
-                p_bullet.paragraph_format.line_spacing = T["line_spacing"]
-                run = p_bullet.add_run(bullet_text)
-                run.font.name = T["font"]; run.font.size = Pt(T["body_pt"])
-                run.font.color.rgb = rgb(T["body_color"])
-                continue
-                
-            p.paragraph_format.space_before = Pt(0)
-            p.paragraph_format.space_after = Pt(2)
-            p.paragraph_format.line_spacing = T["line_spacing"]
-            run = p.add_run(line_text)
+        def add_report_title(doc, text):
+            text = _clean_text(text)
+            if not text:
+                return
+            p = doc.add_paragraph()
+            p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            p.paragraph_format.space_before = Pt(8)
+            p.paragraph_format.space_after = Pt(12)
+            p.paragraph_format.keep_with_next = True
+            run = p.add_run(text)
+            run.bold = True
             run.font.name = T["font"]
-            run.font.size = Pt(T["body_pt"])
-            run.font.color.rgb = rgb(T["body_color"])
-            p = cell.add_paragraph()
-            
-        # Clean up any trailing empty paragraph inside cell
-        if len(cell.paragraphs) > 1 and cell.paragraphs[-1].text == "":
-            p_to_remove = cell.paragraphs[-1]
-            p_to_remove._p.getparent().remove(p_to_remove._p)
-            
-        # Add table spacing after
-        p_space = doc.add_paragraph()
-        p_space.paragraph_format.space_before = Pt(0)
-        p_space.paragraph_format.space_after = Pt(T["table_space_after"])
-        p_space.paragraph_format.line_spacing = Pt(1)
-        r = p_space.add_run()
-        r.font.size = Pt(1)
+            run.font.size = Pt(14.0)
+            run.font.color.rgb = rgb_legacy(T["primary"])
 
-    def add_kv_table(doc, kv):
-        if not kv:
-            return
-        tbl = doc.add_table(rows=0, cols=4)
-        table_borders(tbl, T["border_table"])
-        tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
-        tbl.autofit = True
-        
-        # Patient details column widths mapping to total A4 width (approx 6.4 inches printable width)
-        col_widths = [Inches(1.0), Inches(2.2), Inches(1.0), Inches(2.2)]
-        
-        items = list(kv.items())
-        for idx in range(0, len(items), 2):
-            cells = tbl.add_row().cells
-            set_cant_split(tbl.rows[-1])
-            for c in cells:
-                cell_margins(c, t=20, b=20, l=40, r=40)
+        def add_content_box(doc, title, lines):
+            if not title and not lines:
+                return
+            tbl = doc.add_table(rows=1, cols=1)
+            tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
+            tbl.autofit = True
+            cell = tbl.rows[0].cells[0]
+            cell_margins_legacy(cell, t=80, b=80, l=100, r=100)
+            shade_cell_legacy(cell, "FFFFFF")
+            
+            tcPr = cell._tc.get_or_add_tcPr()
+            borders = OxmlElement("w:tcBorders")
+            for side in ("top", "left", "bottom", "right"):
+                b = OxmlElement(f"w:{side}")
+                b.set(qn("w:val"), "single")
+                b.set(qn("w:sz"), "6")
+                b.set(qn("w:space"), "0")
+                b.set(qn("w:color"), T["border"])
+                borders.append(b)
+            tcPr.append(borders)
+            
+            p = cell.paragraphs[0]
+            p.paragraph_format.space_before = Pt(2)
+            p.paragraph_format.space_after = Pt(2)
+            p.paragraph_format.keep_with_next = True
+            
+            if title:
+                run_title = p.add_run(title)
+                run_title.bold = True
+                run_title.font.name = T["font"]
+                run_title.font.size = Pt(T["body_pt"] + 0.5)
+                run_title.font.color.rgb = rgb_legacy(T["primary"])
+                p = cell.add_paragraph()
                 
-            # First key-value pair
-            k1, v1 = items[idx]
-            kr1 = cells[0].paragraphs[0].add_run(_clean_text(k1))
-            kr1.bold = True; kr1.font.name = T["font"]; kr1.font.size = Pt(T["body_pt"])
-            kr1.font.color.rgb = rgb(T["primary"])
-            vr1 = cells[1].paragraphs[0].add_run(_clean_text(v1))
-            vr1.font.name = T["font"]; vr1.font.size = Pt(T["body_pt"])
-            vr1.font.color.rgb = rgb(T["body_color"])
+            for line in lines:
+                line_text = _clean_text(line)
+                if not line_text:
+                    continue
+                if line_text.strip().startswith(('•', '-', '*')):
+                    bullet_text = line_text.strip().lstrip('•-* ').strip()
+                    p_bullet = cell.add_paragraph(style='List Bullet')
+                    p_bullet.paragraph_format.space_before = Pt(0)
+                    p_bullet.paragraph_format.space_after = Pt(2)
+                    p_bullet.paragraph_format.line_spacing = T["line_spacing"]
+                    run = p_bullet.add_run(bullet_text)
+                    run.font.name = T["font"]; run.font.size = Pt(T["body_pt"])
+                    run.font.color.rgb = rgb_legacy(T["body_color"])
+                    continue
+                    
+                p.paragraph_format.space_before = Pt(0)
+                p.paragraph_format.space_after = Pt(2)
+                p.paragraph_format.line_spacing = T["line_spacing"]
+                run = p.add_run(line_text)
+                run.font.name = T["font"]
+                run.font.size = Pt(T["body_pt"])
+                run.font.color.rgb = rgb_legacy(T["body_color"])
+                p = cell.add_paragraph()
+                
+            if len(cell.paragraphs) > 1 and cell.paragraphs[-1].text == "":
+                p_to_remove = cell.paragraphs[-1]
+                p_to_remove._p.getparent().remove(p_to_remove._p)
+                
+            p_space = doc.add_paragraph()
+            p_space.paragraph_format.space_before = Pt(0)
+            p_space.paragraph_format.space_after = Pt(T["table_space_after"])
+            p_space.paragraph_format.line_spacing = Pt(1)
+            r = p_space.add_run(); r.font.size = Pt(1)
+
+        def add_kv_table(doc, kv):
+            if not kv:
+                return
+            tbl = doc.add_table(rows=0, cols=4)
+            table_borders_legacy(tbl, T["border_table"])
+            tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
+            tbl.autofit = True
             
-            # Second key-value pair
-            if idx + 1 < len(items):
-                k2, v2 = items[idx + 1]
-                kr2 = cells[2].paragraphs[0].add_run(_clean_text(k2))
-                kr2.bold = True; kr2.font.name = T["font"]; kr2.font.size = Pt(T["body_pt"])
-                kr2.font.color.rgb = rgb(T["primary"])
-                vr2 = cells[3].paragraphs[0].add_run(_clean_text(v2))
-                vr2.font.name = T["font"]; vr2.font.size = Pt(T["body_pt"])
-                vr2.font.color.rgb = rgb(T["body_color"])
+            col_widths = [Inches(1.0), Inches(2.2), Inches(1.0), Inches(2.2)]
+            items = list(kv.items())
+            for idx in range(0, len(items), 2):
+                cells = tbl.add_row().cells
+                set_cant_split_legacy(tbl.rows[-1])
+                for c in cells:
+                    cell_margins_legacy(c, t=20, b=20, l=40, r=40)
+                    
+                k1, v1 = items[idx]
+                kr1 = cells[0].paragraphs[0].add_run(_clean_text(k1))
+                kr1.bold = True; kr1.font.name = T["font"]; kr1.font.size = Pt(T["body_pt"])
+                kr1.font.color.rgb = rgb_legacy(T["primary"])
+                vr1 = cells[1].paragraphs[0].add_run(_clean_text(v1))
+                vr1.font.name = T["font"]; vr1.font.size = Pt(T["body_pt"])
+                vr1.font.color.rgb = rgb_legacy(T["body_color"])
+                
+                if idx + 1 < len(items):
+                    k2, v2 = items[idx + 1]
+                    kr2 = cells[2].paragraphs[0].add_run(_clean_text(k2))
+                    kr2.bold = True; kr2.font.name = T["font"]; kr2.font.size = Pt(T["body_pt"])
+                    kr2.font.color.rgb = rgb_legacy(T["primary"])
+                    vr2 = cells[3].paragraphs[0].add_run(_clean_text(v2))
+                    vr2.font.name = T["font"]; vr2.font.size = Pt(T["body_pt"])
+                    vr2.font.color.rgb = rgb_legacy(T["body_color"])
 
-        # Set specific column widths on all rows
-        for row in tbl.rows:
-            for i, w in enumerate(col_widths):
-                row.cells[i].width = w
+            for row in tbl.rows:
+                for i, w in enumerate(col_widths):
+                    row.cells[i].width = w
 
-        # Add table spacing after
-        p_space = doc.add_paragraph()
-        p_space.paragraph_format.space_before = Pt(0)
-        p_space.paragraph_format.space_after = Pt(T["table_space_after"])
-        p_space.paragraph_format.line_spacing = Pt(1)
-        r = p_space.add_run()
-        r.font.size = Pt(1)
+            p_space = doc.add_paragraph()
+            p_space.paragraph_format.space_before = Pt(0)
+            p_space.paragraph_format.space_after = Pt(T["table_space_after"])
+            p_space.paragraph_format.line_spacing = Pt(1)
+            r = p_space.add_run(); r.font.size = Pt(1)
 
-    def add_data_table(doc, tab):
-        headers = [_clean_text(h) for h in (tab.get("headers") or [])]
-        rows = [[_clean_text(c) for c in (r or [])] for r in (tab.get("rows") or [])]
+        def add_data_table_legacy(doc, tab):
+            headers = [_clean_text(h) for h in (tab.get("headers") or [])]
+            rows = [[_clean_text(c) for c in (r or [])] for r in (tab.get("rows") or [])]
 
-        if (not headers or not any(headers)) and rows:  # empty header -> promote row 0
-            headers = rows[0]; rows = rows[1:]
-        if not any(headers) and not any(any(c for c in r) for r in rows):  # empty table
-            return
+            if (not headers or not any(headers)) and rows:
+                headers = rows[0]; rows = rows[1:]
+            if not any(headers) and not any(any(c for c in r) for r in rows):
+                return
 
-        ncols = max([len(headers)] + [len(r) for r in rows] + [0])
-        if ncols == 0:
-            return
-        headers = (headers + [""] * ncols)[:ncols]
-        rows = [(r + [""] * ncols)[:ncols] for r in rows]
+            ncols = max([len(headers)] + [len(r) for r in rows] + [0])
+            if ncols == 0:
+                return
+            headers = (headers + [""] * ncols)[:ncols]
+            rows = [(r + [""] * ncols)[:ncols] for r in rows]
 
-        # Remove entirely-empty columns (header + all rows empty)
-        keep_cols = []
-        for ci in range(ncols):
-            col_vals = [headers[ci].strip()] + [str(r[ci]).strip() for r in rows]
-            if any(v for v in col_vals):
-                keep_cols.append(ci)
-        if not keep_cols:
-            return
-        headers = [headers[ci] for ci in keep_cols]
-        rows = [[r[ci] for ci in keep_cols] for r in rows]
-        ncols = len(keep_cols)
+            keep_cols = []
+            for ci in range(ncols):
+                col_vals = [headers[ci].strip()] + [str(r[ci]).strip() for r in rows]
+                if any(v for v in col_vals):
+                    keep_cols.append(ci)
+            if not keep_cols:
+                return
+            headers = [headers[ci] for ci in keep_cols]
+            rows = [[r[ci] for ci in keep_cols] for r in rows]
+            ncols = len(keep_cols)
 
-        has_header = any(headers)
-        tbl = doc.add_table(rows=1 if has_header else 0, cols=ncols)
-        table_borders(tbl, T["border_table"])
-        tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
-        tbl.autofit = True
+            has_header = any(headers)
+            tbl = doc.add_table(rows=1 if has_header else 0, cols=ncols)
+            table_borders_legacy(tbl, T["border_table"])
+            tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
+            tbl.allow_autofit = False
 
-        if has_header:
-            hrow = tbl.rows[0]
-            set_repeat_header(hrow)   # header repeats across pages
-            set_cant_split(hrow)
+            # Calculate dynamic column widths for legacy table
+            avail_w = 595.28 - (float(T.get("margin_left", 36.0)) + float(T.get("margin_right", 36.0)))
+            col_max_lens = [len(str(h)) for h in headers]
+            for r in rows:
+                for i in range(min(ncols, len(r))):
+                    col_max_lens[i] = max(col_max_lens[i], len(str(r[i])))
+            
+            base_min = min(45.0, (avail_w / ncols) * 0.6) if ncols > 0 else 45.0
+            min_w_sum = base_min * ncols
+            distribute_w = max(0.0, avail_w - min_w_sum)
+            
+            weights = [max(1, l) ** 0.7 for l in col_max_lens]
+            total_weight = sum(weights)
+            
+            legacy_col_widths = []
             for i in range(ncols):
-                cell = hrow.cells[i]
-                shade_cell(cell, T["primary"]); cell_margins(cell)
-                para = cell.paragraphs[0]; para.alignment = WD_ALIGN_PARAGRAPH.CENTER
-                run = para.add_run(headers[i]); run.bold = True
-                run.font.name = T["table_header_font"]
-                run.font.size = Pt(T["table_header_pt"])
-                run.font.color.rgb = rgb(T["header_text"])
-
-        for row_idx, r in enumerate(rows):
-            cells = tbl.add_row().cells
-            set_cant_split(tbl.rows[-1])   # a row never splits across pages
-            row_bg = T.get("alternating_row_bg")
-            for i in range(ncols):
-                cell = cells[i]
-                cell_margins(cell)
-                # Apply alternating row background color on odd rows
-                if row_idx % 2 == 1 and row_bg:
-                    shade_cell(cell, row_bg)
-                cell_text = r[i]
-                run = cell.paragraphs[0].add_run(cell_text)
-                run.font.name = T["font"]; run.font.size = Pt(T["body_pt"])
-                # Apply clinical result coloring
-                rc = _result_color(cell_text)
-                if rc:
-                    run.font.color.rgb = rc
-                    run.bold = True
+                if total_weight > 0:
+                    extra = (weights[i] / total_weight) * distribute_w
                 else:
-                    run.font.color.rgb = rgb(T["body_color"])
-        
-        # Add table spacing after
-        p_space = doc.add_paragraph()
-        p_space.paragraph_format.space_before = Pt(0)
-        p_space.paragraph_format.space_after = Pt(T["table_space_after"])
-        p_space.paragraph_format.line_spacing = Pt(1)
-        r = p_space.add_run()
-        r.font.size = Pt(1)
+                    extra = distribute_w / ncols
+                legacy_col_widths.append(base_min + extra)
 
-    def add_image(doc, img):
-        if _is_decorative_image(img):       # skip watermark circles
-            return
-        uri = img.get("data_uri", "")
-        if not uri or "," not in uri:
-            return
-        try:
-            raw = base64.b64decode(uri.split(",", 1)[1])
-            stream = io.BytesIO(raw)
-            w = float(img.get("width", 0) or 0)
-            p = doc.add_paragraph(); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-            run = p.add_run()
-            width_in = min(6.0, w / 96.0) if w else 4.0
-            run.add_picture(stream, width=Inches(max(1.0, width_in)))
-        except Exception:
-            pass
+            if has_header:
+                hrow = tbl.rows[0]
+                set_repeat_header_legacy(hrow)
+                set_cant_split_legacy(hrow)
+                for i in range(ncols):
+                    cell = hrow.cells[i]
+                    shade_cell_legacy(cell, T["primary"]); cell_margins_legacy(cell)
+                    para = cell.paragraphs[0]; para.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                    run = para.add_run(headers[i]); run.bold = True
+                    run.font.name = T["table_header_font"]
+                    run.font.size = Pt(T["table_header_pt"])
+                    run.font.color.rgb = rgb_legacy(T["header_text"])
 
-    def bbox_top(el):
-        bb = el.get("bbox")
-        if isinstance(bb, (list, tuple)) and len(bb) >= 2:
-            return (bb[1], bb[0])   # sort by top-Y then left-X
-        return (10_000_000, 0)
+            for row_idx, r in enumerate(rows):
+                cells = tbl.add_row().cells
+                set_cant_split_legacy(tbl.rows[-1])
+                row_bg = T.get("alternating_row_bg")
+                for i in range(ncols):
+                    cell = cells[i]
+                    cell_margins_legacy(cell)
+                    if row_idx % 2 == 1 and row_bg:
+                        shade_cell_legacy(cell, row_bg)
+                    cell_text = r[i]
+                    run = cell.paragraphs[0].add_run(cell_text)
+                    run.font.name = T["font"]; run.font.size = Pt(T["body_pt"])
+                    rc = _result_color_legacy(cell_text)
+                    if rc:
+                        run.font.color.rgb = rc
+                        run.bold = True
+                    else:
+                        run.font.color.rgb = rgb_legacy(T["body_color"])
+            
+            # Apply dynamic widths to cells in all rows
+            for row in tbl.rows:
+                for i in range(ncols):
+                    row.cells[i].width = Inches(float(legacy_col_widths[i]) / 72.0)
+            
+            p_space = doc.add_paragraph()
+            p_space.paragraph_format.space_before = Pt(0)
+            p_space.paragraph_format.space_after = Pt(T["table_space_after"])
+            p_space.paragraph_format.line_spacing = Pt(1)
+            r = p_space.add_run(); r.font.size = Pt(1)
 
-    def content_lines(box):
-        ct = box.get("content_text", [])
-        if isinstance(ct, str):
-            return [ct]
-        if isinstance(ct, list):
-            return [str(x) for x in ct]
-        return []
-
-    # ---------------- build document ----------------
-    doc = Document()
-
-    # Set page size & margins on all sections based on theme.json
-    header_logo_path = Path("assets/header_image1.png")
-    sig_image_path = Path("assets/dr_vinay_signature.png")
-    for section in doc.sections:
-        section.top_margin = Pt(T["margin_top"])
-        section.bottom_margin = Pt(T["margin_bottom"])
-        section.left_margin = Pt(T["margin_left"])
-        section.right_margin = Pt(T["margin_right"])
-        section.page_width = Pt(T["paper_width"])
-        section.page_height = Pt(T["paper_height"])
-
-        # Inject header logo image if present
-        if header_logo_path.exists():
-            header = section.header
-            if header is not None:
-                for p in header.paragraphs:
-                    p.text = ""
-                p = header.paragraphs[0]
-                p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        def add_image_legacy(doc, img):
+            if _is_decorative_image(img):
+                return
+            uri = img.get("data_uri", "")
+            if not uri or "," not in uri:
+                return
+            try:
+                raw = base64.b64decode(uri.split(",", 1)[1])
+                stream = io.BytesIO(raw)
+                w = float(img.get("width", 0) or 0)
+                p = doc.add_paragraph(); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
                 run = p.add_run()
-                run.add_picture(str(header_logo_path.absolute()), width=Inches(6.0))
+                width_in = min(6.0, w / 96.0) if w else 4.0
+                run.add_picture(stream, width=Inches(max(1.0, width_in)))
+            except Exception:
+                pass
 
-        # Inject footer signature image if present
-        if sig_image_path.exists():
-            footer = section.footer
-            if footer is not None:
-                for p in footer.paragraphs:
-                    p.text = ""
-                p = footer.paragraphs[0]
-                p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
-                run = p.add_run()
-                run.add_picture(str(sig_image_path.absolute()), width=Inches(1.25))
+        def bbox_top(el):
+            bb = el.get("bbox")
+            if isinstance(bb, (list, tuple)) and len(bb) >= 2:
+                return (bb[1], bb[0])
+            return (10_000_000, 0)
 
-    normal = doc.styles["Normal"]
-    normal.font.name = T["font"]; normal.font.size = Pt(T["body_pt"])
-    rpr = normal.element.get_or_add_rPr()
-    rfonts = rpr.get_or_add_rFonts()
-    rfonts.set(qn("w:ascii"), T["font"]); rfonts.set(qn("w:hAnsi"), T["font"])
+        def content_lines(box):
+            ct = box.get("content_text", [])
+            if isinstance(ct, str):
+                return [ct]
+            if isinstance(ct, list):
+                return [str(x) for x in ct]
+            return []
 
-    summary = data.get("document_summary", {}) or {}
-    title = os.path.splitext(summary.get("file_name", "Report"))[0]
-    add_report_title(doc, title.upper())
+        doc = Document()
+        header_logo_path = Path("assets/header_image1.png")
+        sig_image_path = Path("assets/dr_vinay_signature.png")
+        for section in doc.sections:
+            section.top_margin = Pt(T["margin_top"])
+            section.bottom_margin = Pt(T["margin_bottom"])
+            section.left_margin = Pt(T["margin_left"])
+            section.right_margin = Pt(T["margin_right"])
+            section.page_width = Pt(T["paper_width"])
+            section.page_height = Pt(T["paper_height"])
 
-    kv = data.get("all_key_value_pairs") or data.get("extracted_key_value_pairs") or {}
-    if kv:
-        add_banner(doc, "DETAILS", T["primary"])
-        add_kv_table(doc, kv)
+            if header_logo_path.exists():
+                header = section.header
+                if header is not None:
+                    for p in header.paragraphs:
+                        p.text = ""
+                    p = header.paragraphs[0]
+                    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                    run = p.add_run()
+                    run.add_picture(str(header_logo_path.absolute()), width=Inches(6.0))
 
-    seen = set()
+            if sig_image_path.exists():
+                footer = section.footer
+                if footer is not None:
+                    for p in footer.paragraphs:
+                        p.text = ""
+                    p = footer.paragraphs[0]
+                    p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+                    run = p.add_run()
+                    run.add_picture(str(sig_image_path.absolute()), width=Inches(1.25))
 
-    # Titles to skip in DOCX
-    _SKIP_TITLES_DOCX = {
-        "general content / notes",
-        "patient details & metadata",
-    }
+        normal = doc.styles["Normal"]
+        normal.font.name = T["font"]; normal.font.size = Pt(T["body_pt"])
+        rpr = normal.element.get_or_add_rPr()
+        rfonts = rpr.get_or_add_rFonts()
+        rfonts.set(qn("w:ascii"), T["font"]); rfonts.set(qn("w:hAnsi"), T["font"])
 
-    def _should_skip_docx(el):
-        ttl = _clean_text(el.get("title"))
-        sec_type = el.get("type", "")
-        if sec_type == "demographics_box":
-            return True
-        if ttl and ttl.startswith("Header & Metadata Box"):
-            return True
-        if ttl and ttl.lower() in _SKIP_TITLES_DOCX:
-            return True
-        return False
+        summary = data.get("document_summary", {}) or {}
+        title = os.path.splitext(summary.get("file_name", "Report"))[0]
+        add_report_title(doc, title.upper())
 
-    def _is_ref_fragment_docx(el):
-        ttl = _clean_text(el.get("title"))
-        content_text = content_lines(el)
-        body_str = " ".join(content_text)
-        
-        combined = (ttl + " " + body_str).lower()
-        
-        if "pmid" in combined or "doi:" in combined or "et al" in combined:
-            return True
-        if "http" in combined or "www." in combined or ".html" in combined or ".com/" in combined or "release" in combined:
-            return True
-        if "guideline" in combined:
-            return True
-        if re.search(r'\b\d{4}\b', ttl):
-            return True
-        if re.match(r'^\d', ttl) and any(c in ttl for c in [';', ':', '(', ')', '-']):
-            return True
-        return False
+        kv = data.get("all_key_value_pairs") or data.get("extracted_key_value_pairs") or {}
+        if kv:
+            add_banner(doc, "DETAILS", T["primary"])
+            add_kv_table(doc, kv)
 
-    ref_lines_docx = []  # collect references for merging
+        seen = set()
+        _SKIP_TITLES_DOCX = {"general content / notes", "patient details & metadata"}
 
-    def render_page(page):
-        boxes = page.get("boxes_and_sections") or []
-        tables = page.get("tables") or []
-        images = page.get("images_and_graphs") or []
-        text_blocks = page.get("text_blocks") or []
+        def _should_skip_docx(el):
+            ttl = _clean_text(el.get("title"))
+            sec_type = el.get("type", "")
+            if sec_type == "demographics_box":
+                return True
+            if ttl and ttl.startswith("Header & Metadata Box"):
+                return True
+            if ttl and ttl.lower() in _SKIP_TITLES_DOCX:
+                return True
+            return False
 
-        items = []
-        for b in boxes:
-            items.append(("box", bbox_top(b), b))
-        for t in tables:
-            items.append(("table", bbox_top(t), t))
-        for im in images:
-            items.append(("image", bbox_top(im), im))
-        if not boxes and text_blocks:      # fallback so nothing is lost
-            for tb in text_blocks:
-                items.append(("textblock", bbox_top(tb), tb))
+        def _is_ref_fragment_docx(el):
+            ttl = _clean_text(el.get("title"))
+            content_text = content_lines(el)
+            body_str = " ".join(content_text)
+            combined = (ttl + " " + body_str).lower()
+            if "pmid" in combined or "doi:" in combined or "et al" in combined:
+                return True
+            if "http" in combined or "www." in combined or ".html" in combined or ".com/" in combined or "release" in combined:
+                return True
+            if "guideline" in combined:
+                return True
+            if re.search(r'\b\d{4}\b', ttl):
+                return True
+            if re.match(r'^\d', ttl) and any(c in ttl for c in [';', ':', '(', ')', '-']):
+                return True
+            return False
 
-        items.sort(key=lambda x: x[1])     # bbox used ONLY for ordering
+        ref_lines_docx = []
 
-        for kind, _pos, el in items:
-            if kind == "box":
-                if _should_skip_docx(el):
-                    # Still capture content from skipped boxes (they may have useful text)
+        def render_page_legacy(page):
+            boxes = page.get("boxes_and_sections") or []
+            tables = page.get("tables") or []
+            images = page.get("images_and_graphs") or []
+            text_blocks = page.get("text_blocks") or []
+
+            items = []
+            for b in boxes:
+                items.append(("box", bbox_top(b), b))
+            for t in tables:
+                items.append(("table", bbox_top(t), t))
+            for im in images:
+                items.append(("image", bbox_top(im), im))
+            if not boxes and text_blocks:
+                for tb in text_blocks:
+                    items.append(("textblock", bbox_top(tb), tb))
+
+            items.sort(key=lambda x: x[1])
+
+            for kind, _pos, el in items:
+                if kind == "box":
+                    if _should_skip_docx(el):
+                        for line in content_lines(el):
+                            s = _clean_text(line)
+                            if s and s not in seen:
+                                seen.add(s); add_para(doc, s)
+                        continue
+                    ttl = _clean_text(el.get("title"))
+                    if ttl and ttl.lower().startswith("references"):
+                        for line in content_lines(el):
+                            s = _clean_text(line)
+                            if s:
+                                ref_lines_docx.append(s)
+                        continue
+                    if _is_ref_fragment_docx(el):
+                        merged = ttl
+                        body = [_clean_text(l) for l in content_lines(el) if _clean_text(l)]
+                        if body:
+                            merged = f"{ttl} {' '.join(body)}"
+                        ref_lines_docx.append(merged)
+                        continue
+                    box_lines = []
                     for line in content_lines(el):
                         s = _clean_text(line)
                         if s and s not in seen:
-                            seen.add(s); add_para(doc, s)
+                            seen.add(s)
+                            box_lines.append(s)
+                    if box_lines or ttl:
+                        add_content_box(doc, ttl, box_lines)
+                elif kind == "table":
+                    add_data_table_legacy(doc, el)
+                elif kind == "image":
+                    add_image_legacy(doc, el)
+                elif kind == "textblock":
+                    s = _clean_text(el.get("text", ""))
+                    if s and s not in seen:
+                        seen.add(s); add_para(doc, s)
+
+        pages_legacy = data.get("pages") or []
+        if pages_legacy:
+            for page in pages_legacy:
+                render_page_legacy(page)
+        else:
+            for sec in data.get("all_boxes_and_sections") or data.get("content_sections") or []:
+                if _should_skip_docx(sec):
                     continue
-                ttl = _clean_text(el.get("title"))
-                # Handle references
+                ttl = _clean_text(sec.get("title"))
                 if ttl and ttl.lower().startswith("references"):
-                    for line in content_lines(el):
+                    for line in content_lines(sec):
                         s = _clean_text(line)
                         if s:
                             ref_lines_docx.append(s)
                     continue
-                if _is_ref_fragment_docx(el):
+                if _is_ref_fragment_docx(sec):
                     merged = ttl
-                    body = [_clean_text(l) for l in content_lines(el) if _clean_text(l)]
+                    body = [_clean_text(l) for l in content_lines(sec) if _clean_text(l)]
                     if body:
                         merged = f"{ttl} {' '.join(body)}"
                     ref_lines_docx.append(merged)
                     continue
                 box_lines = []
-                for line in content_lines(el):
+                for line in content_lines(sec):
                     s = _clean_text(line)
                     if s and s not in seen:
                         seen.add(s)
                         box_lines.append(s)
                 if box_lines or ttl:
                     add_content_box(doc, ttl, box_lines)
-            elif kind == "table":
-                add_data_table(doc, el)
-            elif kind == "image":
-                add_image(doc, el)
-            elif kind == "textblock":
-                s = _clean_text(el.get("text", ""))
-                if s and s not in seen:
-                    seen.add(s); add_para(doc, s)
+            for tb in data.get("all_tables") or data.get("tables") or []:
+                add_data_table_legacy(doc, tb)
+            for im in data.get("all_images_and_graphs") or data.get("images_and_graphs") or []:
+                add_image_legacy(doc, im)
 
-    pages = data.get("pages") or []
-    if pages:
-        for page in pages:
-            render_page(page)
-    else:
-        for sec in data.get("all_boxes_and_sections") or data.get("content_sections") or []:
-            if _should_skip_docx(sec):
-                continue
-            ttl = _clean_text(sec.get("title"))
-            if ttl and ttl.lower().startswith("references"):
-                for line in content_lines(sec):
-                    s = _clean_text(line)
-                    if s:
-                        ref_lines_docx.append(s)
-                continue
-            if _is_ref_fragment_docx(sec):
-                merged = ttl
-                body = [_clean_text(l) for l in content_lines(sec) if _clean_text(l)]
-                if body:
-                    merged = f"{ttl} {' '.join(body)}"
-                ref_lines_docx.append(merged)
-                continue
-            box_lines = []
-            for line in content_lines(sec):
-                s = _clean_text(line)
-                if s and s not in seen:
-                    seen.add(s)
-                    box_lines.append(s)
-            if box_lines or ttl:
-                add_content_box(doc, ttl, box_lines)
-        for tb in data.get("all_tables") or data.get("tables") or []:
-            add_data_table(doc, tb)
-        for im in data.get("all_images_and_graphs") or data.get("images_and_graphs") or []:
-            add_image(doc, im)
+        if ref_lines_docx:
+            add_banner(doc, "References", T["primary"])
+            for rl in ref_lines_docx:
+                if rl not in seen:
+                    seen.add(rl); add_para(doc, rl)
 
-    # Emit merged references section
-    if ref_lines_docx:
-        add_banner(doc, "References", T["primary"])
-        for rl in ref_lines_docx:
-            if rl not in seen:
-                seen.add(rl); add_para(doc, rl)
+        end = doc.add_paragraph(); end.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        er = end.add_run(T["eor_text"])
+        er.font.name = T["eor_font"]; er.font.size = Pt(T["eor_pt"])
+        er.font.color.rgb = rgb_legacy(T["eor_color"])
 
-    end = doc.add_paragraph(); end.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    er = end.add_run(T["eor_text"])
-    er.font.name = T["eor_font"]; er.font.size = Pt(T["eor_pt"])
-    er.font.color.rgb = rgb(T["eor_color"])
-
-    replace_sng_in_docx_obj(doc)
-    if output_path:
-        out_p = Path(output_path)
-        out_p.parent.mkdir(parents=True, exist_ok=True)
-        doc.save(str(out_p))
-        return None
-    buf = io.BytesIO()
-    doc.save(buf)
-    return buf.getvalue()
+        replace_sng_in_docx_obj(doc)
+        if output_path:
+            out_p = Path(output_path)
+            out_p.parent.mkdir(parents=True, exist_ok=True)
+            doc.save(str(out_p))
+            return None
+        buf = io.BytesIO()
+        doc.save(buf)
+        return buf.getvalue()
 
 
 def render_json_file_to_html(json_path, output_path: str = None, theme_config: dict = None) -> str:
@@ -2637,13 +3240,84 @@ def convert_pdf_via_pdf2docx(pdf_path, docx_path):
         return False
 
 
+def redact_extracted_json(data: dict) -> dict:
+    """
+    Redacts patient name, case ID, and signature images directly from the extracted JSON data.
+    """
+    patient_name = None
+    case_id = None
+    
+    # 1. Identify patient name and case ID from key_value elements on the first page
+    pages = data.get("document", {}).get("pages", [])
+    if pages:
+        for el in pages[0].get("elements", []):
+            if el.get("type") == "key_value" and "data" in el:
+                kv_data = el["data"]
+                for k, v in kv_data.items():
+                    k_lower = k.lower().strip()
+                    if "name" in k_lower and v:
+                        patient_name = str(v).strip()
+                    elif ("case id" in k_lower or "case_id" in k_lower) and v:
+                        case_id = str(v).strip()
+
+    # 2. Perform global string replacements on serialized JSON to mask name and case ID everywhere
+    json_str = json.dumps(data, ensure_ascii=False)
+    if patient_name:
+        json_str = json_str.replace(patient_name, "PATIENT NAME")
+    if case_id:
+        json_str = json_str.replace(case_id, "0000000000")
+    
+    redacted_data = json.loads(json_str)
+
+    # 3. Recursively remove any image elements whose bboxes overlap with the signature area [450, 715, 570, 820]
+    def clean_signature_images(obj):
+        if isinstance(obj, dict):
+            # Check if this element is an image in the signature region
+            if obj.get("type") == "image":
+                bbox = obj.get("bbox")
+                if bbox is not None:
+                    if isinstance(bbox, (list, tuple)) and len(bbox) >= 4:
+                        x0, y0, x1, y1 = bbox[0], bbox[1], bbox[2], bbox[3]
+                    elif isinstance(bbox, dict):
+                        x0 = bbox.get("x0", bbox.get("x", 0.0))
+                        y0 = bbox.get("y0", bbox.get("y", 0.0))
+                        x1 = bbox.get("x1", x0 + bbox.get("width", 0.0))
+                        y1 = bbox.get("y1", y0 + bbox.get("height", 0.0))
+                    else:
+                        x0, y0, x1, y1 = 0.0, 0.0, 0.0, 0.0
+                    
+                    if 440 <= x0 <= 580 and 700 <= y0 <= 830:
+                        return None
+            
+            new_dict = {}
+            for k, v in obj.items():
+                val_cleaned = clean_signature_images(v)
+                if val_cleaned is not None:
+                    new_dict[k] = val_cleaned
+            return new_dict
+            
+        elif isinstance(obj, list):
+            cleaned_list = []
+            for item in obj:
+                cleaned_item = clean_signature_images(item)
+                if cleaned_item is not None:
+                    cleaned_list.append(cleaned_item)
+            return cleaned_list
+            
+        return obj
+
+    redacted_data = clean_signature_images(redacted_data)
+    return redacted_data
+
+
 def convert_pdf_full_pipeline(pdf_path, output_dir=None, theme_config: dict = None):
     """
-    Executes full 4-step pipeline:
+    Executes PDF->HTML->PDF->DOCX pipeline using pdf2docx:
     1. Input PDF -> Extract JSON
-    2. JSON -> Render HTML template
-    3. HTML -> Compile Intermediate PDF (via Playwright)
-    4. Intermediate PDF -> Word (.docx) via pdf2docx (fallback to python-docx)
+    2. Redact name, case ID, signature images directly on the extracted JSON
+    3. Render redacted JSON -> HTML (themed)
+    4. Compile HTML -> PDF
+    5. Convert compiled PDF -> Word (.docx) using pdf2docx
     """
     pdf_path = Path(pdf_path).absolute()
     if output_dir is None:
@@ -2657,47 +3331,55 @@ def convert_pdf_full_pipeline(pdf_path, output_dir=None, theme_config: dict = No
     stem = pdf_path.stem
 
     print(f"\n==================================================")
-    print(f"[*] Executing 4-Step Pipeline for: {pdf_path.name}")
+    print(f"[*] Executing PDF->HTML->PDF->DOCX Pipeline for: {pdf_path.name}")
     print(f"==================================================")
 
     # Step 1: PDF -> JSON
     print(f"\n[Step 1/4] Extracting PDF to JSON...")
     extracted_data = extract_report_data(str(pdf_path))
-    json_path = json_dir / f"{stem}.json"
     if extracted_data:
-        # Replace "SN Genelab Pvt Ltd" with "Laboratory" in extracted JSON data
+        # Redact patient details and signature images directly in JSON
+        extracted_data = redact_extracted_json(extracted_data)
+        
+        # Replace "SN Genelab Pvt Ltd" with "Laboratory"
         json_str = json.dumps(extracted_data, indent=2, ensure_ascii=False)
         json_str = json_str.replace("SN Genelab Pvt Ltd", "Laboratory")
+        extracted_data = json.loads(json_str)
+
+        json_path = json_dir / f"{stem}.json"
         with open(json_path, "w", encoding="utf-8") as f_json:
             f_json.write(json_str)
-        print(f"   [+] JSON saved: {json_path}")
+        print(f"   [+] Redacted JSON saved: {json_path}")
 
-    # Step 2: JSON -> HTML
-    print(f"\n[Step 2/4] Rendering JSON to HTML...")
-    out_html = output_dir / f"{stem}_template.html"
-    doc = fitz.open(str(pdf_path))
-    full_html = render_exact_pdf_layout_html(doc, doc_title=pdf_path.name, theme_config=theme_config)
-    doc.close()
+    # Step 2: JSON -> HTML (themed)
+    print(f"\n[Step 2/4] Rendering JSON to themed HTML...")
+    html_content = generate_dynamic_template_html(extracted_data, doc_title=f"{stem}.pdf", theme_config=theme_config)
+    html_content = html_content.replace("SN Genelab Pvt Ltd", "Laboratory")
+    html_path = output_dir / f"{stem}.html"
+    html_path.write_text(html_content, encoding="utf-8")
+    print(f"   [+] HTML saved: {html_path}")
 
-    # Replace "SN Genelab Pvt Ltd" with "Laboratory" in the generated HTML
-    full_html = full_html.replace("SN Genelab Pvt Ltd", "Laboratory")
+    # Step 3: HTML -> Compiled PDF
+    print(f"\n[Step 3/4] Compiling HTML to PDF...")
+    compiled_pdf_path = output_dir / f"{stem}_compiled.pdf"
+    render_html_to_pdf_and_preview(html_path, compiled_pdf_path)
+    if compiled_pdf_path.exists():
+        print(f"   [+] Compiled PDF saved: {compiled_pdf_path}")
+    else:
+        print(f"   [!] Failed to compile HTML to PDF")
+        return None
 
-    with open(out_html, "w", encoding="utf-8") as f_html:
-        f_html.write(full_html)
-    print(f"   [+] HTML saved: {out_html}")
-
-    # Step 3: HTML -> Compiled Result PDF
-    print(f"\n[Step 3/4] Compiling HTML to Result PDF...")
-    intermediate_pdf = output_dir / f"{stem}_compiled.pdf"
-    render_html_to_pdf_and_preview(out_html, intermediate_pdf)
-    print(f"   [+] Result PDF compiled from HTML: {intermediate_pdf}")
-
-    # Step 4: Generate Word (.docx) from rendered HTML via Playwright PDF → pdf2docx (exact HTML fidelity)
-    print(f"\n[Step 4/4] Converting rendered HTML to Word (.docx) (exact HTML fidelity)...")
+    # Step 4: Compiled PDF -> Word (.docx) via pdf2docx
+    print(f"\n[Step 4/4] Converting compiled PDF to Word (.docx) via pdf2docx...")
     out_docx = output_dir / f"{stem}_report.docx"
-    convert_html_to_docx(out_html, output_path=out_docx, theme_config=theme_config)
+    success = convert_pdf_via_pdf2docx(str(compiled_pdf_path), str(out_docx))
+    if success:
+        print(f"   [+] Word (.docx) generated: {out_docx}")
+    else:
+        print(f"   [!] pdf2docx conversion failed")
+        return None
 
-    print(f"\n[+] 4-Step Pipeline Completed Successfully! Final Word doc: {out_docx}")
+    print(f"\n[+] Pipeline Completed Successfully! Final Word doc: {out_docx}")
     print(f"==================================================\n")
     return out_docx
 
@@ -2707,7 +3389,7 @@ def convert_pdf_to_word(pdf_path, docx_path, theme_config: dict = None):
     Convert PDF to Word (.docx) directly using pdf2docx Converter (pdftoDoc logic),
     redacting signature images from the PDF body first and injecting them into footers.
     """
-    import fitz
+    import pymupdf as fitz
     import docx
     from docx.shared import Inches
     from docx.enum.text import WD_ALIGN_PARAGRAPH
@@ -2947,3 +3629,105 @@ def render_html_to_pdf_and_preview(html_path, output_pdf_path, preview_img_path=
         pass
 
     return output_pdf_path
+
+
+def validate_docx_conversion(extracted_data, docx_path):
+    """
+    Validates that the generated DOCX matches the extracted JSON data elements and tables.
+    Generates a clear validation report.
+    """
+    from docx import Document
+    import json
+    
+    if isinstance(extracted_data, (str, Path)):
+        with open(extracted_data, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    else:
+        data = extracted_data
+
+    # Parse output DOCX
+    doc = Document(docx_path)
+    
+    # Extract structural elements from JSON
+    extracted_elements = []
+    extracted_tables_count = 0
+    extracted_headings_count = 0
+    extracted_paras_count = 0
+    extracted_kvs_count = 0
+
+    pages = data.get("document", {}).get("pages", [])
+    for page in pages:
+        for el in page.get("elements", []):
+            el_type = el.get("type")
+            if el_type in ("heading", "subheading", "paragraph", "table", "key_value", "image"):
+                extracted_elements.append(el)
+                if el_type == "table":
+                    extracted_tables_count += 1
+                elif el_type in ("heading", "subheading"):
+                    extracted_headings_count += 1
+                elif el_type == "paragraph":
+                    extracted_paras_count += 1
+                elif el_type == "key_value":
+                    extracted_kvs_count += 1
+
+    # Extract elements from DOCX
+    rendered_tables_count = len(doc.tables)
+    
+    # We want to check if the paragraphs contain the text of headings and paragraphs in JSON
+    missing_elements = []
+    
+    # Simple validation comparison
+    # Check tables (key_values are also rendered as tables)
+    tables_match = (rendered_tables_count >= (extracted_tables_count + extracted_kvs_count))
+    
+    # Check paragraphs text
+    docx_text = "\n".join([p.text for p in doc.paragraphs]).lower()
+    for table in doc.tables:
+        for row in table.rows:
+            for cell in row.cells:
+                docx_text += "\n" + cell.text.lower()
+                
+    # Also add headers/footers text
+    for section in doc.sections:
+        for header in [section.header, section.first_page_header, section.even_page_header]:
+            if header:
+                for p in header.paragraphs:
+                    docx_text += "\n" + p.text.lower()
+        for footer in [section.footer, section.first_page_footer, section.even_page_footer]:
+            if footer:
+                for p in footer.paragraphs:
+                    docx_text += "\n" + p.text.lower()
+
+    for el in extracted_elements:
+        el_type = el.get("type")
+        if el_type in ("heading", "subheading", "paragraph"):
+            txt = el.get("text", "").strip().lower()
+            txt_clean = txt.lstrip('•-* ').strip()
+            if txt_clean and txt_clean not in docx_text:
+                missing_elements.append(el)
+                print(f"   [!] Missing element text: {repr(el.get('text'))}")
+                    
+    # Generate report
+    total_extracted = len(extracted_elements)
+    total_missing = len(missing_elements)
+    total_rendered = total_extracted - total_missing
+    
+    validation_passed = (total_missing == 0) and tables_match
+    status = "PASS" if validation_passed else "FAIL"
+    
+    report = f"""
+==================================================
+              DOCX VALIDATION REPORT
+==================================================
+CONTENT ELEMENTS EXTRACTED: {total_extracted}
+CONTENT ELEMENTS RENDERED:  {total_rendered}
+TABLES EXTRACTED:           {extracted_tables_count}
+TABLES RENDERED:            {rendered_tables_count - extracted_kvs_count if rendered_tables_count >= extracted_kvs_count else 0}
+KEY_VALUES EXTRACTED:       {extracted_kvs_count}
+KEY_VALUES RENDERED:        {min(extracted_kvs_count, rendered_tables_count)}
+MISSING ELEMENTS:           {total_missing}
+CONTENT VALIDATION:         {status}
+==================================================
+"""
+    print(report)
+    return report

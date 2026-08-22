@@ -1,0 +1,361 @@
+Paragraph count: 108
+Table count: 39
+
+=== PARAGRAPHS ===
+P0: ''
+P1: ''
+P2: 'QR Code for \nreport verification'
+P3: 'Indication: \n\tTEST NAME'
+P4: ''
+P5: 'Report Highlights:'
+P6: 'Key Findings:'
+P7: '*Genetic test results are reported based on the recommendations of AMP-ASCO-CAP guidelines.'
+P8: '**Public data sources included in relevant targeted therapies, guidelines: EMA, FDA, ESMO, NCCN.'
+P9: 'Multi-Gene Biomarkers Results:'
+P10: '# Correlation of the genetic findings with the clinical condition of the patient is required to arrive at accurate diagnosis,'
+P11: 'prognosis or therapeutic decisions.'
+P12: ''
+P13: ''
+P14: ''
+P15: ''
+P16: 'QR Code for \nreport verification'
+P17: 'Indication:'
+P18: 'Clinical Significance:'
+P19: ''
+P20: ''
+P21: ''
+P22: ''
+P23: ''
+P24: ''
+P25: ''
+P26: ''
+P27: 'QR Code for \nreport verification'
+P28: 'Indication:'
+P29: ''
+P30: ''
+P31: ''
+P32: ''
+P33: ''
+P34: ''
+P35: 'QR Code for \nreport verification'
+P36: 'Indication:'
+P37: ''
+P38: ''
+P39: ''
+P40: ''
+P41: ''
+P42: ''
+P43: 'QR Code for \nreport verification'
+P44: 'Indication:'
+P45: '📝Note: ✓: In this Cancer Type, ✓: In Other Cancer Type, ✓✓: both In this and Other Cancer Type, X : No Evidence.⚠️: Caution for Use'
+P46: ''
+P47: ''
+P48: ''
+P49: ''
+P50: ''
+P51: ''
+P52: ''
+P53: ''
+P54: 'QR Code for \nreport verification'
+P55: 'Indication:'
+P56: ''
+P57: ''
+P58: ''
+P59: ''
+P60: ''
+P61: ''
+P62: 'QR Code for \nreport verification'
+P63: 'Indication:'
+P64: ''
+P65: ''
+P66: ''
+P67: ''
+P68: ''
+P69: ''
+P70: ''
+P71: ''
+P72: ''
+P73: ''
+P74: ''
+P75: ''
+P76: 'QR Code for \nreport verification'
+P77: 'Indication:'
+P78: 'References:'
+P79: '1. \tO&#x27;Leary et al. Reference sequence (RefSeq) database at NCBI: current status, taxonomic expansion, and functional \tannotation. Nucleic Acids Res. 2016 Jan 4;44(D1):D733-45. PMID: 26553804'
+P80: 'Nag et al. The MDM2-p53 pathway revisited. J Biomed Res. 2013 Jul;27(4):254-71. PMID: 23885265'
+P81: 'Mulleretal.Mutantp53incancer:newfunctionsandtherapeuticopportunities.CancerCell.2014Mar17;25(3):304-17. \tPMID: 24651012'
+P82: 'Olivier et al. TP53 mutations in human cancers: origins, consequences, and clinical use. Cold Spring Harb Perspect Biol. 2010 \tJan;2(1):a001008. PMID: 20182602'
+P83: 'Guha et al. Inherited TP53 Mutations and the Li-Fraumeni Syndrome. Cold Spring Harb Perspect Med. 2017 Apr 3;7(4). PMID: \t28270529'
+P84: 'Cerami et al. The cBio cancer genomics portal: an open platform for exploring multidimensional cancer genomics data. Cancer \tDiscov. 2012 May;2(5):401-4. PMID: 22588877'
+P85: 'Weinstein et al. The Cancer Genome Atlas Pan-Cancer analysis project. Nat. Genet. 2013 Oct;45(10):1113-20. PMID: 24071849'
+P86: 'Peter et al. Comprehensive genomic characterization of squamous cell lung cancers. Nature. 2012 Sep 27;489(7417):519-25. \tPMID: 22960745'
+P87: 'Cancer Genome Atlas Network. Comprehensive genomic characterization of head and neck squamous cell carcinomas. Nature. \t2015 Jan 29;517(7536):576-82. PMID: 25631445'
+P88: 'Campbell et al. Distinct patterns of somatic genome alterations in lung adenocarcinomas and squamous cell carcinomas. Nat. \tGenet. 2016 Jun;48(6):607-16. PMID: 27158780'
+P89: ''
+P90: ''
+P91: ''
+P92: ''
+P93: 'QR Code for \nreport verification'
+P94: 'Indication: \nCancerGenomeAtlasResearchNetwork.Integratedgenomiccharacterizationofoesophagealcarcinoma.Nature.2017Jan \t12;541(7636):169-175. doi: 10.1038/nature20805. Epub 2017 Jan 4. PMID: 28052061 \nOlivieretal.TheIARCTP53database:newonlinemutationanalysisandrecommendationstousers.Hum.Mutat.2002 \tJun;19(6):607-14. PMID: 12007217 \nRivlin et al. Mutations in the p53 Tumor Suppressor Gene: Important Milestones at the Various Steps of Tumorigenesis. Genes \tCancer. 2011 Apr;2(4):466-74. PMID: 21779514 \nPetitjeanetal.TP53mutationsinhumancancers:functionalselectionandimpactoncancerprognosisandoutcomes.'
+P95: '\tOncogene. 2007 Apr 2;26(15):2157-65. PMID: 17401424 \nSoussi et al. Recommendations for analyzing and reporting TP53 gene variants in the high-throughput sequencing era. Hum.'
+P96: '\tMutat. 2014 Jun;35(6):766-78. PMID: 24729566 \nhttps://www.globenewswire.com/news-release/2020/10/13/2107498/0/en/PMV-Pharma-Granted-FDA-Fast-Track-\tDesignation-of-PC14586-for-the-Treatment-of-Advanced-Cancer-Patients-that-have-Tumors-with-a-p53-Y220C-\tMutation.html \nhttps://ir.aprea.com//news-releases/news-release-details/aprea-therapeutics-receives-fda-fast-track-designation http://vp280.alertir.com/en/pressreleases/karolinska-development%27s-portfolio-company-aprea-therapeutics-receives-\tfda-breakthrough-therapy-designation-1769167'
+P97: '\t10.3389/fonc.2015.00288. eCollection 2015. PMID: 26732534 \nZhaoetal.Molecularlytargetedtherapiesforp53-mutantcancers.Cell.Mol.LifeSci.2017Nov;74(22):4171-4187.PMID: \t28643165 \nLouisetal.The2021WHOClassificationofTumorsoftheCentralNervousSystem:asummary.NeuroOncol.2021Aug \t2;23(8):1231-1251. PMID: 34185076 \nNCCN Guidelines&amp;reg; - NCCN-Acute Myeloid Leukemia [Version 2.2025] \nDöhneretal.DiagnosisandmanagementofAMLinadults:2022recommendationsfromaninternationalexpertpanelon \tbehalf of the ELN. Blood. 2022 Sep 22;140(12):1345-1377. PMID: 35797463 \nNCCN Guidelines&amp;reg; - NCCN-Myelodysplastic Syndromes [Version 2.2025] \nNCCN Guidelines&amp;reg; - NCCN-Myeloproliferative Neoplasms [Version 1.2025] \nNCCN Guidelines&amp;reg; - NCCN-Chronic Lymphocytic Leukemia/Small Lymphocytic Lymphoma [Version 3.2025] NCCN Guidelines&amp;reg; - NCCN-Acute Lymphoblastic Leukemia [Version 3.2024] \nNCCN Guidelines&amp;reg; - NCCN-B-Cell Lymphomas [Version 2.2025]'
+P98: ''
+P99: ''
+P100: ''
+P101: ''
+P102: 'QR Code for \nreport verification'
+P103: 'Indication:'
+P104: 'Bernardetal.ImplicationsofTP53allelicstateforgenomestability,clinicalpresentationandoutcomesinmyelodysplastic'
+P105: 'syndromes. Nat. Med. 2020 Aug 3. PMID: 32747829'
+P106: '------------------ End Of Report ------------------'
+P107: ''
+
+=== TABLES ===
+
+Table 0 (rows: 5, cols: 4):
+  Row 0: Case ID | :2600128556 | Sample Type | :BLOOD IN CCF DNA TUBE
+  Row 1: Name | :MR. DULAL NAHA (KOL2604070057) | Date & Time Collected:07-Apr-2026 12:00 AM | Date & Time Collected:07-Apr-2026 12:00 AM
+  Row 2: Sex/Age | :Male/70 Years | Date & Time Received:20-Apr-2026 12:16 PM | Date & Time Received:20-Apr-2026 12:16 PM
+  Row 3: Bill. Loc. | :OncQuest Laboratories Ltd., New Delhi | Date & Time Reported:30-Apr-2026 05:55 PM | Date & Time Reported:30-Apr-2026 05:55 PM
+  Row 4: Ref. By | : | Report Version | :1
+
+Table 1 (rows: 1, cols: 1):
+  Row 0: Metastatic Adenocarcinoma
+
+Table 2 (rows: 1, cols: 1):
+  Row 0: Positive  (Clinically significant Variant detected)
+
+Table 3 (rows: 2, cols: 6):
+  Row 0: Tier I | Tier II | Tier III | MSI | Therapies | Clinical Trials
+  Row 1: 0 | 1 | 0 | Stable | 0 | 43
+
+Table 4 (rows: 2, cols: 5):
+  Row 0: Tier | Gene & Transcript | Variant | Exon | Coverage/VAF
+  Row 1: IIC | TP53  NM_000546.6 | c.405C>A  p.(C135*) | 5 | 691x /  93.13%
+
+Table 5 (rows: 2, cols: 3):
+  Row 0: Assay Biomarker | Result | Interpretation
+  Row 1: Microsatellite Instability (MSI) | Stable | Stable Microsatellite detected
+
+Table 6 (rows: 5, cols: 4):
+  Row 0:  | Page 1 of 10 |  | 
+  Row 1:  |  |  | 
+  Row 2: Dr.Nirmal A. Vaniawala | Dr. Salil Vaniawala | Dr. Salil Vaniawala | 
+  Row 3: MD (Path. & Bact.) | M.Sc Ph.D.(Human Genetics) Consulting | M.Sc Ph.D.(Human Genetics) | 
+  Row 4: MD (Path. & Bact.) | Geneticist | Consulting Geneticist | 
+
+Table 7 (rows: 5, cols: 4):
+  Row 0: Case ID | :2600128556 | Sample Type | :BLOOD IN CCF DNA TUBE
+  Row 1: Name | :MR. DULAL NAHA (KOL2604070057) | Date & Time Collected:07-Apr-2026 12:00 AM | Date & Time Collected:07-Apr-2026 12:00 AM
+  Row 2: Sex/Age | :Male/70 Years | Date & Time Received:20-Apr-2026 12:16 PM | Date & Time Received:20-Apr-2026 12:16 PM
+  Row 3: Bill. Loc. | :OncQuest Laboratories Ltd., New Delhi | Date & Time Reported:30-Apr-2026 05:55 PM | Date & Time Reported:30-Apr-2026 05:55 PM
+  Row 4: Ref. By | : | Report Version | :1
+
+Table 8 (rows: 3, cols: 3):
+  Row 0: Variant | Therapy | Therapy
+  Row 1:  | In This Cancer | In Other Cancer
+  Row 2: IIC  TP53  p.(C135*) | ▪None* | ▪None*
+
+Table 9 (rows: 2, cols: 3):
+  Row 0: Variant | Diagnostic Significance | Prognostic Significance
+  Row 1: TP53  p.(C135*) | None* | None*
+
+Table 10 (rows: 5, cols: 4):
+  Row 0: Biomarker Description: Page 2 of 10 | Biomarker Description: Page 2 of 10 | Biomarker Description: Page 2 of 10 | Biomarker Description: Page 2 of 10
+  Row 1:  |  |  | 
+  Row 2: Dr.Nirmal A. Vaniawala | Dr. Salil Vaniawala | Dr. Salil Vaniawala | 
+  Row 3: MD (Path. & Bact.) | M.Sc Ph.D.(Human Genetics) Consulting | M.Sc Ph.D.(Human Genetics) | 
+  Row 4: MD (Path. & Bact.) | Geneticist | Consulting Geneticist | 
+
+Table 11 (rows: 5, cols: 4):
+  Row 0: Case ID | :2600128556 | Sample Type | :BLOOD IN CCF DNA TUBE
+  Row 1: Name | :MR. DULAL NAHA (KOL2604070057) | Date & Time Collected:07-Apr-2026 12:00 AM | Date & Time Collected:07-Apr-2026 12:00 AM
+  Row 2: Sex/Age | :Male/70 Years | Date & Time Received:20-Apr-2026 12:16 PM | Date & Time Received:20-Apr-2026 12:16 PM
+  Row 3: Bill. Loc. | :OncQuest Laboratories Ltd., New Delhi | Date & Time Reported:30-Apr-2026 05:55 PM | Date & Time Reported:30-Apr-2026 05:55 PM
+  Row 4: Ref. By | : | Report Version | :1
+
+Table 12 (rows: 1, cols: 2):
+  Row 0:  | tumor,andlessthan1%ofB-lymphoblasticleukemia/lymphoma(2in731cases)and leukemia 		(1 			in 		250 				cases)[6,7]. The small molecule p53 reactivator, PC14586[16] (2020), received a fast track designation by theFDAforadvancedtumorsharboringaTP53Y220Cmutation.TheFDAhasgrantedfast trackdesignationtothep53reactivator,eprenetapopt[17],(2019)andbreakthrough designation[18] (2020) in combination with azacitidine or azacitidine and venetoclax for acute myeloidleukemiapatients(AML)andmyelodysplasticsyndrome(MDS)harboringaTP53 mutation,respectively.Inadditiontoinvestigationaltherapiesaimedatrestoringwild-type TP53 	activity, 	compounds 	that 	induce 		synthetic 	lethality 	are 	also 	under 	clinical evaluation[19,20].TP53mutationareadiagnosticmarkerofSHH-activated,TP53-mutant medulloblastoma[21].TP53mutationsconferpoorprognosisandpoorriskinmultipleblood cancersincludingAML,MDS,myeloproliferativeneoplasms(MPN),andchroniclymphocytic leukemia(CLL),andacutelymphoblasticleukemia(ALL)[22,23,24,25,26,27].Inmantlecell lymphoma,TP53mutationsareassociatedwithpoorprognosiswhentreatedwith conventionaltherapyincludinghematopoieticcelltransplant[28].Mono-andbi-allelic mutationsinTP53conferuniquecharacteristicsinMDS,withmulti-hitpatientsalso experiencingassociationswithcomplexkaryotype,fewco-occurringmutations,andhigh-risk diseasepresentationaswellaspredicteddeathandleukemictransformationindependentof the IPSS-R staging system[29].
+
+Table 13 (rows: 5, cols: 4):
+  Row 0: Therapy & Clinical Trials:  TP53 p.(C135*) c.405C>A Page 3 of 10 | Therapy & Clinical Trials:  TP53 p.(C135*) c.405C>A Page 3 of 10 | Therapy & Clinical Trials:  TP53 p.(C135*) c.405C>A Page 3 of 10 | Therapy & Clinical Trials:  TP53 p.(C135*) c.405C>A Page 3 of 10
+  Row 1:  |  |  | 
+  Row 2: Dr.Nirmal A. Vaniawala | Dr. Salil Vaniawala | Dr. Salil Vaniawala | 
+  Row 3: MD (Path. & Bact.) | M.Sc Ph.D.(Human Genetics) Consulting | M.Sc Ph.D.(Human Genetics) | 
+  Row 4: MD (Path. & Bact.) | Geneticist | Consulting Geneticist | 
+
+Table 14 (rows: 5, cols: 4):
+  Row 0: Case ID | :2600128556 | Sample Type | :BLOOD IN CCF DNA TUBE
+  Row 1: Name | :MR. DULAL NAHA (KOL2604070057) | Date & Time Collected:07-Apr-2026 12:00 AM | Date & Time Collected:07-Apr-2026 12:00 AM
+  Row 2: Sex/Age | :Male/70 Years | Date & Time Received:20-Apr-2026 12:16 PM | Date & Time Received:20-Apr-2026 12:16 PM
+  Row 3: Bill. Loc. | :OncQuest Laboratories Ltd., New Delhi | Date & Time Reported:30-Apr-2026 05:55 PM | Date & Time Reported:30-Apr-2026 05:55 PM
+  Row 4: Ref. By | : | Report Version | :1
+
+Table 15 (rows: 21, cols: 6):
+  Row 0: GH-2616 | X | X | X | X | I
+  Row 1: HRS-1167 | X | X | X | X | I
+  Row 2: HS-10502 | X | X | X | X | I
+  Row 3: SIM-0501 | X | X | X | X | I
+  Row 4: talazoparib, palbociclib, axitinib, crizotinib | X | X | X | X | I
+  Row 5: XL-309, olaparib | X | X | X | X | I
+  Row 6: pembrolizumab, chemotherapy | X | X | X | X | IV
+  Row 7: hormone therapy, chemotherapy | X | X | X | X | III
+  Row 8: olaparib, chemotherapy, radiation therapy | X | X | X | X | III
+  Row 9: saruparib, hormone therapy | X | X | X | X | III
+  Row 10: niraparib, radiation therapy | X | X | X | X | II/III
+  Row 11: olaparib + chemotherapy | X | X | X | X | II/III
+  Row 12: abiraterone + niraparib, hormone therapy, radiation therapy, steroid | X | X | X | X | II
+  Row 13: camrelizumab, fluzoparib, chemotherapy | X | X | X | X | II
+  Row 14: eflornithine | X | X | X | X | II
+  Row 15: hormone therapy, hormone therapy + chemotherapy | X | X | X | X | II
+  Row 16: lunresertib, trastuzumab, chemotherapy, camonsertib | X | X | X | X | II
+  Row 17: niraparib, dostarlimab | X | X | X | X | II
+  Row 18: olaparib | X | X | X | X | II
+  Row 19: olaparib + hormone therapy | X | X | X | X | II
+  Row 20: olaparib, chemotherapy | X | X | X | X | II
+
+Table 16 (rows: 5, cols: 4):
+  Row 0:  | Page 4 of 10 |  | 
+  Row 1:  |  |  | 
+  Row 2: Dr.Nirmal A. Vaniawala | Dr. Salil Vaniawala | Dr. Salil Vaniawala | 
+  Row 3: MD (Path. & Bact.) | M.Sc Ph.D.(Human Genetics) Consulting | M.Sc Ph.D.(Human Genetics) | 
+  Row 4: MD (Path. & Bact.) | Geneticist | Consulting Geneticist | 
+
+Table 17 (rows: 5, cols: 4):
+  Row 0: Case ID | :2600128556 | Sample Type | :BLOOD IN CCF DNA TUBE
+  Row 1: Name | :MR. DULAL NAHA (KOL2604070057) | Date & Time Collected:07-Apr-2026 12:00 AM | Date & Time Collected:07-Apr-2026 12:00 AM
+  Row 2: Sex/Age | :Male/70 Years | Date & Time Received:20-Apr-2026 12:16 PM | Date & Time Received:20-Apr-2026 12:16 PM
+  Row 3: Bill. Loc. | :OncQuest Laboratories Ltd., New Delhi | Date & Time Reported:30-Apr-2026 05:55 PM | Date & Time Reported:30-Apr-2026 05:55 PM
+  Row 4: Ref. By | : | Report Version | :1
+
+Table 18 (rows: 10, cols: 6):
+  Row 0: olaparib, durvalumab | X | X | X | X | II
+  Row 1: olaparib, pembrolizumab | X | X | X | X | II
+  Row 2: sintilimab, chemotherapy | X | X | X | X | II
+  Row 3: fluzoparib, camrelizumab, chemotherapy | X | X | X | X | I/II
+  Row 4: IMP-1734 | X | X | X | X | I/II
+  Row 5: tislelizumab, radiation therapy | X | X | X | X | I/II
+  Row 6: A2A-252 | X | X | X | X | I
+  Row 7: GB-3010 | X | X | X | X | I
+  Row 8: lunresertib, camonsertib, Debio-0123 | X | X | X | X | I
+  Row 9: SC0245 | X | X | X | X | I
+
+Table 19 (rows: 2, cols: 1):
+  Row 0: Test Description
+  Row 1: LiquidseqActionableGenomicProfilingPanelisadvancingprecisiononcologyresearchthroughtheanalysisof multiple relevant biomarkers in a single next-generation sequencing (NGS) test. The Liquidseq Actionable Genomic Profiling assay analyses 34 unique genes (28 DNA + 6 Fusions driver genes) for single gene and multiple gene biomarker insights, detects single gene biomarkers from all variant types including SNVs, indels, CNVs, known and novel fusions, and splice variants. Analyze complex multi-gene biomarkers for mutational signatures, including microsatellite instability (MSI) for immunotherapy research. Theperformanceofthepanelwasverifiedusingbothcommerciallysourcedreferencecontrolsandcell-freeDNA (cfTNA)samples.
+
+Table 20 (rows: 2, cols: 1):
+  Row 0: Test Methodology
+  Row 1: Extraction&LibraryPreparation:CellfreeTotalNucleicacid(cfTNA)extractedfromtheliquidbiopsysampleisused for targeted gene capture using a custom designed hybrid capture panel. In process quality controls were determined for prepared library. Page 5 of 10
+
+Table 21 (rows: 4, cols: 4):
+  Row 0:  |  |  | 
+  Row 1: Dr.Nirmal A. Vaniawala | Dr. Salil Vaniawala | Dr. Salil Vaniawala | 
+  Row 2: MD (Path. & Bact.) | M.Sc Ph.D.(Human Genetics) Consulting | M.Sc Ph.D.(Human Genetics) | 
+  Row 3: MD (Path. & Bact.) | Geneticist | Consulting Geneticist | 
+
+Table 22 (rows: 5, cols: 4):
+  Row 0: Case ID | :2600128556 | Sample Type | :BLOOD IN CCF DNA TUBE
+  Row 1: Name | :MR. DULAL NAHA (KOL2604070057) | Date & Time Collected:07-Apr-2026 12:00 AM | Date & Time Collected:07-Apr-2026 12:00 AM
+  Row 2: Sex/Age | :Male/70 Years | Date & Time Received:20-Apr-2026 12:16 PM | Date & Time Received:20-Apr-2026 12:16 PM
+  Row 3: Bill. Loc. | :OncQuest Laboratories Ltd., New Delhi | Date & Time Reported:30-Apr-2026 05:55 PM | Date & Time Reported:30-Apr-2026 05:55 PM
+  Row 4: Ref. By | : | Report Version | :1
+
+Table 23 (rows: 1, cols: 1):
+  Row 0: Sequencing:Thelibrariesweresequencedatmeandepth:>25,000xonIlluminaNovaseq-nextgenerationsequencing platform. DataAnalysis:Sequencingdataanalyzedusingacustomizedandvalidatedbioinformaticspipelinecapableofdetecting various classes of genomic alterations, including single nucleotide variants (SNVs), Indels, copy number variations (CNVs) and fusions. As part of the streamlined bioinformatics workflow, Multi-gene Biomarkers such as Microsatellite Instability (MSI)Scoreiscalculated.Reportablegenomicalterationsandfusionsareprioritized,classified,andreportedbasedon AMP-ASCO-CAP guidelines and NCCN guidelines. Limit of Detection (LOD): The LOD for SNVs and Short InDels is 0.1% Variant allele Frequency (VAF) and for Fusions is 05 supporting reads.
+
+Table 24 (rows: 5, cols: 4):
+  Row 0: Page 6 of 10 | Page 6 of 10 | Page 6 of 10 | Page 6 of 10
+  Row 1:  |  |  | 
+  Row 2: Dr.Nirmal A. Vaniawala | Dr. Salil Vaniawala | Dr. Salil Vaniawala | 
+  Row 3: MD (Path. & Bact.) | M.Sc Ph.D.(Human Genetics) Consulting | M.Sc Ph.D.(Human Genetics) | 
+  Row 4: MD (Path. & Bact.) | Geneticist | Consulting Geneticist | 
+
+Table 25 (rows: 5, cols: 4):
+  Row 0: Case ID | :2600128556 | Sample Type | :BLOOD IN CCF DNA TUBE
+  Row 1: Name | :MR. DULAL NAHA (KOL2604070057) | Date & Time Collected:07-Apr-2026 12:00 AM | Date & Time Collected:07-Apr-2026 12:00 AM
+  Row 2: Sex/Age | :Male/70 Years | Date & Time Received:20-Apr-2026 12:16 PM | Date & Time Received:20-Apr-2026 12:16 PM
+  Row 3: Bill. Loc. | :OncQuest Laboratories Ltd., New Delhi | Date & Time Reported:30-Apr-2026 05:55 PM | Date & Time Reported:30-Apr-2026 05:55 PM
+  Row 4: Ref. By | : | Report Version | :1
+
+Table 26 (rows: 1, cols: 1):
+  Row 0: Poor-qualitycfDNA/PreviousorOngoingtherapymayfailQCthresholdsatvariousstagessuchascfDNAextraction, library preparation, or bioinformatics, and may result in assay failure or compromised results, such as low gene coverage or shallow variant depth. Variants with lower allele frequencies may be reported if they are of strong or potential clinical relevance, or if previously detected in the same patient. False positives or negatives below assay sensitivity cannot be ruled out. CNVs/geneamplificationsreported,ConfirmationusingorthogonalmethodssuchasDDPCRisrecommendedwhen clinically indicated. Variants in non-coding regions or deep intronic sequences are not assessed in this assay. This assay is under the scope of NABL as Liquidseq Actionable Panel.
+
+Table 27 (rows: 7, cols: 5):
+  Row 0: DNA Gene List | DNA Gene List | DNA Gene List | DNA Gene List | DNA Gene List
+  Row 1: AKT1 | ALK | APC | ATM | BRAF
+  Row 2: BRCA1 | BRCA2 | CTNNB1 | EGFR | ERBB2
+  Row 3: ERBB3 | ESR1 | FOXL2 | GNA11 | GNAQ
+  Row 4: HRAS | IDH1 | IDH2 | KIT | KRAS
+  Row 5: MET | NRAS | PDGFRA | PIK3CA | POLE
+  Row 6: RAF1 | RET | TP53 |  | 
+
+Table 28 (rows: 3, cols: 5):
+  Row 0: RNA Gene List | RNA Gene List | RNA Gene List | RNA Gene List | RNA Gene List
+  Row 1: ALK | MET | NTRK1 | NTRK2 | NTRK3
+  Row 2: ROS1 |  |  |  | 
+
+Table 29 (rows: 4, cols: 2):
+  Row 0: MSI | % of Unstable Loci
+  Row 1: MSI - Stable | 0-19%
+  Row 2: MSI - Low / Intermediate | 20-30%
+  Row 3: MSI - High | >30%
+
+Table 30 (rows: 5, cols: 4):
+  Row 0: Page 7 of 10 | Page 7 of 10 | Page 7 of 10 | Page 7 of 10
+  Row 1:  |  |  | 
+  Row 2: Dr.Nirmal A. Vaniawala | Dr. Salil Vaniawala | Dr. Salil Vaniawala | 
+  Row 3: MD (Path. & Bact.) | M.Sc Ph.D.(Human Genetics) Consulting | M.Sc Ph.D.(Human Genetics) | 
+  Row 4: MD (Path. & Bact.) | Geneticist | Consulting Geneticist | 
+
+Table 31 (rows: 5, cols: 4):
+  Row 0: Case ID | :2600128556 | Sample Type | :BLOOD IN CCF DNA TUBE
+  Row 1: Name | :MR. DULAL NAHA (KOL2604070057) | Date & Time Collected:07-Apr-2026 12:00 AM | Date & Time Collected:07-Apr-2026 12:00 AM
+  Row 2: Sex/Age | :Male/70 Years | Date & Time Received:20-Apr-2026 12:16 PM | Date & Time Received:20-Apr-2026 12:16 PM
+  Row 3: Bill. Loc. | :OncQuest Laboratories Ltd., New Delhi | Date & Time Reported:30-Apr-2026 05:55 PM | Date & Time Reported:30-Apr-2026 05:55 PM
+  Row 4: Ref. By | : | Report Version | :1
+
+Table 32 (rows: 4, cols: 2):
+  Row 0:  | prognostic significance of certain diseases based on well-powered studies with expert consensus.
+  Row 1: Tier IIC | VariantsofPotentialClinicalSignificance:biomarkersthatpredictresponseorresistanceto therapies approved by FDA or professional societies for a different tumor type (i.e., off-label use of a drug), serve as inclusion criteria for clinical trials, or have diagnostic and/or prognostic significance based on the results of multiple small studies.
+  Row 2: Tier IID | VariantsofPotentialClinicalSignificance:Biomarkersthatshowplausibletherapeuticsignificance basedonpreclinicalstudiesormayassistdiseasediagnosisand/orprognosisthemselvesoralong with other biomarkers based on small studies or multiple case reports with no consensus.
+  Row 3: Tier III | Variants of Unknown clinical significance (VUS): Not observed at a significant allele frequency in the generalorspecificsubpopulationorpancancerortumorspecificvariantdatabases.Noconvincing published evidence of cancer Association
+
+Table 33 (rows: 5, cols: 4):
+  Row 0:  | Page 8 of 10 |  | 
+  Row 1:  |  |  | 
+  Row 2: Dr.Nirmal A. Vaniawala | Dr. Salil Vaniawala | Dr. Salil Vaniawala | 
+  Row 3: MD (Path. & Bact.) | M.Sc Ph.D.(Human Genetics) Consulting | M.Sc Ph.D.(Human Genetics) | 
+  Row 4: MD (Path. & Bact.) | Geneticist | Consulting Geneticist | 
+
+Table 34 (rows: 5, cols: 4):
+  Row 0: Case ID | :2600128556 | Sample Type | :BLOOD IN CCF DNA TUBE
+  Row 1: Name | :MR. DULAL NAHA (KOL2604070057) | Date & Time Collected:07-Apr-2026 12:00 AM | Date & Time Collected:07-Apr-2026 12:00 AM
+  Row 2: Sex/Age | :Male/70 Years | Date & Time Received:20-Apr-2026 12:16 PM | Date & Time Received:20-Apr-2026 12:16 PM
+  Row 3: Bill. Loc. | :OncQuest Laboratories Ltd., New Delhi | Date & Time Reported:30-Apr-2026 05:55 PM | Date & Time Reported:30-Apr-2026 05:55 PM
+  Row 4: Ref. By | : | Report Version | :1
+
+Table 35 (rows: 1, cols: 16):
+  Row 0: Parrales | et | al. | Targeting | Oncogenic | Mutant | p53 | for | Cancer | Therapy. | Front | Oncol. | 2015 | Dec | 21;5:288. | doi:
+
+Table 36 (rows: 5, cols: 4):
+  Row 0:  | Page 9 of 10 |  | 
+  Row 1:  |  |  | 
+  Row 2: Dr.Nirmal A. Vaniawala | Dr. Salil Vaniawala | Dr. Salil Vaniawala | 
+  Row 3: MD (Path. & Bact.) | M.Sc Ph.D.(Human Genetics) Consulting | M.Sc Ph.D.(Human Genetics) | 
+  Row 4: MD (Path. & Bact.) | Geneticist | Consulting Geneticist | 
+
+Table 37 (rows: 5, cols: 4):
+  Row 0: Case ID | :2600128556 | Sample Type | :BLOOD IN CCF DNA TUBE
+  Row 1: Name | :MR. DULAL NAHA (KOL2604070057) | Date & Time Collected:07-Apr-2026 12:00 AM | Date & Time Collected:07-Apr-2026 12:00 AM
+  Row 2: Sex/Age | :Male/70 Years | Date & Time Received:20-Apr-2026 12:16 PM | Date & Time Received:20-Apr-2026 12:16 PM
+  Row 3: Bill. Loc. | :OncQuest Laboratories Ltd., New Delhi | Date & Time Reported:30-Apr-2026 05:55 PM | Date & Time Reported:30-Apr-2026 05:55 PM
+  Row 4: Ref. By | : | Report Version | :1
+
+Table 38 (rows: 5, cols: 4):
+  Row 0:  | Page 10 of 10 |  | 
+  Row 1:  |  |  | 
+  Row 2: Dr.Nirmal A. Vaniawala | Dr. Salil Vaniawala | Dr. Salil Vaniawala | 
+  Row 3: MD (Path. & Bact.) | M.Sc Ph.D.(Human Genetics) Consulting | M.Sc Ph.D.(Human Genetics) | 
+  Row 4: MD (Path. & Bact.) | Geneticist | Consulting Geneticist | 
