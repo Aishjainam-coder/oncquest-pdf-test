@@ -15,7 +15,7 @@
               "x": 0,
               "y": 0,
               "width": 595.3,
-              "height": 201.3,
+              "height": 201.79,
               "unit": "pt"
             },
             "elements": [
@@ -23,14 +23,14 @@
                 "type": "subheading",
                 "bbox": {
                   "x": 36.89,
-                  "y": 83.92,
+                  "y": 82.37,
                   "width": 68.16,
-                  "height": 19.98,
+                  "height": 21.97,
                   "unit": "pt",
                   "x0": 36.89,
-                  "y0": 83.92,
+                  "y0": 82.37,
                   "x1": 105.05,
-                  "y1": 103.9
+                  "y1": 104.34
                 },
                 "text": "QR Code for report verification",
                 "style_override": {
@@ -43,14 +43,14 @@
                 "type": "key_value",
                 "bbox": {
                   "x": 35.45,
-                  "y": 117.8,
+                  "y": 116.08,
                   "width": 489.95,
-                  "height": 81.5,
+                  "height": 83.71,
                   "unit": "pt",
                   "x0": 35.45,
-                  "y0": 117.8,
+                  "y0": 116.08,
                   "x1": 525.4,
-                  "y1": 199.3
+                  "y1": 199.79
                 },
                 "text": "Case ID : 2600132470 Sample Type : EDTA PERIPHERAL BLOOD Name : MR. BIRENDRA KR TRIPATHI (KOL2604200324) Date & Time Collected : 20-Apr-2026 06:44 AM Sex/Age : Male/49 Years Date & Time Received : 22-Apr-2026 01:03 PM Bill. Loc. : OncQuest Laboratories Ltd., New Delhi Date & Time Reported : 20-May-2026 06:11 AM Ref. By : Report Version : 1 Indication :",
                 "style_override": {
@@ -83,14 +83,14 @@
             "type": "key_value",
             "bbox": {
               "x": 35.45,
-              "y": 117.8,
+              "y": 116.08,
               "width": 489.95,
-              "height": 81.5,
+              "height": 83.71,
               "unit": "pt",
               "x0": 35.45,
-              "y0": 117.8,
+              "y0": 116.08,
               "x1": 525.4,
-              "y1": 199.3
+              "y1": 199.79
             },
             "data": {
               "Case ID": "2600132470",
@@ -107,14 +107,14 @@
             "type": "heading",
             "bbox": {
               "x": 169.49,
-              "y": 205.65,
+              "y": 203.7,
               "width": 256.39,
-              "height": 30.41,
+              "height": 32.82,
               "unit": "pt",
               "x0": 169.49,
-              "y0": 205.65,
+              "y0": 203.7,
               "x1": 425.88,
-              "y1": 236.06
+              "y1": 236.52
             },
             "text": "NGS Hereditary Cancer Panel on the Illumina Novaseq X NGS Platform",
             "style_override": {
@@ -127,14 +127,14 @@
             "type": "paragraph",
             "bbox": {
               "x": 41.1,
-              "y": 252.5,
+              "y": 251.1,
               "width": 79.76,
-              "height": 10.0,
+              "height": 11.72,
               "unit": "pt",
               "x0": 41.1,
-              "y0": 252.5,
+              "y0": 251.1,
               "x1": 120.86,
-              "y1": 262.5
+              "y1": 262.82
             },
             "text": "Clinical Indication:",
             "style_override": {
@@ -146,14 +146,14 @@
             "type": "paragraph",
             "bbox": {
               "x": 41.1,
-              "y": 267.85,
+              "y": 266.45,
               "width": 383.1,
-              "height": 10.0,
+              "height": 11.72,
               "unit": "pt",
               "x0": 41.1,
-              "y0": 267.85,
+              "y0": 266.45,
               "x1": 424.2,
-              "y1": 277.85
+              "y1": 278.17
             },
             "text": "Birendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion.",
             "style_override": {
@@ -165,14 +165,14 @@
             "type": "paragraph",
             "bbox": {
               "x": 35.45,
-              "y": 304.07,
+              "y": 302.68,
               "width": 164.81,
-              "height": 23.22,
+              "height": 24.94,
               "unit": "pt",
               "x0": 35.45,
-              "y0": 304.07,
+              "y0": 302.68,
               "x1": 200.26,
-              "y1": 327.29
+              "y1": 327.62
             },
             "text": "Sample Description: Sample quality is optimum for the test.",
             "style_override": {
@@ -184,14 +184,14 @@
             "type": "heading",
             "bbox": {
               "x": 121.2,
-              "y": 356.38,
+              "y": 354.43,
               "width": 352.94,
-              "height": 14.0,
+              "height": 16.4,
               "unit": "pt",
               "x0": 121.2,
-              "y0": 356.38,
+              "y0": 354.43,
               "x1": 474.14,
-              "y1": 370.38
+              "y1": 370.83
             },
             "text": "Pathogenic deletion identified in relation to phenotype",
             "style_override": {
@@ -204,14 +204,14 @@
             "type": "subheading",
             "bbox": {
               "x": 35.45,
-              "y": 404.55,
+              "y": 403.15,
               "width": 62.02,
-              "height": 10.0,
+              "height": 11.72,
               "unit": "pt",
               "x0": 35.45,
-              "y0": 404.55,
+              "y0": 403.15,
               "x1": 97.47,
-              "y1": 414.55
+              "y1": 414.87
             },
             "text": "Key Findings:",
             "style_override": {
@@ -270,14 +270,14 @@
             "type": "paragraph",
             "bbox": {
               "x": 35.45,
-              "y": 493.67,
+              "y": 492.27,
               "width": 435.38,
-              "height": 10.0,
+              "height": 11.72,
               "unit": "pt",
               "x0": 35.45,
-              "y0": 493.67,
+              "y0": 492.27,
               "x1": 470.83,
-              "y1": 503.67
+              "y1": 503.99
             },
             "text": "*Genetic test results are reported based on the recommendations of American College of Medical Genetics",
             "style_override": {
@@ -290,14 +290,14 @@
             "type": "paragraph",
             "bbox": {
               "x": 35.45,
-              "y": 517.11,
+              "y": 515.72,
               "width": 190.04,
-              "height": 10.0,
+              "height": 11.72,
               "unit": "pt",
               "x0": 35.45,
-              "y0": 517.11,
+              "y0": 515.72,
               "x1": 225.49,
-              "y1": 527.11
+              "y1": 527.44
             },
             "text": "Variant Interpretation & Clinical correlation:",
             "style_override": {
@@ -309,14 +309,14 @@
             "type": "key_value",
             "bbox": {
               "x": 35.45,
-              "y": 543.32,
+              "y": 541.92,
               "width": 524.43,
-              "height": 33.45,
+              "height": 35.17,
               "unit": "pt",
               "x0": 35.45,
-              "y0": 543.32,
+              "y0": 541.92,
               "x1": 559.88,
-              "y1": 576.77
+              "y1": 577.09
             },
             "data": {
               "MSH2": "Deletion Exon 3-6;"
@@ -326,14 +326,14 @@
             "type": "paragraph",
             "bbox": {
               "x": 35.45,
-              "y": 585.94,
+              "y": 584.54,
               "width": 442.27,
-              "height": 10.0,
+              "height": 11.72,
               "unit": "pt",
               "x0": 35.45,
-              "y0": 585.94,
+              "y0": 584.54,
               "x1": 477.72,
-              "y1": 595.94
+              "y1": 596.26
             },
             "text": "Based on above evidence, this variant (MSH2:Deletion Exon 3-6) is classified as  Pathogenic  variant.",
             "style_override": {
@@ -346,14 +346,14 @@
             "type": "paragraph",
             "bbox": {
               "x": 35.45,
-              "y": 609.67,
+              "y": 608.28,
               "width": 524.48,
-              "height": 68.62,
+              "height": 70.33,
               "unit": "pt",
               "x0": 35.45,
-              "y0": 609.67,
+              "y0": 608.28,
               "x1": 559.93,
-              "y1": 678.29
+              "y1": 678.61
             },
             "text": "MSH2 Gene Phenotype Description : Lynch syndrome-1 (LYNCH1), also known as hereditary nonpolyposis colorectal cancer (HNPCC1), is caused by heterozygous mutation in the mismatch repair gene MSH2 (609309) on chromosome 2p21-p16. Lynch syndrome (LYNCH), also called hereditary nonpolyposis colorectal cancer, is defined as an autosomal dominant predisposition to a spectrum of cancers, primarily of the colorectum and endometrium, which exhibit impaired DNA mismatch repair (MMR) activity (summary by Lynch et al., 2015).",
             "style_override": {
@@ -434,9 +434,9 @@
             "type": "footer",
             "bbox": {
               "x": 0,
-              "y": 744.92,
+              "y": 743.19,
               "width": 595.3,
-              "height": 96.98,
+              "height": 98.71,
               "unit": "pt"
             },
             "elements": [
@@ -493,14 +493,14 @@
                 "type": "paragraph",
                 "bbox": {
                   "x": 488.8,
-                  "y": 770.28,
+                  "y": 768.56,
                   "width": 37.17,
-                  "height": 10.0,
+                  "height": 12.21,
                   "unit": "pt",
                   "x0": 488.8,
-                  "y0": 770.28,
+                  "y0": 768.56,
                   "x1": 525.97,
-                  "y1": 780.28
+                  "y1": 780.77
                 },
                 "text": "MC-7414",
                 "style_override": {
@@ -512,14 +512,14 @@
                 "type": "paragraph",
                 "bbox": {
                   "x": 40.85,
-                  "y": 746.92,
+                  "y": 745.19,
                   "width": 397.02,
-                  "height": 32.27,
+                  "height": 34.44,
                   "unit": "pt",
                   "x0": 40.85,
-                  "y0": 746.92,
+                  "y0": 745.19,
                   "x1": 437.87,
-                  "y1": 779.19
+                  "y1": 779.63
                 },
                 "text": "Dr.Nirmal A. Vaniawala Dr. Salil Vaniawala Dr. Parag Tamhankar MD (Path. & Bact.) M.Sc Ph.D.(Human Genetics) Consulting Geneticist",
                 "role": "signature_block",
@@ -532,14 +532,14 @@
                 "type": "paragraph",
                 "bbox": {
                   "x": 352.51,
-                  "y": 759.03,
+                  "y": 757.65,
                   "width": 84.65,
-                  "height": 27.53,
+                  "height": 29.3,
                   "unit": "pt",
                   "x0": 352.51,
-                  "y0": 759.03,
+                  "y0": 757.65,
                   "x1": 437.16,
-                  "y1": 786.56
+                  "y1": 786.95
                 },
                 "text": "DM (Medical Genetics),  MD, DNB (Pediatrics)  Senior Genetic Consultant",
                 "style_override": {
@@ -563,7 +563,7 @@
               "x": 0,
               "y": 0,
               "width": 595.3,
-              "height": 201.3,
+              "height": 201.79,
               "unit": "pt"
             },
             "elements": [
@@ -571,14 +571,14 @@
                 "type": "subheading",
                 "bbox": {
                   "x": 36.89,
-                  "y": 83.92,
+                  "y": 82.37,
                   "width": 68.16,
-                  "height": 19.98,
+                  "height": 21.97,
                   "unit": "pt",
                   "x0": 36.89,
-                  "y0": 83.92,
+                  "y0": 82.37,
                   "x1": 105.05,
-                  "y1": 103.9
+                  "y1": 104.34
                 },
                 "text": "QR Code for report verification",
                 "style_override": {
@@ -591,14 +591,14 @@
                 "type": "key_value",
                 "bbox": {
                   "x": 35.45,
-                  "y": 117.8,
+                  "y": 116.08,
                   "width": 489.95,
-                  "height": 81.5,
+                  "height": 83.71,
                   "unit": "pt",
                   "x0": 35.45,
-                  "y0": 117.8,
+                  "y0": 116.08,
                   "x1": 525.4,
-                  "y1": 199.3
+                  "y1": 199.79
                 },
                 "text": "Case ID : 2600132470 Sample Type : EDTA PERIPHERAL BLOOD Name : MR. BIRENDRA KR TRIPATHI (KOL2604200324) Date & Time Collected : 20-Apr-2026 06:44 AM Sex/Age : Male/49 Years Date & Time Received : 22-Apr-2026 01:03 PM Bill. Loc. : OncQuest Laboratories Ltd., New Delhi Date & Time Reported : 20-May-2026 06:11 AM Ref. By : Report Version : 1 Indication :",
                 "style_override": {
@@ -631,14 +631,14 @@
             "type": "subheading",
             "bbox": {
               "x": 35.45,
-              "y": 205.09,
+              "y": 203.7,
               "width": 92.63,
-              "height": 10.0,
+              "height": 11.72,
               "unit": "pt",
               "x0": 35.45,
-              "y0": 205.09,
+              "y0": 203.7,
               "x1": 128.08,
-              "y1": 215.09
+              "y1": 215.42
             },
             "text": "Additional Findings :",
             "style_override": {
@@ -697,14 +697,14 @@
             "type": "paragraph",
             "bbox": {
               "x": 35.45,
-              "y": 295.14,
+              "y": 293.74,
               "width": 435.38,
-              "height": 10.0,
+              "height": 11.72,
               "unit": "pt",
               "x0": 35.45,
-              "y0": 295.14,
+              "y0": 293.74,
               "x1": 470.83,
-              "y1": 305.14
+              "y1": 305.46
             },
             "text": "*Genetic test results are reported based on the recommendations of American College of Medical Genetics",
             "style_override": {
@@ -717,14 +717,14 @@
             "type": "paragraph",
             "bbox": {
               "x": 35.45,
-              "y": 318.58,
+              "y": 317.18,
               "width": 524.48,
-              "height": 103.79,
+              "height": 105.51,
               "unit": "pt",
               "x0": 35.45,
-              "y0": 318.58,
+              "y0": 317.18,
               "x1": 559.93,
-              "y1": 422.37
+              "y1": 422.69
             },
             "text": "HBB Gene Phenotype Description : Direct sequencing of specific regions of genomic DNA became feasible with the invention of the polymerase chain reaction (PCR) which permits amplification of specific regions of DNA. Recently, human mitochondrial DNA was amplified and directly sequenced. Using a thermostable DNA polymerase of T. aquaticus (Saiki, R.K. et al., manuscript in preparation) in the PCR, we have applied a combination of PCR and direct sequence analysis of the amplified product to a human single- copy gene. We studied the genomic DNA of five patients with beta-thalassaemia whose mutant alleles were uncharacterized, and found two previously undescribed mutations, along with three known alleles. One new allele is a frameshift at codons 106-107 and the other is an A-C transversion at the cap site (+1) of the beta-globin gene. This latter is the first natural mutation observed at the cap site and it occurs in a gene which is poorly expressed.",
             "style_override": {
@@ -737,14 +737,14 @@
             "type": "paragraph",
             "bbox": {
               "x": 35.45,
-              "y": 438.91,
+              "y": 437.52,
               "width": 403.58,
-              "height": 21.72,
+              "height": 23.44,
               "unit": "pt",
               "x0": 35.45,
-              "y0": 438.91,
+              "y0": 437.52,
               "x1": 439.03,
-              "y1": 460.63
+              "y1": 460.96
             },
             "text": "Case Specific Recommendations: 1. Segregation analysis of the variant by Sanger /Exome sequencing/ MLPA is recommended.",
             "style_override": {
@@ -756,14 +756,14 @@
             "type": "paragraph",
             "bbox": {
               "x": 35.45,
-              "y": 475.08,
+              "y": 473.69,
               "width": 524.46,
-              "height": 108.6,
+              "height": 110.32,
               "unit": "pt",
               "x0": 35.45,
-              "y0": 475.08,
+              "y0": 473.69,
               "x1": 559.91,
-              "y1": 583.68
+              "y1": 584.01
             },
             "text": "Recommendations  Genetic counseling is advised for interpretation on the consequences of the variant(s).  We recommend confirming the presence of these variants by Sanger Sequencing/ MLPA.  Segregation analysis of the variant by Sanger /Exome sequencing/ MLPA is recommended.  The significance/classification of the variants might change based on parental and family members genetic testing.  For questions about this report, or for assistance in locating nearby genetic counseling services, please contact the Laboratory:  contact@sngenelab.com .  If results obtained do not match the clinical findings, additional testing should be considered as per referring clinician's recommendation.",
             "style_override": {
@@ -776,14 +776,14 @@
             "type": "paragraph",
             "bbox": {
               "x": 35.45,
-              "y": 598.13,
+              "y": 596.73,
               "width": 524.47,
-              "height": 99.63,
+              "height": 101.21,
               "unit": "pt",
               "x0": 35.45,
-              "y0": 598.13,
+              "y0": 596.73,
               "x1": 559.92,
-              "y1": 697.76
+              "y1": 697.94
             },
             "text": "Methodology:  Next Generation Sequencing: DNA extracted from Blood, Saliva, Amniotic fluid, CVS or any other standard source is used for targeted capture-based Library preparation. Targeted capture provides an efficient and sensitive means for sequencing specific genomic regions in a high-throughput manner. The libraries were sequenced to mean >85-100x coverage on Illumina Novaseq X sequencing platform with Paired End 2x150 chemistry.  We follow the Illumina DRAGEN Bio-IT Platform for identification of variants in the sample. The sequences obtained are assembled and aligned to reference sequences based on NCBI RefSeq transcripts and human genome build (GRCh38). Page 2 of 8",
             "style_override": {
@@ -863,9 +863,9 @@
             "type": "footer",
             "bbox": {
               "x": 0,
-              "y": 744.92,
+              "y": 743.19,
               "width": 595.3,
-              "height": 96.98,
+              "height": 98.71,
               "unit": "pt"
             },
             "elements": [
@@ -925,14 +925,14 @@
                 "type": "paragraph",
                 "bbox": {
                   "x": 488.8,
-                  "y": 770.28,
+                  "y": 768.56,
                   "width": 37.17,
-                  "height": 10.0,
+                  "height": 12.21,
                   "unit": "pt",
                   "x0": 488.8,
-                  "y0": 770.28,
+                  "y0": 768.56,
                   "x1": 525.97,
-                  "y1": 780.28
+                  "y1": 780.77
                 },
                 "text": "MC-7414",
                 "style_override": {
@@ -944,14 +944,14 @@
                 "type": "paragraph",
                 "bbox": {
                   "x": 40.85,
-                  "y": 746.92,
+                  "y": 745.19,
                   "width": 397.02,
-                  "height": 32.27,
+                  "height": 34.44,
                   "unit": "pt",
                   "x0": 40.85,
-                  "y0": 746.92,
+                  "y0": 745.19,
                   "x1": 437.87,
-                  "y1": 779.19
+                  "y1": 779.63
                 },
                 "text": "Dr.Nirmal A. Vaniawala Dr. Salil Vaniawala Dr. Parag Tamhankar MD (Path. & Bact.) M.Sc Ph.D.(Human Genetics) Consulting Geneticist",
                 "role": "signature_block",
@@ -964,14 +964,14 @@
                 "type": "paragraph",
                 "bbox": {
                   "x": 352.51,
-                  "y": 759.03,
+                  "y": 757.65,
                   "width": 84.65,
-                  "height": 27.53,
+                  "height": 29.3,
                   "unit": "pt",
                   "x0": 352.51,
-                  "y0": 759.03,
+                  "y0": 757.65,
                   "x1": 437.16,
-                  "y1": 786.56
+                  "y1": 786.95
                 },
                 "text": "DM (Medical Genetics),  MD, DNB (Pediatrics)  Senior Genetic Consultant",
                 "style_override": {
@@ -995,7 +995,7 @@
               "x": 0,
               "y": 0,
               "width": 595.3,
-              "height": 201.3,
+              "height": 201.79,
               "unit": "pt"
             },
             "elements": [
@@ -1003,14 +1003,14 @@
                 "type": "subheading",
                 "bbox": {
                   "x": 36.89,
-                  "y": 83.92,
+                  "y": 82.37,
                   "width": 68.16,
-                  "height": 19.98,
+                  "height": 21.97,
                   "unit": "pt",
                   "x0": 36.89,
-                  "y0": 83.92,
+                  "y0": 82.37,
                   "x1": 105.05,
-                  "y1": 103.9
+                  "y1": 104.34
                 },
                 "text": "QR Code for report verification",
                 "style_override": {
@@ -1023,14 +1023,14 @@
                 "type": "key_value",
                 "bbox": {
                   "x": 35.45,
-                  "y": 117.8,
+                  "y": 116.08,
                   "width": 489.95,
-                  "height": 81.5,
+                  "height": 83.71,
                   "unit": "pt",
                   "x0": 35.45,
-                  "y0": 117.8,
+                  "y0": 116.08,
                   "x1": 525.4,
-                  "y1": 199.3
+                  "y1": 199.79
                 },
                 "text": "Case ID : 2600132470 Sample Type : EDTA PERIPHERAL BLOOD Name : MR. BIRENDRA KR TRIPATHI (KOL2604200324) Date & Time Collected : 20-Apr-2026 06:44 AM Sex/Age : Male/49 Years Date & Time Received : 22-Apr-2026 01:03 PM Bill. Loc. : OncQuest Laboratories Ltd., New Delhi Date & Time Reported : 20-May-2026 06:11 AM Ref. By : Report Version : 1 Indication :",
                 "style_override": {
@@ -1063,14 +1063,14 @@
             "type": "paragraph",
             "bbox": {
               "x": 35.45,
-              "y": 206.04,
+              "y": 204.2,
               "width": 524.48,
-              "height": 130.1,
+              "height": 132.26,
               "unit": "pt",
               "x0": 35.45,
-              "y0": 206.04,
+              "y0": 204.2,
               "x1": 559.93,
-              "y1": 336.14
+              "y1": 336.46
             },
             "text": " This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study.",
             "style_override": {
@@ -1082,14 +1082,14 @@
             "type": "paragraph",
             "bbox": {
               "x": 35.45,
-              "y": 351.67,
+              "y": 350.28,
               "width": 524.48,
-              "height": 334.1,
+              "height": 335.81,
               "unit": "pt",
               "x0": 35.45,
-              "y0": 351.67,
+              "y0": 350.28,
               "x1": 559.93,
-              "y1": 685.77
+              "y1": 686.09
             },
             "text": "Limitations/Disclaimer:  It should be noted that this test does not sequence all bases in a human genome, not all variants have been identified or interpreted, and this report is limited only to variants with evidence for causing or contributing to disease/clinical details provided to SN Gene Lab Pvt Ltd.  Testing has been performed assuming that the sample received belongs to the above named individual and any stated relationships between individuals are accepted as true.  Test results are interpreted in the context of clinical findings, family history and other laboratory data. Only variations in genes potentially related to the proband's medical condition are reported. Rare polymorphisms may lead to false negative or positive results. Misinterpretation of results may occur if the information provided is inaccurate or incomplete. The results should be interpreted in the context of the patient’s medical evaluation, family history and racial/ethnic background. Please note that variant classification and/or interpretation may change over time if more information available. Re-interpretation of multi gene next generation sequencing data is recommended on an annual basis and may be requested by a medical provider.  The sensitivity of this assay to detect large deletions/duplications of more than 10 bp or copy number variations (CNV) is 70-75%. The CNVs detected with this assay have to be confirmed by alternate method such as MLPA & Microarray.  Due to inherent technology limitations, coverage is not uniform across all regions. Hence pathogenic variants present in areas of insufficient coverage as well as those variants which currently do not co-relate with the provided phenotype may not be analyzed/ reported. Additionally, it may not be possible to fully resolve certain details about variants, such as mosaicism, phasing, or mapping ambiguity.  Triplet repeat expansions, translocations, large deletion or duplications and chromosomal rearrangements events are currently not reliably detected by next generation sequencing.  This assay is not meant to interrogate most promoter regions, deep intronic regions, or other regulatory elements, other gene rearrangements like inversion or translocation and does not detect single or multi-exon deletions or duplications.  Incidental or secondary findings (if any) that meet the ACMG guidelines can be given upon request.  Genes with pseudogenes, paralog genes and genes with low complexity may have decreased sensitivity and specificity of variant detection and interpretation due to inability of the data and analysis tools to unambiguously determine the",
             "style_override": {
@@ -1169,9 +1169,9 @@
             "type": "footer",
             "bbox": {
               "x": 0,
-              "y": 744.92,
+              "y": 743.19,
               "width": 595.3,
-              "height": 96.98,
+              "height": 98.71,
               "unit": "pt"
             },
             "elements": [
@@ -1231,14 +1231,14 @@
                 "type": "paragraph",
                 "bbox": {
                   "x": 488.8,
-                  "y": 770.28,
+                  "y": 768.56,
                   "width": 37.17,
-                  "height": 10.0,
+                  "height": 12.21,
                   "unit": "pt",
                   "x0": 488.8,
-                  "y0": 770.28,
+                  "y0": 768.56,
                   "x1": 525.97,
-                  "y1": 780.28
+                  "y1": 780.77
                 },
                 "text": "MC-7414",
                 "style_override": {
@@ -1250,14 +1250,14 @@
                 "type": "paragraph",
                 "bbox": {
                   "x": 40.85,
-                  "y": 746.92,
+                  "y": 745.19,
                   "width": 397.02,
-                  "height": 32.27,
+                  "height": 34.44,
                   "unit": "pt",
                   "x0": 40.85,
-                  "y0": 746.92,
+                  "y0": 745.19,
                   "x1": 437.87,
-                  "y1": 779.19
+                  "y1": 779.63
                 },
                 "text": "Dr.Nirmal A. Vaniawala Dr. Salil Vaniawala Dr. Parag Tamhankar MD (Path. & Bact.) M.Sc Ph.D.(Human Genetics) Consulting Geneticist",
                 "role": "signature_block",
@@ -1270,14 +1270,14 @@
                 "type": "paragraph",
                 "bbox": {
                   "x": 352.51,
-                  "y": 759.03,
+                  "y": 757.65,
                   "width": 84.65,
-                  "height": 27.53,
+                  "height": 29.3,
                   "unit": "pt",
                   "x0": 352.51,
-                  "y0": 759.03,
+                  "y0": 757.65,
                   "x1": 437.16,
-                  "y1": 786.56
+                  "y1": 786.95
                 },
                 "text": "DM (Medical Genetics),  MD, DNB (Pediatrics)  Senior Genetic Consultant",
                 "style_override": {
@@ -1309,14 +1309,14 @@
                 "type": "subheading",
                 "bbox": {
                   "x": 36.89,
-                  "y": 83.92,
+                  "y": 82.37,
                   "width": 68.16,
-                  "height": 19.98,
+                  "height": 21.97,
                   "unit": "pt",
                   "x0": 36.89,
-                  "y0": 83.92,
+                  "y0": 82.37,
                   "x1": 105.05,
-                  "y1": 103.9
+                  "y1": 104.34
                 },
                 "text": "QR Code for report verification",
                 "style_override": {
@@ -1329,14 +1329,14 @@
                 "type": "key_value",
                 "bbox": {
                   "x": 35.45,
-                  "y": 117.8,
+                  "y": 116.08,
                   "width": 489.95,
-                  "height": 81.5,
+                  "height": 83.71,
                   "unit": "pt",
                   "x0": 35.45,
-                  "y0": 117.8,
+                  "y0": 116.08,
                   "x1": 525.4,
-                  "y1": 199.3
+                  "y1": 199.79
                 },
                 "text": "Case ID : 2600132470 Sample Type : EDTA PERIPHERAL BLOOD Name : MR. BIRENDRA KR TRIPATHI (KOL2604200324) Date & Time Collected : 20-Apr-2026 06:44 AM Sex/Age : Male/49 Years Date & Time Received : 22-Apr-2026 01:03 PM Bill. Loc. : OncQuest Laboratories Ltd., New Delhi Date & Time Reported : 20-May-2026 06:11 AM Ref. By : Report Version : 1 Indication :",
                 "style_override": {
@@ -1369,14 +1369,14 @@
             "type": "paragraph",
             "bbox": {
               "x": 35.45,
-              "y": 205.59,
+              "y": 204.2,
               "width": 524.48,
-              "height": 58.0,
+              "height": 59.72,
               "unit": "pt",
               "x0": 35.45,
-              "y0": 205.59,
+              "y0": 204.2,
               "x1": 559.93,
-              "y1": 263.59
+              "y1": 263.92
             },
             "text": "origin of the sequence data in such regions.  Sequence and copy number variants are reported according to the Human Genome Variation Society (HGVS).  The transcript used for clinical reporting generally represents the canonical transcript, which is usually the longest coding transcript with strong/multiple supporting evidence. However, clinically relevant variants annotated in alternate complete coding transcripts could also be reported.",
             "style_override": {
@@ -1437,14 +1437,14 @@
             "type": "key_value",
             "bbox": {
               "x": 35.45,
-              "y": 583.32,
+              "y": 581.93,
               "width": 501.32,
-              "height": 45.17,
+              "height": 46.89,
               "unit": "pt",
               "x0": 35.45,
-              "y0": 583.32,
+              "y0": 581.93,
               "x1": 536.77,
-              "y1": 628.49
+              "y1": 628.82
             },
             "data": {
               "interpretation of sequence variants": "a joint consensus"
@@ -1454,14 +1454,14 @@
             "type": "paragraph",
             "bbox": {
               "x": 35.45,
-              "y": 638.22,
+              "y": 636.82,
               "width": 495.34,
-              "height": 33.44,
+              "height": 35.17,
               "unit": "pt",
               "x0": 35.45,
-              "y0": 638.22,
+              "y0": 636.82,
               "x1": 530.79,
-              "y1": 671.66
+              "y1": 671.99
             },
             "text": "2. Kalia S.S. et al., Recommendations for reporting of secondary findings in clinical exome and genome sequencing, 2016 update(ACMG SF v2.0): a policy statement of the American College of Medical Genetics and Genomics. Genet Med., 19(2):249-255, 2017.",
             "style_override": {
@@ -1604,14 +1604,14 @@
                 "type": "paragraph",
                 "bbox": {
                   "x": 488.8,
-                  "y": 770.28,
+                  "y": 768.56,
                   "width": 37.17,
-                  "height": 10.0,
+                  "height": 12.21,
                   "unit": "pt",
                   "x0": 488.8,
-                  "y0": 770.28,
+                  "y0": 768.56,
                   "x1": 525.97,
-                  "y1": 780.28
+                  "y1": 780.77
                 },
                 "text": "MC-7414",
                 "style_override": {
@@ -1623,14 +1623,14 @@
                 "type": "paragraph",
                 "bbox": {
                   "x": 40.85,
-                  "y": 746.92,
+                  "y": 745.19,
                   "width": 397.02,
-                  "height": 32.27,
+                  "height": 34.44,
                   "unit": "pt",
                   "x0": 40.85,
-                  "y0": 746.92,
+                  "y0": 745.19,
                   "x1": 437.87,
-                  "y1": 779.19
+                  "y1": 779.63
                 },
                 "text": "Dr.Nirmal A. Vaniawala Dr. Salil Vaniawala Dr. Parag Tamhankar MD (Path. & Bact.) M.Sc Ph.D.(Human Genetics) Consulting Geneticist",
                 "role": "signature_block",
@@ -1643,14 +1643,14 @@
                 "type": "paragraph",
                 "bbox": {
                   "x": 352.51,
-                  "y": 759.03,
+                  "y": 757.65,
                   "width": 84.65,
-                  "height": 27.53,
+                  "height": 29.3,
                   "unit": "pt",
                   "x0": 352.51,
-                  "y0": 759.03,
+                  "y0": 757.65,
                   "x1": 437.16,
-                  "y1": 786.56
+                  "y1": 786.95
                 },
                 "text": "DM (Medical Genetics),  MD, DNB (Pediatrics)  Senior Genetic Consultant",
                 "style_override": {
@@ -1682,14 +1682,14 @@
                 "type": "subheading",
                 "bbox": {
                   "x": 36.89,
-                  "y": 83.92,
+                  "y": 82.37,
                   "width": 68.16,
-                  "height": 19.98,
+                  "height": 21.97,
                   "unit": "pt",
                   "x0": 36.89,
-                  "y0": 83.92,
+                  "y0": 82.37,
                   "x1": 105.05,
-                  "y1": 103.9
+                  "y1": 104.34
                 },
                 "text": "QR Code for report verification",
                 "style_override": {
@@ -1702,14 +1702,14 @@
                 "type": "key_value",
                 "bbox": {
                   "x": 35.45,
-                  "y": 117.8,
+                  "y": 116.08,
                   "width": 489.95,
-                  "height": 81.5,
+                  "height": 83.71,
                   "unit": "pt",
                   "x0": 35.45,
-                  "y0": 117.8,
+                  "y0": 116.08,
                   "x1": 525.4,
-                  "y1": 199.3
+                  "y1": 199.79
                 },
                 "text": "Case ID : 2600132470 Sample Type : EDTA PERIPHERAL BLOOD Name : MR. BIRENDRA KR TRIPATHI (KOL2604200324) Date & Time Collected : 20-Apr-2026 06:44 AM Sex/Age : Male/49 Years Date & Time Received : 22-Apr-2026 01:03 PM Bill. Loc. : OncQuest Laboratories Ltd., New Delhi Date & Time Reported : 20-May-2026 06:11 AM Ref. By : Report Version : 1 Indication :",
                 "style_override": {
@@ -1742,14 +1742,14 @@
             "type": "paragraph",
             "bbox": {
               "x": 35.45,
-              "y": 205.09,
+              "y": 203.7,
               "width": 497.61,
-              "height": 21.73,
+              "height": 23.44,
               "unit": "pt",
               "x0": 35.45,
-              "y0": 205.09,
+              "y0": 203.7,
               "x1": 533.06,
-              "y1": 226.82
+              "y1": 227.14
             },
             "text": "3. Meyer, L.R., et al., The UCSC Genome Browser database: extensions and updates 2013. Nucleic Acids Res, 2013. 41(D1): p.D64-9.",
             "style_override": {
@@ -1762,14 +1762,14 @@
             "type": "paragraph",
             "bbox": {
               "x": 35.45,
-              "y": 236.54,
+              "y": 235.14,
               "width": 513.55,
-              "height": 21.72,
+              "height": 23.45,
               "unit": "pt",
               "x0": 35.45,
-              "y0": 236.54,
+              "y0": 235.14,
               "x1": 549.0,
-              "y1": 258.26
+              "y1": 258.59
             },
             "text": "4. McKenna, A., et al., The Genome Analysis Toolkit: a MapReduce framework for analyzing next-generation DNA sequencing data. Genome Res, 2010. 20(9): p. 1297-303",
             "style_override": {
@@ -1782,14 +1782,14 @@
             "type": "paragraph",
             "bbox": {
               "x": 35.45,
-              "y": 271.71,
+              "y": 270.32,
               "width": 511.82,
-              "height": 10.0,
+              "height": 11.72,
               "unit": "pt",
               "x0": 35.45,
-              "y0": 271.71,
+              "y0": 270.32,
               "x1": 547.27,
-              "y1": 281.71
+              "y1": 282.04
             },
             "text": "5. 1000 Genomes Project Consortium et al., A global reference for human genetic variation. Nature, 526(7571): 68-74, 2015.",
             "style_override": {
@@ -1802,14 +1802,14 @@
             "type": "paragraph",
             "bbox": {
               "x": 35.45,
-              "y": 291.43,
+              "y": 290.04,
               "width": 461.97,
-              "height": 10.0,
+              "height": 11.72,
               "unit": "pt",
               "x0": 35.45,
-              "y0": 291.43,
+              "y0": 290.04,
               "x1": 497.42,
-              "y1": 301.43
+              "y1": 301.76
             },
             "text": "6. Lek M. et al., Analysis of protein-coding genetic variation in 60,706 humans. Nature, 536(7616):285-91, 2016.",
             "style_override": {
@@ -1822,14 +1822,14 @@
             "type": "paragraph",
             "bbox": {
               "x": 35.45,
-              "y": 311.16,
+              "y": 309.76,
               "width": 481.48,
-              "height": 21.72,
+              "height": 23.45,
               "unit": "pt",
               "x0": 35.45,
-              "y0": 311.16,
+              "y0": 309.76,
               "x1": 516.93,
-              "y1": 332.88
+              "y1": 333.21
             },
             "text": "7. McLaren, W., et al., Deriving the consequences of genomic variants with the Ensembl API and SNP Effect Predictor. Bioinformatics, 2010. 26(16): p. 2069-70.",
             "style_override": {
@@ -1883,14 +1883,14 @@
             "type": "key_value",
             "bbox": {
               "x": 35.45,
-              "y": 446.95,
+              "y": 445.56,
               "width": 157.65,
-              "height": 10.0,
+              "height": 11.72,
               "unit": "pt",
               "x0": 35.45,
-              "y0": 446.95,
+              "y0": 445.56,
               "x1": 193.1,
-              "y1": 456.95
+              "y1": 457.28
             },
             "data": {
               "Appendix 2": "COVERAGE SUMMARY"
@@ -2214,14 +2214,14 @@
                 "type": "paragraph",
                 "bbox": {
                   "x": 488.8,
-                  "y": 770.28,
+                  "y": 768.56,
                   "width": 37.17,
-                  "height": 10.0,
+                  "height": 12.21,
                   "unit": "pt",
                   "x0": 488.8,
-                  "y0": 770.28,
+                  "y0": 768.56,
                   "x1": 525.97,
-                  "y1": 780.28
+                  "y1": 780.77
                 },
                 "text": "MC-7414",
                 "style_override": {
@@ -2233,14 +2233,14 @@
                 "type": "paragraph",
                 "bbox": {
                   "x": 40.85,
-                  "y": 746.92,
+                  "y": 745.19,
                   "width": 397.02,
-                  "height": 32.27,
+                  "height": 34.44,
                   "unit": "pt",
                   "x0": 40.85,
-                  "y0": 746.92,
+                  "y0": 745.19,
                   "x1": 437.87,
-                  "y1": 779.19
+                  "y1": 779.63
                 },
                 "text": "Dr.Nirmal A. Vaniawala Dr. Salil Vaniawala Dr. Parag Tamhankar MD (Path. & Bact.) M.Sc Ph.D.(Human Genetics) Consulting Geneticist",
                 "role": "signature_block",
@@ -2253,14 +2253,14 @@
                 "type": "paragraph",
                 "bbox": {
                   "x": 352.51,
-                  "y": 759.03,
+                  "y": 757.65,
                   "width": 84.65,
-                  "height": 27.53,
+                  "height": 29.3,
                   "unit": "pt",
                   "x0": 352.51,
-                  "y0": 759.03,
+                  "y0": 757.65,
                   "x1": 437.16,
-                  "y1": 786.56
+                  "y1": 786.95
                 },
                 "text": "DM (Medical Genetics),  MD, DNB (Pediatrics)  Senior Genetic Consultant",
                 "style_override": {
@@ -2292,14 +2292,14 @@
                 "type": "subheading",
                 "bbox": {
                   "x": 36.89,
-                  "y": 83.92,
+                  "y": 82.37,
                   "width": 68.16,
-                  "height": 19.98,
+                  "height": 21.97,
                   "unit": "pt",
                   "x0": 36.89,
-                  "y0": 83.92,
+                  "y0": 82.37,
                   "x1": 105.05,
-                  "y1": 103.9
+                  "y1": 104.34
                 },
                 "text": "QR Code for report verification",
                 "style_override": {
@@ -2312,14 +2312,14 @@
                 "type": "key_value",
                 "bbox": {
                   "x": 35.45,
-                  "y": 117.8,
+                  "y": 116.08,
                   "width": 489.95,
-                  "height": 81.5,
+                  "height": 83.71,
                   "unit": "pt",
                   "x0": 35.45,
-                  "y0": 117.8,
+                  "y0": 116.08,
                   "x1": 525.4,
-                  "y1": 199.3
+                  "y1": 199.79
                 },
                 "text": "Case ID : 2600132470 Sample Type : EDTA PERIPHERAL BLOOD Name : MR. BIRENDRA KR TRIPATHI (KOL2604200324) Date & Time Collected : 20-Apr-2026 06:44 AM Sex/Age : Male/49 Years Date & Time Received : 22-Apr-2026 01:03 PM Bill. Loc. : OncQuest Laboratories Ltd., New Delhi Date & Time Reported : 20-May-2026 06:11 AM Ref. By : Report Version : 1 Indication :",
                 "style_override": {
@@ -2823,14 +2823,14 @@
                 "type": "paragraph",
                 "bbox": {
                   "x": 488.8,
-                  "y": 770.28,
+                  "y": 768.56,
                   "width": 37.17,
-                  "height": 10.0,
+                  "height": 12.21,
                   "unit": "pt",
                   "x0": 488.8,
-                  "y0": 770.28,
+                  "y0": 768.56,
                   "x1": 525.97,
-                  "y1": 780.28
+                  "y1": 780.77
                 },
                 "text": "MC-7414",
                 "style_override": {
@@ -2842,14 +2842,14 @@
                 "type": "paragraph",
                 "bbox": {
                   "x": 40.85,
-                  "y": 746.92,
+                  "y": 745.19,
                   "width": 397.02,
-                  "height": 32.27,
+                  "height": 34.44,
                   "unit": "pt",
                   "x0": 40.85,
-                  "y0": 746.92,
+                  "y0": 745.19,
                   "x1": 437.87,
-                  "y1": 779.19
+                  "y1": 779.63
                 },
                 "text": "Dr.Nirmal A. Vaniawala Dr. Salil Vaniawala Dr. Parag Tamhankar MD (Path. & Bact.) M.Sc Ph.D.(Human Genetics) Consulting Geneticist",
                 "role": "signature_block",
@@ -2862,14 +2862,14 @@
                 "type": "paragraph",
                 "bbox": {
                   "x": 352.51,
-                  "y": 759.03,
+                  "y": 757.65,
                   "width": 84.65,
-                  "height": 27.53,
+                  "height": 29.3,
                   "unit": "pt",
                   "x0": 352.51,
-                  "y0": 759.03,
+                  "y0": 757.65,
                   "x1": 437.16,
-                  "y1": 786.56
+                  "y1": 786.95
                 },
                 "text": "DM (Medical Genetics),  MD, DNB (Pediatrics)  Senior Genetic Consultant",
                 "style_override": {
@@ -2901,14 +2901,14 @@
                 "type": "subheading",
                 "bbox": {
                   "x": 36.89,
-                  "y": 83.92,
+                  "y": 82.37,
                   "width": 68.16,
-                  "height": 19.98,
+                  "height": 21.97,
                   "unit": "pt",
                   "x0": 36.89,
-                  "y0": 83.92,
+                  "y0": 82.37,
                   "x1": 105.05,
-                  "y1": 103.9
+                  "y1": 104.34
                 },
                 "text": "QR Code for report verification",
                 "style_override": {
@@ -2921,14 +2921,14 @@
                 "type": "key_value",
                 "bbox": {
                   "x": 35.45,
-                  "y": 117.8,
+                  "y": 116.08,
                   "width": 489.95,
-                  "height": 81.5,
+                  "height": 83.71,
                   "unit": "pt",
                   "x0": 35.45,
-                  "y0": 117.8,
+                  "y0": 116.08,
                   "x1": 525.4,
-                  "y1": 199.3
+                  "y1": 199.79
                 },
                 "text": "Case ID : 2600132470 Sample Type : EDTA PERIPHERAL BLOOD Name : MR. BIRENDRA KR TRIPATHI (KOL2604200324) Date & Time Collected : 20-Apr-2026 06:44 AM Sex/Age : Male/49 Years Date & Time Received : 22-Apr-2026 01:03 PM Bill. Loc. : OncQuest Laboratories Ltd., New Delhi Date & Time Reported : 20-May-2026 06:11 AM Ref. By : Report Version : 1 Indication :",
                 "style_override": {
@@ -3386,9 +3386,9 @@
             "type": "footer",
             "bbox": {
               "x": 0,
-              "y": 744.92,
+              "y": 743.19,
               "width": 595.3,
-              "height": 96.98,
+              "height": 98.71,
               "unit": "pt"
             },
             "elements": [
@@ -3448,14 +3448,14 @@
                 "type": "paragraph",
                 "bbox": {
                   "x": 488.8,
-                  "y": 770.28,
+                  "y": 768.56,
                   "width": 37.17,
-                  "height": 10.0,
+                  "height": 12.21,
                   "unit": "pt",
                   "x0": 488.8,
-                  "y0": 770.28,
+                  "y0": 768.56,
                   "x1": 525.97,
-                  "y1": 780.28
+                  "y1": 780.77
                 },
                 "text": "MC-7414",
                 "style_override": {
@@ -3467,14 +3467,14 @@
                 "type": "paragraph",
                 "bbox": {
                   "x": 40.85,
-                  "y": 746.92,
+                  "y": 745.19,
                   "width": 397.02,
-                  "height": 32.27,
+                  "height": 34.44,
                   "unit": "pt",
                   "x0": 40.85,
-                  "y0": 746.92,
+                  "y0": 745.19,
                   "x1": 437.87,
-                  "y1": 779.19
+                  "y1": 779.63
                 },
                 "text": "Dr.Nirmal A. Vaniawala Dr. Salil Vaniawala Dr. Parag Tamhankar MD (Path. & Bact.) M.Sc Ph.D.(Human Genetics) Consulting Geneticist",
                 "role": "signature_block",
@@ -3487,14 +3487,14 @@
                 "type": "paragraph",
                 "bbox": {
                   "x": 352.51,
-                  "y": 759.03,
+                  "y": 757.65,
                   "width": 84.65,
-                  "height": 27.53,
+                  "height": 29.3,
                   "unit": "pt",
                   "x0": 352.51,
-                  "y0": 759.03,
+                  "y0": 757.65,
                   "x1": 437.16,
-                  "y1": 786.56
+                  "y1": 786.95
                 },
                 "text": "DM (Medical Genetics),  MD, DNB (Pediatrics)  Senior Genetic Consultant",
                 "style_override": {
@@ -3518,7 +3518,7 @@
               "x": 0,
               "y": 0,
               "width": 595.3,
-              "height": 201.3,
+              "height": 201.79,
               "unit": "pt"
             },
             "elements": [
@@ -3526,14 +3526,14 @@
                 "type": "subheading",
                 "bbox": {
                   "x": 36.89,
-                  "y": 83.92,
+                  "y": 82.37,
                   "width": 68.16,
-                  "height": 19.98,
+                  "height": 21.97,
                   "unit": "pt",
                   "x0": 36.89,
-                  "y0": 83.92,
+                  "y0": 82.37,
                   "x1": 105.05,
-                  "y1": 103.9
+                  "y1": 104.34
                 },
                 "text": "QR Code for report verification",
                 "style_override": {
@@ -3546,14 +3546,14 @@
                 "type": "key_value",
                 "bbox": {
                   "x": 35.45,
-                  "y": 117.8,
+                  "y": 116.08,
                   "width": 489.95,
-                  "height": 81.5,
+                  "height": 83.71,
                   "unit": "pt",
                   "x0": 35.45,
-                  "y0": 117.8,
+                  "y0": 116.08,
                   "x1": 525.4,
-                  "y1": 199.3
+                  "y1": 199.79
                 },
                 "text": "Case ID : 2600132470 Sample Type : EDTA PERIPHERAL BLOOD Name : MR. BIRENDRA KR TRIPATHI (KOL2604200324) Date & Time Collected : 20-Apr-2026 06:44 AM Sex/Age : Male/49 Years Date & Time Received : 22-Apr-2026 01:03 PM Bill. Loc. : OncQuest Laboratories Ltd., New Delhi Date & Time Reported : 20-May-2026 06:11 AM Ref. By : Report Version : 1 Indication :",
                 "style_override": {
@@ -3743,14 +3743,14 @@
             "type": "paragraph",
             "bbox": {
               "x": 211.66,
-              "y": 409.0,
+              "y": 407.27,
               "width": 172.08,
-              "height": 10.0,
+              "height": 12.21,
               "unit": "pt",
               "x0": 211.66,
-              "y0": 409.0,
+              "y0": 407.27,
               "x1": 383.74,
-              "y1": 419.0
+              "y1": 419.48
             },
             "text": "------------------ End Of Report ------------------",
             "style_override": {
@@ -3830,9 +3830,9 @@
             "type": "footer",
             "bbox": {
               "x": 0,
-              "y": 744.92,
+              "y": 743.19,
               "width": 595.3,
-              "height": 96.98,
+              "height": 98.71,
               "unit": "pt"
             },
             "elements": [
@@ -3892,14 +3892,14 @@
                 "type": "paragraph",
                 "bbox": {
                   "x": 488.8,
-                  "y": 770.28,
+                  "y": 768.56,
                   "width": 37.17,
-                  "height": 10.0,
+                  "height": 12.21,
                   "unit": "pt",
                   "x0": 488.8,
-                  "y0": 770.28,
+                  "y0": 768.56,
                   "x1": 525.97,
-                  "y1": 780.28
+                  "y1": 780.77
                 },
                 "text": "MC-7414",
                 "style_override": {
@@ -3911,14 +3911,14 @@
                 "type": "paragraph",
                 "bbox": {
                   "x": 40.85,
-                  "y": 746.92,
+                  "y": 745.19,
                   "width": 397.02,
-                  "height": 32.27,
+                  "height": 34.44,
                   "unit": "pt",
                   "x0": 40.85,
-                  "y0": 746.92,
+                  "y0": 745.19,
                   "x1": 437.87,
-                  "y1": 779.19
+                  "y1": 779.63
                 },
                 "text": "Dr.Nirmal A. Vaniawala Dr. Salil Vaniawala Dr. Parag Tamhankar MD (Path. & Bact.) M.Sc Ph.D.(Human Genetics) Consulting Geneticist",
                 "role": "signature_block",
@@ -3931,14 +3931,14 @@
                 "type": "paragraph",
                 "bbox": {
                   "x": 352.51,
-                  "y": 759.03,
+                  "y": 757.65,
                   "width": 84.65,
-                  "height": 27.53,
+                  "height": 29.3,
                   "unit": "pt",
                   "x0": 352.51,
-                  "y0": 759.03,
+                  "y0": 757.65,
                   "x1": 437.16,
-                  "y1": 786.56
+                  "y1": 786.95
                 },
                 "text": "DM (Medical Genetics),  MD, DNB (Pediatrics)  Senior Genetic Consultant",
                 "style_override": {
@@ -4010,9 +4010,9 @@
       "page": 1,
       "bbox": [
         169.49,
-        205.65,
+        203.7,
         425.88,
-        236.06
+        236.52
       ],
       "content_text": [
         "Sample Description: Sample quality is optimum for the test."
@@ -4028,9 +4028,9 @@
       "page": 1,
       "bbox": [
         35.45,
-        404.55,
+        403.15,
         97.47,
-        414.55
+        414.87
       ],
       "content_text": [
         "*Genetic test results are reported based on the recommendations of American College of Medical Genetics",
@@ -4152,9 +4152,9 @@
       "page": 2,
       "bbox": [
         35.45,
-        205.09,
+        203.7,
         128.08,
-        215.09
+        215.42
       ],
       "content_text": [
         "*Genetic test results are reported based on the recommendations of American College of Medical Genetics",
@@ -4272,9 +4272,9 @@
       "page": 3,
       "bbox": [
         35.45,
-        206.04,
+        204.2,
         559.93,
-        336.14
+        336.46
       ],
       "content_text": [
         " This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study.",
@@ -4356,9 +4356,9 @@
       "page": 4,
       "bbox": [
         35.45,
-        205.59,
+        204.2,
         559.93,
-        263.59
+        263.92
       ],
       "content_text": [
         "origin of the sequence data in such regions.  Sequence and copy number variants are reported according to the Human Genome Variation Society (HGVS).  The transcript used for clinical reporting generally represents the canonical transcript, which is usually the longest coding transcript with strong/multiple supporting evidence. However, clinically relevant variants annotated in alternate complete coding transcripts could also be reported.",
@@ -4484,9 +4484,9 @@
       "page": 5,
       "bbox": [
         35.45,
-        205.09,
+        203.7,
         533.06,
-        226.82
+        227.14
       ],
       "content_text": [
         "3. Meyer, L.R., et al., The UCSC Genome Browser database: extensions and updates 2013. Nucleic Acids Res, 2013. 41(D1): p.D64-9.",
@@ -5704,9 +5704,9 @@
       "page": 8,
       "bbox": [
         211.66,
-        409.0,
+        407.27,
         383.74,
-        419.0
+        419.48
       ],
       "content_text": [
         "------------------ End Of Report ------------------"
@@ -5788,9 +5788,9 @@
       "page": 1,
       "bbox": [
         169.49,
-        205.65,
+        203.7,
         425.88,
-        236.06
+        236.52
       ],
       "content_text": [
         "Sample Description: Sample quality is optimum for the test."
@@ -5806,9 +5806,9 @@
       "page": 1,
       "bbox": [
         35.45,
-        404.55,
+        403.15,
         97.47,
-        414.55
+        414.87
       ],
       "content_text": [
         "*Genetic test results are reported based on the recommendations of American College of Medical Genetics",
@@ -5930,9 +5930,9 @@
       "page": 2,
       "bbox": [
         35.45,
-        205.09,
+        203.7,
         128.08,
-        215.09
+        215.42
       ],
       "content_text": [
         "*Genetic test results are reported based on the recommendations of American College of Medical Genetics",
@@ -6050,9 +6050,9 @@
       "page": 3,
       "bbox": [
         35.45,
-        206.04,
+        204.2,
         559.93,
-        336.14
+        336.46
       ],
       "content_text": [
         " This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study.",
@@ -6134,9 +6134,9 @@
       "page": 4,
       "bbox": [
         35.45,
-        205.59,
+        204.2,
         559.93,
-        263.59
+        263.92
       ],
       "content_text": [
         "origin of the sequence data in such regions.  Sequence and copy number variants are reported according to the Human Genome Variation Society (HGVS).  The transcript used for clinical reporting generally represents the canonical transcript, which is usually the longest coding transcript with strong/multiple supporting evidence. However, clinically relevant variants annotated in alternate complete coding transcripts could also be reported.",
@@ -6262,9 +6262,9 @@
       "page": 5,
       "bbox": [
         35.45,
-        205.09,
+        203.7,
         533.06,
-        226.82
+        227.14
       ],
       "content_text": [
         "3. Meyer, L.R., et al., The UCSC Genome Browser database: extensions and updates 2013. Nucleic Acids Res, 2013. 41(D1): p.D64-9.",
@@ -7482,9 +7482,9 @@
       "page": 8,
       "bbox": [
         211.66,
-        409.0,
+        407.27,
         383.74,
-        419.0
+        419.48
       ],
       "content_text": [
         "------------------ End Of Report ------------------"
@@ -11769,9 +11769,9 @@
       "type": "box",
       "bbox": [
         169.49,
-        205.65,
+        203.7,
         425.88,
-        236.06
+        236.52
       ],
       "content_text": [
         "Sample Description: Sample quality is optimum for the test."
@@ -11783,9 +11783,9 @@
       "type": "box",
       "bbox": [
         35.45,
-        404.55,
+        403.15,
         97.47,
-        414.55
+        414.87
       ],
       "content_text": [
         "*Genetic test results are reported based on the recommendations of American College of Medical Genetics",
@@ -11803,9 +11803,9 @@
       "type": "box",
       "bbox": [
         35.45,
-        205.09,
+        203.7,
         128.08,
-        215.09
+        215.42
       ],
       "content_text": [
         "*Genetic test results are reported based on the recommendations of American College of Medical Genetics",
@@ -11821,9 +11821,9 @@
       "type": "box",
       "bbox": [
         35.45,
-        206.04,
+        204.2,
         559.93,
-        336.14
+        336.46
       ],
       "content_text": [
         " This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study.",
@@ -11836,9 +11836,9 @@
       "type": "box",
       "bbox": [
         35.45,
-        205.59,
+        204.2,
         559.93,
-        263.59
+        263.92
       ],
       "content_text": [
         "origin of the sequence data in such regions.  Sequence and copy number variants are reported according to the Human Genome Variation Society (HGVS).  The transcript used for clinical reporting generally represents the canonical transcript, which is usually the longest coding transcript with strong/multiple supporting evidence. However, clinically relevant variants annotated in alternate complete coding transcripts could also be reported.",
@@ -11852,9 +11852,9 @@
       "type": "box",
       "bbox": [
         35.45,
-        205.09,
+        203.7,
         533.06,
-        226.82
+        227.14
       ],
       "content_text": [
         "3. Meyer, L.R., et al., The UCSC Genome Browser database: extensions and updates 2013. Nucleic Acids Res, 2013. 41(D1): p.D64-9.",
@@ -11870,9 +11870,9 @@
       "type": "box",
       "bbox": [
         211.66,
-        409.0,
+        407.27,
         383.74,
-        419.0
+        419.48
       ],
       "content_text": [
         "------------------ End Of Report ------------------"
@@ -11886,9 +11886,9 @@
       "type": "box",
       "bbox": [
         169.49,
-        205.65,
+        203.7,
         425.88,
-        236.06
+        236.52
       ],
       "content_text": [
         "Sample Description: Sample quality is optimum for the test."
@@ -11900,9 +11900,9 @@
       "type": "box",
       "bbox": [
         35.45,
-        404.55,
+        403.15,
         97.47,
-        414.55
+        414.87
       ],
       "content_text": [
         "*Genetic test results are reported based on the recommendations of American College of Medical Genetics",
@@ -11920,9 +11920,9 @@
       "type": "box",
       "bbox": [
         35.45,
-        205.09,
+        203.7,
         128.08,
-        215.09
+        215.42
       ],
       "content_text": [
         "*Genetic test results are reported based on the recommendations of American College of Medical Genetics",
@@ -11938,9 +11938,9 @@
       "type": "box",
       "bbox": [
         35.45,
-        206.04,
+        204.2,
         559.93,
-        336.14
+        336.46
       ],
       "content_text": [
         " This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study.",
@@ -11953,9 +11953,9 @@
       "type": "box",
       "bbox": [
         35.45,
-        205.59,
+        204.2,
         559.93,
-        263.59
+        263.92
       ],
       "content_text": [
         "origin of the sequence data in such regions.  Sequence and copy number variants are reported according to the Human Genome Variation Society (HGVS).  The transcript used for clinical reporting generally represents the canonical transcript, which is usually the longest coding transcript with strong/multiple supporting evidence. However, clinically relevant variants annotated in alternate complete coding transcripts could also be reported.",
@@ -11969,9 +11969,9 @@
       "type": "box",
       "bbox": [
         35.45,
-        205.09,
+        203.7,
         533.06,
-        226.82
+        227.14
       ],
       "content_text": [
         "3. Meyer, L.R., et al., The UCSC Genome Browser database: extensions and updates 2013. Nucleic Acids Res, 2013. 41(D1): p.D64-9.",
@@ -11987,9 +11987,9 @@
       "type": "box",
       "bbox": [
         211.66,
-        409.0,
+        407.27,
         383.74,
-        419.0
+        419.48
       ],
       "content_text": [
         "------------------ End Of Report ------------------"
@@ -13095,8 +13095,8 @@
         "width": 595.3,
         "height": 841.9
       },
-      "header_y_cutoff": 201.3,
-      "footer_y_cutoff": 744.92,
+      "header_y_cutoff": 201.79,
+      "footer_y_cutoff": 743.19,
       "content": [
         {
           "page": 1,
@@ -13110,9 +13110,9 @@
           ],
           "bbox": [
             169.49,
-            205.65,
+            203.7,
             425.88,
-            236.06
+            236.52
           ]
         },
         {
@@ -13124,9 +13124,9 @@
           },
           "bbox": [
             35.0,
-            206.3,
+            206.79,
             560.0,
-            246.3
+            246.79
           ]
         },
         {
@@ -13153,9 +13153,9 @@
           ],
           "bbox": [
             35.45,
-            404.55,
+            403.15,
             97.47,
-            414.55
+            414.87
           ]
         },
         {
@@ -13250,9 +13250,9 @@
           "type": "box",
           "bbox": [
             169.49,
-            205.65,
+            203.7,
             425.88,
-            236.06
+            236.52
           ],
           "content_text": [
             "Sample Description: Sample quality is optimum for the test."
@@ -13264,9 +13264,9 @@
           "type": "box",
           "bbox": [
             35.45,
-            404.55,
+            403.15,
             97.47,
-            414.55
+            414.87
           ],
           "content_text": [
             "*Genetic test results are reported based on the recommendations of American College of Medical Genetics",
@@ -13404,9 +13404,9 @@
           "page": 1,
           "bbox": [
             169.49,
-            205.65,
+            203.7,
             425.88,
-            236.06
+            236.52
           ],
           "type": "heading",
           "text": "NGS Hereditary Cancer Panel on the Illumina Novaseq X NGS Platform",
@@ -13418,9 +13418,9 @@
           "page": 1,
           "bbox": [
             35.45,
-            304.07,
+            302.68,
             200.26,
-            327.29
+            327.62
           ],
           "type": "paragraph",
           "text": "Sample Description: Sample quality is optimum for the test.",
@@ -13432,9 +13432,9 @@
           "page": 1,
           "bbox": [
             35.45,
-            404.55,
+            403.15,
             97.47,
-            414.55
+            414.87
           ],
           "type": "heading",
           "text": "Key Findings:",
@@ -13446,9 +13446,9 @@
           "page": 1,
           "bbox": [
             35.45,
-            493.67,
+            492.27,
             470.83,
-            503.67
+            503.99
           ],
           "type": "paragraph",
           "text": "*Genetic test results are reported based on the recommendations of American College of Medical Genetics",
@@ -13460,9 +13460,9 @@
           "page": 1,
           "bbox": [
             35.45,
-            517.11,
+            515.72,
             225.49,
-            527.11
+            527.44
           ],
           "type": "paragraph",
           "text": "Variant Interpretation & Clinical correlation:",
@@ -13474,9 +13474,9 @@
           "page": 1,
           "bbox": [
             35.45,
-            543.32,
+            541.92,
             559.88,
-            576.77
+            577.09
           ],
           "type": "paragraph",
           "text": "MSH2 :Deletion Exon 3-6; The submitted sample shows Heterozygous deletion of exon 3-6 of gene MSH2 on chromosome 2. A 6.4kb deletion detected on cytoband 2p21 (?_47,410,089-47,416,441_?). This variant is absent in our internal database.",
@@ -13488,9 +13488,9 @@
           "page": 1,
           "bbox": [
             35.45,
-            585.94,
+            584.54,
             477.72,
-            595.94
+            596.26
           ],
           "type": "paragraph",
           "text": "Based on above evidence, this variant (MSH2:Deletion Exon 3-6) is classified as  Pathogenic  variant.",
@@ -13502,9 +13502,9 @@
           "page": 1,
           "bbox": [
             35.45,
-            609.67,
+            608.28,
             559.93,
-            678.29
+            678.61
           ],
           "type": "paragraph",
           "text": "MSH2 Gene Phenotype Description : Lynch syndrome-1 (LYNCH1), also known as hereditary nonpolyposis colorectal cancer (HNPCC1), is caused by heterozygous mutation in the mismatch repair gene MSH2 (609309) on chromosome 2p21-p16. Lynch syndrome (LYNCH), also called hereditary nonpolyposis colorectal cancer, is defined as an autosomal dominant predisposition to a spectrum of cancers, primarily of the colorectum and endometrium, which exhibit impaired DNA mismatch repair (MMR) activity (summary by Lynch et al., 2015).",
@@ -13516,9 +13516,9 @@
           "page": 1,
           "bbox": [
             41.1,
-            252.5,
+            251.1,
             120.86,
-            262.5
+            262.82
           ],
           "type": "paragraph",
           "text": "Clinical Indication:",
@@ -13530,9 +13530,9 @@
           "page": 1,
           "bbox": [
             41.1,
-            267.85,
+            266.45,
             424.2,
-            277.85
+            278.17
           ],
           "type": "paragraph",
           "text": "Birendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion.",
@@ -13544,9 +13544,9 @@
           "page": 1,
           "bbox": [
             121.2,
-            356.38,
+            354.43,
             474.14,
-            370.38
+            370.83
           ],
           "type": "heading",
           "text": "Pathogenic deletion identified in relation to phenotype",
@@ -13563,8 +13563,8 @@
         "width": 595.3,
         "height": 841.9
       },
-      "header_y_cutoff": 201.3,
-      "footer_y_cutoff": 744.92,
+      "header_y_cutoff": 201.79,
+      "footer_y_cutoff": 743.19,
       "content": [
         {
           "page": 2,
@@ -13586,9 +13586,9 @@
           ],
           "bbox": [
             35.45,
-            205.09,
+            203.7,
             128.08,
-            215.09
+            215.42
           ]
         },
         {
@@ -13680,9 +13680,9 @@
           "type": "box",
           "bbox": [
             35.45,
-            205.09,
+            203.7,
             128.08,
-            215.09
+            215.42
           ],
           "content_text": [
             "*Genetic test results are reported based on the recommendations of American College of Medical Genetics",
@@ -13818,9 +13818,9 @@
           "page": 2,
           "bbox": [
             35.45,
-            205.09,
+            203.7,
             128.08,
-            215.09
+            215.42
           ],
           "type": "heading",
           "text": "Additional Findings :",
@@ -13832,9 +13832,9 @@
           "page": 2,
           "bbox": [
             35.45,
-            295.14,
+            293.74,
             470.83,
-            305.14
+            305.46
           ],
           "type": "paragraph",
           "text": "*Genetic test results are reported based on the recommendations of American College of Medical Genetics",
@@ -13846,9 +13846,9 @@
           "page": 2,
           "bbox": [
             35.45,
-            318.58,
+            317.18,
             559.93,
-            422.37
+            422.69
           ],
           "type": "paragraph",
           "text": "HBB Gene Phenotype Description : Direct sequencing of specific regions of genomic DNA became feasible with the invention of the polymerase chain reaction (PCR) which permits amplification of specific regions of DNA. Recently, human mitochondrial DNA was amplified and directly sequenced. Using a thermostable DNA polymerase of T. aquaticus (Saiki, R.K. et al., manuscript in preparation) in the PCR, we have applied a combination of PCR and direct sequence analysis of the amplified product to a human single- copy gene. We studied the genomic DNA of five patients with beta-thalassaemia whose mutant alleles were uncharacterized, and found two previously undescribed mutations, along with three known alleles. One new allele is a frameshift at codons 106-107 and the other is an A-C transversion at the cap site (+1) of the beta-globin gene. This latter is the first natural mutation observed at the cap site and it occurs in a gene which is poorly expressed.",
@@ -13860,9 +13860,9 @@
           "page": 2,
           "bbox": [
             35.45,
-            438.91,
+            437.52,
             439.03,
-            460.63
+            460.96
           ],
           "type": "paragraph",
           "text": "Case Specific Recommendations: 1. Segregation analysis of the variant by Sanger /Exome sequencing/ MLPA is recommended.",
@@ -13874,9 +13874,9 @@
           "page": 2,
           "bbox": [
             35.45,
-            475.08,
+            473.69,
             559.91,
-            583.68
+            584.01
           ],
           "type": "paragraph",
           "text": "Recommendations  Genetic counseling is advised for interpretation on the consequences of the variant(s).  We recommend confirming the presence of these variants by Sanger Sequencing/ MLPA.  Segregation analysis of the variant by Sanger /Exome sequencing/ MLPA is recommended.  The significance/classification of the variants might change based on parental and family members genetic testing.  For questions about this report, or for assistance in locating nearby genetic counseling services, please contact the Laboratory:  contact@sngenelab.com .  If results obtained do not match the clinical findings, additional testing should be considered as per referring clinician's recommendation.",
@@ -13888,9 +13888,9 @@
           "page": 2,
           "bbox": [
             35.45,
-            598.13,
+            596.73,
             559.92,
-            697.76
+            697.94
           ],
           "type": "paragraph",
           "text": "Methodology:  Next Generation Sequencing: DNA extracted from Blood, Saliva, Amniotic fluid, CVS or any other standard source is used for targeted capture-based Library preparation. Targeted capture provides an efficient and sensitive means for sequencing specific genomic regions in a high-throughput manner. The libraries were sequenced to mean >85-100x coverage on Illumina Novaseq X sequencing platform with Paired End 2x150 chemistry.  We follow the Illumina DRAGEN Bio-IT Platform for identification of variants in the sample. The sequences obtained are assembled and aligned to reference sequences based on NCBI RefSeq transcripts and human genome build (GRCh38). Page 2 of 8",
@@ -13907,8 +13907,8 @@
         "width": 595.3,
         "height": 841.9
       },
-      "header_y_cutoff": 201.3,
-      "footer_y_cutoff": 744.92,
+      "header_y_cutoff": 201.79,
+      "footer_y_cutoff": 743.19,
       "content": [
         {
           "page": 3,
@@ -13924,9 +13924,9 @@
           ],
           "bbox": [
             35.45,
-            206.04,
+            204.2,
             559.93,
-            336.14
+            336.46
           ]
         },
         {
@@ -13990,9 +13990,9 @@
           "type": "box",
           "bbox": [
             35.45,
-            206.04,
+            204.2,
             559.93,
-            336.14
+            336.46
           ],
           "content_text": [
             " This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study.",
@@ -14076,9 +14076,9 @@
           "page": 3,
           "bbox": [
             35.45,
-            206.04,
+            204.2,
             559.93,
-            336.14
+            336.46
           ],
           "type": "paragraph",
           "text": " This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study.",
@@ -14090,9 +14090,9 @@
           "page": 3,
           "bbox": [
             35.45,
-            351.67,
+            350.28,
             559.93,
-            685.77
+            686.09
           ],
           "type": "paragraph",
           "text": "Limitations/Disclaimer:  It should be noted that this test does not sequence all bases in a human genome, not all variants have been identified or interpreted, and this report is limited only to variants with evidence for causing or contributing to disease/clinical details provided to SN Gene Lab Pvt Ltd.  Testing has been performed assuming that the sample received belongs to the above named individual and any stated relationships between individuals are accepted as true.  Test results are interpreted in the context of clinical findings, family history and other laboratory data. Only variations in genes potentially related to the proband's medical condition are reported. Rare polymorphisms may lead to false negative or positive results. Misinterpretation of results may occur if the information provided is inaccurate or incomplete. The results should be interpreted in the context of the patient’s medical evaluation, family history and racial/ethnic background. Please note that variant classification and/or interpretation may change over time if more information available. Re-interpretation of multi gene next generation sequencing data is recommended on an annual basis and may be requested by a medical provider.  The sensitivity of this assay to detect large deletions/duplications of more than 10 bp or copy number variations (CNV) is 70-75%. The CNVs detected with this assay have to be confirmed by alternate method such as MLPA & Microarray.  Due to inherent technology limitations, coverage is not uniform across all regions. Hence pathogenic variants present in areas of insufficient coverage as well as those variants which currently do not co-relate with the provided phenotype may not be analyzed/ reported. Additionally, it may not be possible to fully resolve certain details about variants, such as mosaicism, phasing, or mapping ambiguity.  Triplet repeat expansions, translocations, large deletion or duplications and chromosomal rearrangements events are currently not reliably detected by next generation sequencing.  This assay is not meant to interrogate most promoter regions, deep intronic regions, or other regulatory elements, other gene rearrangements like inversion or translocation and does not detect single or multi-exon deletions or duplications.  Incidental or secondary findings (if any) that meet the ACMG guidelines can be given upon request.  Genes with pseudogenes, paralog genes and genes with low complexity may have decreased sensitivity and specificity of variant detection and interpretation due to inability of the data and analysis tools to unambiguously determine the",
@@ -14128,9 +14128,9 @@
           ],
           "bbox": [
             35.45,
-            205.59,
+            204.2,
             559.93,
-            263.59
+            263.92
           ]
         },
         {
@@ -14234,9 +14234,9 @@
           "type": "box",
           "bbox": [
             35.45,
-            205.59,
+            204.2,
             559.93,
-            263.59
+            263.92
           ],
           "content_text": [
             "origin of the sequence data in such regions.  Sequence and copy number variants are reported according to the Human Genome Variation Society (HGVS).  The transcript used for clinical reporting generally represents the canonical transcript, which is usually the longest coding transcript with strong/multiple supporting evidence. However, clinically relevant variants annotated in alternate complete coding transcripts could also be reported.",
@@ -14394,9 +14394,9 @@
           "page": 4,
           "bbox": [
             35.45,
-            205.59,
+            204.2,
             559.93,
-            263.59
+            263.92
           ],
           "type": "paragraph",
           "text": "origin of the sequence data in such regions.  Sequence and copy number variants are reported according to the Human Genome Variation Society (HGVS).  The transcript used for clinical reporting generally represents the canonical transcript, which is usually the longest coding transcript with strong/multiple supporting evidence. However, clinically relevant variants annotated in alternate complete coding transcripts could also be reported.",
@@ -14408,9 +14408,9 @@
           "page": 4,
           "bbox": [
             35.45,
-            583.32,
+            581.93,
             536.77,
-            628.49
+            628.82
           ],
           "type": "paragraph",
           "text": "References : 1. Richards S, Aziz N, Bale S, et al. Standards and guidelines for the interpretation of sequence variants: a joint consensus recommendation of the American College of Medical Genetics and Genomics and the Association for Molecular Pathology, Genetics in Medicine, 2015 May;17(5):405-24",
@@ -14422,9 +14422,9 @@
           "page": 4,
           "bbox": [
             35.45,
-            638.22,
+            636.82,
             530.79,
-            671.66
+            671.99
           ],
           "type": "paragraph",
           "text": "2. Kalia S.S. et al., Recommendations for reporting of secondary findings in clinical exome and genome sequencing, 2016 update(ACMG SF v2.0): a policy statement of the American College of Medical Genetics and Genomics. Genet Med., 19(2):249-255, 2017.",
@@ -14464,9 +14464,9 @@
           ],
           "bbox": [
             35.45,
-            205.09,
+            203.7,
             533.06,
-            226.82
+            227.14
           ]
         },
         {
@@ -14716,9 +14716,9 @@
           "type": "box",
           "bbox": [
             35.45,
-            205.09,
+            203.7,
             533.06,
-            226.82
+            227.14
           ],
           "content_text": [
             "3. Meyer, L.R., et al., The UCSC Genome Browser database: extensions and updates 2013. Nucleic Acids Res, 2013. 41(D1): p.D64-9.",
@@ -15154,9 +15154,9 @@
           "page": 5,
           "bbox": [
             35.45,
-            205.09,
+            203.7,
             533.06,
-            226.82
+            227.14
           ],
           "type": "paragraph",
           "text": "3. Meyer, L.R., et al., The UCSC Genome Browser database: extensions and updates 2013. Nucleic Acids Res, 2013. 41(D1): p.D64-9.",
@@ -15168,9 +15168,9 @@
           "page": 5,
           "bbox": [
             35.45,
-            236.54,
+            235.14,
             549.0,
-            258.26
+            258.59
           ],
           "type": "paragraph",
           "text": "4. McKenna, A., et al., The Genome Analysis Toolkit: a MapReduce framework for analyzing next-generation DNA sequencing data. Genome Res, 2010. 20(9): p. 1297-303",
@@ -15182,9 +15182,9 @@
           "page": 5,
           "bbox": [
             35.45,
-            271.71,
+            270.32,
             547.27,
-            281.71
+            282.04
           ],
           "type": "paragraph",
           "text": "5. 1000 Genomes Project Consortium et al., A global reference for human genetic variation. Nature, 526(7571): 68-74, 2015.",
@@ -15196,9 +15196,9 @@
           "page": 5,
           "bbox": [
             35.45,
-            291.43,
+            290.04,
             497.42,
-            301.43
+            301.76
           ],
           "type": "paragraph",
           "text": "6. Lek M. et al., Analysis of protein-coding genetic variation in 60,706 humans. Nature, 536(7616):285-91, 2016.",
@@ -15210,9 +15210,9 @@
           "page": 5,
           "bbox": [
             35.45,
-            311.16,
+            309.76,
             516.93,
-            332.88
+            333.21
           ],
           "type": "paragraph",
           "text": "7. McLaren, W., et al., Deriving the consequences of genomic variants with the Ensembl API and SNP Effect Predictor. Bioinformatics, 2010. 26(16): p. 2069-70.",
@@ -15224,9 +15224,9 @@
           "page": 5,
           "bbox": [
             35.45,
-            446.95,
+            445.56,
             193.1,
-            456.95
+            457.28
           ],
           "type": "heading",
           "text": "Appendix 2: COVERAGE SUMMARY",
@@ -16347,7 +16347,7 @@
         "height": 841.9
       },
       "header_y_cutoff": 210.48,
-      "footer_y_cutoff": 744.92,
+      "footer_y_cutoff": 743.19,
       "content": [
         {
           "page": 7,
@@ -17497,8 +17497,8 @@
         "width": 595.3,
         "height": 841.9
       },
-      "header_y_cutoff": 201.3,
-      "footer_y_cutoff": 744.92,
+      "header_y_cutoff": 201.79,
+      "footer_y_cutoff": 743.19,
       "content": [
         {
           "page": 8,
@@ -17652,9 +17652,9 @@
           ],
           "bbox": [
             211.66,
-            409.0,
+            407.27,
             383.74,
-            419.0
+            419.48
           ]
         },
         {
@@ -17718,9 +17718,9 @@
           "type": "box",
           "bbox": [
             211.66,
-            409.0,
+            407.27,
             383.74,
-            419.0
+            419.48
           ],
           "content_text": [
             "------------------ End Of Report ------------------"
@@ -18076,9 +18076,9 @@
           "page": 8,
           "bbox": [
             211.66,
-            409.0,
+            407.27,
             383.74,
-            419.0
+            419.48
           ],
           "type": "paragraph",
           "text": "------------------ End Of Report ------------------",

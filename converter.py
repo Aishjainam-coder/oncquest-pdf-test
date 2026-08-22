@@ -34,7 +34,12 @@ except ImportError:
 def replace_sng_gen_lab(text: str) -> str:
     if not isinstance(text, str):
         return text
-    pattern = re.compile(r"(?:SNG\s+Gene?(?:['’‘]|&[a-zA-Z0-9#]+;)?s\s+Lab|SN\s+Genelab)\s+pvt\.?\s*ltd", re.IGNORECASE)
+    # Broad pattern to catch all SNG/SN Genelab/Gene's Lab variants (with or without Pvt Ltd)
+    pattern = re.compile(
+        r"(?:SNG\s*Gene?(?:[''\u2018\u2019']|&[a-zA-Z0-9#]+;)?s?\s*Lab(?:oratory)?|SN\s*Genelab)"
+        r"(?:\s+pvt\.?\s*ltd\.?)?",
+        re.IGNORECASE
+    )
     return pattern.sub("Laboratory", text)
 
 
@@ -80,7 +85,11 @@ def replace_sng_in_structure(obj):
 
 def replace_sng_in_docx_obj(doc):
     import re
-    pattern = re.compile(r"(?:SNG\s*Gene?(?:['’‘]|&[a-zA-Z0-9#]+;)?s\s*Lab|SN\s*Genelab)\s*pvt\.?\s*ltd", re.IGNORECASE)
+    pattern = re.compile(
+        r"(?:SNG\s*Gene?(?:[''\u2018\u2019']|&[a-zA-Z0-9#]+;)?s?\s*Lab(?:oratory)?|SN\s*Genelab)"
+        r"(?:\s+pvt\.?\s*ltd\.?)?",
+        re.IGNORECASE
+    )
     replacement = "Laboratory"
     
     def replace_in_xml_elements(root_element):
@@ -166,7 +175,14 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
     text_primary = colors_cfg.get("text_primary", "#000000")
     text_dark = colors_cfg.get("text_dark", "#0d0d0d")
     bg_page = colors_cfg.get("background_page", "#ffffff")
-    border_color = colors_cfg.get("border_primary", primary_color)
+    # Change 4: All borders are now forced to black
+    border_color = "#000000"
+    result_positive_color = colors_cfg.get("result_positive", "#C00000")
+    result_negative_color = colors_cfg.get("result_negative", "#008000")
+
+    # Change 3: Keywords for result color coding
+    _POSITIVE_KEYWORDS = ["positive", "pathogenic", "detected", "high", "abnormal", "msi - high", "msi-high"]
+    _NEGATIVE_KEYWORDS = ["negative", "normal", "not detected", "stable", "msi - stable", "msi-stable", "benign", "likely benign"]
     font_family = typo_cfg.get("primary_family", "Cambria, 'Times New Roman', serif")
 
     fallback_left = 35.5
@@ -195,7 +211,7 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
           --text-teal: {secondary_color};
           --text-orange: {accent_orange};
           --text-red: {accent_red};
-          --border-color: {border_color};
+          --border-color: #000000;
           --font-primary: {font_family};
         }}
         @page {{ size: 595.6pt 842.0pt; margin: 0; }}
@@ -365,6 +381,16 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
                         f"<div style='position:absolute; left:{rx0:.1f}pt; top:{ry0:.1f}pt; width:{stroke_w:.1f}pt; height:{rh:.1f}pt; background-color:{bg_color}; z-index:2; pointer-events:none;'></div>"
                     )
                 else:  # Rectangle box
+                    # Change 2: Skip filled rectangles that serve as heading background boxes
+                    if fill_col and rh < 25.0 and rw > 40.0:
+                        # This looks like a heading background fill box — suppress it
+                        continue
+
+                    # Remove all rectangles before headings (decorative squares on the left)
+                    if fill_col and rx0 < 45.0 and rw < 20.0 and rh < 25.0:
+                        continue
+
+
                     style_parts = [
                         "position:absolute;",
                         f"left:{rx0:.1f}pt;",
@@ -382,7 +408,11 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
                         style_parts.append("z-index:2;")
 
                     if stroke_col:
-                        style_parts.append(f"border:{stroke_w:.1f}pt solid {stroke_col};")
+                        # Change 4: Force all stroke borders to black
+                        style_parts.append(f"border:{stroke_w:.1f}pt solid #000000;")
+                    else:
+                        # Add black border even if no stroke was defined
+                        style_parts.append(f"border:0.5pt solid #000000;")
 
                     vector_html_divs.append(
                         f"<div style='{' '.join(style_parts)}'></div>"
@@ -428,6 +458,8 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
         cleaned = re.sub(r'<p\s+[^>]*>.*?</p>', filter_hdr_ftr_and_table_p, cleaned, flags=re.DOTALL)
 
         # 4. Format Black Banners & Blue Section Label Bars
+        # Change 1: Headings use single consistent color (no multi-color internal spans)
+        # Change 2: No colored background boxes on heading text
         def format_heading_p(match):
             p_tag = match.group(0)
             is_white_text = bool(re.search(r'color:\s*(?:#ffffff|#fff|rgb\(\s*255\s*,\s*255\s*,\s*255\s*\))', p_tag, re.IGNORECASE))
@@ -436,38 +468,70 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
             
             top_m = re.search(r'top:\s*([\d.]+)pt', p_tag)
             top_val = top_m.group(1) if top_m else "100.0"
+            left_m = re.search(r'left:\s*([\d.]+)pt', p_tag)
+            left_val = left_m.group(1) if left_m else page_left_str.replace('pt', '')
 
             if is_white_text and font_sz >= 12.0:
                 text_val = re.sub(r'<[^>]+>', '', p_tag).strip()
                 if len(text_val) > 15:
+                    # Change 1: Single consistent heading style — plain bold text, no background
                     return (
-                        f'<p style="top:{top_val}pt;left:{page_left_str};'
-                        f'width:{page_width_str};margin:0;padding:0;z-index:15;">'
-                        f'<span class="black-banner-span" '
-                        f'style="width:{page_width_str};background-color:#404040;">'
+                        f'<p style="top:{top_val}pt;left:{left_val}pt;'
+                        f'width:{page_width_str};margin:0;padding:4px 0;z-index:15;">'
+                        f'<span style="font-family:{font_family};font-size:{font_sz}pt;'
+                        f'font-weight:bold;color:#000000;">'
                         f'{text_val}</span></p>'
                     )
             return p_tag
 
         cleaned = re.sub(r'<p\s+[^>]*>.*?</p>', format_heading_p, cleaned, flags=re.DOTALL)
 
+        # Change 1: Normalize label bar headings — remove background, use consistent heading color
         def format_labelbar_p(match):
             p_tag = match.group(0)
             is_white_text = bool(re.search(r'color:\s*(?:#ffffff|#fff|rgb\(\s*255\s*,\s*255\s*,\s*255\s*\))', p_tag, re.IGNORECASE))
             if is_white_text and "black-banner-span" not in p_tag and "background-color:#404040" not in p_tag and "table-header-cell" not in p_tag:
+                # Strip background and set consistent text color
                 def fix_span(sm):
                     span = sm.group(0)
-                    if 'background-color' not in span:
-                        span = span.replace('style="', f'style="background-color:{primary_color};')
-                    else:
-                        span = re.sub(r'background-color:\s*[^;"]+', f'background-color:{primary_color}', span)
-                    if 'display:' not in span:
-                        span = span.replace('style="', 'style="display:inline-block;padding:2px 6px;border-radius:2px;')
+                    # Remove background-color
+                    span = re.sub(r'background-color:\s*[^;"]+;?', '', span)
+                    # Remove display:inline-block and padding (heading box styles)
+                    span = re.sub(r'display:\s*inline-block;?', '', span)
+                    span = re.sub(r'padding:\s*[^;"]+;?', '', span)
+                    span = re.sub(r'border-radius:\s*[^;"]+;?', '', span)
+                    # Change text color from white to consistent heading color
+                    span = re.sub(r'color:\s*#(?:ffffff|fff)', f'color:{primary_color}', span, flags=re.IGNORECASE)
+                    span = re.sub(r'color:\s*rgb\(\s*255\s*,\s*255\s*,\s*255\s*\)', f'color:{primary_color}', span, flags=re.IGNORECASE)
                     return span
                 return re.sub(r'<span\s+[^>]*>.*?</span>', fix_span, p_tag, flags=re.DOTALL)
             return p_tag
 
         cleaned = re.sub(r'<p\s+[^>]*>.*?</p>', format_labelbar_p, cleaned, flags=re.DOTALL)
+
+        # Change 3: Color-code result keywords (Positive=Red, Negative=Green) in exact layout
+        def colorize_result_text(match):
+            p_tag = match.group(0)
+            text_val = re.sub(r'<[^>]+>', '', p_tag).strip().lower()
+            # Skip if already styled as heading/banner
+            if 'black-banner-span' in p_tag or 'table-header-cell' in p_tag:
+                return p_tag
+            # Skip long text — only short result values should be colored
+            if len(text_val) > 100:
+                return p_tag
+            if any(kw in text_val for kw in _POSITIVE_KEYWORDS):
+                # Wrap all spans in red color
+                p_tag = re.sub(r'color:\s*[^;"]+', f'color:{result_positive_color}', p_tag)
+                if 'font-weight' not in p_tag:
+                    p_tag = p_tag.replace('style="', 'style="font-weight:bold;', 1)
+            elif any(kw in text_val for kw in _NEGATIVE_KEYWORDS):
+                # Wrap all spans in green color
+                p_tag = re.sub(r'color:\s*[^;"]+', f'color:{result_negative_color}', p_tag)
+                if 'font-weight' not in p_tag:
+                    p_tag = p_tag.replace('style="', 'style="font-weight:bold;', 1)
+            return p_tag
+
+        cleaned = re.sub(r'<p\s+[^>]*>.*?</p>', colorize_result_text, cleaned, flags=re.DOTALL)
 
         # 5. Extract exact images in body region ONLY
         exact_image_html_divs = []
@@ -553,7 +617,8 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
     accent_red = colors_cfg.get("accent_red", "#ff0000")
     bg_page = colors_cfg.get("background_page", "#ffffff")
     text_color = colors_cfg.get("text_primary", "#0d0d0d")
-    border_color = colors_cfg.get("border_table", "#000000")
+    # Change 4: Force all borders to black
+    border_color = "#000000"
     table_header_bg = primary_color
     table_header_text = colors_cfg.get("text_light", "#ffffff")
     font_family = typo_cfg.get("primary_family", "Cambria, 'Times New Roman', serif")
@@ -569,7 +634,7 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
     border_cfg = cfg.get("border", {})
     border_width = border_cfg.get("width", 1)
     border_style = border_cfg.get("style", "single")
-    border_color_val = border_cfg.get("color", "#000000")
+    border_color_val = "#000000"  # Change 4: Always use black borders
 
     css_border_style = "solid"
     if border_style == "dotted":
@@ -596,8 +661,13 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
     _NEGATIVE_KEYWORDS = ["negative", "normal", "not detected", "stable", "msi - stable", "msi-stable", "benign", "likely benign"]
 
     def _result_color_span(cell_str: str) -> str:
-        """Wrap cell text in a colored span if it matches a clinical result keyword."""
+        """Wrap cell text in a colored span if it matches a clinical result keyword.
+        Only applies to short result values (< 100 chars) to avoid false positives
+        on long descriptive paragraphs that happen to contain a keyword."""
         cell_lower = cell_str.strip().lower()
+        # Skip long text — these are descriptions, not result values
+        if len(cell_lower) > 100:
+            return cell_str
         if any(kw in cell_lower for kw in _NEGATIVE_KEYWORDS):
             return f"<span style='color:{result_negative_color}; font-weight:bold;'>{cell_str}</span>"
         if any(kw in cell_lower for kw in _POSITIVE_KEYWORDS):
@@ -2815,6 +2885,9 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
             stroke_col = d.get("stroke_color")
 
             if fill_col:
+                # Remove all rectangles before headings (decorative squares on the left)
+                if x0 < 45.0 and w < 20.0 and h < 25.0:
+                    continue
                 html_parts.append(
                     f"<div class='vector-fill-box' style='left:{x0:.2f}pt; top:{y0:.2f}pt; width:{w:.2f}pt; height:{h:.2f}pt; background-color:{fill_col};'></div>"
                 )
