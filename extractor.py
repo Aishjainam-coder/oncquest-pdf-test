@@ -45,6 +45,26 @@ def replace_sng_in_structure(obj):
     return obj
 
 
+def replace_test_name_in_structure(obj):
+    """
+    Recursively replaces the test name in JSON structure keys/values
+    so direct JSON->DOCX or JSON->HTML routes are sanitized cleanly.
+    """
+    if isinstance(obj, dict):
+        return {k: replace_test_name_in_structure(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [replace_test_name_in_structure(item) for item in obj]
+    elif isinstance(obj, str):
+        # Only replace if the entire string matches the test name exactly
+        if re.match(r'^\s*(?:Liquidseq\s+Actionable|Brainseq)\s+Genomic\s+Profiling\s+Panel(?:\s*[-–]\s*Advance)?\s*$', obj, re.IGNORECASE):
+            return "TEST NAME"
+        # Only replace if the entire string matches the subtitle exactly
+        if re.match(r'^\s*On\s+Illumina\s+Novaseq\s+6000\s+Platform\s*$', obj, re.IGNORECASE):
+            return ""
+        return obj
+    return obj
+
+
 def parse_header_key_value_pairs(full_text: str) -> dict:
     """
     Extracts structured key-value header metadata pairs from document text dynamically.
@@ -1115,6 +1135,7 @@ def extract_report_data(pdf_path: str) -> dict:
     }
 
     extracted_data = replace_sng_in_structure(extracted_data)
+    extracted_data = replace_test_name_in_structure(extracted_data)
 
     try:
         doc.close()

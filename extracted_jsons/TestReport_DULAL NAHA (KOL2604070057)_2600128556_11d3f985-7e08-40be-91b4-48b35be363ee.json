@@ -116,7 +116,7 @@
               "x1": 440.5,
               "y1": 220.11
             },
-            "text": "Liquidseq Actionable Genomic Profiling Panel",
+            "text": "TEST NAME",
             "style_override": {
               "font_size": 14.0,
               "font_family": "Cambria,BoldItalic",
@@ -136,7 +136,7 @@
               "x1": 410.09,
               "y1": 237.82
             },
-            "text": "On Illumina Novaseq 6000 Platform",
+            "text": "",
             "style_override": {
               "font_size": 14.0,
               "font_family": "Cambria,BoldItalic",
@@ -14238,7 +14238,7 @@
             220.11
           ],
           "type": "heading",
-          "text": "Liquidseq Actionable Genomic Profiling Panel",
+          "text": "TEST NAME",
           "max_font_size": 14.0,
           "is_bold": true,
           "font": "Cambria,BoldItalic"
@@ -14252,7 +14252,7 @@
             237.82
           ],
           "type": "heading",
-          "text": "On Illumina Novaseq 6000 Platform",
+          "text": "",
           "max_font_size": 14.0,
           "is_bold": true,
           "font": "Cambria,BoldItalic"

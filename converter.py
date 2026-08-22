@@ -46,11 +46,11 @@ def replace_sng_gen_lab(text: str) -> str:
 def replace_test_name_in_html(html: str) -> str:
     """
     Replaces the SNG test report test name with 'TEST NAME' in rendered HTML.
-    All uploaded PDFs are SNG test reports (same format, only page count differs).
-    The test name always appears as:
-      Line 1: 'Liquidseq Actionable Genomic Profiling Panel'
-      Line 2: 'On Illumina Novaseq 6000 Platform'
-    Both lines are replaced — line 1 becomes 'TEST NAME', line 2 is cleared.
+    Supports:
+      - 'Liquidseq Actionable Genomic Profiling Panel'
+      - 'Brainseq Genomic Profiling Panel – Advance' (or with hyphen)
+      - 'On Illumina Novaseq 6000 Platform' (subtitle, cleared)
+    Both lines are replaced — the main test name becomes 'TEST NAME', the subtitle is cleared.
     Preserves all HTML tags, positioning, and formatting.
     """
     if not isinstance(html, str):
@@ -58,7 +58,7 @@ def replace_test_name_in_html(html: str) -> str:
 
     # Replace the main test name line with 'TEST NAME'
     html = re.sub(
-        r'(?<=\>)\s*Liquidseq\s+Actionable\s+Genomic\s+Profiling\s+Panel\s*(?=\<)',
+        r'(?<=\>)\s*(?:Liquidseq\s+Actionable|Brainseq)\s+Genomic\s+Profiling\s+Panel(?:\s*[-–]\s*Advance)?\s*(?=\<)',
         'TEST NAME',
         html, flags=re.IGNORECASE
     )
@@ -70,6 +70,26 @@ def replace_test_name_in_html(html: str) -> str:
     )
 
     return html
+
+
+def replace_test_name_in_structure(obj):
+    """
+    Recursively replaces the test name in JSON structure keys/values
+    so direct JSON->DOCX or JSON->HTML routes are sanitized cleanly.
+    """
+    if isinstance(obj, dict):
+        return {k: replace_test_name_in_structure(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [replace_test_name_in_structure(item) for item in obj]
+    elif isinstance(obj, str):
+        # Only replace if the entire string matches the test name exactly
+        if re.match(r'^\s*(?:Liquidseq\s+Actionable|Brainseq)\s+Genomic\s+Profiling\s+Panel(?:\s*[-–]\s*Advance)?\s*$', obj, re.IGNORECASE):
+            return "TEST NAME"
+        # Only replace if the entire string matches the subtitle exactly
+        if re.match(r'^\s*On\s+Illumina\s+Novaseq\s+6000\s+Platform\s*$', obj, re.IGNORECASE):
+            return ""
+        return obj
+    return obj
 
 
 
@@ -607,6 +627,7 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
     Does NOT recreate vendor logos, patient header cards, or footer signatures.
     """
     data = replace_sng_in_structure(data)
+    data = replace_test_name_in_structure(data)
     cfg = get_merged_theme_config(theme_config)
     colors_cfg = cfg.get("colors", {})
     typo_cfg = cfg.get("typography", {})
@@ -930,7 +951,7 @@ body {{ margin: 0; padding: 0; background-color: #f1f5f9; font-family: {font_fam
 </div>
 </body>
 </html>"""
-    return replace_sng_gen_lab(html_content)
+    return replace_test_name_in_html(replace_sng_gen_lab(html_content))
 
 
 
@@ -1494,6 +1515,7 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
     from docx.oxml import OxmlElement
 
     data = replace_sng_in_structure(data)
+    data = replace_test_name_in_structure(data)
 
     # Load theme
     tj = {}
@@ -2670,6 +2692,7 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
     with open(json_p, "r", encoding="utf-8") as f:
         data = json.load(f)
     data = replace_sng_in_structure(data)
+    data = replace_test_name_in_structure(data)
 
     source_file = data.get("source_file", json_p.stem + ".pdf")
     doc_title = Path(source_file).stem

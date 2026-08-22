@@ -57,9 +57,10 @@ for pdf_path in unique_pdfs:
             continue
         for l in b["lines"]:
             for s in l["spans"]:
-                if "Liquidseq Actionable Genomic Profiling Panel" in s["text"]:
+                s_text = s["text"].strip()
+                if "Liquidseq Actionable Genomic Profiling Panel" in s_text or "Brainseq Genomic Profiling Panel" in s_text:
                     span_title = s
-                elif "On Illumina Novaseq 6000 Platform" in s["text"]:
+                elif "On Illumina Novaseq 6000 Platform" in s_text:
                     span_subtitle = s
                     
     if span_title and span_subtitle:
