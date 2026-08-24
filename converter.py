@@ -246,10 +246,10 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
         .label-bar-span {{ color: #ffffff !important; display: inline-block !important; padding: 2px 6px !important; line-height: 1.2 !important; border-radius: 2px !important; font-family: var(--font-primary) !important; word-break: break-word !important; margin: 0 !important; background-color: var(--color-primary) !important; z-index: 15 !important; }}
         .table-header-cell {{ position: absolute; background-color: var(--color-primary) !important; color: #ffffff !important; font-family: var(--font-primary) !important; font-size: 9.5pt !important; font-weight: bold !important; display: flex !important; align-items: center !important; justify-content: center !important; text-align: center !important; padding: 2px 4px !important; white-space: normal !important; word-break: break-word !important; overflow-wrap: break-word !important; line-height: 1.15 !important; border: 1px solid var(--border-color) !important; box-sizing: border-box !important; z-index: 15 !important; pointer-events: none !important; }}
         div[id^='page'] img {{ position: absolute !important; transform-origin: 0 0 !important; z-index: 5 !important; opacity: 1 !important; visibility: visible !important; display: inline-block !important; }}
-        .table-grid-cell {{ position: absolute; border: 1px solid var(--border-color) !important; background: transparent; pointer-events: none; z-index: 2 !important; }}
+        .table-grid-cell {{ position: absolute; border: 1px solid var(--border-color) !important; background: transparent; pointer-events: none; z-index: 2 !important; box-sizing: border-box !important; }}
         .vector-box {{ position: absolute; border: 1px solid var(--border-color) !important; background: transparent; pointer-events: none; z-index: 2 !important; border-radius: 2px; box-sizing: border-box !important; }}
         .vector-fill-box {{ position: absolute; background-color: var(--color-primary) !important; pointer-events: none; z-index: 2 !important; border-radius: 2px; box-sizing: border-box !important; }}
-        .section-content-box {{ position: absolute; border: 1px solid var(--border-color) !important; background: transparent; pointer-events: none; z-index: 2 !important; border-radius: 3px; }}
+        .section-content-box {{ position: absolute; border: 1px solid var(--border-color) !important; background: transparent; pointer-events: none; z-index: 2 !important; border-radius: 3px; box-sizing: border-box !important; }}
         .teal-text {{ color: var(--color-secondary) !important; font-weight: bold; }}
         .orange-text {{ color: var(--color-accent-orange) !important; font-weight: bold; }}
         .red-text {{ color: var(--color-accent-red) !important; font-weight: bold; }}
@@ -389,14 +389,15 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
                 fill_col = get_css_color(d.get('fill'))
                 stroke_col = get_css_color(d.get('color'))
                 stroke_w = d.get('width') or 1.0
+                stroke_w = max(1.0, stroke_w)
 
                 if rh <= 1.5:  # Horizontal line segment
-                    bg_color = stroke_col or "black"
+                    bg_color = "#000000"
                     vector_html_divs.append(
                         f"<div style='position:absolute; left:{rx0:.1f}pt; top:{ry0:.1f}pt; width:{rw:.1f}pt; height:{stroke_w:.1f}pt; background-color:{bg_color}; z-index:2; pointer-events:none;'></div>"
                     )
                 elif rw <= 1.5:  # Vertical line segment
-                    bg_color = stroke_col or "black"
+                    bg_color = "#000000"
                     vector_html_divs.append(
                         f"<div style='position:absolute; left:{rx0:.1f}pt; top:{ry0:.1f}pt; width:{stroke_w:.1f}pt; height:{rh:.1f}pt; background-color:{bg_color}; z-index:2; pointer-events:none;'></div>"
                     )
@@ -430,9 +431,9 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
                     if stroke_col:
                         # Change 4: Force all stroke borders to black
                         style_parts.append(f"border:{stroke_w:.1f}pt solid #000000;")
-                    else:
-                        # Add black border even if no stroke was defined
-                        style_parts.append(f"border:0.5pt solid #000000;")
+                    elif not fill_col:
+                        # Add black border even if no stroke was defined, but only if it's not a filled rectangle
+                        style_parts.append(f"border:1.0pt solid #000000;")
 
                     vector_html_divs.append(
                         f"<div style='{' '.join(style_parts)}'></div>"
@@ -1898,7 +1899,7 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
                     tbl = doc.add_table(rows=0, cols=4)
                     tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
                     tbl.allow_autofit = False
-                    border_color = resolved_style.get("border_color", "#cbd5e1")
+                    border_color = "#000000" # Force all borders to black
                     
                     b_sz = int(resolved_style.get("border_width", 0.25) * 8)
                     table_borders(tbl, border_color, sz=max(1, b_sz))
@@ -1970,7 +1971,7 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
                     tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
                     tbl.allow_autofit = False
                     
-                    border_color = resolved_style.get("border_color", "#1f497d")
+                    border_color = "#000000" # Force all borders to black
                     b_sz = int(resolved_style.get("border_width", 0.5) * 8)
                     table_borders(tbl, border_color, sz=max(1, b_sz))
                     
@@ -2915,9 +2916,9 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
                     f"<div class='vector-fill-box' style='left:{x0:.2f}pt; top:{y0:.2f}pt; width:{w:.2f}pt; height:{h:.2f}pt; background-color:{fill_col};'></div>"
                 )
             elif stroke_col:
-                stroke_w = d.get("width") or 1.0
+                stroke_w = max(1.0, d.get("width") or 1.0)
                 html_parts.append(
-                    f"<div class='vector-box' style='left:{x0:.2f}pt; top:{y0:.2f}pt; width:{w:.2f}pt; height:{h:.2f}pt; border:{stroke_w}px solid {stroke_col};'></div>"
+                    f"<div class='vector-box' style='left:{x0:.2f}pt; top:{y0:.2f}pt; width:{w:.2f}pt; height:{h:.2f}pt; border:{stroke_w}px solid #000000;'></div>"
                 )
 
         # 2. Render Images in body region ONLY
