@@ -31,6 +31,46 @@ for p in pdf_paths:
 
 print(f"[+] Found {len(unique_pdfs)} unique PDF files to scan.")
 
+def is_test_name_text(text: str) -> bool:
+    if not isinstance(text, str):
+        return False
+    cleaned = text.strip()
+    if len(cleaned) < 4 or len(cleaned) > 130:
+        return False
+        
+    exclude_prefixes = (
+        "clinical indication", "sample description", "report highlights", 
+        "key findings", "test results", "tier ", "case id", "sample type", 
+        "name :", "date & time", "bill. loc", "ref. by", "report version",
+        "qr code", "page ", "salient features", "clinical suspicion",
+        "dr.", "laboratory", "oncquest", "result summary", "methodology"
+    )
+    cleaned_lower = cleaned.lower()
+    for ex in exclude_prefixes:
+        if cleaned_lower.startswith(ex):
+            return False
+            
+    patterns = [
+        r'^(?:Breast\s+and\s+Ovarian\s+Extended\s+Panel\s*[-–]\s*Liquid\s+Biopsy\s+Assay)$',
+        r'^(?:(?:Liquidseq\s+Actionable|Brainseq)\s+Genomic\s+Profiling\s+Panel(?:\s*[-–]\s*Advance)?)$',
+        r'^(?:Whole\s+Exome\s+Sequencing(?:\s+on\s+(?:the\s+)?Illumina\s+[\w\s-]+\s+Platform)?)$',
+        r'^[\w\s/&,–\-\(\)\.\+]+?(?:Genomic\s+Profiling\s+Panel|Extended\s+Panel|Profiling\s+Panel|Biopsy\s+Assay|Exome\s+Sequencing|Sequencing\s+Panel|Cancer\s+Panel|Gene\s+Panel|Profiling\s+Assay|Sequencing\s+Assay|Biopsy\s+Panel|NGS\s+Panel)(?:\s*[-–]\s*Advance)?(?:\s*\([^)]*\))?(?:\s+on\s+(?:the\s+)?Illumina\s+[\w\s-]+\s+Platform)?$',
+        r'^(?:[A-Z\s]{4,}\s+PANEL(?:\s*[-–]\s*ADVANCE)?(?:\s*\([^)]*\))?)$',
+    ]
+    for pat in patterns:
+        if re.match(pat, cleaned, re.IGNORECASE):
+            return True
+            
+    return False
+
+
+def is_subtitle_text(text: str) -> bool:
+    if not isinstance(text, str):
+        return False
+    cleaned = text.strip()
+    return bool(re.match(r'^\s*on\s+(?:the\s+)?(?:Illumina|Novaseq|Miseq|Nextseq|Ion\s+Torrent)\s+[\w\s-]+\s+Platform\s*$', cleaned, re.IGNORECASE))
+
+
 for pdf_path in unique_pdfs:
     if not pdf_path.exists():
         continue
@@ -49,7 +89,7 @@ for pdf_path in unique_pdfs:
     rects_to_redact = []
     text_insertions = []  # list of tuples (rect, text, font_path, font_size, color_rgb, align)
     
-    # 1. Format 1: Dulal Naha / exact_position_test (centered 2-line test name)
+    # 1. Format 1: Dulal Naha / exact_position_test (centered 2-line test name or 1-line test name)
     span_title = None
     span_subtitle = None
     for b in blocks:
@@ -58,16 +98,18 @@ for pdf_path in unique_pdfs:
         for l in b["lines"]:
             for s in l["spans"]:
                 s_text = s["text"].strip()
-                if "Liquidseq Actionable Genomic Profiling Panel" in s_text or "Brainseq Genomic Profiling Panel" in s_text:
+                if is_test_name_text(s_text):
                     span_title = s
-                elif "On Illumina Novaseq 6000 Platform" in s_text:
+                elif is_subtitle_text(s_text):
                     span_subtitle = s
                     
-    if span_title and span_subtitle:
+    if span_title:
         format_type = 1
         rect1 = fitz.Rect(span_title["bbox"])
-        rect2 = fitz.Rect(span_subtitle["bbox"])
-        rects_to_redact = [rect1, rect2]
+        rects_to_redact = [rect1]
+        if span_subtitle:
+            rect2 = fitz.Rect(span_subtitle["bbox"])
+            rects_to_redact.append(rect2)
         
         color_int = span_title["color"]
         r = ((color_int >> 16) & 255) / 255.0

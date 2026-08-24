@@ -45,6 +45,46 @@ def replace_sng_in_structure(obj):
     return obj
 
 
+def is_test_name_text(text: str) -> bool:
+    if not isinstance(text, str):
+        return False
+    cleaned = text.strip()
+    if len(cleaned) < 4 or len(cleaned) > 130:
+        return False
+        
+    exclude_prefixes = (
+        "clinical indication", "sample description", "report highlights", 
+        "key findings", "test results", "tier ", "case id", "sample type", 
+        "name :", "date & time", "bill. loc", "ref. by", "report version",
+        "qr code", "page ", "salient features", "clinical suspicion",
+        "dr.", "laboratory", "oncquest", "result summary", "methodology"
+    )
+    cleaned_lower = cleaned.lower()
+    for ex in exclude_prefixes:
+        if cleaned_lower.startswith(ex):
+            return False
+            
+    patterns = [
+        r'^(?:Breast\s+and\s+Ovarian\s+Extended\s+Panel\s*[-–]\s*Liquid\s+Biopsy\s+Assay)$',
+        r'^(?:(?:Liquidseq\s+Actionable|Brainseq)\s+Genomic\s+Profiling\s+Panel(?:\s*[-–]\s*Advance)?)$',
+        r'^(?:Whole\s+Exome\s+Sequencing(?:\s+on\s+(?:the\s+)?Illumina\s+[\w\s-]+\s+Platform)?)$',
+        r'^[\w\s/&,–\-\(\)\.\+]+?(?:Genomic\s+Profiling\s+Panel|Extended\s+Panel|Profiling\s+Panel|Biopsy\s+Assay|Exome\s+Sequencing|Sequencing\s+Panel|Cancer\s+Panel|Gene\s+Panel|Profiling\s+Assay|Sequencing\s+Assay|Biopsy\s+Panel|NGS\s+Panel)(?:\s*[-–]\s*Advance)?(?:\s*\([^)]*\))?(?:\s+on\s+(?:the\s+)?Illumina\s+[\w\s-]+\s+Platform)?$',
+        r'^(?:[A-Z\s]{4,}\s+PANEL(?:\s*[-–]\s*ADVANCE)?(?:\s*\([^)]*\))?)$',
+    ]
+    for pat in patterns:
+        if re.match(pat, cleaned, re.IGNORECASE):
+            return True
+            
+    return False
+
+
+def is_subtitle_text(text: str) -> bool:
+    if not isinstance(text, str):
+        return False
+    cleaned = text.strip()
+    return bool(re.match(r'^\s*on\s+(?:the\s+)?(?:Illumina|Novaseq|Miseq|Nextseq|Ion\s+Torrent)\s+[\w\s-]+\s+Platform\s*$', cleaned, re.IGNORECASE))
+
+
 def replace_test_name_in_structure(obj):
     """
     Recursively replaces the test name in JSON structure keys/values
@@ -55,14 +95,149 @@ def replace_test_name_in_structure(obj):
     elif isinstance(obj, list):
         return [replace_test_name_in_structure(item) for item in obj]
     elif isinstance(obj, str):
-        # Only replace if the entire string matches the test name exactly
-        if re.match(r'^\s*(?:Liquidseq\s+Actionable|Brainseq)\s+Genomic\s+Profiling\s+Panel(?:\s*[-–]\s*Advance)?\s*$', obj, re.IGNORECASE):
+        if is_test_name_text(obj):
             return "TEST NAME"
-        # Only replace if the entire string matches the subtitle exactly
-        if re.match(r'^\s*On\s+Illumina\s+Novaseq\s+6000\s+Platform\s*$', obj, re.IGNORECASE):
+        if is_subtitle_text(obj):
             return ""
         return obj
     return obj
+
+
+def clean_font_name(font_name: str) -> str:
+    if not font_name:
+        return "Calibri"
+    fn = font_name.lower()
+    if "calibri" in fn:
+        return "Calibri"
+    elif "tahoma" in fn:
+        return "Tahoma"
+    elif "verdana" in fn:
+        return "Verdana"
+    elif "times" in fn:
+        return "Times New Roman"
+    elif "cambria" in fn:
+        return "Cambria"
+    elif "arial" in fn:
+        return "Arial"
+    elif "symbol" in fn:
+        return "Symbol"
+    return "Calibri"
+
+
+def detect_alignment(bbox, page_width):
+    if not bbox or len(bbox) < 4 or not page_width:
+        return "left"
+    x0, y0, x1, y1 = bbox
+    # If block is very wide, alignment is usually left (or justify)
+    if (x1 - x0) > 0.8 * page_width:
+        return "left"
+    # Check center symmetry
+    left_margin = x0
+    right_margin = page_width - x1
+    if abs(left_margin - right_margin) < 15.0:
+        return "center"
+    if right_margin < 50.0 and left_margin > 200.0:
+        return "right"
+    return "left"
+
+
+def get_css_color(color_tuple):
+    if not color_tuple:
+        return None
+    try:
+        if isinstance(color_tuple, (list, tuple)):
+            if len(color_tuple) == 3:
+                r = int(color_tuple[0] * 255)
+                g = int(color_tuple[1] * 255)
+                b = int(color_tuple[2] * 255)
+                return f"rgb({r},{g},{b})"
+            elif len(color_tuple) == 1:
+                gray = int(color_tuple[0] * 255)
+                return f"rgb({gray},{gray},{gray})"
+            elif len(color_tuple) == 4:
+                c, m, y, k = color_tuple
+                r = int(255 * (1 - c) * (1 - k))
+                g = int(255 * (1 - m) * (1 - k))
+                b = int(255 * (1 - y) * (1 - k))
+                return f"rgb({r},{g},{b})"
+        elif isinstance(color_tuple, (int, float)):
+            val = int(color_tuple * 255)
+            return f"rgb({val},{val},{val})"
+    except Exception:
+        pass
+    return None
+
+
+def get_bbox_background_color(page, bbox) -> str:
+    x0, y0, x1, y1 = bbox
+    try:
+        drawings = page.get_drawings()
+        for d in drawings:
+            rect = d.get("rect")
+            fill = d.get("fill")
+            if fill and rect:
+                rx0, ry0, rx1, ry1 = rect.x0, rect.y0, rect.x1, rect.y1
+                if rx0 <= x0 + 2.0 and ry0 <= y0 + 2.0 and rx1 >= x1 - 2.0 and ry1 >= y1 - 2.0:
+                    bg = get_css_color(fill)
+                    if bg:
+                        m = re.match(r"rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)", bg)
+                        if m:
+                            r, g, b_val = int(m.group(1)), int(m.group(2)), int(m.group(3))
+                            return f"#{r:02x}{g:02x}{b_val:02x}"
+                        return bg
+    except Exception:
+        pass
+    return None
+
+
+def get_bbox_text_style(page, bbox) -> dict:
+    rect = fitz.Rect(bbox)
+    text_dict = page.get_text("dict", clip=rect)
+    
+    colors = []
+    sizes = []
+    fonts = []
+    bolds = []
+    italics = []
+    
+    for b in text_dict.get("blocks", []):
+        if "lines" in b:
+            for ln in b["lines"]:
+                for s in ln["spans"]:
+                    txt = s.get("text", "").strip()
+                    if txt:
+                        font = s.get("font", "")
+                        colors.append(s.get("color"))
+                        sizes.append(s.get("size"))
+                        fonts.append(font)
+                        bolds.append(bool(s.get("flags", 0) & 2 or "bold" in font.lower()))
+                        italics.append(bool(s.get("flags", 0) & 1 or "italic" in font.lower()))
+                        
+    style = {}
+    if colors:
+        from collections import Counter
+        dom_color = Counter(colors).most_common(1)[0][0]
+        if dom_color is not None:
+            r = (dom_color >> 16) & 255
+            g = (dom_color >> 8) & 255
+            b_val = dom_color & 255
+            style["text_color"] = f"#{r:02x}{g:02x}{b_val:02x}"
+            
+    if sizes:
+        style["font_size"] = round(max(sizes), 2)
+        
+    if fonts:
+        style["font_family"] = clean_font_name(Counter(fonts).most_common(1)[0][0])
+        
+    if bolds:
+        style["bold"] = any(bolds)
+        
+    if italics:
+        style["italic"] = any(italics)
+        
+    style["alignment"] = detect_alignment(bbox, page.rect.width)
+    
+    return style
 
 
 def parse_header_key_value_pairs(full_text: str) -> dict:
@@ -538,6 +713,27 @@ def extract_report_data(pdf_path: str) -> dict:
                     else:
                         continue
 
+                    # Extract header and cell styles dynamically from cell bboxes
+                    header_styles = []
+                    cell_styles = []
+                    if hasattr(table, "rows") and table.rows:
+                        for r_idx, row_obj in enumerate(table.rows):
+                            r_styles = []
+                            for c_idx, cell_obj in enumerate(row_obj.cells):
+                                if cell_obj:
+                                    c_bbox = cell_obj.bbox if hasattr(cell_obj, "bbox") else cell_obj
+                                    c_style = get_bbox_text_style(page, c_bbox)
+                                    bg = get_bbox_background_color(page, c_bbox)
+                                    if bg:
+                                        c_style["background_color"] = bg
+                                    r_styles.append(c_style)
+                                else:
+                                    r_styles.append({})
+                            if r_idx == 0:
+                                header_styles = r_styles
+                            else:
+                                cell_styles.append(r_styles)
+
                     # If table is in header / footer area, add to header/footer elements
                     if t_mid < hy_cutoff:
                         col_widths = []
@@ -562,7 +758,9 @@ def extract_report_data(pdf_path: str) -> dict:
                             "type": "table",
                             "bbox": format_bbox(t_bbox),
                             "columns": columns_with_widths,
-                            "rows": row_dicts
+                            "rows": row_dicts,
+                            "header_styles": header_styles,
+                            "cell_styles": cell_styles
                         })
                         continue
                     elif t_mid > fy_cutoff:
@@ -588,7 +786,9 @@ def extract_report_data(pdf_path: str) -> dict:
                             "type": "table",
                             "bbox": format_bbox(t_bbox),
                             "columns": columns_with_widths,
-                            "rows": row_dicts
+                            "rows": row_dicts,
+                            "header_styles": header_styles,
+                            "cell_styles": cell_styles
                         })
                         continue
 
@@ -624,7 +824,9 @@ def extract_report_data(pdf_path: str) -> dict:
                         "rows": legacy_rows,
                         "raw_headers": raw_headers,
                         "raw_rows": raw_rows,
-                        "is_continuation": is_continuation
+                        "is_continuation": is_continuation,
+                        "header_styles": header_styles,
+                        "cell_styles": cell_styles
                     }
                     page_tables.append(table_obj)
                     all_tables_list.append(table_obj)
@@ -655,7 +857,9 @@ def extract_report_data(pdf_path: str) -> dict:
                         "bbox": format_bbox(t_bbox),
                         "columns": columns_with_widths,
                         "rows": row_dicts,
-                        "is_continuation": is_continuation
+                        "is_continuation": is_continuation,
+                        "header_styles": header_styles,
+                        "cell_styles": cell_styles
                     })
         except Exception as t_err:
             logger.debug(f"Page {page_num + 1} table error: {t_err}")
@@ -677,35 +881,99 @@ def extract_report_data(pdf_path: str) -> dict:
 
                 b_text = ""
                 is_bold = False
+                is_italic = False
                 max_size = 0.0
                 font_name = ""
                 lines_list = []
+                colors_in_block = []
+                sizes_in_block = []
+                fonts_in_block = []
+                lines_data = []
                 for line in block["lines"]:
                     line_text = " ".join(span.get("text", "") for span in line["spans"]).strip()
                     if line_text:
                         lines_list.append(line_text)
+                    spans_data = []
                     for span in line["spans"]:
                         text = span.get("text", "").strip()
                         if text:
                             b_text += span.get("text", "") + " "
-                            if span.get("flags", 0) & 2 or "bold" in span.get("font", "").lower():
+                            span_font = span.get("font", "")
+                            if span.get("flags", 0) & 2 or "bold" in span_font.lower():
                                 is_bold = True
-                            if span.get("size", 0.0) > max_size:
-                                max_size = span.get("size", 0.0)
-                            font_name = span.get("font", "")
+                            if span.get("flags", 0) & 1 or "italic" in span_font.lower():
+                                is_italic = True
+                            span_size = span.get("size", 0.0)
+                            if span_size > max_size:
+                                max_size = span_size
+                            font_name = span_font
+                            
+                            span_color_dec = span.get("color")
+                            span_color = "#000000"
+                            if span_color_dec is not None:
+                                r = (span_color_dec >> 16) & 255
+                                g = (span_color_dec >> 8) & 255
+                                b_val = span_color_dec & 255
+                                span_color = f"#{r:02x}{g:02x}{b_val:02x}"
+                                colors_in_block.append(span_color_dec)
+                            
+                            sizes_in_block.append(span_size)
+                            if span_font:
+                                fonts_in_block.append(span_font)
+                                
+                            spans_data.append({
+                                "text": span.get("text", ""),
+                                "font": span_font,
+                                "size": round(span_size, 2),
+                                "color": span_color,
+                                "bold": bool(span.get("flags", 0) & 2 or "bold" in span_font.lower()),
+                                "italic": bool(span.get("flags", 0) & 1 or "italic" in span_font.lower()),
+                                "bbox": [round(c, 2) for c in span.get("bbox", [0, 0, 0, 0])]
+                            })
+                    if spans_data:
+                        lines_data.append({
+                            "bbox": [round(c, 2) for c in line.get("bbox", [0, 0, 0, 0])],
+                            "spans": spans_data
+                        })
 
                 clean_b_text = b_text.strip()
                 if not clean_b_text:
                     continue
 
                 sem_type = classify_block_type(clean_b_text, max_size, is_bold, font_name)
+                
+                # Determine dominant text color
+                text_color = "#000000"
+                if colors_in_block:
+                    from collections import Counter
+                    dom_color_dec = Counter(colors_in_block).most_common(1)[0][0]
+                    r = (dom_color_dec >> 16) & 255
+                    g = (dom_color_dec >> 8) & 255
+                    b_val = dom_color_dec & 255
+                    text_color = f"#{r:02x}{g:02x}{b_val:02x}"
+                elif sem_type == "heading":
+                    text_color = "#1f497d"
+                elif sem_type == "subheading":
+                    text_color = "#008080"
+                
+                # Dominant font name
+                dom_font = clean_font_name(font_name)
+                if fonts_in_block:
+                    from collections import Counter
+                    dom_font = clean_font_name(Counter(fonts_in_block).most_common(1)[0][0])
+                
                 style_override = {}
                 if max_size:
                     style_override["font_size"] = round(max_size, 2)
-                if font_name:
-                    style_override["font_family"] = font_name
+                if dom_font:
+                    style_override["font_family"] = dom_font
                 if is_bold:
                     style_override["bold"] = True
+                if is_italic:
+                    style_override["italic"] = True
+                if text_color:
+                    style_override["text_color"] = text_color
+                style_override["alignment"] = detect_alignment(b_bbox, rect.width)
 
                 # Determine if block is in header, footer, or body
                 if b_bbox[1] < hy_cutoff:
@@ -787,7 +1055,10 @@ def extract_report_data(pdf_path: str) -> dict:
                     "text": clean_b_text,
                     "max_font_size": round(max_size, 2),
                     "is_bold": is_bold,
-                    "font": font_name
+                    "italic": is_italic,
+                    "font": dom_font,
+                    "color": text_color,
+                    "lines": lines_data
                 }
                 page_blocks.append(block_obj)
                 text_blocks_with_style.append(block_obj)
