@@ -150,6 +150,54 @@ def replace_sng_in_docx_obj(doc):
 from extractor import extract_report_data, detect_dynamic_header_footer_bounds
 
 
+def check_result_classification(text):
+    if not text:
+        return None
+    cleaned = text.strip().lower()
+    cleaned = re.sub(r'^[()]+|[()]+$', '', cleaned).strip()
+    
+    if len(cleaned) > 50:
+        return None
+        
+    pos_exact = {"positive", "pathogenic", "detected", "high", "abnormal", "msi-high", "msi - high", "unstable", "msi-unstable", "msi - unstable"}
+    neg_exact = {"negative", "normal", "not detected", "stable", "msi-stable", "msi - stable", "benign", "likely benign", "stable microsatellite detected", "msi-stable microsatellite detected"}
+    
+    if cleaned in pos_exact:
+        return "positive"
+    if cleaned in neg_exact:
+        return "negative"
+        
+    if "msi-high" in cleaned or "msi - high" in cleaned:
+        return "positive"
+    if "msi-stable" in cleaned or "msi - stable" in cleaned:
+        return "negative"
+        
+    if re.match(r'^(positive|pathogenic)\b', cleaned):
+        return "positive"
+    if re.match(r'^(negative|benign|likely benign)\b', cleaned):
+        return "negative"
+        
+    if "not detected" in cleaned:
+        return "negative"
+    if "detected" in cleaned:
+        if re.search(r'\b(no|not|negative)\b', cleaned):
+            return "negative"
+        return "positive"
+        
+    words = re.findall(r'\b[a-z-]+\b', cleaned)
+    if "high" in words or "tmb-high" in words:
+        if "risk" not in words and "grade" not in words:
+            return "positive"
+    if "abnormal" in words:
+        return "positive"
+    if "normal" in words:
+        if "control" not in words and "controls" not in words and "sample" not in words and "matched" not in words:
+            return "negative"
+            
+    return None
+
+
+
 def get_css_color(color_tuple):
     if not color_tuple:
         return None
@@ -200,9 +248,7 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
     result_positive_color = colors_cfg.get("result_positive", "#C00000")
     result_negative_color = colors_cfg.get("result_negative", "#008000")
 
-    # Change 3: Keywords for result color coding
-    _POSITIVE_KEYWORDS = ["positive", "pathogenic", "detected", "high", "abnormal", "msi - high", "msi-high"]
-    _NEGATIVE_KEYWORDS = ["negative", "normal", "not detected", "stable", "msi - stable", "msi-stable", "benign", "likely benign"]
+    # Change 3: Keywords for result color coding (deprecated locally, using global function check_result_classification)
     font_family = typo_cfg.get("primary_family", "Cambria, 'Times New Roman', serif")
 
     fallback_left = 35.5
@@ -533,19 +579,18 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
         # Change 3: Color-code result keywords (Positive=Red, Negative=Green) in exact layout
         def colorize_result_text(match):
             p_tag = match.group(0)
-            text_val = re.sub(r'<[^>]+>', '', p_tag).strip().lower()
+            text_val = re.sub(r'<[^>]+>', '', p_tag).strip()
             # Skip if already styled as heading/banner
             if 'black-banner-span' in p_tag or 'table-header-cell' in p_tag:
                 return p_tag
-            # Skip long text — only short result values should be colored
-            if len(text_val) > 100:
-                return p_tag
-            if any(kw in text_val for kw in _POSITIVE_KEYWORDS):
+            
+            classification = check_result_classification(text_val)
+            if classification == "positive":
                 # Wrap all spans in red color
                 p_tag = re.sub(r'color:\s*[^;"]+', f'color:{result_positive_color}', p_tag)
                 if 'font-weight' not in p_tag:
                     p_tag = p_tag.replace('style="', 'style="font-weight:bold;', 1)
-            elif any(kw in text_val for kw in _NEGATIVE_KEYWORDS):
+            elif classification == "negative":
                 # Wrap all spans in green color
                 p_tag = re.sub(r'color:\s*[^;"]+', f'color:{result_negative_color}', p_tag)
                 if 'font-weight' not in p_tag:
@@ -678,21 +723,12 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
                     "cleared", "completed", "compliant", "settled"]
     })
 
-    # Keywords that trigger result-level coloring (inline, not badge)
-    _POSITIVE_KEYWORDS = ["positive", "pathogenic", "detected", "high", "abnormal", "msi - high", "msi-high"]
-    _NEGATIVE_KEYWORDS = ["negative", "normal", "not detected", "stable", "msi - stable", "msi-stable", "benign", "likely benign"]
-
     def _result_color_span(cell_str: str) -> str:
-        """Wrap cell text in a colored span if it matches a clinical result keyword.
-        Only applies to short result values (< 100 chars) to avoid false positives
-        on long descriptive paragraphs that happen to contain a keyword."""
-        cell_lower = cell_str.strip().lower()
-        # Skip long text — these are descriptions, not result values
-        if len(cell_lower) > 100:
-            return cell_str
-        if any(kw in cell_lower for kw in _NEGATIVE_KEYWORDS):
+        """Wrap cell text in a colored span if it matches a clinical result keyword."""
+        classification = check_result_classification(cell_str)
+        if classification == "negative":
             return f"<span style='color:{result_negative_color}; font-weight:bold;'>{cell_str}</span>"
-        if any(kw in cell_lower for kw in _POSITIVE_KEYWORDS):
+        if classification == "positive":
             return f"<span style='color:{result_positive_color}; font-weight:bold;'>{cell_str}</span>"
         return cell_str
 
@@ -2730,14 +2766,11 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
             return "Cambria, Georgia, serif"
         return "Calibri, Arial, sans-serif"
 
-    _POSITIVE_KEYWORDS = ["positive", "pathogenic", "detected", "high", "abnormal", "msi - high", "msi-high"]
-    _NEGATIVE_KEYWORDS = ["negative", "normal", "not detected", "stable", "msi - stable", "msi-stable", "benign", "likely benign"]
-
     def _result_color_span(cell_str: str) -> str:
-        cell_lower = cell_str.strip().lower()
-        if any(kw in cell_lower for kw in _NEGATIVE_KEYWORDS):
+        classification = check_result_classification(cell_str)
+        if classification == "negative":
             return f"<span style='color:{result_negative_color}; font-weight:bold;'>{cell_str}</span>"
-        if any(kw in cell_lower for kw in _POSITIVE_KEYWORDS):
+        if classification == "positive":
             return f"<span style='color:{result_positive_color}; font-weight:bold;'>{cell_str}</span>"
         return cell_str
 
