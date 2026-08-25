@@ -204,14 +204,22 @@ if uploaded_file is not None:
 
     # Processing Workflow
     if btn_process or st.session_state.docx_bytes is None:
-        with st.spinner("Processing End Result HTML → Word (.docx)..."):
+        print(f"\n{'='*60}", flush=True)
+        print(f"[*] Starting Document Processing: {uploaded_file.name}", flush=True)
+        print(f"{'='*60}", flush=True)
+
+        with st.status("⚡ Converting document to Word (.docx)...", expanded=True) as status_box:
             try:
                 if file_ext == ".json":
                     # Direct JSON Input -> Render Word (.docx) directly using theme.json
+                    st.write("🔍 **Step 1/3:** Loading and parsing JSON structure...")
+                    print(f"[*] [Step 1/3] Loading JSON structure for {uploaded_file.name}...", flush=True)
                     extracted_data = json.loads(file_bytes.decode("utf-8"))
                     st.session_state.extracted_data = extracted_data
+
+                    st.write("🎨 **Step 2/3:** Generating themed HTML layout from JSON...")
+                    print(f"[*] [Step 2/3] Generating themed HTML template...", flush=True)
                     html_content = generate_dynamic_template_html(extracted_data, doc_title=uploaded_file.name, theme_config=theme_config)
-                    # Replace "SN Genelab Pvt Ltd" with "Laboratory"
                     html_content = html_content.replace("SN Genelab Pvt Ltd", "Laboratory")
                     st.session_state.html_content = html_content
 
@@ -220,74 +228,86 @@ if uploaded_file is not None:
                         html_tmp.write_text(html_content, encoding="utf-8")
                         compiled_pdf_tmp = Path(tmp_dir) / "compiled.pdf"
 
-                        # Compile Intermediate PDF from HTML for previews
+                        st.write("🌐 **Step 3/3:** Compiling HTML to PDF and converting to Word (.docx)...")
+                        print(f"[*] [Step 3/3] Compiling intermediate PDF via Playwright...", flush=True)
                         render_html_to_pdf_and_preview(html_tmp, compiled_pdf_tmp)
+
                         if compiled_pdf_tmp.exists():
                             st.session_state.compiled_pdf_bytes = compiled_pdf_tmp.read_bytes()
-                            
-                            # Convert compiled PDF to Word (.docx) using pdf2docx
                             docx_tmp = Path(tmp_dir) / "output.docx"
+                            print(f"[*] Converting compiled PDF to Word (.docx) via pdf2docx...", flush=True)
                             convert_pdf_via_pdf2docx(str(compiled_pdf_tmp), str(docx_tmp))
                             if docx_tmp.exists():
                                 st.session_state.docx_bytes = docx_tmp.read_bytes()
+                                print(f"[+] DOCX generation successful ({len(st.session_state.docx_bytes)} bytes)!", flush=True)
                             else:
                                 st.session_state.docx_bytes = None
                         else:
                             st.session_state.compiled_pdf_bytes = None
                             st.session_state.docx_bytes = None
                 else:
-                    # PDF Input -> Render Clean HTML End Result (Header/Footer Excluded & Theme Styled) -> Convert HTML to Word
+                    # PDF Input -> Render Clean HTML End Result -> Convert HTML to Word
                     with tempfile.TemporaryDirectory() as tmp_dir:
                         pdf_input_path = Path(tmp_dir) / uploaded_file.name
                         pdf_input_path.write_bytes(file_bytes)
 
-                        # Silent JSON extraction
+                        # Step 1: Extract structured JSON from PDF
+                        st.write("🔍 **Step 1/4:** Extracting text, tables, and styles from PDF...")
+                        print(f"[*] [Step 1/4] Extracting text, tables, and styles from PDF...", flush=True)
                         try:
-                            extracted_data = extract_report_data(str(pdf_input_path))
+                            extracted_data = extract_report_data(str(pdf_input_path), auto_save_docx=False)
                             st.session_state.extracted_data = extracted_data
                             
                             json_out_dir = Path("extracted_jsons")
                             json_out_dir.mkdir(exist_ok=True)
                             json_file_path = json_out_dir / f"{Path(uploaded_file.name).stem}.json"
-                            # Replace "SN Genelab Pvt Ltd" with "Laboratory" in JSON
                             json_str = json.dumps(extracted_data, indent=2, ensure_ascii=False)
                             json_str = json_str.replace("SN Genelab Pvt Ltd", "Laboratory")
                             with open(json_file_path, "w", encoding="utf-8") as f_json:
                                 f_json.write(json_str)
-                        except Exception:
-                            pass
+                            print(f"   [+] Extracted JSON saved to: {json_file_path}", flush=True)
+                        except Exception as e_ext:
+                            print(f"   [!] Note on JSON extraction: {e_ext}", flush=True)
 
-                        # Render Clean End Result HTML
-                        doc_fitz = fitz.open(str(pdf_input_path))
-                        html_content = render_exact_pdf_layout_html(doc_fitz, doc_title=uploaded_file.name, theme_config=theme_config)
-                        doc_fitz.close()
-                        # Replace "SN Genelab Pvt Ltd" with "Laboratory"
+                        # Step 2: Render Clean End Result HTML
+                        st.write("🎨 **Step 2/4:** Rendering styled HTML document layout...")
+                        print(f"[*] [Step 2/4] Rendering styled HTML document layout...", flush=True)
+                        with fitz.open(str(pdf_input_path)) as doc_fitz:
+                            html_content = render_exact_pdf_layout_html(doc_fitz, doc_title=uploaded_file.name, theme_config=theme_config)
                         html_content = html_content.replace("SN Genelab Pvt Ltd", "Laboratory")
                         st.session_state.html_content = html_content
 
-                        # Compile Intermediate PDF from HTML
-                        try:
-                            html_tmp = Path(tmp_dir) / "temp.html"
-                            html_tmp.write_text(html_content, encoding="utf-8")
-                            compiled_pdf_tmp = Path(tmp_dir) / "compiled.pdf"
-                            render_html_to_pdf_and_preview(html_tmp, compiled_pdf_tmp)
-                            if compiled_pdf_tmp.exists():
-                                st.session_state.compiled_pdf_bytes = compiled_pdf_tmp.read_bytes()
-                                
-                                # Convert compiled PDF to Word (.docx) using pdf2docx
-                                docx_tmp = Path(tmp_dir) / "output.docx"
-                                convert_pdf_via_pdf2docx(str(compiled_pdf_tmp), str(docx_tmp))
-                                if docx_tmp.exists():
-                                    st.session_state.docx_bytes = docx_tmp.read_bytes()
-                                else:
-                                    st.session_state.docx_bytes = None
-                        except Exception:
+                        # Step 3: Compile HTML to PDF via Playwright
+                        st.write("🌐 **Step 3/4:** Compiling HTML to PDF preview via Chromium...")
+                        print(f"[*] [Step 3/4] Compiling HTML to PDF preview via Chromium...", flush=True)
+                        html_tmp = Path(tmp_dir) / "temp.html"
+                        html_tmp.write_text(html_content, encoding="utf-8")
+                        compiled_pdf_tmp = Path(tmp_dir) / "compiled.pdf"
+                        render_html_to_pdf_and_preview(html_tmp, compiled_pdf_tmp)
+
+                        # Step 4: Convert compiled PDF to Word (.docx)
+                        if compiled_pdf_tmp.exists():
+                            st.session_state.compiled_pdf_bytes = compiled_pdf_tmp.read_bytes()
+                            st.write("📝 **Step 4/4:** Reconstructing Word (.docx) with exact layout & signatures...")
+                            print(f"[*] [Step 4/4] Converting compiled PDF to Word (.docx) via pdf2docx...", flush=True)
+                            docx_tmp = Path(tmp_dir) / "output.docx"
+                            convert_pdf_via_pdf2docx(str(compiled_pdf_tmp), str(docx_tmp))
+                            if docx_tmp.exists():
+                                st.session_state.docx_bytes = docx_tmp.read_bytes()
+                                print(f"[+] DOCX generation successful ({len(st.session_state.docx_bytes)} bytes)!", flush=True)
+                            else:
+                                st.session_state.docx_bytes = None
+                        else:
                             st.session_state.compiled_pdf_bytes = None
                             st.session_state.docx_bytes = None
 
+                status_box.update(label="✅ Conversion Completed Successfully!", state="complete", expanded=False)
+                print(f"[+] Pipeline Completed Successfully for {uploaded_file.name}!\n", flush=True)
                 st.success("✅ Converted Extracted Content + theme.json → Word (.docx) successfully!")
 
             except Exception as e:
+                status_box.update(label=f"❌ Error during conversion: {e}", state="error", expanded=True)
+                print(f"[!] Error converting document: {e}", flush=True)
                 st.error(f"Error converting document to Word: {e}")
 
 
