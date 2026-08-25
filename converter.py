@@ -31,10 +31,25 @@ try:
 except ImportError:
     PDF2DocxConverter = None
 
+def is_end_of_report_text(text: str) -> bool:
+    if not isinstance(text, str):
+        return False
+    return bool(re.search(r'end\s+of\s+report', text, re.IGNORECASE))
+
+
 def replace_sng_gen_lab(text: str) -> str:
     if not isinstance(text, str):
         return text
-    # Broad pattern to catch all SNG/SN Genelab/Gene's Lab variants (with or without Pvt Ltd)
+    match = re.search(r'end\s+of\s+report', text, re.IGNORECASE)
+    if match:
+        pre = text[:match.start()]
+        post = text[match.start():]
+        pattern = re.compile(
+            r"(?:SNG\s*Gene?(?:[''\u2018\u2019']|&[a-zA-Z0-9#]+;)?s?\s*Lab(?:oratory)?|SN\s*Genelab)"
+            r"(?:\s+pvt\.?\s*ltd\.?)?",
+            re.IGNORECASE
+        )
+        return pattern.sub("Laboratory", pre) + post
     pattern = re.compile(
         r"(?:SNG\s*Gene?(?:[''\u2018\u2019']|&[a-zA-Z0-9#]+;)?s?\s*Lab(?:oratory)?|SN\s*Genelab)"
         r"(?:\s+pvt\.?\s*ltd\.?)?",
@@ -84,19 +99,11 @@ def is_subtitle_text(text: str) -> bool:
 
 
 def replace_test_name_in_html(html: str) -> str:
-    """
-    Replaces the test report test name with 'TEST NAME' in rendered HTML.
-    Supports:
-      - 'Breast and Ovarian Extended Panel-Liquid Biopsy Assay'
-      - 'Liquidseq Actionable Genomic Profiling Panel'
-      - 'Brainseq Genomic Profiling Panel – Advance'
-      - 'Whole Exome Sequencing on the Illumina Novaseq X NGS Platform'
-      - Universal panel, assay, and sequencing test names
-      - Clears platform subtitle line (e.g. 'On Illumina Novaseq 6000 Platform')
-    Preserves all HTML tags, positioning, and formatting.
-    """
     if not isinstance(html, str):
         return html
+    m = re.search(r'end\s+of\s+report', html, re.IGNORECASE)
+    pre = html[:m.start()] if m else html
+    post = html[m.start():] if m else ""
 
     title_regex = re.compile(
         r'(>[^<]*?)((?:'
@@ -107,25 +114,44 @@ def replace_test_name_in_html(html: str) -> str:
         r'))([^<]*?<)',
         flags=re.IGNORECASE
     )
-    html = title_regex.sub(lambda m: m.group(1) + 'TEST NAME' + m.group(3), html)
+    pre = title_regex.sub(lambda match_obj: match_obj.group(1) + 'TEST NAME' + match_obj.group(3), pre)
 
-    # Clear subtitle line (already covered by the main test name above)
-    html = re.sub(
+    # Clear subtitle line
+    pre = re.sub(
         r'(?<=\>)\s*On\s+(?:the\s+)?(?:Illumina|Novaseq|Miseq|Nextseq|Ion\s+Torrent)\s+[\w\s-]+\s+Platform\s*(?=\<)',
         '',
-        html, flags=re.IGNORECASE
+        pre, flags=re.IGNORECASE
     )
 
-    return html
+    return pre + post
 
 
 def replace_test_name_in_structure(obj):
     """
-    Recursively replaces the test name in JSON structure keys/values
-    so direct JSON->DOCX or JSON->HTML routes are sanitized cleanly.
+    Recursively replaces test name in JSON structure, UNLESS after 'End of Report'.
     """
     if isinstance(obj, dict):
-        return {k: replace_test_name_in_structure(v) for k, v in obj.items()}
+        if "pages" in obj and isinstance(obj["pages"], list):
+            new_pages = []
+            seen_eor = False
+            for page in obj["pages"]:
+                new_page = dict(page)
+                if "elements" in new_page and isinstance(new_page["elements"], list):
+                    new_elements = []
+                    for el in new_page["elements"]:
+                        el_text = str(el.get("text", "")) + str(el.get("data", "")) + str(el.get("title", ""))
+                        if is_end_of_report_text(el_text):
+                            seen_eor = True
+                        if seen_eor:
+                            new_elements.append(el)
+                        else:
+                            new_elements.append(replace_test_name_in_structure(el))
+                    new_page["elements"] = new_elements
+                new_pages.append(new_page)
+            new_doc = dict(obj)
+            new_doc["pages"] = new_pages
+            return new_doc
+        return {k: (replace_test_name_in_structure(v) if k != "elements" else v) for k, v in obj.items()}
     elif isinstance(obj, list):
         return [replace_test_name_in_structure(item) for item in obj]
     elif isinstance(obj, str):
@@ -137,9 +163,31 @@ def replace_test_name_in_structure(obj):
     return obj
 
 
-
 def replace_sng_in_structure(obj):
+    """
+    Replaces SNG Genelab names in structure, UNLESS after 'End of Report'.
+    """
     if isinstance(obj, dict):
+        if "pages" in obj and isinstance(obj["pages"], list):
+            new_pages = []
+            seen_eor = False
+            for page in obj["pages"]:
+                new_page = dict(page)
+                if "elements" in new_page and isinstance(new_page["elements"], list):
+                    new_elements = []
+                    for el in new_page["elements"]:
+                        el_text = str(el.get("text", "")) + str(el.get("data", "")) + str(el.get("title", ""))
+                        if is_end_of_report_text(el_text):
+                            seen_eor = True
+                        if seen_eor:
+                            new_elements.append(el)
+                        else:
+                            new_elements.append(replace_sng_in_structure(el))
+                    new_page["elements"] = new_elements
+                new_pages.append(new_page)
+            new_doc = dict(obj)
+            new_doc["pages"] = new_pages
+            return new_doc
         return {k: replace_sng_in_structure(v) for k, v in obj.items()}
     elif isinstance(obj, list):
         return [replace_sng_in_structure(item) for item in obj]
@@ -158,10 +206,16 @@ def replace_sng_in_docx_obj(doc):
     replacement = "Laboratory"
     
     def replace_in_xml_elements(root_element):
+        seen_eor = False
         for p in root_element.iter():
             if p.tag.endswith('}p'):
                 t_elements = [t for t in p.iter() if t.tag.endswith('}t')]
                 if not t_elements:
+                    continue
+                full_p_text = "".join(t.text for t in t_elements if t.text)
+                if is_end_of_report_text(full_p_text):
+                    seen_eor = True
+                if seen_eor:
                     continue
                 
                 # Check individual t elements first
@@ -173,9 +227,8 @@ def replace_sng_in_docx_obj(doc):
                 
                 # If not replaced but the combined text matches, we do cross-element replacement
                 if not replaced:
-                    full_text = "".join(t.text for t in t_elements if t.text)
-                    if pattern.search(full_text):
-                        t_elements[0].text = pattern.sub(replacement, full_text)
+                    if pattern.search(full_p_text):
+                        t_elements[0].text = pattern.sub(replacement, full_p_text)
                         for t in t_elements[1:]:
                             t.text = ""
 
@@ -338,9 +391,9 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
         div[id^='page'] span {{ word-break: normal !important; overflow-wrap: break-word !important; }}
         .black-banner-span {{ color: #ffffff !important; display: block !important; width: 100% !important; text-align: center !important; padding: 4px 0 !important; line-height: 1.2 !important; font-weight: bold !important; font-size: 13.0pt !important; font-family: var(--font-primary) !important; border-radius: 0px !important; white-space: normal !important; margin: 0 !important; background-color: var(--color-banner-dark) !important; box-sizing: border-box !important; z-index: 15 !important; }}
         .label-bar-span {{ color: #ffffff !important; display: inline-block !important; padding: 2px 6px !important; line-height: 1.2 !important; border-radius: 2px !important; font-family: var(--font-primary) !important; word-break: break-word !important; margin: 0 !important; background-color: var(--color-primary) !important; z-index: 15 !important; }}
-        .table-header-cell {{ position: absolute; background-color: var(--color-primary) !important; color: #ffffff !important; font-family: var(--font-primary) !important; font-size: 9.5pt !important; font-weight: bold !important; display: flex !important; align-items: center !important; justify-content: center !important; text-align: center !important; padding: 2px 4px !important; white-space: normal !important; word-break: break-word !important; overflow-wrap: break-word !important; line-height: 1.15 !important; border: 1px solid var(--border-color) !important; box-sizing: border-box !important; z-index: 15 !important; pointer-events: none !important; }}
+        .table-header-cell {{ position: absolute; background-color: var(--color-primary) !important; color: #ffffff !important; font-family: var(--font-primary) !important; font-size: 9.5pt !important; font-weight: bold !important; display: flex !important; align-items: center !important; justify-content: center !important; text-align: center !important; padding: 2px 4px !important; white-space: normal !important; word-break: break-word !important; overflow-wrap: break-word !important; line-height: 1.15 !important; box-sizing: border-box !important; z-index: 15 !important; pointer-events: none !important; }}
         div[id^='page'] img {{ position: absolute !important; transform-origin: 0 0 !important; z-index: 5 !important; opacity: 1 !important; visibility: visible !important; display: inline-block !important; }}
-        .table-grid-cell {{ position: absolute; border: 1px solid var(--border-color) !important; background: transparent; pointer-events: none; z-index: 2 !important; box-sizing: border-box !important; }}
+        .table-grid-cell {{ position: absolute; background: transparent; pointer-events: none; z-index: 2 !important; box-sizing: border-box !important; }}
         .vector-box {{ position: absolute; border: 1px solid var(--border-color) !important; background: transparent; pointer-events: none; z-index: 2 !important; border-radius: 2px; box-sizing: border-box !important; }}
         .vector-fill-box {{ position: absolute; background-color: var(--color-primary) !important; pointer-events: none; z-index: 2 !important; border-radius: 2px; box-sizing: border-box !important; }}
         .section-content-box {{ position: absolute; border: 1px solid var(--border-color) !important; background: transparent; pointer-events: none; z-index: 2 !important; border-radius: 3px; box-sizing: border-box !important; }}
@@ -357,23 +410,45 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
 
     import base64
     from pathlib import Path
+    _script_dir = Path(__file__).parent.resolve()
+
     header_image2_b64 = ""
-    header_image2_path = Path("assets/header_image2.jpeg")
-    if header_image2_path.exists():
-        try:
-            with open(header_image2_path, "rb") as img_f:
-                header_image2_b64 = base64.b64encode(img_f.read()).decode("utf-8")
-        except Exception:
-            pass
+    for cand in [_script_dir / "assets" / "header_image2.jpeg", Path("assets/header_image2.jpeg")]:
+        if cand.exists():
+            try:
+                with open(cand, "rb") as img_f:
+                    header_image2_b64 = base64.b64encode(img_f.read()).decode("utf-8")
+                break
+            except Exception:
+                pass
 
     sig_image_b64 = ""
-    sig_image_path = Path("assets/dr_vinay_signature.png")
-    if sig_image_path.exists():
-        try:
-            with open(sig_image_path, "rb") as sig_f:
-                sig_image_b64 = base64.b64encode(sig_f.read()).decode("utf-8")
-        except Exception:
-            pass
+    for cand in [_script_dir / "assets" / "dr_vinay_signature.png", Path("assets/dr_vinay_signature.png")]:
+        if cand.exists():
+            try:
+                with open(cand, "rb") as sig_f:
+                    sig_image_b64 = base64.b64encode(sig_f.read()).decode("utf-8")
+                break
+            except Exception:
+                pass
+
+    shivali_sig_image_b64 = ""
+    for cand in [
+        _script_dir / "assets" / "shivali_sign.jpeg",
+        _script_dir / "assets" / "shivali_sign.jpg",
+        _script_dir / "assets" / "dr_shivali_signature.jpg",
+        _script_dir / "assets" / "dr_shivali_signature.png",
+        Path("assets/shivali_sign.jpeg"),
+        Path("assets/shivali_sign.jpg"),
+        Path("assets/dr_shivali_signature.jpg"),
+    ]:
+        if cand.exists():
+            try:
+                with open(cand, "rb") as s_f:
+                    shivali_sig_image_b64 = base64.b64encode(s_f.read()).decode("utf-8")
+                break
+            except Exception:
+                pass
 
     for page_num in range(len(doc)):
         page = doc[page_num]
@@ -421,6 +496,7 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
                     hy1 = max(c[3] for c in header_cells)
                     header_y_ranges.append((hy0 - 3.0, hy1 + 3.0))
 
+                    hdr_min_x0 = min(hc[0] for hc in header_cells)
                     for c in header_cells:
                         x0, y0, x1, y1 = c
                         w = x1 - x0
@@ -430,12 +506,30 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
                         formatted_text = raw_text.replace('\n', ' ').strip()
                         if "/" in formatted_text and " " not in formatted_text:
                             formatted_text = formatted_text.replace("/", "/ ")
+                        # Directional borders: every header cell draws top/right/bottom;
+                        # only the leftmost header cell also draws left border.
+                        hdr_border_left = ("border-left:0.75pt solid #000000;"
+                                           if abs(x0 - hdr_min_x0) < 1.5 else "")
+                        hdr_border_style = (
+                            f"border-top:0.75pt solid #000000;"
+                            f"{hdr_border_left}"
+                            f"border-right:0.75pt solid #000000;"
+                            f"border-bottom:0.75pt solid #000000;"
+                        )
                         table_header_html_divs.append(
                             f"<div class='table-header-cell' "
                             f"style='left:{x0:.1f}pt;top:{y0:.1f}pt;"
-                            f"width:{w:.1f}pt;height:{h:.1f}pt;'>"
+                            f"width:{w:.1f}pt;height:{h:.1f}pt;{hdr_border_style}'>"
                             f"{formatted_text}</div>"
                         )
+
+            # Compute min x0 and min body-row y0 for this table to determine outer edges
+            body_cells = [
+                c for c in tab.cells
+                if c and not any(hy0_r <= c[1] <= hy1_r for hy0_r, hy1_r in header_y_ranges)
+            ]
+            tab_min_x0 = min(c[0] for c in body_cells) if body_cells else None
+            tab_min_y0 = min(c[1] for c in body_cells) if body_cells else None
 
             for cell in tab.cells:
                 if cell:
@@ -444,10 +538,20 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
                     ch = cy1 - cy0
                     if any(hy0_r <= cy0 <= hy1_r for hy0_r, hy1_r in header_y_ranges):
                         continue
+                    # Build directional borders to avoid double-thick lines at shared edges:
+                    # Every cell draws its right and bottom borders.
+                    # Leftmost column also draws left border; topmost body row also draws top border.
+                    border_right  = "border-right:0.75pt solid #000000;"
+                    border_bottom = "border-bottom:0.75pt solid #000000;"
+                    border_left   = ("border-left:0.75pt solid #000000;"
+                                     if tab_min_x0 is not None and abs(cx0 - tab_min_x0) < 1.5 else "")
+                    border_top    = ("border-top:0.75pt solid #000000;"
+                                     if tab_min_y0 is not None and abs(cy0 - tab_min_y0) < 1.5 else "")
+                    cell_border_style = border_top + border_left + border_right + border_bottom
                     table_grid_html_divs.append(
                         f"<div class='table-grid-cell' "
                         f"style='left:{cx0:.1f}pt;top:{cy0:.1f}pt;"
-                        f"width:{cw:.1f}pt;height:{ch:.1f}pt;'></div>"
+                        f"width:{cw:.1f}pt;height:{ch:.1f}pt;{cell_border_style}'></div>"
                     )
 
         # 2. Extract Vector Drawings in body region ONLY
@@ -535,14 +639,25 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
         # 3. Clean raw HTML & suppress raw <p> tags inside header/footer regions or table headers
         cleaned = page_html
         cleaned = re.sub(r'<img\s+[^>]*>', '', cleaned)
-        cleaned = re.sub(r'font-family:[^;"]+', f'font-family: {font_family}', cleaned)
+        
+        m_eor = re.search(r'end\s+of\s+report', cleaned, re.IGNORECASE)
+        if m_eor:
+            eor_idx = m_eor.start()
+            pre = cleaned[:eor_idx]
+            post = cleaned[eor_idx:]
+            pre = re.sub(r'font-family:[^;"]+', f'font-family: {font_family}', pre)
+            cleaned = pre + post
+        else:
+            cleaned = re.sub(r'font-family:[^;"]+', f'font-family: {font_family}', cleaned)
 
         # HIDE raw <p> tags that fall inside header/footer regions or table headers
         def filter_hdr_ftr_and_table_p(match):
             p_tag = match.group(0)
+            text_val = re.sub(r'<[^>]+>', '', p_tag).strip()
+            if is_end_of_report_text(text_val):
+                return p_tag
             
             # Filter out standalone page numbering
-            text_val = re.sub(r'<[^>]+>', '', p_tag).strip()
             if re.match(r'^Page\s+\d+\s+of\s+\d+$', text_val, re.IGNORECASE):
                 return ""
 
@@ -617,17 +732,23 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
         html_parts.extend(table_header_html_divs)
         html_parts.extend(table_grid_html_divs)
         html_parts.extend(exact_image_html_divs)
+        # Add signatures if available
         if sig_image_b64:
+            # Right side signature (Dr. Vinay)
             sig_tag = (
-                f"<div class='page-signature-block' style='position:absolute !important; "
-                f"right:40.0pt !important; top:725.0pt !important; width:90.0pt !important; "
-                f"height:88.0pt !important; z-index:100 !important; text-align:left !important; pointer-events:none !important;'>"
-                f"  <img src='data:image/png;base64,{sig_image_b64}' style='position:relative !important; "
-                f"width:90.0pt !important; height:88.0pt !important; display:block !important; "
-                f"transform:none !important; opacity:1 !important; visibility:visible !important;' />"
+                f"<div class='page-signature-block' style='position:absolute !important; right:40.0pt !important; top:725.0pt !important; width:90.0pt !important; height:88.0pt !important; z-index:100 !important; text-align:left !important; pointer-events:none !important;'>"
+                f"  <img src='data:image/png;base64,{sig_image_b64}' style='position:relative !important; width:90.0pt !important; height:88.0pt !important; display:block !important; transform:none !important; opacity:1 !important; visibility:visible !important;' />"
                 f"</div>"
             )
             html_parts.append(sig_tag)
+        # Left side signature (Dr. Shivali)
+        if shivali_sig_image_b64:
+            shivali_sig_tag = (
+                f"<div class='page-signature-block' style='position:absolute !important; left:40.0pt !important; top:725.0pt !important; width:90.0pt !important; height:88.0pt !important; z-index:101 !important; text-align:left !important; pointer-events:none !important;'>"
+                f"  <img src='data:image/jpeg;base64,{shivali_sig_image_b64}' style='position:relative !important; width:90.0pt !important; height:88.0pt !important; display:block !important; transform:none !important; opacity:1 !important; visibility:visible !important;' />"
+                f"</div>"
+            )
+            html_parts.append(shivali_sig_tag)
         html_parts.append("</div>")
 
     html_parts.append("</div></body></html>")
@@ -695,6 +816,8 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
 
     def _result_color_span(cell_str: str) -> str:
         """Wrap cell text in a colored span if it matches a clinical result keyword."""
+        if seen_eor:
+            return cell_str
         classification = check_result_classification(cell_str)
         if classification == "negative":
             return f"<span style='color:{result_negative_color}; font-weight:bold;'>{cell_str}</span>"
@@ -704,13 +827,18 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
 
     # Process sequentially page by page, element by element
     elements_html = []
+    seen_eor = False
     
     pages = data.get("document", {}).get("pages", [])
     for page in pages:
         p_num = page.get("page_number", 1)
         for el in page.get("elements", []):
+            el_text_check = str(el.get("text", "")) + str(el.get("title", "")) + str(el.get("data", ""))
+            if is_end_of_report_text(el_text_check):
+                seen_eor = True
+
             el_type = el.get("type")
-            if el_type in ("header", "footer"):
+            if not seen_eor and el_type in ("header", "footer"):
                 continue
                 
             style_override = el.get("style_override", {})
@@ -726,13 +854,13 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
             # If element type is heading or subheading, map to theme values if not overridden
             theme_style = cfg.get("styles", {}).get(el_type, {})
             
-            font_sz_val = el_font_size or theme_style.get("font_size") or (12.0 if el_type == "heading" else (10.5 if el_type == "subheading" else 10.0))
-            font_fam_val = el_font_family or theme_style.get("font_family") or font_family
-            bold_val = el_bold or theme_style.get("bold", (True if el_type in ("heading", "subheading") else False))
-            italic_val = el_italic or theme_style.get("italic", False)
-            color_val = el_color or theme_style.get("text_color") or (primary_color if el_type == "heading" else (secondary_color if el_type == "subheading" else text_color))
+            font_sz_val = el_font_size or (theme_style.get("font_size") if not seen_eor else (12.0 if el_type == "heading" else (10.5 if el_type == "subheading" else 10.0)))
+            font_fam_val = el_font_family or (theme_style.get("font_family") if not seen_eor else font_family) or font_family
+            bold_val = el_bold or (theme_style.get("bold", (True if el_type in ("heading", "subheading") else False)) if not seen_eor else False)
+            italic_val = el_italic or (theme_style.get("italic", False) if not seen_eor else False)
+            color_val = el_color or ((primary_color if el_type == "heading" else (secondary_color if el_type == "subheading" else text_color)) if not seen_eor else text_color)
             
-            if color_val.lower() in ("#ffffff", "#fff"):
+            if not seen_eor and color_val.lower() in ("#ffffff", "#fff"):
                 color_val = primary_color if el_type in ("heading", "subheading") else text_color
                 
             inline_style = (
@@ -747,7 +875,7 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
             if el_type == "heading" and show_sections:
                 txt = el.get("text", "").strip()
                 if txt:
-                    banner_type = check_result_banner_classification(txt)
+                    banner_type = check_result_banner_classification(txt) if not seen_eor else None
                     if banner_type:
                         bg_banner = result_positive_color if banner_type == "positive" else (result_negative_color if banner_type == "negative" else "#d97706")
                         m_sub = re.match(r'^([^(]+)\s*(\([^)]+\))$', txt)
@@ -769,11 +897,11 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
                 txt = el.get("text", "").strip()
                 if txt:
                     elements_html.append(f'<h3 style="{inline_style} margin-top: 10pt; margin-bottom: 4pt;">{txt}</h3>')
-            elif el_type == "paragraph" and show_sections:
+            elif el_type in ("paragraph", "header", "footer") and show_sections:
                 txt = el.get("text", "").strip()
                 if txt:
-                    if txt.startswith(('•', '-', '*')):
-                        txt_val = txt.lstrip('•-* ').strip()
+                    if txt.startswith(('•', '-', '*', '\uf0b7')) and not seen_eor:
+                        txt_val = txt.lstrip('•-* \uf0b7').strip()
                         elements_html.append(f'<li style="{inline_style} margin-left: 15pt; margin-bottom: 4pt;">{txt_val}</li>')
                     else:
                         elements_html.append(f'<p style="{inline_style} margin-bottom: 6pt; line-height: 1.3;">{txt}</p>')
@@ -781,10 +909,11 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
                 kv_data = el.get("data", {})
                 if kv_data:
                     tr_html = ""
+                    kv_label_color = primary_color if not seen_eor else "#000000"
                     for k, v in kv_data.items():
                         tr_html += (
                             f"<tr>"
-                            f"<td style='font-weight: bold; color: {primary_color}; width: 120pt; border: none !important; padding: 3px 6px;'>{k}:</td>"
+                            f"<td style='font-weight: bold; color: {kv_label_color}; width: 120pt; border: none !important; padding: 3px 6px;'>{k}:</td>"
                             f"<td style='border: none !important; padding: 3px 6px; color: #000000;'>{v}</td>"
                             f"</tr>"
                         )
@@ -808,8 +937,8 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
                         h_style = {}
                         if h_idx < len(header_styles):
                             h_style = header_styles[h_idx]
-                        h_bg = h_style.get("background_color") or primary_color
-                        h_color = h_style.get("text_color") or "#ffffff"
+                        h_bg = h_style.get("background_color") or (primary_color if not seen_eor else "#f1f5f9")
+                        h_color = h_style.get("text_color") or ("#ffffff" if not seen_eor else "#000000")
                         if h_color.lower() in ("#ffffff", "#fff") and h_bg.lower() in ("#ffffff", "#fff"):
                             h_color = "#000000"
                         h_font_size = h_style.get("font_size") or 9.5
@@ -1706,6 +1835,7 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
         return 9999.0
 
     doc = Document()
+    seen_eor_docx = False
     pages = data.get("document", {}).get("pages")
     if pages:
         for p_idx, page_data in enumerate(pages):
@@ -1805,11 +1935,15 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
             # Flatten nested header/footer content into the body list first,
             # then filter out any remaining header/footer wrappers.
             flattened = flatten_header_footer_content(page_data.get("elements", []))
-            raw_body_elements = [el for el in flattened if el.get("type") not in ("header", "footer")]
+            raw_body_elements = [el for el in flattened if seen_eor_docx or el.get("type") not in ("header", "footer")]
             deduped_body_elements = deduplicate_elements(raw_body_elements)
             body_elements = sorted(deduped_body_elements, key=get_element_y)
             preceding_el = None
             for el in body_elements:
+                el_text_check = str(el.get("text", "")) + str(el.get("title", "")) + str(el.get("data", ""))
+                if is_end_of_report_text(el_text_check):
+                    seen_eor_docx = True
+
                 el_type = el.get("type")
                 style = theme_styles.get(el_type, {})
                 style_override = el.get("style_override", {})
@@ -1848,7 +1982,7 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
                     txt = _clean_text(el.get("text", ""))
                     if not txt:
                         continue
-                    banner_type = check_result_banner_classification(txt)
+                    banner_type = check_result_banner_classification(txt) if not seen_eor_docx else None
                     p = doc.add_paragraph()
                     if banner_type:
                         bg_banner = colors_cfg.get("result_positive", "#C00000") if banner_type == "positive" else (colors_cfg.get("result_negative", "#008000") if banner_type == "negative" else "#d97706")
@@ -1897,19 +2031,19 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
                         run.italic = resolved_style.get("italic", False)
                         run.font.name = resolved_style.get("font_family", "Cambria")
                         run.font.size = Pt(resolved_style.get("font_size", 11.0))
-                        color_val = resolved_style.get("text_color") or colors_cfg.get("primary", "#1f497d")
-                        if str(color_val).lower() in ("#ffffff", "#fff"):
+                        color_val = resolved_style.get("text_color") or (colors_cfg.get("primary", "#1f497d") if not seen_eor_docx else "#000000")
+                        if not seen_eor_docx and str(color_val).lower() in ("#ffffff", "#fff"):
                             color_val = colors_cfg.get("primary", "#1f497d")
                         run.font.color.rgb = rgb(color_val)
                     preceding_el = el
 
-                elif el_type == "paragraph":
+                elif el_type in ("paragraph", "header", "footer"):
                     txt = _clean_text(el.get("text", ""))
                     if not txt:
                         continue
                     
-                    if txt.startswith(('•', '-', '*')):
-                        bullet_text = txt.lstrip('•-* ').strip()
+                    if txt.startswith(('•', '-', '*', '\uf0b7')) and not seen_eor_docx:
+                        bullet_text = txt.lstrip('•-* \uf0b7').strip()
                         p = doc.add_paragraph(style='List Bullet')
                         p.paragraph_format.space_before = Pt(resolved_style.get("spacing_before", 0.0))
                         p.paragraph_format.space_after = Pt(resolved_style.get("spacing_after", 4.0))
@@ -1959,6 +2093,7 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
                     
                     col_widths = [Inches(1.0), Inches(2.2), Inches(1.0), Inches(2.2)]
                     items = list(kv_data.items())
+                    kv_key_color = colors_cfg.get("primary", "#1f497d") if not seen_eor_docx else "#000000"
                     for idx in range(0, len(items), 2):
                         cells = tbl.add_row().cells
                         set_cant_split(tbl.rows[-1])
@@ -1970,7 +2105,7 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
                         kr1.bold = resolved_style.get("label_bold", True)
                         kr1.font.name = resolved_style.get("font_family", "Cambria")
                         kr1.font.size = Pt(resolved_style.get("font_size", 10.0))
-                        kr1.font.color.rgb = rgb(colors_cfg.get("primary", "#1f497d"))
+                        kr1.font.color.rgb = rgb(kv_key_color)
                         
                         v1_str = _clean_text(v1)
                         vr1 = cells[1].paragraphs[0].add_run(v1_str)
@@ -1984,7 +2119,7 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
                             kr2.bold = resolved_style.get("label_bold", True)
                             kr2.font.name = resolved_style.get("font_family", "Cambria")
                             kr2.font.size = Pt(resolved_style.get("font_size", 10.0))
-                            kr2.font.color.rgb = rgb(colors_cfg.get("primary", "#1f497d"))
+                            kr2.font.color.rgb = rgb(kv_key_color)
                             
                             v2_str = _clean_text(v2)
                             vr2 = cells[3].paragraphs[0].add_run(v2_str)
@@ -2077,8 +2212,8 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
                     hrow = tbl.rows[0]
                     set_repeat_header(hrow)
                     set_cant_split(hrow)
-                    header_bg = resolved_style.get("header_background_color", "#1f497d")
-                    header_text_color = resolved_style.get("header_text_color", "#ffffff")
+                    header_bg = resolved_style.get("header_background_color", "#1f497d") if not seen_eor_docx else "#f1f5f9"
+                    header_text_color = resolved_style.get("header_text_color", "#ffffff") if not seen_eor_docx else "#000000"
                     
                     t_pad = int(resolved_style.get("cell_padding_top", 3.0) * 20)
                     b_pad = int(resolved_style.get("cell_padding_bottom", 3.0) * 20)
@@ -2121,7 +2256,7 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
                             c_bg = c_style.get("background_color")
                             if c_bg:
                                 shade_cell(cell, c_bg)
-                            elif is_alt and row_bg:
+                            elif is_alt and row_bg and not seen_eor_docx:
                                 shade_cell(cell, row_bg)
                             cell_margins(cell, t=t_pad, b=b_pad, l=l_pad, r=r_pad)
                             
@@ -2189,15 +2324,16 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
                         pass
                     preceding_el = el
                                 
-        eor_style = theme_styles.get("end_of_report_marker", {}) or tj.get("components", {}).get("end_of_report_marker", {})
-        p_eor = doc.add_paragraph()
-        p_eor.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        p_eor.paragraph_format.space_before = Pt(12)
-        p_eor.paragraph_format.space_after = Pt(12)
-        run_eor = p_eor.add_run(eor_style.get("text", "------------------ End Of Report ------------------"))
-        run_eor.font.name = eor_style.get("font_family", "Calibri")
-        run_eor.font.size = Pt(eor_style.get("font_size_pt", 10.0))
-        run_eor.font.color.rgb = rgb(eor_style.get("text_color", "#000000"))
+        if not seen_eor_docx:
+            eor_style = theme_styles.get("end_of_report_marker", {}) or tj.get("components", {}).get("end_of_report_marker", {})
+            p_eor = doc.add_paragraph()
+            p_eor.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            p_eor.paragraph_format.space_before = Pt(12)
+            p_eor.paragraph_format.space_after = Pt(12)
+            run_eor = p_eor.add_run(eor_style.get("text", "------------------ End Of Report ------------------"))
+            run_eor.font.name = eor_style.get("font_family", "Calibri")
+            run_eor.font.size = Pt(eor_style.get("font_size_pt", 10.0))
+            run_eor.font.color.rgb = rgb(eor_style.get("text_color", "#000000"))
 
         replace_sng_in_docx_obj(doc)
         if output_path:
@@ -3447,6 +3583,26 @@ def _parse_html_soup_to_docx(soup, doc):
                                 t.rows[r_idx].cells[c_idx].text = c.get_text(strip=True)
 
 
+def _safe_remove(path, retries=5, delay=0.3):
+    """Remove a file with retry logic for Windows file locking (WinError 32)."""
+    import time
+    import gc
+    for attempt in range(retries):
+        try:
+            gc.collect()
+            os.remove(path)
+            return
+        except PermissionError:
+            if attempt < retries - 1:
+                time.sleep(delay)
+            else:
+                logger.warning(f"Could not remove temp file after {retries} attempts: {path}")
+        except FileNotFoundError:
+            return  # Already gone
+        except Exception:
+            return
+
+
 def convert_pdf_via_pdf2docx(pdf_path, docx_path):
     """
     Directly converts a PDF file to Word (.docx) using pdf2docx Converter.
@@ -3459,11 +3615,20 @@ def convert_pdf_via_pdf2docx(pdf_path, docx_path):
         docx_p = str(Path(docx_path).absolute())
         Path(docx_p).parent.mkdir(parents=True, exist_ok=True)
 
-        cv_obj = PDF2DocxConverter(pdf_p)
-        cv_obj.convert(docx_p)
-        cv_obj.close()
-        print(f"   [+] pdf2docx conversion completed successfully: {docx_p}")
-        return True
+        try:
+            cv_obj = PDF2DocxConverter(pdf_p)
+            try:
+                cv_obj.convert(docx_p)
+            finally:
+                try:
+                    cv_obj.close()
+                except Exception:
+                    pass
+            print(f"   [+] pdf2docx conversion completed successfully: {docx_p}")
+            return True
+        except Exception as e:
+            print(f"   [!] pdf2docx conversion error for {pdf_path}: {e}")
+            return False
     except Exception as e:
         print(f"   [!] pdf2docx conversion error for {pdf_path}: {e}")
         return False
@@ -3632,18 +3797,20 @@ def convert_pdf_to_word(pdf_path, docx_path, theme_config: dict = None):
         print("[!] Error: pdf2docx is not installed. Run 'pip install pdf2docx'")
         return False
 
-    # 1. Create a temporary PDF with signature area redacted (whited out)
-    temp_pdf_path = docx_p + ".temp_redacted.pdf"
+    # 1. Create a temporary PDF with signature area redacted (whited out) using a safe temporary file
+    import tempfile
     try:
-        doc = fitz.open(pdf_p)
-        for page_num in range(len(doc)):
-            page = doc[page_num]
-            # Redact the signature bbox [450, 715, 570, 820]
-            rect = fitz.Rect(450, 715, 570, 820)
-            page.add_redact_annot(rect, fill=(1, 1, 1)) # White solid fill
-            page.apply_redactions()
-        doc.save(temp_pdf_path)
-        doc.close()
+        with fitz.open(pdf_p) as doc:
+            for page_num in range(len(doc)):
+                page = doc[page_num]
+                # Redact the signature bbox [450, 715, 570, 820]
+                rect = fitz.Rect(450, 715, 570, 820)
+                page.add_redact_annot(rect, fill=(1, 1, 1))  # White solid fill
+                page.apply_redactions()
+            # Use a NamedTemporaryFile to avoid name clashes and ensure the file is closed before conversion
+            with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp_fp:
+                temp_pdf_path = tmp_fp.name
+            doc.save(temp_pdf_path)
     except Exception as e_redact:
         print(f"   [!] PDF Redaction failed: {e_redact}")
         temp_pdf_path = pdf_p  # Fallback to original PDF if redaction fails
@@ -3651,47 +3818,134 @@ def convert_pdf_to_word(pdf_path, docx_path, theme_config: dict = None):
     # 2. Convert the redacted PDF to Word
     try:
         cv_obj = PDF2DocxConverter(temp_pdf_path)
-        cv_obj.convert(docx_p)
-        cv_obj.close()
+        try:
+            cv_obj.convert(docx_p)
+        finally:
+            try:
+                cv_obj.close()
+            except Exception:
+                pass
         print(f"   [+] File Converted Successfully: {docx_p}")
     except Exception as e:
         print(f"   [!] Conversion Failed: {e}")
         if temp_pdf_path != pdf_p and os.path.exists(temp_pdf_path):
-            try:
-                os.remove(temp_pdf_path)
-            except Exception:
-                pass
+            _safe_remove(temp_pdf_path)
         return False
 
     # Clean up temporary PDF
     if temp_pdf_path != pdf_p and os.path.exists(temp_pdf_path):
-        try:
-            os.remove(temp_pdf_path)
-        except Exception:
-            pass
+        _safe_remove(temp_pdf_path)
 
     # 3. Post-process the generated Word document (signature injection and SNG replacement)
     try:
         doc_word = docx.Document(docx_p)
         
-        # Inject signature if present
-        sig_image_path = Path("assets/dr_vinay_signature.png")
-        if sig_image_path.exists():
+        # Inject signatures: Shivali (left) and Vinay (right) in a borderless 2-column footer table
+        # Use script-directory-relative paths so assets are always found regardless of CWD
+        _script_dir = Path(__file__).parent.resolve()
+        sig_vinay_path = _script_dir / "assets" / "dr_vinay_signature.png"
+        if not sig_vinay_path.exists():
+            sig_vinay_path = Path("assets/dr_vinay_signature.png")
+
+        sig_shivali_path = None
+        for cand in [
+            _script_dir / "assets" / "shivali_sign.jpeg",
+            _script_dir / "assets" / "shivali_sign.jpg",
+            _script_dir / "assets" / "dr_shivali_signature.jpg",
+            _script_dir / "assets" / "dr_shivali_signature.png",
+            Path("assets/shivali_sign.jpeg"),
+            Path("assets/shivali_sign.jpg"),
+            Path("assets/dr_shivali_signature.jpg"),
+        ]:
+            if cand.exists():
+                sig_shivali_path = cand
+                break
+
+        has_vinay = sig_vinay_path.exists()
+        has_shivali = sig_shivali_path is not None and sig_shivali_path.exists()
+        print(f"   [DBG] Vinay sig exists={has_vinay}  path={sig_vinay_path}")
+        print(f"   [DBG] Shivali sig exists={has_shivali}  path={sig_shivali_path}")
+
+        if has_vinay or has_shivali:
+            from docx.oxml.ns import qn as _qn
+            from docx.oxml import OxmlElement as _OxmlElement
+
+            def _remove_table_borders(tbl):
+                """Remove all visible borders from a docx table."""
+                tbl_pr = tbl._tbl.find(_qn("w:tblPr"))
+                if tbl_pr is None:
+                    tbl_pr = _OxmlElement("w:tblPr")
+                    tbl._tbl.insert(0, tbl_pr)
+                tbl_borders = _OxmlElement("w:tblBorders")
+                for side in ("top", "left", "bottom", "right", "insideH", "insideV"):
+                    border_el = _OxmlElement(f"w:{side}")
+                    border_el.set(_qn("w:val"), "none")
+                    border_el.set(_qn("w:sz"), "0")
+                    border_el.set(_qn("w:space"), "0")
+                    border_el.set(_qn("w:color"), "auto")
+                    tbl_borders.append(border_el)
+                tbl_pr.append(tbl_borders)
+
+            def _inject_sig_footer(footer):
+                """Clear footer and inject a 2-col table with Shivali (left) and Vinay (right)."""
+                # Remove all existing content from footer body
+                footer_body = footer._element
+                for child in list(footer_body):
+                    footer_body.remove(child)
+
+                # Re-add the required <w:sectPr> end marker that must stay at the end
+                # Actually, for footers we just use add_table on a fresh footer object
+                # Re-build footer by adding table via python-docx paragraph first
+                # (footer needs at least one paragraph after a table for valid OOXML)
+                tbl = footer.add_table(rows=1, cols=2, width=Inches(6.27))
+                _remove_table_borders(tbl)
+
+                # Left cell: Dr. Shivali signature
+                left_cell = tbl.cell(0, 0)
+                left_para = left_cell.paragraphs[0]
+                left_para.alignment = WD_ALIGN_PARAGRAPH.LEFT
+                if has_shivali:
+                    left_run = left_para.add_run()
+                    left_run.add_picture(str(sig_shivali_path), width=Inches(1.25))
+
+                # Right cell: Dr. Vinay signature
+                right_cell = tbl.cell(0, 1)
+                right_para = right_cell.paragraphs[0]
+                right_para.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+                if has_vinay:
+                    right_run = right_para.add_run()
+                    right_run.add_picture(str(sig_vinay_path), width=Inches(1.25))
+
+                # Add a trailing empty paragraph (required by OOXML spec after a table in footer)
+                footer.add_paragraph()
+
+            # Strategy: write to section 0 default footer, then unlink ALL sections
+            # so every page inherits our custom footer
+            try:
+                _inject_sig_footer(doc_word.sections[0].footer)
+                print(f"   [+] Signatures written to section 0 footer.")
+            except Exception as _e0:
+                print(f"   [!] Failed to write section 0 footer: {_e0}")
+
+            # Unlink all sections from previous so they all use the section-0 footer content
             for s_idx, section in enumerate(doc_word.sections):
-                # Add signature to all footer types (default, first page, even page)
-                footers = [section.footer, section.first_page_footer, section.even_page_footer]
-                for footer in footers:
-                    if footer is not None:
-                        # Only add signature if it is the first section or NOT linked to previous section
-                        if s_idx == 0 or not footer.is_linked_to_previous:
-                            if len(footer.paragraphs) == 1 and footer.paragraphs[0].text == "":
-                                p = footer.paragraphs[0]
-                            else:
-                                p = footer.add_paragraph()
-                            p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
-                            run = p.add_run()
-                            run.add_picture(str(sig_image_path.absolute()), width=Inches(1.25))
-            print(f"   [+] Injected signature image into Word footer of every section.")
+                try:
+                    # Access the sectPr element and remove titlePg / linked-to-previous flags
+                    sect_pr = section._sectPr
+                    # Remove w:footerReference elements that set "linked to previous"
+                    # by ensuring each section has its own footer reference pointing to our footer
+                    # The simplest approach: just unset the link by directly injecting into each
+                    footer = section.footer
+                    if footer.is_linked_to_previous:
+                        # Force unlink: add a footer reference for this section
+                        # python-docx does this automatically when we access & modify the footer
+                        # We do this by touching the footer element
+                        _ = footer._element  # access to ensure it's loaded
+                        print(f"   [DBG] Section {s_idx} footer is still linked.")
+                except Exception as _es:
+                    print(f"   [!] Section {s_idx} unlink error: {_es}")
+
+            print(f"   [+] Injected Shivali (left) and Vinay (right) signatures into Word footer.")
 
         # Perform "SNG Gen's Lab pvt ltd" -> "Laboratory" substitution
         replace_sng_in_docx_obj(doc_word)
@@ -3806,21 +4060,23 @@ def process_pdf(pdf_input, output_html_path=None, is_target=False, use_template=
         except Exception:
             pass
 
-    # 3. HTML Rendering based on requested mode
-    if use_template and extracted_data:
-        full_html = generate_dynamic_template_html(extracted_data, doc_title=doc_title, theme_config=theme_config)
-    else:
-        # Preserve 100% exact 1-to-1 visual coordinates from input PDF
-        full_html = render_exact_pdf_layout_html(doc, doc_title=doc_title, theme_config=theme_config)
+    try:
+        # 3. HTML Rendering based on requested mode
+        if use_template and extracted_data:
+            full_html = generate_dynamic_template_html(extracted_data, doc_title=doc_title, theme_config=theme_config)
+        else:
+            # Preserve 100% exact 1-to-1 visual coordinates from input PDF
+            full_html = render_exact_pdf_layout_html(doc, doc_title=doc_title, theme_config=theme_config)
 
-    # Save to disk ONLY if save_output is explicitly requested
-    if save_output and output_html_path:
-        output_html_path = Path(output_html_path)
-        output_html_path.parent.mkdir(parents=True, exist_ok=True)
-        with open(output_html_path, "w", encoding="utf-8") as f:
-            f.write(full_html)
+        # Save to disk ONLY if save_output is explicitly requested
+        if save_output and output_html_path:
+            output_html_path = Path(output_html_path)
+            output_html_path.parent.mkdir(parents=True, exist_ok=True)
+            with open(output_html_path, "w", encoding="utf-8") as f:
+                f.write(full_html)
+    finally:
+        doc.close()
 
-    doc.close()
     return full_html
 
 
@@ -3833,13 +4089,15 @@ def render_html_to_pdf_and_preview(html_path, output_pdf_path, preview_img_path=
     output_pdf_path.parent.mkdir(parents=True, exist_ok=True)
 
     if sync_playwright is None:
+        print("   [!] Playwright is not installed. Skipping PDF rendering.", flush=True)
         return output_pdf_path
 
     try:
+        print("   [+] Launching Chromium engine for HTML->PDF compilation...", flush=True)
         with sync_playwright() as p:
             browser = p.chromium.launch()
             page = browser.new_page(viewport={"width": 1000, "height": 1200})
-            page.goto(html_path.as_uri(), wait_until="networkidle")
+            page.goto(html_path.as_uri(), wait_until="load", timeout=15000)
 
             if preview_img_path:
                 preview_img_path = Path(preview_img_path)
@@ -3854,8 +4112,9 @@ def render_html_to_pdf_and_preview(html_path, output_pdf_path, preview_img_path=
             )
             page.close()
             browser.close()
+            print(f"   [+] Playwright compiled PDF successfully: {output_pdf_path}", flush=True)
     except Exception as err:
-        pass
+        print(f"   [!] HTML to PDF rendering error: {err}", flush=True)
 
     return output_pdf_path
 
@@ -3932,7 +4191,7 @@ def validate_docx_conversion(extracted_data, docx_path):
         el_type = el.get("type")
         if el_type in ("heading", "subheading", "paragraph"):
             txt = el.get("text", "").strip().lower()
-            txt_clean = re.sub(r'\s+', ' ', txt.lstrip('•-* ').strip())
+            txt_clean = re.sub(r'\s+', ' ', txt.lstrip('•-* \uf0b7').strip())
             if txt_clean and txt_clean not in docx_text_norm:
                 missing_elements.append(el)
                 print(f"   [!] Missing element text: {repr(el.get('text'))}")

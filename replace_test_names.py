@@ -295,17 +295,29 @@ for pdf_path in unique_pdfs:
         tmp_path = pdf_path.with_suffix(".tmp")
         try:
             doc.save(tmp_path)
-            doc.close()
-            # Replace original file with the modified one
-            if tmp_path.exists():
-                shutil.move(str(tmp_path), str(pdf_path))
-                print(f"  [Save] Successfully saved changes in place.")
         except Exception as e:
             print(f"  [Error] Failed to save {pdf_path.name}: {e}")
-            if tmp_path.exists():
+        finally:
+            doc.close()
+        # Replace original file with the modified one (with retry for Windows file locking)
+        if tmp_path.exists():
+            import time
+            moved = False
+            for _attempt in range(5):
+                try:
+                    shutil.move(str(tmp_path), str(pdf_path))
+                    print(f"  [Save] Successfully saved changes in place.")
+                    moved = True
+                    break
+                except PermissionError:
+                    time.sleep(0.3)
+                except Exception as e:
+                    print(f"  [Error] Failed to replace {pdf_path.name}: {e}")
+                    break
+            if not moved and tmp_path.exists():
                 try:
                     os.remove(tmp_path)
-                except:
+                except Exception:
                     pass
     else:
         print(f"[-] Skipped {pdf_path.name} (no test-name field found).")

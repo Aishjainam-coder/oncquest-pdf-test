@@ -630,7 +630,7 @@ def classify_block_type(text, max_font_size, is_bold, font_name):
     return "paragraph"
 
 
-def extract_report_data(pdf_path: str) -> dict:
+def extract_report_data(pdf_path: str, auto_save_docx: bool = False) -> dict:
     """
     Universal extraction engine for ANY PDF document format.
     Completely excludes header (logos, QR codes, patient details header card) and footer
@@ -675,9 +675,13 @@ def extract_report_data(pdf_path: str) -> dict:
     document_pages = []
 
     last_table_prev_page = None
+    seen_eor_ext = False
+
+    num_pages = len(doc)
+    print(f"   [+] Extracting structured elements across {num_pages} page(s)...", flush=True)
 
     # Iterate through all pages
-    for page_num in range(len(doc)):
+    for page_num in range(num_pages):
         page = doc[page_num]
         rect = page.rect
         H = rect.height
@@ -951,9 +955,9 @@ def extract_report_data(pdf_path: str) -> dict:
                     g = (dom_color_dec >> 8) & 255
                     b_val = dom_color_dec & 255
                     text_color = f"#{r:02x}{g:02x}{b_val:02x}"
-                elif sem_type == "heading":
+                elif sem_type == "heading" and not seen_eor_ext:
                     text_color = "#1f497d"
-                elif sem_type == "subheading":
+                elif sem_type == "subheading" and not seen_eor_ext:
                     text_color = "#008080"
                 
                 # Dominant font name
@@ -975,8 +979,11 @@ def extract_report_data(pdf_path: str) -> dict:
                     style_override["text_color"] = text_color
                 style_override["alignment"] = detect_alignment(b_bbox, rect.width)
 
+                if re.search(r'end\s+of\s+report', clean_b_text, re.I):
+                    seen_eor_ext = True
+
                 # Determine if block is in header, footer, or body
-                if b_bbox[1] < hy_cutoff:
+                if not seen_eor_ext and b_bbox[1] < hy_cutoff:
                     if re.search(r'^page\s+\d+(\s+of\s+\d+)?$', clean_b_text, re.I):
                         continue
                     el_obj = {
@@ -1007,7 +1014,7 @@ def extract_report_data(pdf_path: str) -> dict:
                                     })
                     continue
 
-                elif b_bbox[3] > fy_cutoff or b_bbox[1] > fy_cutoff:
+                elif not seen_eor_ext and (b_bbox[3] > fy_cutoff or b_bbox[1] > fy_cutoff):
                     if re.search(r'^page\s+\d+(\s+of\s+\d+)?$', clean_b_text, re.I):
                         continue
                     role = "signature_block" if any(kw in clean_b_text.lower() for kw in ['reviewed by', 'authorized signatory', 'signatory', 'doctor', 'dr.']) else None
@@ -1025,7 +1032,7 @@ def extract_report_data(pdf_path: str) -> dict:
 
                 if re.search(r'^page\s+\d+(\s+of\s+\d+)?$', clean_b_text, re.I):
                     continue
-                if any(kw in clean_b_text.lower() for kw in ['reviewed by', 'authorized signatory', 'mc-7414']):
+                if not seen_eor_ext and any(kw in clean_b_text.lower() for kw in ['reviewed by', 'authorized signatory', 'mc-7414']):
                     continue
                     
                 is_hdr_card = is_patient_sample_header_block(clean_b_text, b_bbox[1])
@@ -1416,7 +1423,7 @@ def extract_report_data(pdf_path: str) -> dict:
     logger.info(f"=== Universal Extraction Complete for {os.path.basename(pdf_path)} ===")
     logger.info(f"Extracted {len(all_kv_pairs)} KV pairs, {len(all_tables_list)} Tables, {len(all_images_list)} Images/Graphs across {len(pages_list)} Pages.")
 
-    # Automatically save JSON file into extracted_jsons/ directory
+    # Save JSON file into extracted_jsons/ directory
     try:
         json_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "extracted_jsons")
         os.makedirs(json_dir, exist_ok=True)
@@ -1424,38 +1431,30 @@ def extract_report_data(pdf_path: str) -> dict:
         json_save_path = os.path.join(json_dir, f"{pdf_stem}.json")
         with open(json_save_path, "w", encoding="utf-8") as f_out:
             json.dump(extracted_data, f_out, indent=2, ensure_ascii=False)
-        logger.info(f"Saved extracted JSON payload to: {json_save_path}")
+        print(f"   [+] Saved extracted JSON: {json_save_path}", flush=True)
     except Exception as e_save:
         logger.warning(f"Could not auto-save JSON to extracted_jsons/: {e_save}")
 
-    # Automatically save Word (.docx) layout into extracted_jsons/ and output/ directories
-    try:
-        from converter import convert_json_to_docx
-        
-        # Load theme config from theme.json if present
-        theme_config = {}
-        theme_json_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "theme.json")
-        if os.path.exists(theme_json_path):
-            try:
-                with open(theme_json_path, "r", encoding="utf-8") as f_theme:
-                    theme_config = json.load(f_theme)
-            except Exception:
-                pass
+    # Optionally save Word (.docx) layout only if explicitly requested
+    if auto_save_docx:
+        try:
+            from converter import convert_json_to_docx
+            
+            theme_config = {}
+            theme_json_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "theme.json")
+            if os.path.exists(theme_json_path):
+                try:
+                    with open(theme_json_path, "r", encoding="utf-8") as f_theme:
+                        theme_config = json.load(f_theme)
+                except Exception:
+                    pass
 
-        # Save to extracted_jsons/ as docx
-        json_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "extracted_jsons")
-        docx_save_path1 = os.path.join(json_dir, f"{pdf_stem}.docx")
-        convert_json_to_docx(extracted_data, output_path=docx_save_path1, theme_config=theme_config)
-        logger.info(f"Saved extracted Word layout to: {docx_save_path1}")
-
-        # Save to output/ as _report.docx
-        output_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output")
-        os.makedirs(output_dir, exist_ok=True)
-        docx_save_path2 = os.path.join(output_dir, f"{pdf_stem}_report.docx")
-        convert_json_to_docx(extracted_data, output_path=docx_save_path2, theme_config=theme_config)
-        logger.info(f"Saved extracted Word layout to: {docx_save_path2}")
-    except Exception as e_word:
-        logger.warning(f"Could not auto-save Word document: {e_word}")
+            json_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "extracted_jsons")
+            docx_save_path1 = os.path.join(json_dir, f"{pdf_stem}.docx")
+            convert_json_to_docx(extracted_data, output_path=docx_save_path1, theme_config=theme_config)
+            print(f"   [+] Saved extracted Word layout: {docx_save_path1}", flush=True)
+        except Exception as e_word:
+            logger.warning(f"Could not auto-save Word document: {e_word}")
 
     return extracted_data
 
