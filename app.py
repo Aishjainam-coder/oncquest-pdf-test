@@ -282,29 +282,18 @@ if uploaded_file is not None:
                 # Branch A: JSON Input
                 # -----------------------------------------------
                 if file_ext == ".json":
-                    st.write("🔍 **Step 1/3:** Loading and parsing JSON structure...")
-                    print(f"[*] [Step 1/3] Loading JSON structure for {uploaded_file.name}...", flush=True)
+                    st.write("🔍 **Step 1/2:** Loading JSON structure & generating Word (.docx)...")
+                    print(f"[*] [Step 1/2] Loading JSON and converting directly to Word (.docx)...", flush=True)
                     extracted_data = json.loads(file_bytes.decode("utf-8"))
                     if replace_lab_name:
                         json_raw = json.dumps(extracted_data, ensure_ascii=False).replace("SN Genelab Pvt Ltd", "Laboratory")
                         extracted_data = json.loads(json_raw)
                     st.session_state.extracted_data = extracted_data
 
-                    st.write("🎨 **Step 2/3:** Generating styled HTML layout from JSON...")
-                    print(f"[*] [Step 2/3] Generating styled HTML template...", flush=True)
-                    html_content = generate_dynamic_template_html(extracted_data, doc_title=uploaded_file.name, theme_config=active_theme_config)
-                    if replace_lab_name:
-                        html_content = html_content.replace("SN Genelab Pvt Ltd", "Laboratory")
-                    st.session_state.html_content = html_content
-
-                    st.write("📝 **Step 3/3:** Generating Word (.docx) directly from structured JSON & theme...")
                     with tempfile.TemporaryDirectory() as tmp_dir:
                         docx_tmp = Path(tmp_dir) / "output.docx"
-                        html_tmp = Path(tmp_dir) / "temp.html"
-                        html_tmp.write_text(html_content, encoding="utf-8")
-                        compiled_pdf_tmp = Path(tmp_dir) / "compiled.pdf"
-
-                        # Direct high-fidelity JSON -> DOCX conversion (Zero external browser dependency)
+                        
+                        # Priority 1: Instant high-fidelity JSON -> DOCX conversion (<0.3s)
                         try:
                             convert_json_to_docx(extracted_data, output_path=str(docx_tmp), theme_config=active_theme_config)
                             if docx_tmp.exists() and docx_tmp.stat().st_size > 0:
@@ -313,17 +302,14 @@ if uploaded_file is not None:
                         except Exception as e_docx:
                             print(f"[!] Direct JSON->DOCX error: {e_docx}", flush=True)
 
-                        # Try optional PDF preview compilation (if Playwright is available)
-                        try:
-                            render_html_to_pdf_and_preview(html_tmp, compiled_pdf_tmp)
-                            if compiled_pdf_tmp.exists():
-                                st.session_state.compiled_pdf_bytes = compiled_pdf_tmp.read_bytes()
-                                if not st.session_state.docx_bytes:
-                                    convert_pdf_via_pdf2docx(str(compiled_pdf_tmp), str(docx_tmp))
-                                    if docx_tmp.exists():
-                                        st.session_state.docx_bytes = docx_tmp.read_bytes()
-                        except Exception as e_pw:
-                            print(f"[*] Note: Optional PDF preview compilation skipped: {e_pw}", flush=True)
+                    st.write("🎨 **Step 2/2:** Rendering styled HTML document layout...")
+                    try:
+                        html_content = generate_dynamic_template_html(extracted_data, doc_title=uploaded_file.name, theme_config=active_theme_config)
+                        if replace_lab_name:
+                            html_content = html_content.replace("SN Genelab Pvt Ltd", "Laboratory")
+                        st.session_state.html_content = html_content
+                    except Exception as e_html:
+                        print(f"[*] HTML render note: {e_html}", flush=True)
 
                 # -----------------------------------------------
                 # Branch B: HTML Input
@@ -340,7 +326,6 @@ if uploaded_file is not None:
                         docx_tmp = Path(tmp_dir) / "output.docx"
                         html_tmp = Path(tmp_dir) / "temp.html"
                         html_tmp.write_text(html_content, encoding="utf-8")
-                        compiled_pdf_tmp = Path(tmp_dir) / "compiled.pdf"
 
                         try:
                             convert_html_to_docx(html_tmp, output_path=docx_tmp, theme_config=active_theme_config)
@@ -349,14 +334,6 @@ if uploaded_file is not None:
                         except Exception as e_h2d:
                             print(f"[!] HTML->DOCX conversion note: {e_h2d}", flush=True)
 
-                        # Optional PDF preview
-                        try:
-                            render_html_to_pdf_and_preview(html_tmp, compiled_pdf_tmp)
-                            if compiled_pdf_tmp.exists():
-                                st.session_state.compiled_pdf_bytes = compiled_pdf_tmp.read_bytes()
-                        except Exception:
-                            pass
-
                 # -----------------------------------------------
                 # Branch C: PDF Input
                 # -----------------------------------------------
@@ -364,48 +341,12 @@ if uploaded_file is not None:
                     with tempfile.TemporaryDirectory() as tmp_dir:
                         pdf_input_path = Path(tmp_dir) / uploaded_file.name
                         pdf_input_path.write_bytes(file_bytes)
-
-                        # Step 1: Extract structured JSON from PDF
-                        st.write("🔍 **Step 1/3:** Extracting text, tables, and styles from PDF...")
-                        print(f"[*] [Step 1/3] Extracting text, tables, and styles from PDF...", flush=True)
-                        extracted_data = None
-                        try:
-                            extracted_data = extract_report_data(str(pdf_input_path), auto_save_docx=False)
-                            if replace_lab_name and extracted_data:
-                                json_raw = json.dumps(extracted_data, ensure_ascii=False).replace("SN Genelab Pvt Ltd", "Laboratory")
-                                extracted_data = json.loads(json_raw)
-                            st.session_state.extracted_data = extracted_data
-                            
-                            # Cache extracted JSON
-                            json_out_dir = Path("extracted_jsons")
-                            json_out_dir.mkdir(exist_ok=True)
-                            json_file_path = json_out_dir / f"{Path(uploaded_file.name).stem}.json"
-                            json_str = json.dumps(extracted_data, indent=2, ensure_ascii=False)
-                            with open(json_file_path, "w", encoding="utf-8") as f_json:
-                                f_json.write(json_str)
-                            print(f"   [+] Extracted JSON saved to: {json_file_path}", flush=True)
-                        except Exception as e_ext:
-                            print(f"   [!] Note on JSON extraction: {e_ext}", flush=True)
-
-                        # Step 2: Render Clean End Result HTML
-                        st.write("🎨 **Step 2/3:** Rendering styled HTML document layout...")
-                        print(f"[*] [Step 2/3] Rendering styled HTML document layout...", flush=True)
-                        try:
-                            with fitz.open(str(pdf_input_path)) as doc_fitz:
-                                html_content = render_exact_pdf_layout_html(doc_fitz, doc_title=uploaded_file.name, theme_config=active_theme_config)
-                            if replace_lab_name:
-                                html_content = html_content.replace("SN Genelab Pvt Ltd", "Laboratory")
-                            st.session_state.html_content = html_content
-                        except Exception as e_html:
-                            print(f"   [!] HTML layout rendering error: {e_html}", flush=True)
-
-                        # Step 3: Generate Word (.docx)
-                        st.write("📝 **Step 3/3:** Converting document to Microsoft Word (.docx)...")
                         docx_tmp = Path(tmp_dir) / "output.docx"
-                        
-                        # Primary Method: Direct PDF -> Word via pdf2docx + signature footer injection
+
+                        # Priority 1: Instant Direct PDF -> Word conversion (Runs in seconds)
+                        st.write("📝 **Step 1/3:** Converting PDF directly to Microsoft Word (.docx)...")
+                        print(f"[*] [Step 1/3] Converting PDF directly to Word (.docx)...", flush=True)
                         try:
-                            print(f"[*] Attempting PDF -> Word conversion via pdf2docx...", flush=True)
                             convert_pdf_to_word(str(pdf_input_path), str(docx_tmp), theme_config=active_theme_config)
                             if docx_tmp.exists() and docx_tmp.stat().st_size > 0:
                                 st.session_state.docx_bytes = docx_tmp.read_bytes()
@@ -413,28 +354,36 @@ if uploaded_file is not None:
                         except Exception as e_p2d:
                             print(f"[!] Direct PDF->DOCX error: {e_p2d}", flush=True)
 
-                        # Fallback Method: Structured JSON -> Word
-                        if not st.session_state.docx_bytes and extracted_data:
-                            try:
-                                print(f"[*] Fallback: Converting extracted JSON directly to Word (.docx)...", flush=True)
+                        # Step 2: Render clean HTML layout for interactive preview
+                        st.write("🎨 **Step 2/3:** Rendering interactive HTML document preview...")
+                        print(f"[*] [Step 2/3] Rendering interactive HTML preview...", flush=True)
+                        try:
+                            with fitz.open(str(pdf_input_path)) as doc_fitz:
+                                html_content = render_exact_pdf_layout_html(doc_fitz, doc_title=uploaded_file.name, theme_config=active_theme_config)
+                            if replace_lab_name:
+                                html_content = html_content.replace("SN Genelab Pvt Ltd", "Laboratory")
+                            st.session_state.html_content = html_content
+                        except Exception as e_html:
+                            print(f"   [!] HTML layout rendering note: {e_html}", flush=True)
+
+                        # Step 3: Extract structured JSON data for JSON inspection tab
+                        st.write("🔍 **Step 3/3:** Extracting structured clinical data & tables...")
+                        print(f"[*] [Step 3/3] Extracting structured clinical data...", flush=True)
+                        try:
+                            extracted_data = extract_report_data(str(pdf_input_path), auto_save_docx=False)
+                            if replace_lab_name and extracted_data:
+                                json_raw = json.dumps(extracted_data, ensure_ascii=False).replace("SN Genelab Pvt Ltd", "Laboratory")
+                                extracted_data = json.loads(json_raw)
+                            st.session_state.extracted_data = extracted_data
+
+                            # Fallback if docx was somehow not generated in Step 1
+                            if not st.session_state.docx_bytes and extracted_data:
+                                print(f"[*] Fallback: Generating DOCX from extracted JSON...", flush=True)
                                 convert_json_to_docx(extracted_data, output_path=str(docx_tmp), theme_config=active_theme_config)
                                 if docx_tmp.exists() and docx_tmp.stat().st_size > 0:
                                     st.session_state.docx_bytes = docx_tmp.read_bytes()
-                                    print(f"[+] Fallback DOCX successful ({len(st.session_state.docx_bytes)} bytes)!", flush=True)
-                            except Exception as e_fb:
-                                print(f"[!] Fallback JSON->DOCX error: {e_fb}", flush=True)
-
-                        # Optional: Compile HTML to PDF preview (if Playwright is available)
-                        try:
-                            html_tmp = Path(tmp_dir) / "temp.html"
-                            if st.session_state.html_content:
-                                html_tmp.write_text(st.session_state.html_content, encoding="utf-8")
-                                compiled_pdf_tmp = Path(tmp_dir) / "compiled.pdf"
-                                render_html_to_pdf_and_preview(html_tmp, compiled_pdf_tmp)
-                                if compiled_pdf_tmp.exists():
-                                    st.session_state.compiled_pdf_bytes = compiled_pdf_tmp.read_bytes()
-                        except Exception as e_pw:
-                            print(f"[*] Note: Optional PDF preview compilation skipped: {e_pw}", flush=True)
+                        except Exception as e_ext:
+                            print(f"   [!] Structured JSON extraction note: {e_ext}", flush=True)
 
                 if st.session_state.docx_bytes:
                     status_box.update(label="✅ Conversion Completed Successfully!", state="complete", expanded=False)
