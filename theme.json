@@ -10,7 +10,7 @@
   },
   "styles": {
     "heading": {
-      "font_family": "Cambria",
+      "font_family": "Cambria, 'Times New Roman', serif",
       "font_size": 13.0,
       "bold": true,
       "text_color": "#1f497d",
@@ -19,7 +19,7 @@
       "spacing_after": 4.0
     },
     "subheading": {
-      "font_family": "Cambria",
+      "font_family": "Cambria, 'Times New Roman', serif",
       "font_size": 11.0,
       "bold": true,
       "text_color": "#008080",
@@ -28,14 +28,14 @@
       "spacing_after": 3.0
     },
     "paragraph": {
-      "font_family": "Cambria",
+      "font_family": "Cambria, 'Times New Roman', serif",
       "font_size": 10.0,
       "line_spacing": 1.15,
       "text_color": "#000000",
       "spacing_after": 4.0
     },
     "table": {
-      "font_family": "Cambria",
+      "font_family": "Cambria, 'Times New Roman', serif",
       "font_size": 9.5,
       "header_background_color": "#1f497d",
       "header_text_color": "#ffffff",
@@ -49,7 +49,7 @@
       "alignment": "center"
     },
     "key_value": {
-      "font_family": "Cambria",
+      "font_family": "Cambria, 'Times New Roman', serif",
       "font_size": 10.0,
       "border_color": "#cbd5e1",
       "border_width": 0.25,
@@ -98,10 +98,10 @@
     "footer_distance_pt": 18.0
   },
   "typography": {
-    "primary_family": "Cambria",
+    "primary_family": "Cambria, 'Times New Roman', serif",
     "secondary_family": "Calibri",
     "symbol_family": "Symbol",
-    "table_header_family": "Cambria, 'Times New Roman', serif",
+    "table_header_family": "Cambria, 'Times New Roman', serif, 'Times New Roman', serif",
     "line_spacing": 1.15,
     "paragraph_space_after_pt": 4.0,
     "sizes_pt": {
@@ -172,7 +172,7 @@
   },
   "components": {
     "report_title": {
-      "font_family": "Cambria",
+      "font_family": "Cambria, 'Times New Roman', serif",
       "font_size_pt": 14.0,
       "font_weight": "bold",
       "text_color": "#008080",
@@ -183,7 +183,7 @@
     "black_banner": {
       "background_color": "#404040",
       "text_color": "#ffffff",
-      "font_family": "Cambria",
+      "font_family": "Cambria, 'Times New Roman', serif",
       "font_size_pt": 13.0,
       "font_weight": "bold",
       "alignment": "center",
@@ -193,7 +193,7 @@
     "blue_section_banner": {
       "background_color": "#1f497d",
       "text_color": "#ffffff",
-      "font_family": "Cambria",
+      "font_family": "Cambria, 'Times New Roman', serif",
       "font_size_pt": 10.0,
       "font_weight": "bold",
       "alignment": "left",
@@ -203,7 +203,7 @@
       "border_radius_px": 2
     },
     "teal_heading": {
-      "font_family": "Cambria",
+      "font_family": "Cambria, 'Times New Roman', serif",
       "font_size_pt": 10.0,
       "font_weight": "bold",
       "text_color": "#008080",
@@ -211,14 +211,14 @@
       "space_after_pt": 2.0
     },
     "gene_variant_highlight": {
-      "font_family": "Cambria",
+      "font_family": "Cambria, 'Times New Roman', serif",
       "font_size_pt": 10.0,
       "font_weight": "bold",
       "font_style": "italic",
       "text_color": "#ed7d31"
     },
     "warning_note": {
-      "font_family": "Cambria",
+      "font_family": "Cambria, 'Times New Roman', serif",
       "font_size_pt": 10.0,
       "font_style": "italic",
       "text_color": "#ff0000"
@@ -305,7 +305,7 @@
   },
   "fonts": {
     "families": {
-      "primary": "Cambria",
+      "primary": "Cambria, 'Times New Roman', serif",
       "secondary": "Calibri",
       "symbol": "Symbol"
     },
