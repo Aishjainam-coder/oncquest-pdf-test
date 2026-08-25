@@ -386,7 +386,7 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
     result_negative_color = colors_cfg.get("result_negative", "#008000")
 
     # Change 3: Keywords for result color coding (deprecated locally, using global function check_result_classification)
-    font_family = typo_cfg.get("primary_family", "Cambria, 'Times New Roman', serif")
+    font_family = typo_cfg.get("primary_family", "Cambria, 'Caladea', 'Times New Roman', 'Tinos', 'Liberation Serif', serif")
 
     fallback_left = 35.5
     fallback_width = 524.0
@@ -400,7 +400,13 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
         "<head>",
         "<meta charset='utf-8'>",
         f"<title>{doc_title}</title>",
+        "<link rel='preconnect' href='https://fonts.googleapis.com'>",
+        "<link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>",
+        "<link href='https://fonts.googleapis.com/css2?family=Caladea:ital,wght@0,400;0,700;1,400;1,700&family=Carlito:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700;800&family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap' rel='stylesheet'>",
         "<style>",
+        """
+        @import url('https://fonts.googleapis.com/css2?family=Caladea:ital,wght@0,400;0,700;1,400;1,700&family=Carlito:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700;800&family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+        """,
         f"""
         :root {{
           --color-primary: {primary_color};
@@ -815,7 +821,7 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
     border_color = "#000000"
     table_header_bg = primary_color
     table_header_text = colors_cfg.get("text_light", "#ffffff")
-    font_family = typo_cfg.get("primary_family", "Cambria, 'Times New Roman', serif")
+    font_family = typo_cfg.get("primary_family", "Cambria, 'Caladea', 'Times New Roman', 'Tinos', 'Liberation Serif', serif")
     result_positive_color = colors_cfg.get("result_positive", "#C00000")
     result_negative_color = colors_cfg.get("result_negative", "#008000")
 
@@ -1086,7 +1092,11 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
 <head>
 <meta charset="utf-8">
 <title>{doc_title}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caladea:ital,wght@0,400;0,700;1,400;1,700&family=Carlito:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700;800&family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Caladea:ital,wght@0,400;0,700;1,400;1,700&family=Carlito:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700;800&family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @page {{ size: 595.6pt 842.0pt; margin: 0; }}
 * {{ box-sizing: border-box; }}
 body {{ margin: 0; padding: 0; background-color: #f1f5f9; font-family: {font_family}; color: {text_color}; }}
@@ -1195,18 +1205,20 @@ def clean_font_name(font_name: str) -> str:
     if not font_name:
         return "Calibri"
     fn = font_name.lower()
-    if "calibri" in fn:
+    if "calibri" in fn or "carlito" in fn:
         return "Calibri"
     elif "tahoma" in fn:
         return "Tahoma"
     elif "verdana" in fn:
         return "Verdana"
-    elif "times" in fn:
+    elif "times" in fn or "tinos" in fn:
         return "Times New Roman"
-    elif "cambria" in fn:
+    elif "cambria" in fn or "caladea" in fn:
         return "Cambria"
-    elif "arial" in fn:
+    elif "arial" in fn or "liberation sans" in fn:
         return "Arial"
+    elif "liberation serif" in fn:
+        return "Times New Roman"
     elif "symbol" in fn:
         return "Symbol"
     return "Calibri"
@@ -1238,8 +1250,10 @@ def get_merged_theme_config(theme_config: dict = None) -> dict:
             "footer_distance_pt": 18.0
         },
         "typography": {
-            "primary_family": "Cambria",
-            "secondary_family": "Calibri",
+            "primary_family": "Cambria, 'Caladea', 'Times New Roman', 'Tinos', 'Liberation Serif', serif",
+            "secondary_family": "Calibri, 'Carlito', 'Inter', 'Liberation Sans', sans-serif",
+            "symbol_family": "Symbol, 'Noto Sans Symbols', sans-serif",
+            "table_header_family": "Cambria, 'Caladea', 'Times New Roman', 'Tinos', 'Liberation Serif', serif",
             "line_spacing": 1.15,
             "paragraph_space_after_pt": 4.0,
             "sizes_pt": {
@@ -2985,8 +2999,13 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
         "<meta charset='utf-8'>",
         "<meta name='viewport' content='width=device-width, initial-scale=1.0'>",
         f"<title>{doc_title} — Oncquest Lab Report</title>",
-        "<link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap' rel='stylesheet'>",
+        "<link rel='preconnect' href='https://fonts.googleapis.com'>",
+        "<link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>",
+        "<link href='https://fonts.googleapis.com/css2?family=Caladea:ital,wght@0,400;0,700;1,400;1,700&family=Carlito:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700;800&family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap' rel='stylesheet'>",
         "<style>",
+        """
+        @import url('https://fonts.googleapis.com/css2?family=Caladea:ital,wght@0,400;0,700;1,400;1,700&family=Carlito:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700;800&family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+        """,
         f"""
         :root {{
           --color-primary: {primary_color};
@@ -2994,7 +3013,7 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
           --color-banner-dark: #404040;
           --color-bg-container: #525659;
           --color-bg-page: #ffffff;
-          --font-primary: 'Calibri', 'Inter', sans-serif;
+          --font-primary: 'Calibri', 'Carlito', 'Inter', 'Liberation Sans', sans-serif;
           --page-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
         }}
         @page {{ size: 595.0pt 842.0pt; margin: 0; }}
@@ -4133,7 +4152,15 @@ def render_html_to_pdf_and_preview(html_path, output_pdf_path, preview_img_path=
         with sync_playwright() as p:
             browser = _launch_playwright_chromium(p)
             page = browser.new_page(viewport={"width": 1000, "height": 1200})
-            page.goto(html_path.as_uri(), wait_until="load", timeout=15000)
+            try:
+                page.goto(html_path.as_uri(), wait_until="networkidle", timeout=15000)
+            except Exception:
+                page.goto(html_path.as_uri(), wait_until="load", timeout=15000)
+
+            try:
+                page.evaluate("() => document.fonts.ready")
+            except Exception:
+                pass
 
             if preview_img_path:
                 preview_img_path = Path(preview_img_path)

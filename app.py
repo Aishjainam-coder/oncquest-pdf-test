@@ -57,6 +57,12 @@ st.set_page_config(
 # Custom Styling for Streamlit App
 st.markdown("""
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    
+    html, body, [class*="css"] {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    
     .main { background-color: #f8fafc; }
     
     .header-card {
@@ -73,12 +79,14 @@ st.markdown("""
         margin: 0;
         letter-spacing: -0.02em;
         color: #ffffff;
+        font-family: 'Inter', sans-serif;
     }
     .header-subtitle {
         font-size: 0.95rem;
         color: #cbd5e1;
         margin-top: 0.3rem;
         margin-bottom: 0;
+        font-family: 'Inter', sans-serif;
     }
 
     .word-success-box {
@@ -101,6 +109,7 @@ st.markdown("""
         box-shadow: 0 4px 12px rgba(31, 73, 125, 0.25);
         transition: all 0.2s ease-in-out;
         width: 100%;
+        font-family: 'Inter', sans-serif;
     }
     div.stButton > button:first-child:hover {
         transform: translateY(-2px);

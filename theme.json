@@ -98,10 +98,10 @@
     "footer_distance_pt": 18.0
   },
   "typography": {
-    "primary_family": "Cambria, 'Times New Roman', serif",
-    "secondary_family": "Calibri",
-    "symbol_family": "Symbol",
-    "table_header_family": "Cambria, 'Times New Roman', serif, 'Times New Roman', serif",
+    "primary_family": "Cambria, 'Caladea', 'Times New Roman', 'Tinos', 'Liberation Serif', serif",
+    "secondary_family": "Calibri, 'Carlito', 'Inter', 'Liberation Sans', sans-serif",
+    "symbol_family": "Symbol, 'Noto Sans Symbols', sans-serif",
+    "table_header_family": "Cambria, 'Caladea', 'Times New Roman', 'Tinos', 'Liberation Serif', serif",
     "line_spacing": 1.15,
     "paragraph_space_after_pt": 4.0,
     "sizes_pt": {
