@@ -31,6 +31,42 @@ try:
 except ImportError:
     PDF2DocxConverter = None
 
+
+def _get_theme_path() -> Path:
+    """Safely locate theme.json in cwd or module directory."""
+    p1 = Path("theme.json")
+    if p1.exists():
+        return p1
+    p2 = Path(__file__).resolve().parent / "theme.json"
+    if p2.exists():
+        return p2
+    return p1
+
+
+def _launch_playwright_chromium(p):
+    """
+    Launch Chromium with production/cloud-friendly flags and auto-install fallback.
+    """
+    launch_args = [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--disable-dev-shm-usage",
+        "--disable-gpu"
+    ]
+    try:
+        return p.chromium.launch(args=launch_args)
+    except Exception as err:
+        print(f"   [!] Initial Chromium launch failed ({err}). Attempting auto-installation of Playwright browser binaries...", flush=True)
+        try:
+            import subprocess
+            import sys
+            subprocess.run([sys.executable, "-m", "playwright", "install", "chromium"], check=True)
+            return p.chromium.launch(args=launch_args)
+        except Exception as e_retry:
+            print(f"   [!] Failed to auto-install or launch Chromium: {e_retry}", flush=True)
+            raise err
+
+
 def is_end_of_report_text(text: str) -> bool:
     if not isinstance(text, str):
         return False
@@ -1399,7 +1435,7 @@ def get_merged_theme_config(theme_config: dict = None) -> dict:
         "end_report_marker": "------------------ End Of Report ------------------"
     }
 
-    theme_file = Path("theme.json")
+    theme_file = _get_theme_path()
     if theme_file.exists():
         try:
             with open(theme_file, "r", encoding="utf-8") as f:
@@ -1561,7 +1597,7 @@ def _is_decorative_image(img, page_w=595.0, page_h=842.0):
 def _load_oncquest_theme(theme_config=None):
     theme_config = theme_config or {}
     tj = {}
-    tj_path = Path("theme.json")
+    tj_path = _get_theme_path()
     if tj_path.exists():
         try:
             with open(tj_path, "r", encoding="utf-8") as f:
@@ -1660,7 +1696,7 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
 
     # Load theme
     tj = {}
-    tj_path = Path("theme.json")
+    tj_path = _get_theme_path()
     if tj_path.exists():
         try:
             with open(tj_path, "r", encoding="utf-8") as f:
@@ -3401,7 +3437,7 @@ def convert_html_to_docx(html_input, output_path: str = None, theme_config: dict
                 html_file_path.write_text(html_content, encoding="utf-8")
 
                 with sync_playwright() as p:
-                    browser = p.chromium.launch()
+                    browser = _launch_playwright_chromium(p)
                     # Use A4-like viewport width matching the HTML page width (~795px = 595.6pt)
                     # device_scale_factor=2 for high-DPI sharp screenshots
                     page = browser.new_page(viewport={"width": 795, "height": 1123}, device_scale_factor=2)
@@ -4095,7 +4131,7 @@ def render_html_to_pdf_and_preview(html_path, output_pdf_path, preview_img_path=
     try:
         print("   [+] Launching Chromium engine for HTML->PDF compilation...", flush=True)
         with sync_playwright() as p:
-            browser = p.chromium.launch()
+            browser = _launch_playwright_chromium(p)
             page = browser.new_page(viewport={"width": 1000, "height": 1200})
             page.goto(html_path.as_uri(), wait_until="load", timeout=15000)
 

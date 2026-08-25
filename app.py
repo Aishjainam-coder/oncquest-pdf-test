@@ -30,13 +30,15 @@ from converter import (
 )
 from extractor import extract_report_data
 
+BASE_DIR = Path(__file__).resolve().parent
+
 # Ensure output directories exist
-Path("extracted_jsons").mkdir(exist_ok=True)
-Path("output").mkdir(exist_ok=True)
+(BASE_DIR / "extracted_jsons").mkdir(exist_ok=True)
+(BASE_DIR / "output").mkdir(exist_ok=True)
 
 # Load base theme.json if present
 theme_json_defaults = {}
-theme_file_path = Path("theme.json")
+theme_file_path = BASE_DIR / "theme.json"
 if theme_file_path.exists():
     try:
         with open(theme_file_path, "r", encoding="utf-8") as f_theme:
@@ -155,6 +157,8 @@ if "html_content" not in st.session_state:
     st.session_state.html_content = ""
 if "output_pdf_bytes" not in st.session_state:
     st.session_state.output_pdf_bytes = None
+if "compiled_pdf_bytes" not in st.session_state:
+    st.session_state.compiled_pdf_bytes = None
 if "docx_bytes" not in st.session_state:
     st.session_state.docx_bytes = None
 if "file_name" not in st.session_state:
@@ -175,6 +179,7 @@ if uploaded_file is not None:
         st.session_state.file_bytes = file_bytes
         st.session_state.html_content = ""
         st.session_state.output_pdf_bytes = None
+        st.session_state.compiled_pdf_bytes = None
         st.session_state.docx_bytes = None
         st.session_state.extracted_data = None
 
@@ -258,7 +263,7 @@ if uploaded_file is not None:
                             extracted_data = extract_report_data(str(pdf_input_path), auto_save_docx=False)
                             st.session_state.extracted_data = extracted_data
                             
-                            json_out_dir = Path("extracted_jsons")
+                            json_out_dir = BASE_DIR / "extracted_jsons"
                             json_out_dir.mkdir(exist_ok=True)
                             json_file_path = json_out_dir / f"{Path(uploaded_file.name).stem}.json"
                             json_str = json.dumps(extracted_data, indent=2, ensure_ascii=False)
