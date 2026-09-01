@@ -22,7 +22,7 @@
       "font_family": "Cambria, 'Times New Roman', serif",
       "font_size": 11.0,
       "bold": true,
-      "text_color": "#008080",
+      "text_color": "#1f497d",
       "alignment": "left",
       "spacing_before": 6.0,
       "spacing_after": 3.0
@@ -118,7 +118,7 @@
   },
   "colors": {
     "primary": "#1f497d",
-    "secondary": "#008080",
+    "secondary": "#1f497d",
     "accent_orange": "#ed7d31",
     "accent_red": "#ff0000",
     "banner_dark": "#404040",
@@ -126,7 +126,7 @@
     "text_secondary": "#242729",
     "text_dark": "#0d0d0d",
     "text_light": "#ffffff",
-    "text_teal": "#008080",
+    "text_teal": "#1f497d",
     "text_orange": "#ed7d31",
     "text_red": "#ff0000",
     "background_page": "#ffffff",
@@ -175,7 +175,7 @@
       "font_family": "Cambria, 'Times New Roman', serif",
       "font_size_pt": 14.0,
       "font_weight": "bold",
-      "text_color": "#008080",
+      "text_color": "#1f497d",
       "alignment": "center",
       "space_before_pt": 4.0,
       "space_after_pt": 12.0
@@ -206,7 +206,7 @@
       "font_family": "Cambria, 'Times New Roman', serif",
       "font_size_pt": 10.0,
       "font_weight": "bold",
-      "text_color": "#008080",
+      "text_color": "#1f497d",
       "space_before_pt": 4.0,
       "space_after_pt": 2.0
     },

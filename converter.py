@@ -362,6 +362,92 @@ def get_css_color(color_tuple):
     return "black"
 
 
+def is_teal_or_green_color(color_val):
+    """
+    Detect if a color is a vendor teal, cyan-green, or dark teal shade that should
+    be converted to the Oncquest Theme Blue (#1f497d).
+    """
+    if not color_val:
+        return False
+    if isinstance(color_val, (list, tuple)):
+        if len(color_val) == 3:
+            r, g, b = float(color_val[0]), float(color_val[1]), float(color_val[2])
+            if r > 1.0 or g > 1.0 or b > 1.0:
+                r, g, b = r / 255.0, g / 255.0, b / 255.0
+            # Teal/green in vendor PDFs: r < 0.25 and (g >= 0.25 or b >= 0.25)
+            if r < 0.25 and (g >= 0.25 or b >= 0.25):
+                return True
+        elif len(color_val) == 4:
+            c, m, y, k = [float(v) for v in color_val]
+            if c > 0.3 and y > 0.2 and m < 0.3:
+                return True
+    elif isinstance(color_val, str):
+        c_str = color_val.strip().lower()
+        if c_str.startswith("rgb"):
+            nums = re.findall(r'\d+', c_str)
+            if len(nums) >= 3:
+                r, g, b = int(nums[0]), int(nums[1]), int(nums[2])
+                if r < 65 and (g >= 65 or b >= 65):
+                    return True
+        hex_clean = c_str.lstrip("#")
+        if len(hex_clean) == 6:
+            try:
+                r = int(hex_clean[0:2], 16)
+                g = int(hex_clean[2:4], 16)
+                b = int(hex_clean[4:6], 16)
+                if r < 65 and (g >= 65 or b >= 65):
+                    return True
+            except ValueError:
+                pass
+        if hex_clean in ("008080", "005953", "006666", "004d40", "007a78", "008b8b", "2e8b57", "008000", "00b050"):
+            return True
+    return False
+
+
+def replace_teal_and_green_text_colors(html_str, prim_col, neg_col, pos_col):
+    """
+    Replaces vendor teal/green text colors in HTML with Oncquest Theme Blue (#1f497d),
+    while strictly preserving clinical test result status colors (red/green).
+    """
+    _RES_NEG_KEYWORDS = {
+        "negative", "normal", "not detected", "stable", "msi-stable",
+        "benign", "likely benign", "✓", "✔", "&#x2713;", "&#x2714;"
+    }
+    _RES_POS_KEYWORDS = {
+        "positive", "pathogenic", "detected", "high", "abnormal", "msi-high"
+    }
+
+    def _repl_span(match):
+        full_span = match.group(0)
+        span_style = match.group(1)
+        span_text = match.group(2)
+
+        clean_t = re.sub(r'<[^>]+>', '', span_text).strip().lower()
+        if clean_t in _RES_NEG_KEYWORDS or any(kw in clean_t for kw in ("not detected", "no clinically significant")):
+            return full_span
+
+        if clean_t in _RES_POS_KEYWORDS or any(kw in clean_t for kw in ("variant detected", "clinically significant")):
+            return full_span
+
+        updated_style = re.sub(
+            r'color:\s*(?:#(?:008080|006666|005953|004d40|007a78|008b8b|00b050|008000)|rgb\(\s*0\s*,\s*(?:128|89|102|77|176|80)\s*,\s*(?:128|83|102|120|80)\s*\))',
+            f'color:{prim_col}',
+            span_style,
+            flags=re.IGNORECASE
+        )
+        return f'<span style="{updated_style}">{span_text}</span>'
+
+    res = re.sub(r'<span\s+style="([^"]*)"\s*>(.*?)</span>', _repl_span, html_str, flags=re.DOTALL)
+    # Also update any paragraph level teal/green colors
+    res = re.sub(
+        r'(<p\s+style="[^"]*?)color:\s*(?:#(?:008080|006666|005953|004d40|007a78|008b8b)|rgb\(\s*0\s*,\s*(?:128|89|102|77)\s*,\s*(?:128|83|102|120)\s*\))([^"]*")',
+        f'\\1color:{prim_col}\\2',
+        res,
+        flags=re.IGNORECASE
+    )
+    return res
+
+
 def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", theme_config: dict = None) -> str:
     """
     Renders an HTML document where body elements stay in their exact visual positions,
@@ -373,7 +459,7 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
     typo_cfg = cfg.get("typography", {})
 
     primary_color = colors_cfg.get("primary", "#1f497d")
-    secondary_color = colors_cfg.get("secondary", "#008080")
+    secondary_color = colors_cfg.get("secondary", "#1f497d")
     accent_orange = colors_cfg.get("accent_orange", "#ed7d31")
     accent_red = colors_cfg.get("accent_red", "#ff0000")
     banner_dark = colors_cfg.get("banner_dark", "#404040")
@@ -531,9 +617,46 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
             valid_cells = [c for c in tab.cells if c]
             if valid_cells:
                 min_y0 = min(c[1] for c in valid_cells)
-                header_cells = [c for c in valid_cells if abs(c[1] - min_y0) < 3.0]
-                header_cells.sort(key=lambda c: c[0])
-                if len(header_cells) >= 2:
+                candidate_header_cells = [c for c in valid_cells if abs(c[1] - min_y0) < 3.0]
+                candidate_header_cells.sort(key=lambda c: c[0])
+
+                _HEADER_KW_SET = {
+                    'tier', 'gene', 'variant', 'exon', 'coverage', 'vaf', 'assay', 'biomarker',
+                    'result', 'interpretation', 'therapy', 'therapies', 'fda', 'nccn', 'ema',
+                    'esmo', 'trials', 'clinical trials', 'diagnostic', 'prognostic', 'description',
+                    'dna', 'rna', 'unstable', 'loci', 'method', 'specimen', 'mutation', 'classification',
+                    'test name', 'parameter', 'value', 'units', 'reference range', 'findings', 'comment',
+                    'indication', 'biomarker description', 'clinical significance', 'therapeutic implications',
+                    'variant classification', 'allele frequency', 'copy number', 'status', 'drugs',
+                    'drug', 'sensitivity', 'resistance', 'pathogenicity', 'acmg', 'amp'
+                }
+                _NON_HEADER_VALS = {'x', '✓', '✓✓', 'i', 'ii', 'iii', 'iv', 'i/ii', 'ii/iii'}
+
+                row_raw_texts = [page.get_text('text', clip=fitz.Rect(c)).strip().replace('\n', ' ') for c in candidate_header_cells]
+                non_empty_texts = [t for t in row_raw_texts if t.strip()]
+
+                def _cell_matches_header_kw(t_str: str) -> bool:
+                    t_clean = re.sub(r'[^a-zA-Z0-9\s]', ' ', t_str).strip().lower()
+                    t_words = t_clean.split()
+                    if t_clean in _HEADER_KW_SET:
+                        return True
+                    for kw in _HEADER_KW_SET:
+                        if ' ' in kw and kw in t_clean:
+                            return True
+                        elif ' ' not in kw and kw in t_words:
+                            return True
+                    return False
+
+                has_non_header_val = any(t.lower().strip() in _NON_HEADER_VALS for t in row_raw_texts)
+                has_header_kw = any(_cell_matches_header_kw(t) for t in non_empty_texts)
+                is_all_short = (
+                    len(non_empty_texts) >= 2
+                    and all(len(t) <= 45 and len(t.split()) <= 6 and not re.search(r'[.!?]\s+[A-Za-z]', t) for t in non_empty_texts)
+                )
+                is_real_header = len(candidate_header_cells) >= 2 and is_all_short and (not has_non_header_val) and has_header_kw
+
+                if is_real_header:
+                    header_cells = candidate_header_cells
                     hy0 = min(c[1] for c in header_cells)
                     hy1 = max(c[3] for c in header_cells)
                     header_y_ranges.append((hy0 - 3.0, hy1 + 3.0))
@@ -551,7 +674,7 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
                         # Directional borders: every header cell draws top/right/bottom;
                         # only the leftmost header cell also draws left border.
                         hdr_border_left = ("border-left:0.75pt solid #000000;"
-                                           if abs(x0 - hdr_min_x0) < 1.5 else "")
+                                           if abs(x0 - hdr_min_x0) < 4.0 else "")
                         hdr_border_style = (
                             f"border-top:0.75pt solid #000000;"
                             f"{hdr_border_left}"
@@ -572,6 +695,7 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
             ]
             tab_min_x0 = min(c[0] for c in body_cells) if body_cells else None
             tab_min_y0 = min(c[1] for c in body_cells) if body_cells else None
+            has_header_above = len(header_y_ranges) > 0
 
             for cell in tab.cells:
                 if cell:
@@ -582,13 +706,13 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
                         continue
                     # Build directional borders to avoid double-thick lines at shared edges:
                     # Every cell draws its right and bottom borders.
-                    # Leftmost column also draws left border; topmost body row also draws top border.
+                    # Leftmost column also draws left border; topmost body row draws top border only if no header row exists above.
                     border_right  = "border-right:0.75pt solid #000000;"
                     border_bottom = "border-bottom:0.75pt solid #000000;"
                     border_left   = ("border-left:0.75pt solid #000000;"
-                                     if tab_min_x0 is not None and abs(cx0 - tab_min_x0) < 1.5 else "")
+                                     if tab_min_x0 is not None and abs(cx0 - tab_min_x0) < 4.0 else "")
                     border_top    = ("border-top:0.75pt solid #000000;"
-                                     if tab_min_y0 is not None and abs(cy0 - tab_min_y0) < 1.5 else "")
+                                     if (not has_header_above and tab_min_y0 is not None and abs(cy0 - tab_min_y0) < 4.0) else "")
                     cell_border_style = border_top + border_left + border_right + border_bottom
                     table_grid_html_divs.append(
                         f"<div class='table-grid-cell' "
@@ -659,8 +783,22 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
                         "pointer-events:none;"
                     ]
                     if fill_col:
-                        # Use exact background fill color
-                        style_parts.append(f"background-color:{fill_col};")
+                        # Check if this vector box is a result banner or a section heading/table header banner
+                        box_rect = fitz.Rect(rx0, ry0, rx1, ry1)
+                        box_text = page.get_text('text', clip=box_rect).strip()
+                        banner_cls = check_result_banner_classification(box_text)
+                        
+                        if banner_cls == "positive":
+                            final_fill = result_positive_color
+                        elif banner_cls == "negative":
+                            final_fill = result_negative_color
+                        elif is_teal_or_green_color(d.get('fill')) or is_teal_or_green_color(fill_col):
+                            # Replace all teal/green section header banners with Oncquest primary blue (#1f497d)
+                            final_fill = primary_color
+                        else:
+                            final_fill = fill_col
+
+                        style_parts.append(f"background-color:{final_fill};")
                         style_parts.append("z-index:1;")
                     else:
                         style_parts.append("background-color:transparent;")
@@ -705,9 +843,14 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
 
             top_m = re.search(r'top:\s*([\d.]+)pt', p_tag)
             left_m = re.search(r'left:\s*([\d.]+)pt', p_tag)
-            if top_m and left_m:
+            if top_m:
                 y_val = float(top_m.group(1))
-                x_val = float(left_m.group(1))
+                x_val = float(left_m.group(1)) if left_m else 0.0
+
+                # Suppress raw paragraph text inside table header ranges (since table_header_html_divs already renders header text cleanly)
+                if any(hy0_r <= y_val <= hy1_r for hy0_r, hy1_r in header_y_ranges):
+                    return ""
+
                 is_inside_table = False
                 for tx0, ty0, tx1, ty1 in kept_table_bboxes:
                     if (tx0 - 5.0) <= x_val <= (tx1 + 5.0) and (ty0 - 5.0) <= y_val <= (ty1 + 5.0):
@@ -716,15 +859,10 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
                 if not is_inside_table:
                     if y_val < hy_cutoff or y_val > fy_cutoff:
                         return ""
-            elif top_m:
-                y_val = float(top_m.group(1))
-                if y_val < hy_cutoff or y_val > fy_cutoff:
-                    return ""
-                if any(hy0_r <= y_val <= hy1_r for hy0_r, hy1_r in header_y_ranges):
-                    return re.sub(r'>([^<]+)<', '><', p_tag)
             return p_tag
 
         cleaned = re.sub(r'<p\s+[^>]*>.*?</p>', filter_hdr_ftr_and_table_p, cleaned, flags=re.DOTALL)
+        cleaned = replace_teal_and_green_text_colors(cleaned, primary_color, result_negative_color, result_positive_color)
 
         # 5. Extract exact images in body region ONLY
         exact_image_html_divs = []
@@ -812,7 +950,7 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
     typo_cfg = cfg.get("typography", {})
 
     primary_color = colors_cfg.get("primary", "#1f497d")
-    secondary_color = colors_cfg.get("secondary", "#008080")
+    secondary_color = colors_cfg.get("secondary", "#1f497d")
     accent_orange = colors_cfg.get("accent_orange", "#ed7d31")
     accent_red = colors_cfg.get("accent_red", "#ff0000")
     bg_page = colors_cfg.get("background_page", "#ffffff")
@@ -900,7 +1038,9 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
             font_fam_val = el_font_family or (theme_style.get("font_family") if not seen_eor else font_family) or font_family
             bold_val = el_bold or (theme_style.get("bold", (True if el_type in ("heading", "subheading") else False)) if not seen_eor else False)
             italic_val = el_italic or (theme_style.get("italic", False) if not seen_eor else False)
-            color_val = el_color or ((primary_color if el_type == "heading" else (secondary_color if el_type == "subheading" else text_color)) if not seen_eor else text_color)
+            color_val = el_color or ((primary_color if el_type in ("heading", "subheading") else text_color) if not seen_eor else text_color)
+            if not seen_eor and is_teal_or_green_color(color_val) and el_type in ("heading", "subheading", "paragraph", "header"):
+                color_val = primary_color
             
             if not seen_eor and color_val.lower() in ("#ffffff", "#fff"):
                 color_val = primary_color if el_type in ("heading", "subheading") else text_color
@@ -1130,7 +1270,7 @@ def _set_cell_background(cell, hex_color: str):
     cell._tc.get_or_add_tcPr().append(shd)
 
 
-def _set_cell_borders(cell, border_color: str = "CBD5E1", border_size: str = "4"):
+def _set_cell_borders(cell, border_color: str = "000000", border_size: str = "4"):
     """Utility to set XML cell borders of a python-docx table cell."""
     from docx.oxml import parse_xml
     from docx.oxml.ns import nsdecls
@@ -1269,7 +1409,7 @@ def get_merged_theme_config(theme_config: dict = None) -> dict:
         },
         "colors": {
             "primary": "#1f497d",
-            "secondary": "#008080",
+            "secondary": "#1f497d",
             "accent_orange": "#ed7d31",
             "accent_red": "#ff0000",
             "banner_dark": "#404040",
@@ -1436,7 +1576,7 @@ def get_merged_theme_config(theme_config: dict = None) -> dict:
             }
         },
         "primary_color": "#1f497d",
-        "secondary_color": "#008080",
+        "secondary_color": "#1f497d",
         "accent_orange": "#ed7d31",
         "accent_red": "#ff0000",
         "banner_dark": "#404040",
@@ -2956,7 +3096,7 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
     cfg = get_merged_theme_config(theme_config)
     colors_cfg = cfg.get("colors", {})
     primary_color = colors_cfg.get("primary", "#1f497d")
-    secondary_color = colors_cfg.get("secondary", "#008080")
+    secondary_color = colors_cfg.get("secondary", "#1f497d")
     accent_orange = colors_cfg.get("accent_orange", "#ed7d31")
     accent_red = colors_cfg.get("accent_red", "#ff0000")
     result_positive_color = colors_cfg.get("result_positive", "#C00000")

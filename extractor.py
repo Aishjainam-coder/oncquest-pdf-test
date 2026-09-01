@@ -955,10 +955,11 @@ def extract_report_data(pdf_path: str, auto_save_docx: bool = False) -> dict:
                     g = (dom_color_dec >> 8) & 255
                     b_val = dom_color_dec & 255
                     text_color = f"#{r:02x}{g:02x}{b_val:02x}"
-                elif sem_type == "heading" and not seen_eor_ext:
+                    # If text color is vendor teal/green and not a test result, map to Oncquest blue (#1f497d)
+                    if text_color.lower() in ("#008080", "#006666", "#005953", "#004d40", "#007a78", "#008b8b") and not seen_eor_ext:
+                        text_color = "#1f497d"
+                elif sem_type in ("heading", "subheading") and not seen_eor_ext:
                     text_color = "#1f497d"
-                elif sem_type == "subheading" and not seen_eor_ext:
-                    text_color = "#008080"
                 
                 # Dominant font name
                 dom_font = clean_font_name(font_name)
