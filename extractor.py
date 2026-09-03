@@ -376,6 +376,33 @@ def is_inside_table_bbox(bbox, table_bboxes):
     return False
 
 
+def is_signatory_text(text: str) -> bool:
+    if not text or not isinstance(text, str):
+        return False
+    norm = re.sub(r'\s+', ' ', text.strip().lower())
+    if not norm:
+        return False
+    signatory_keywords = [
+        'mehul', 'mistry', 'akash', 'shah', 'mehul mistry', 'akash shah',
+        'dr. mehul', 'dr. akash', 'dr. mehul mistry', 'dr. akash shah',
+        'vinay kumar', 'vinay bhatia', 'shivali', 'dr. shivali',
+        'vaniawala', 'nirmal', 'salil', 'prakash patel',
+        'md pathology', 'md (pathology)', 'md path', 'md (path',
+        'ph. d. (scientist)', 'ph.d. (scientist)', 'ph. d', 'ph.d', '(scientist)', 'scientist',
+        'pathologist', 'biochemist', 'microbiologist', 'geneticist',
+        'consultant pathologist', 'consulting geneticist', 'consultant',
+        'authorized signatory', 'authorized signature', 'signatory', 'signature',
+        'reviewed by', 'verified by', 'reported by', 'electronically generated'
+    ]
+    if any(kw in norm for kw in signatory_keywords):
+        return True
+    if re.search(r'\bdr\.?\s+[a-z]{2,}', norm) and any(kw in norm for kw in ['scientist', 'pathology', 'pathologist', 'm.d', 'md', 'ph.d', 'mbbs', 'consultant', 'signatory', 'dr.', 'mistry', 'shah', 'shivali', 'vinay', 'vaniawala']):
+        return True
+    if norm.startswith('dr.') and len(norm) < 60:
+        return True
+    return False
+
+
 def detect_dynamic_header_footer_bounds(doc) -> dict:
     """
     Dynamically analyzes document layout to identify header and footer bounding box cutoffs
@@ -391,21 +418,25 @@ def detect_dynamic_header_footer_bounds(doc) -> dict:
         'neuberg', 'center for genomic medicine', 'genomic medicine', 'neuberg diagnostics',
         'laboratory report', 'mc-6200', 'case id', 'sample type', 'patient name', 'uhid', 'reg no',
         'ref by', 'referred by', 'dis.loc.', 'pt id', 'pt. id', 'pt. loc.', 'ph #', 'ref id', 'ref id 2',
-        'age/gender', 'age / sex', 'date & time collected', 'date & time received', 'date & time reported',
+        'age/gender', 'age / sex', 'age/sex', 'date & time collected', 'date & time received', 'date & time reported',
         'registration date & time', 'sample date & time', 'report date & time',
         'date collected', 'date received', 'date reported', 'report version', 'bill. loc.',
         'lab no', 'barcode', 'qr code for report', 'report verification', 'patient information',
-        'patient details', 'patient metadata', 'demographics', 'sample coll.by', 'acc. remarks'
+        'patient details', 'patient metadata', 'demographics', 'sample coll.by', 'acc. remarks',
+        'sample description', 'clinical indication', 'sample received', 'collection date',
+        'oncquest', 'sng gene', 'genelab', 'metropolis', 'lal path', 'dr lal', 'patient id',
+        'referred doctor', 'referring doctor', 'billing location', 'sample type/qty'
     ]
 
     footer_kw = [
-        'reviewed by', 'verified by', 'authorized signatory', 'signatory', 'doctor', 'dr.',
-        'md (path', 'ph.d.', 'pathologist', 'biochemist', 'microbiologist', 'geneticist',
-        'consultant', 'end of report', 'electronically generated', 'disclaimer', 'registered office',
-        'nabl', 'cap accredited', 'iso 15189', 'mc-7414', 'page '
+        'reviewed by', 'verified by', 'authorized signatory', 'authorized signature', 'signatory',
+        'doctor', 'dr.', 'md (path', 'ph.d', 'mbbs', 'pathologist', 'biochemist', 'microbiologist',
+        'geneticist', 'consultant', 'end of report', 'electronically generated', 'disclaimer',
+        'registered office', 'nabl', 'cap accredited', 'iso 15189', 'mc-7414', 'page ', 'page no',
+        'corporate office', 'lab address', 'customer care', 'printed on', 'report generated on'
     ]
 
-    # Step 1: Detect multi-page repeated strings in top 25% and bottom 12%
+    # Step 1: Detect multi-page repeated strings in top 30% and bottom 18%
     top_str_counts = defaultdict(int)
     bot_str_counts = defaultdict(int)
 
@@ -421,9 +452,9 @@ def detect_dynamic_header_footer_bounds(doc) -> dict:
             if not text:
                 continue
             norm_t = re.sub(r'\s+', ' ', text.lower())
-            if y0 < 0.25 * H:
+            if y0 < 0.30 * H:
                 top_str_counts[norm_t] += 1
-            elif y0 > 0.88 * H:
+            elif y0 > 0.82 * H:
                 bot_str_counts[norm_t] += 1
 
     repeated_top = {t for t, count in top_str_counts.items() if count >= 2 or (page_count == 1 and count >= 1)}
@@ -437,6 +468,8 @@ def detect_dynamic_header_footer_bounds(doc) -> dict:
 
         header_y1 = 0.0
         footer_y0 = H
+        max_header_limit = (0.38 * H) if p_idx == 0 else (0.28 * H)
+        min_footer_limit = 0.76 * H
 
         # A) Analyze text blocks
         for b in text_page.get("blocks", []):
@@ -448,8 +481,8 @@ def detect_dynamic_header_footer_bounds(doc) -> dict:
                 continue
             norm_t = re.sub(r'\s+', ' ', text.lower())
 
-            # Check Header match (top 25% of page)
-            if y0 < 0.25 * H:
+            # Check Header match
+            if y0 < max_header_limit:
                 is_hdr = False
                 if norm_t in repeated_top:
                     is_hdr = True
@@ -459,45 +492,63 @@ def detect_dynamic_header_footer_bounds(doc) -> dict:
                     is_hdr = True
 
                 if is_hdr:
-                    if y1 > header_y1:
+                    if y1 > header_y1 and y1 <= (max_header_limit + 5.0):
                         header_y1 = y1
 
-            # Check Footer match (bottom 15% of page ONLY)
-            if y0 > 0.85 * H:
+            # Check Footer match (including any doctor signatures / qualifications)
+            if is_signatory_text(norm_t) and y0 > (0.50 * H):
+                if y0 < footer_y0:
+                    footer_y0 = y0
+            elif y0 > min_footer_limit:
                 is_ftr = False
                 if norm_t in repeated_bot:
                     is_ftr = True
                 elif any(kw in norm_t for kw in footer_kw):
-                    if 'page ' in norm_t and len(norm_t) > 30 and not any(k in norm_t for k in ['dr.', 'signatory', 'verified', 'reviewed', 'authorized']):
+                    if 'page ' in norm_t and len(norm_t) > 30 and not any(k in norm_t for k in ['dr.', 'signatory', 'verified', 'reviewed', 'authorized', 'signature']):
                         pass
                     else:
                         is_ftr = True
                 elif re.search(r'page\s+\d+', norm_t):
                     if len(norm_t) < 30:
                         is_ftr = True
-                elif y0 > 0.90 * H:
+                elif y0 > 0.88 * H:
                     is_ftr = True
 
                 if is_ftr:
                     if y0 < footer_y0:
                         footer_y0 = y0
 
-        # B) Analyze image bboxes (top 20% for header, bottom 15% for footer)
+        # B) Analyze tables in top region (e.g. Patient info table)
+        try:
+            tabs = page.find_tables()
+            for tab in tabs.tables:
+                if hasattr(tab, 'bbox'):
+                    tx0, ty0, tx1, ty1 = tab.bbox
+                    if ty0 < (0.20 * H) and ty1 <= max_header_limit + 5.0:
+                        # Check table text for patient/header keywords
+                        tab_txt = " ".join(page.get_text('text', clip=fitz.Rect(tab.bbox)).split()).lower()
+                        if any(kw in tab_txt for kw in header_kw) or any(kw in tab_txt for kw in ['uhid', 'patient', 'age', 'gender', 'referred', 'ref']):
+                            if ty1 > header_y1:
+                                header_y1 = ty1
+        except Exception:
+            pass
+
+        # C) Analyze image bboxes (top region for header logos/barcodes, bottom for signatures/stamps)
         img_infos = page.get_image_info(xrefs=True)
         for info in img_infos:
             bbox = info.get("bbox")
             if not bbox:
                 continue
             iy0, iy1 = bbox[1], bbox[3]
-            if iy0 < 0.20 * H:
-                if iy1 > header_y1:
+            if iy0 < (0.25 * H):
+                if iy1 > header_y1 and iy1 <= max_header_limit + 5.0:
                     header_y1 = iy1
-            if iy0 > 0.85 * H:
+            if iy0 > (0.50 * H) or iy0 >= 550 or iy1 >= 640:
                 if iy0 < footer_y0:
                     footer_y0 = iy0
 
-        final_hdr_cutoff = min(header_y1 + 2.0, 0.25 * H) if header_y1 > 0 else 0.0
-        final_ftr_cutoff = max(footer_y0 - 2.0, 0.85 * H) if footer_y0 < H else H
+        final_hdr_cutoff = min(header_y1 + 2.0, max_header_limit) if header_y1 > 0 else 0.0
+        final_ftr_cutoff = max(footer_y0 - 2.0, min_footer_limit) if footer_y0 < H else H
 
         page_bounds[p_idx] = {
             "header_y_cutoff": round(final_hdr_cutoff, 2),

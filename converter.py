@@ -281,7 +281,7 @@ def replace_sng_in_docx_obj(doc):
                 replace_in_xml_elements(footer._element)
 
 
-from extractor import extract_report_data, detect_dynamic_header_footer_bounds
+from extractor import extract_report_data, detect_dynamic_header_footer_bounds, is_signatory_text
 
 
 def check_result_banner_classification(text):
@@ -537,46 +537,10 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
     ]
 
     import base64
-    from pathlib import Path
-    _script_dir = Path(__file__).parent.resolve()
-
+    # Custom header logo & doctor signatures disabled (blank header & footer space for letterhead printing)
     header_image2_b64 = ""
-    for cand in [_script_dir / "assets" / "header_image2.jpeg", Path("assets/header_image2.jpeg")]:
-        if cand.exists():
-            try:
-                with open(cand, "rb") as img_f:
-                    header_image2_b64 = base64.b64encode(img_f.read()).decode("utf-8")
-                break
-            except Exception:
-                pass
-
     sig_image_b64 = ""
-    for cand in [_script_dir / "assets" / "dr_vinay_signature.png", Path("assets/dr_vinay_signature.png")]:
-        if cand.exists():
-            try:
-                with open(cand, "rb") as sig_f:
-                    sig_image_b64 = base64.b64encode(sig_f.read()).decode("utf-8")
-                break
-            except Exception:
-                pass
-
     shivali_sig_image_b64 = ""
-    for cand in [
-        _script_dir / "assets" / "shivali_sign.jpeg",
-        _script_dir / "assets" / "shivali_sign.jpg",
-        _script_dir / "assets" / "dr_shivali_signature.jpg",
-        _script_dir / "assets" / "dr_shivali_signature.png",
-        Path("assets/shivali_sign.jpeg"),
-        Path("assets/shivali_sign.jpg"),
-        Path("assets/dr_shivali_signature.jpg"),
-    ]:
-        if cand.exists():
-            try:
-                with open(cand, "rb") as s_f:
-                    shivali_sig_image_b64 = base64.b64encode(s_f.read()).decode("utf-8")
-                break
-            except Exception:
-                pass
 
     for page_num in range(len(doc)):
         page = doc[page_num]
@@ -588,15 +552,6 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
         fy_cutoff = page_bounds[page_num]["footer_y_cutoff"]
 
         html_parts.append(f"<div class='pdf-page' id='page-{page_num+1}'>")
-        if header_image2_b64:
-            img_tag = (
-                f'<img src="data:image/jpeg;base64,{header_image2_b64}" '
-                f'style="position:absolute !important; left:440.0pt !important; '
-                f'top:15.0pt !important; width:130.0pt !important; '
-                f'height:auto !important; z-index:100 !important; '
-                f'object-fit:contain !important;" />'
-            )
-            html_parts.append(img_tag)
         page_html = page.get_text("html")
 
         # 1. Extract PyMuPDF table headers & grid coordinates in body region ONLY
@@ -830,10 +785,15 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
         else:
             cleaned = re.sub(r'font-family:[^;"]+', f'font-family: {font_family}', cleaned)
 
-        # HIDE raw <p> tags that fall inside header/footer regions or table headers
+        # HIDE raw <p> tags that fall inside header/footer regions, table headers, or signatory blocks
         def filter_hdr_ftr_and_table_p(match):
             p_tag = match.group(0)
             text_val = re.sub(r'<[^>]+>', '', p_tag).strip()
+            
+            # Immediately remove all doctor names, qualifications & signatory blocks
+            if is_signatory_text(text_val):
+                return ""
+
             if is_end_of_report_text(text_val):
                 return p_tag
             
@@ -864,7 +824,7 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
         cleaned = re.sub(r'<p\s+[^>]*>.*?</p>', filter_hdr_ftr_and_table_p, cleaned, flags=re.DOTALL)
         cleaned = replace_teal_and_green_text_colors(cleaned, primary_color, result_negative_color, result_positive_color)
 
-        # 5. Extract exact images in body region ONLY
+        # 5. Extract exact images in body region ONLY (strictly exclude signature images and bottom badges)
         exact_image_html_divs = []
         try:
             img_infos = page.get_image_info(xrefs=True)
@@ -880,7 +840,10 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
                         is_inside_table = True
                         break
                 if not is_inside_table:
-                    if y0 < hy_cutoff or y1 > fy_cutoff or y0 >= 690.0:
+                    if y0 < hy_cutoff or y1 > fy_cutoff or y0 >= 600.0:
+                        continue
+                    # Exclude signature-sized images in bottom half of page
+                    if y0 > (0.50 * page.rect.height) or (y1 - y0 < 130.0 and y0 > 450.0):
                         continue
                 w_pt = max(1.0, x1 - x0)
                 h_pt = max(1.0, y1 - y0)
@@ -912,23 +875,6 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
         html_parts.extend(table_header_html_divs)
         html_parts.extend(table_grid_html_divs)
         html_parts.extend(exact_image_html_divs)
-        # Add signatures if available
-        if sig_image_b64:
-            # Right side signature (Dr. Vinay)
-            sig_tag = (
-                f"<div class='page-signature-block' style='position:absolute !important; right:40.0pt !important; top:725.0pt !important; width:90.0pt !important; height:88.0pt !important; z-index:100 !important; text-align:left !important; pointer-events:none !important;'>"
-                f"  <img src='data:image/png;base64,{sig_image_b64}' style='position:relative !important; width:90.0pt !important; height:88.0pt !important; display:block !important; transform:none !important; opacity:1 !important; visibility:visible !important;' />"
-                f"</div>"
-            )
-            html_parts.append(sig_tag)
-        # Left side signature (Dr. Shivali)
-        if shivali_sig_image_b64:
-            shivali_sig_tag = (
-                f"<div class='page-signature-block' style='position:absolute !important; left:40.0pt !important; top:725.0pt !important; width:90.0pt !important; height:88.0pt !important; z-index:101 !important; text-align:left !important; pointer-events:none !important;'>"
-                f"  <img src='data:image/jpeg;base64,{shivali_sig_image_b64}' style='position:relative !important; width:90.0pt !important; height:88.0pt !important; display:block !important; transform:none !important; opacity:1 !important; visibility:visible !important;' />"
-                f"</div>"
-            )
-            html_parts.append(shivali_sig_tag)
         html_parts.append("</div>")
 
     html_parts.append("</div></body></html>")
@@ -1019,6 +965,10 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
 
             el_type = el.get("type")
             if not seen_eor and el_type in ("header", "footer"):
+                continue
+
+            # Completely filter out doctor signatures, names, and signature blocks
+            if is_signatory_text(el_text_check) or el.get("role") in ("signature", "signature_block", "footer_signature"):
                 continue
                 
             style_override = el.get("style_override", {})
@@ -1194,6 +1144,20 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
                     f"</table>"
                 )
             elif el_type == "image" and show_images:
+                role = el.get("role", "")
+                if role in ("signature", "signature_block", "footer_signature", "stamp"):
+                    continue
+                bbox = el.get("bbox")
+                if bbox is not None:
+                    if isinstance(bbox, (list, tuple)) and len(bbox) >= 4:
+                        iy0, iy1 = bbox[1], bbox[3]
+                    elif isinstance(bbox, dict):
+                        iy0 = bbox.get("y0", bbox.get("y", 0.0))
+                        iy1 = bbox.get("y1", iy0 + bbox.get("height", 0.0))
+                    else:
+                        iy0, iy1 = 0.0, 0.0
+                    if iy0 >= 550 or iy1 >= 640 or (iy1 - iy0 < 130 and iy0 >= 450):
+                        continue
                 data_uri = el.get("data_uri")
                 w = el.get("width", 0)
                 h = el.get("height", 0)
@@ -1206,24 +1170,7 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
                     )
 
     body_html_content = "\n".join(elements_html)
-
-    header_image2_path = Path("assets/header_image2.jpeg")
     header_image2_html = ""
-    if header_image2_path.exists():
-        try:
-            import base64
-            with open(header_image2_path, "rb") as img_f:
-                header_image2_b64 = base64.b64encode(img_f.read()).decode("utf-8")
-            header_image2_html = (
-                f'<img src="data:image/jpeg;base64,{header_image2_b64}" '
-                f'style="position:absolute !important; left:440.0pt !important; '
-                f'top:15.0pt !important; width:130.0pt !important; '
-                f'height:auto !important; z-index:100 !important; '
-                f'object-fit:contain !important;" />'
-            )
-        except Exception:
-            pass
-
     oncquest_logo_html = ""
     patient_table_html = ""
 
@@ -1241,7 +1188,7 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
 * {{ box-sizing: border-box; }}
 body {{ margin: 0; padding: 0; background-color: #f1f5f9; font-family: {font_family}; color: {text_color}; }}
 .pdf-container {{ display: flex; flex-direction: column; align-items: center; padding: 20px 0; }}
-.report-content {{ background: {bg_page}; width: 595.6pt; min-height: 842.0pt; padding: 35.5pt; margin-bottom: 20px; position: relative; box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-family: {font_family}; word-break: normal; overflow-wrap: break-word; }}
+.report-content {{ background: {bg_page}; width: 595.6pt; min-height: 842.0pt; padding: 50pt 35.5pt; margin-bottom: 20px; position: relative; box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-family: {font_family}; word-break: normal; overflow-wrap: break-word; }}
 .badge-danger {{ background: #dc2626; color: #ffffff; padding: 2px 6px; border-radius: 3px; font-weight: bold; display: inline-block; font-size: 8.5pt; }}
 .badge-warning {{ background: #d97706; color: #ffffff; padding: 2px 6px; border-radius: 3px; font-weight: bold; display: inline-block; font-size: 8.5pt; }}
 .badge-success {{ background: #16a34a; color: #ffffff; padding: 2px 6px; border-radius: 3px; font-weight: bold; display: inline-block; font-size: 8.5pt; }}
@@ -1250,7 +1197,6 @@ body {{ margin: 0; padding: 0; background-color: #f1f5f9; font-family: {font_fam
 <body>
 <div class="pdf-container">
   <div class="report-content">
-    {header_image2_html}
     {body_html_content}
   </div>
 </div>
@@ -2134,6 +2080,9 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
                 if is_end_of_report_text(el_text_check):
                     seen_eor_docx = True
 
+                if is_signatory_text(el_text_check) or el.get("role") in ("signature", "signature_block", "footer_signature"):
+                    continue
+
                 el_type = el.get("type")
                 style = theme_styles.get(el_type, {})
                 style_override = el.get("style_override", {})
@@ -2494,6 +2443,20 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
                     preceding_el = el
 
                 elif el_type == "image":
+                    role = el.get("role", "")
+                    if role in ("signature", "signature_block", "footer_signature", "stamp"):
+                        continue
+                    bbox = el.get("bbox")
+                    if bbox:
+                        if isinstance(bbox, (list, tuple)) and len(bbox) >= 4:
+                            by0, by1 = bbox[1], bbox[3]
+                        elif isinstance(bbox, dict):
+                            by0 = bbox.get("y0", bbox.get("y", 0.0))
+                            by1 = bbox.get("y1", by0 + bbox.get("height", 0.0))
+                        else:
+                            by0, by1 = 0.0, 0.0
+                        if by0 >= 550 or by1 >= 640 or (by1 - by0 < 130 and by0 >= 450):
+                            continue
                     uri = el.get("data_uri", "")
                     if not uri or "," not in uri:
                         continue
@@ -3259,16 +3222,6 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
         "<div class='pdf-container'>"
     ]
 
-    import base64
-    header_image2_b64 = ""
-    header_image2_path = Path("assets/header_image2.jpeg")
-    if header_image2_path.exists():
-        try:
-            with open(header_image2_path, "rb") as img_f:
-                header_image2_b64 = base64.b64encode(img_f.read()).decode("utf-8")
-        except Exception:
-            pass
-
     for p in pages:
         p_num = p.get("page_number", 1)
         pw = 595.0
@@ -3281,15 +3234,6 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
         fy_cutoff = p.get("footer_y_cutoff", ph)
 
         html_parts.append(f"<div class='pdf-page' id='page-{p_num}' style='width:{pw:.1f}pt; min-height:{ph:.1f}pt;'>")
-        if header_image2_b64:
-            img_tag = (
-                f'<img src="data:image/jpeg;base64,{header_image2_b64}" '
-                f'style="position:absolute !important; left:440.0pt !important; '
-                f'top:15.0pt !important; width:130.0pt !important; '
-                f'height:auto !important; z-index:100 !important; '
-                f'object-fit:contain !important;" />'
-            )
-            html_parts.append(img_tag)
 
         # 1. Render Vector Drawings in body region ONLY
         for d in p.get("drawings", []):
@@ -3858,11 +3802,14 @@ def redact_extracted_json(data: dict) -> dict:
     
     redacted_data = json.loads(json_str)
 
-    # 3. Recursively remove any image elements whose bboxes overlap with the signature area [450, 715, 570, 820]
+    # 3. Recursively remove any image elements in signature region or with signature role, and remove signatory text
     def clean_signature_images(obj):
         if isinstance(obj, dict):
-            # Check if this element is an image in the signature region
+            # Check if this element is an image in the signature region or has signature role
             if obj.get("type") == "image":
+                role = obj.get("role", "")
+                if role in ("signature", "signature_block", "footer_signature", "stamp"):
+                    return None
                 bbox = obj.get("bbox")
                 if bbox is not None:
                     if isinstance(bbox, (list, tuple)) and len(bbox) >= 4:
@@ -3875,8 +3822,15 @@ def redact_extracted_json(data: dict) -> dict:
                     else:
                         x0, y0, x1, y1 = 0.0, 0.0, 0.0, 0.0
                     
-                    if 440 <= x0 <= 580 and 700 <= y0 <= 830:
+                    if y0 >= 550 or y1 >= 640 or (y1 - y0 < 130 and y0 >= 450):
                         return None
+            
+            # Remove signatory text elements / doctor name blocks
+            if obj.get("role") in ("signature", "signature_block", "footer_signature"):
+                return None
+            txt = str(obj.get("text", "")).strip()
+            if txt and is_signatory_text(txt):
+                return None
             
             new_dict = {}
             for k, v in obj.items():
@@ -3998,9 +3952,38 @@ def convert_pdf_to_word(pdf_path, docx_path, theme_config: dict = None):
         with fitz.open(pdf_p) as doc:
             for page_num in range(len(doc)):
                 page = doc[page_num]
-                # Redact the signature bbox [450, 715, 570, 820]
-                rect = fitz.Rect(450, 715, 570, 820)
-                page.add_redact_annot(rect, fill=(1, 1, 1))  # White solid fill
+                H = page.rect.height
+                W = page.rect.width
+
+                # A) Redact all images in footer / signature area
+                try:
+                    img_infos = page.get_image_info(xrefs=True)
+                    for info in img_infos:
+                        ibox = info.get("bbox")
+                        if ibox:
+                            ix0, iy0, ix1, iy1 = ibox
+                            if iy0 > (0.50 * H) or iy0 >= 550 or iy1 >= 640:
+                                r = fitz.Rect(max(0, ix0 - 10), max(0, iy0 - 10), min(W, ix1 + 10), min(H, iy1 + 10))
+                                page.add_redact_annot(r, fill=(1, 1, 1))
+                except Exception:
+                    pass
+
+                # B) Redact all text blocks matching signatory keywords or doctor names
+                try:
+                    blocks = page.get_text("blocks")
+                    for b in blocks:
+                        bx0, by0, bx1, by1, btext = b[0], b[1], b[2], b[3], b[4]
+                        if is_signatory_text(btext) or (by0 > (0.55 * H) and any(w in btext.lower() for w in ['mehul', 'akash', 'mistry', 'scientist', 'ph. d', 'ph.d', 'authorized', 'signatory', 'reviewed by', 'dr.'])):
+                            r = fitz.Rect(max(0, bx0 - 5), max(0, by0 - 5), min(W, bx1 + 5), min(H, by1 + 5))
+                            page.add_redact_annot(r, fill=(1, 1, 1))
+                except Exception:
+                    pass
+
+                # C) Explicitly redact left signature area (Dr. Mehul Mistry / etc.), right signature area (Dr. Akash Shah / etc.), and bottom signature band
+                page.add_redact_annot(fitz.Rect(10, 640, 280, 840), fill=(1, 1, 1))
+                page.add_redact_annot(fitz.Rect(320, 640, W - 10, 840), fill=(1, 1, 1))
+                page.add_redact_annot(fitz.Rect(0, 680, W, 840), fill=(1, 1, 1))
+
                 page.apply_redactions()
             # Use a NamedTemporaryFile to avoid name clashes and ensure the file is closed before conversion
             with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp_fp:
