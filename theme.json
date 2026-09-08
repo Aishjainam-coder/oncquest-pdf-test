@@ -2,7 +2,7 @@
   "page": {
     "width": 595.28,
     "height": 841.89,
-    "margin_top": 36.0,
+    "margin_top": 86.4,
     "margin_bottom": 36.0,
     "margin_left": 36.0,
     "margin_right": 36.0,
@@ -61,16 +61,16 @@
       "max_width_pt": 450.0
     },
     "header": {
-      "height_pt": 60.0,
-      "show_logo": true,
-      "logo_image_path": "assets/header_image1.png",
+      "height_pt": 86.4,
+      "show_logo": false,
+      "logo_image_path": "",
       "logo_width_pt": 540.0,
       "logo_alignment": "center"
     },
     "footer": {
       "height_pt": 40.0,
-      "show_signatures": true,
-      "signature_image_path": "assets/dr_vinay_signature.png",
+      "show_signatures": false,
+      "signature_image_path": "",
       "signature_width_pt": 90.0,
       "signature_alignment": "right"
     },
@@ -89,7 +89,7 @@
     "width_pt": 595.28,
     "height_pt": 841.89,
     "margins_pt": {
-      "top": 36.0,
+      "top": 86.4,
       "bottom": 36.0,
       "left": 36.0,
       "right": 36.0
@@ -140,10 +140,12 @@
   },
   "headers_and_footers": {
     "header": {
-      "show_logo": true,
-      "logo_image_path": "assets/header_image1.png",
+      "show_logo": false,
+      "logo_image_path": "",
       "logo_width_pt": 540.0,
       "logo_alignment": "center",
+      "height_in": 1.2,
+      "height_pt": 86.4,
       "show_metadata_table": true,
       "metadata_table": {
         "border_color": "#cbd5e1",
@@ -160,8 +162,8 @@
       }
     },
     "footer": {
-      "show_signatures": true,
-      "signature_image_path": "assets/dr_vinay_signature.png",
+      "show_signatures": false,
+      "signature_image_path": "",
       "signature_width_pt": 90.0,
       "signature_alignment": "right",
       "show_page_number": true,

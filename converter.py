@@ -536,67 +536,17 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
         "<div class='pdf-container'>",
     ]
 
-    import base64
-    from pathlib import Path
-    _script_dir = Path(__file__).parent.resolve()
-
-    header_image2_b64 = ""
-    for cand in [_script_dir / "assets" / "header_image2.jpeg", Path("assets/header_image2.jpeg")]:
-        if cand.exists():
-            try:
-                with open(cand, "rb") as img_f:
-                    header_image2_b64 = base64.b64encode(img_f.read()).decode("utf-8")
-                break
-            except Exception:
-                pass
-
-    sig_image_b64 = ""
-    for cand in [_script_dir / "assets" / "dr_vinay_signature.png", Path("assets/dr_vinay_signature.png")]:
-        if cand.exists():
-            try:
-                with open(cand, "rb") as sig_f:
-                    sig_image_b64 = base64.b64encode(sig_f.read()).decode("utf-8")
-                break
-            except Exception:
-                pass
-
-    shivali_sig_image_b64 = ""
-    for cand in [
-        _script_dir / "assets" / "shivali_sign.jpeg",
-        _script_dir / "assets" / "shivali_sign.jpg",
-        _script_dir / "assets" / "dr_shivali_signature.jpg",
-        _script_dir / "assets" / "dr_shivali_signature.png",
-        Path("assets/shivali_sign.jpeg"),
-        Path("assets/shivali_sign.jpg"),
-        Path("assets/dr_shivali_signature.jpg"),
-    ]:
-        if cand.exists():
-            try:
-                with open(cand, "rb") as s_f:
-                    shivali_sig_image_b64 = base64.b64encode(s_f.read()).decode("utf-8")
-                break
-            except Exception:
-                pass
-
     for page_num in range(len(doc)):
         page = doc[page_num]
         page_left_val, page_width_val = _get_page_bounds(page, fallback_left, fallback_width)
         page_left_str = f"{page_left_val:.1f}pt"
         page_width_str = f"{page_width_val:.1f}pt"
 
-        hy_cutoff = page_bounds[page_num]["header_y_cutoff"]
+        # Reserve at least 1.2 inches (86.4 pt) blank space at the top of every page for header
+        hy_cutoff = max(86.4, page_bounds[page_num]["header_y_cutoff"])
         fy_cutoff = page_bounds[page_num]["footer_y_cutoff"]
 
         html_parts.append(f"<div class='pdf-page' id='page-{page_num+1}'>")
-        if header_image2_b64:
-            img_tag = (
-                f'<img src="data:image/jpeg;base64,{header_image2_b64}" '
-                f'style="position:absolute !important; left:440.0pt !important; '
-                f'top:15.0pt !important; width:130.0pt !important; '
-                f'height:auto !important; z-index:100 !important; '
-                f'object-fit:contain !important;" />'
-            )
-            html_parts.append(img_tag)
         page_html = page.get_text("html")
 
         # 1. Extract PyMuPDF table headers & grid coordinates in body region ONLY
@@ -912,23 +862,6 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
         html_parts.extend(table_header_html_divs)
         html_parts.extend(table_grid_html_divs)
         html_parts.extend(exact_image_html_divs)
-        # Add signatures if available
-        if sig_image_b64:
-            # Right side signature (Dr. Vinay)
-            sig_tag = (
-                f"<div class='page-signature-block' style='position:absolute !important; right:40.0pt !important; top:725.0pt !important; width:90.0pt !important; height:88.0pt !important; z-index:100 !important; text-align:left !important; pointer-events:none !important;'>"
-                f"  <img src='data:image/png;base64,{sig_image_b64}' style='position:relative !important; width:90.0pt !important; height:88.0pt !important; display:block !important; transform:none !important; opacity:1 !important; visibility:visible !important;' />"
-                f"</div>"
-            )
-            html_parts.append(sig_tag)
-        # Left side signature (Dr. Shivali)
-        if shivali_sig_image_b64:
-            shivali_sig_tag = (
-                f"<div class='page-signature-block' style='position:absolute !important; left:40.0pt !important; top:725.0pt !important; width:90.0pt !important; height:88.0pt !important; z-index:101 !important; text-align:left !important; pointer-events:none !important;'>"
-                f"  <img src='data:image/jpeg;base64,{shivali_sig_image_b64}' style='position:relative !important; width:90.0pt !important; height:88.0pt !important; display:block !important; transform:none !important; opacity:1 !important; visibility:visible !important;' />"
-                f"</div>"
-            )
-            html_parts.append(shivali_sig_tag)
         html_parts.append("</div>")
 
     html_parts.append("</div></body></html>")
@@ -1207,23 +1140,6 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
 
     body_html_content = "\n".join(elements_html)
 
-    header_image2_path = Path("assets/header_image2.jpeg")
-    header_image2_html = ""
-    if header_image2_path.exists():
-        try:
-            import base64
-            with open(header_image2_path, "rb") as img_f:
-                header_image2_b64 = base64.b64encode(img_f.read()).decode("utf-8")
-            header_image2_html = (
-                f'<img src="data:image/jpeg;base64,{header_image2_b64}" '
-                f'style="position:absolute !important; left:440.0pt !important; '
-                f'top:15.0pt !important; width:130.0pt !important; '
-                f'height:auto !important; z-index:100 !important; '
-                f'object-fit:contain !important;" />'
-            )
-        except Exception:
-            pass
-
     oncquest_logo_html = ""
     patient_table_html = ""
 
@@ -1241,7 +1157,7 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
 * {{ box-sizing: border-box; }}
 body {{ margin: 0; padding: 0; background-color: #f1f5f9; font-family: {font_family}; color: {text_color}; }}
 .pdf-container {{ display: flex; flex-direction: column; align-items: center; padding: 20px 0; }}
-.report-content {{ background: {bg_page}; width: 595.6pt; min-height: 842.0pt; padding: 35.5pt; margin-bottom: 20px; position: relative; box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-family: {font_family}; word-break: normal; overflow-wrap: break-word; }}
+.report-content {{ background: {bg_page}; width: 595.6pt; min-height: 842.0pt; padding: 86.4pt 35.5pt 35.5pt 35.5pt; margin-bottom: 20px; position: relative; box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-family: {font_family}; word-break: normal; overflow-wrap: break-word; }}
 .badge-danger {{ background: #dc2626; color: #ffffff; padding: 2px 6px; border-radius: 3px; font-weight: bold; display: inline-block; font-size: 8.5pt; }}
 .badge-warning {{ background: #d97706; color: #ffffff; padding: 2px 6px; border-radius: 3px; font-weight: bold; display: inline-block; font-size: 8.5pt; }}
 .badge-success {{ background: #16a34a; color: #ffffff; padding: 2px 6px; border-radius: 3px; font-weight: bold; display: inline-block; font-size: 8.5pt; }}
@@ -1250,7 +1166,6 @@ body {{ margin: 0; padding: 0; background-color: #f1f5f9; font-family: {font_fam
 <body>
 <div class="pdf-container">
   <div class="report-content">
-    {header_image2_html}
     {body_html_content}
   </div>
 </div>
@@ -1385,7 +1300,7 @@ def get_merged_theme_config(theme_config: dict = None) -> dict:
             "paper_size": "A4",
             "width_pt": 595.6,
             "height_pt": 842.0,
-            "margins_pt": {"top": 36.0, "bottom": 36.0, "left": 36.0, "right": 36.0},
+            "margins_pt": {"top": 86.4, "bottom": 36.0, "left": 36.0, "right": 36.0},
             "header_distance_pt": 18.0,
             "footer_distance_pt": 18.0
         },
@@ -1426,10 +1341,12 @@ def get_merged_theme_config(theme_config: dict = None) -> dict:
         },
         "headers_and_footers": {
             "header": {
-                "show_logo": True,
-                "logo_image_path": "assets/header_image1.png",
+                "show_logo": False,
+                "logo_image_path": "",
                 "logo_width_pt": 540.0,
                 "logo_alignment": "center",
+                "height_in": 1.2,
+                "height_pt": 86.4,
                 "show_metadata_table": True,
                 "metadata_table": {
                     "border_color": "#cbd5e1",
@@ -1441,8 +1358,8 @@ def get_merged_theme_config(theme_config: dict = None) -> dict:
                 }
             },
             "footer": {
-                "show_signatures": True,
-                "signature_image_path": "assets/footer_signatures.png",
+                "show_signatures": False,
+                "signature_image_path": "",
                 "signature_width_pt": 540.0,
                 "signature_alignment": "center",
                 "show_page_number": True,
@@ -1824,7 +1741,7 @@ def _load_oncquest_theme(theme_config=None):
         "banner_space_after": float(word_spacing.get("banner_space_after_pt", 6.0)),
         
         # Margins & Dimensions configurations
-        "margin_top": float(doc_page.get("margins_pt", {}).get("top", 36.0)),
+        "margin_top": float(doc_page.get("margins_pt", {}).get("top", 86.4)),
         "margin_bottom": float(doc_page.get("margins_pt", {}).get("bottom", 36.0)),
         "margin_left": float(doc_page.get("margins_pt", {}).get("left", 36.0)),
         "margin_right": float(doc_page.get("margins_pt", {}).get("right", 36.0)),
@@ -1889,7 +1806,7 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
             tj["styles"]["footer"]["show_signatures"] = show_sig
 
     page_cfg = tj.get("page", {})
-    default_margin_top = float(page_cfg.get("margin_top", 36.0))
+    default_margin_top = float(page_cfg.get("margin_top", 86.4))
     default_margin_bottom = float(page_cfg.get("margin_bottom", 36.0))
     default_margin_left = float(page_cfg.get("margin_left", 36.0))
     default_margin_right = float(page_cfg.get("margin_right", 36.0))
@@ -2035,12 +1952,11 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
             
             header_style = theme_styles.get("header", {})
             footer_style = theme_styles.get("footer", {})
-            header_height = float(header_style.get("height_pt", 60.0))
+            header_height = float(header_style.get("height_pt", 86.4))
             footer_height = float(footer_style.get("height_pt", 40.0))
 
-            # Use only theme-configured header/footer height for margins,
-            # never the PDF's raw content bbox height (which could be huge).
-            hy_cutoff = max(default_margin_top, header_height)
+            # Use theme-configured header/footer height for margins (at least 1.2 inches = 86.4 pt)
+            hy_cutoff = max(86.4, default_margin_top, header_height)
             fy_cutoff = min(height - default_margin_bottom, height - footer_height)
 
             if p_idx == 0:
@@ -2055,39 +1971,38 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
             section.left_margin = Pt(default_margin_left)
             section.right_margin = Pt(default_margin_right)
 
-            # Setup customized header with static OncQuest logo
+            # Setup header space (clear paragraphs so 1.2" space remains clean)
             header = section.header
             if header is not None:
                 header.is_linked_to_previous = False
                 for p in header.paragraphs:
                     p.text = ""
-                header_para = header.paragraphs[0] if header.paragraphs else header.add_paragraph()
-                header_para.alignment = WD_ALIGN_PARAGRAPH.CENTER
-                
-                logo_path = header_style.get("logo_image_path", "assets/header_image1.png")
-                logo_w = float(header_style.get("logo_width_pt", 540.0))
-                if Path(logo_path).exists():
-                    try:
-                        run = header_para.add_run()
-                        run.add_picture(logo_path, width=Inches(logo_w / 72.0))
-                    except Exception as e:
-                        print(f"Error adding header logo: {e}")
+                if header_style.get("show_logo", False):
+                    logo_path = header_style.get("logo_image_path", "")
+                    logo_w = float(header_style.get("logo_width_pt", 540.0))
+                    if logo_path and Path(logo_path).exists():
+                        try:
+                            header_para = header.paragraphs[0] if header.paragraphs else header.add_paragraph()
+                            header_para.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                            run = header_para.add_run()
+                            run.add_picture(logo_path, width=Inches(logo_w / 72.0))
+                        except Exception as e:
+                            print(f"Error adding header logo: {e}")
 
-            # Setup customized footer with Dr. Vinay Bhatia signature
+            # Setup footer (clear paragraphs, signatures disabled)
             footer = section.footer
             if footer is not None:
                 footer.is_linked_to_previous = False
                 for p in footer.paragraphs:
                     p.text = ""
                 
-                if footer_style.get("show_signatures", True):
-                    footer_para = footer.paragraphs[0] if footer.paragraphs else footer.add_paragraph()
-                    footer_para.alignment = WD_ALIGN_PARAGRAPH.RIGHT
-                    
-                    sig_path = footer_style.get("signature_image_path", "assets/dr_vinay_signature.png")
+                if footer_style.get("show_signatures", False):
+                    sig_path = footer_style.get("signature_image_path", "")
                     sig_w = float(footer_style.get("signature_width_pt", 90.0))
-                    if Path(sig_path).exists():
+                    if sig_path and Path(sig_path).exists():
                         try:
+                            footer_para = footer.paragraphs[0] if footer.paragraphs else footer.add_paragraph()
+                            footer_para.alignment = WD_ALIGN_PARAGRAPH.RIGHT
                             run = footer_para.add_run()
                             run.add_picture(sig_path, width=Inches(sig_w / 72.0))
                         except Exception as e:
@@ -2883,35 +2798,23 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
             return []
 
         doc = Document()
-        header_logo_path = Path("assets/header_image1.png")
-        sig_image_path = Path("assets/dr_vinay_signature.png")
         for section in doc.sections:
-            section.top_margin = Pt(T["margin_top"])
+            section.top_margin = Pt(max(86.4, T.get("margin_top", 86.4)))
             section.bottom_margin = Pt(T["margin_bottom"])
             section.left_margin = Pt(T["margin_left"])
             section.right_margin = Pt(T["margin_right"])
             section.page_width = Pt(T["paper_width"])
             section.page_height = Pt(T["paper_height"])
 
-            if header_logo_path.exists():
-                header = section.header
-                if header is not None:
-                    for p in header.paragraphs:
-                        p.text = ""
-                    p = header.paragraphs[0]
-                    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-                    run = p.add_run()
-                    run.add_picture(str(header_logo_path.absolute()), width=Inches(6.0))
+            header = section.header
+            if header is not None:
+                for p in header.paragraphs:
+                    p.text = ""
 
-            if sig_image_path.exists():
-                footer = section.footer
-                if footer is not None:
-                    for p in footer.paragraphs:
-                        p.text = ""
-                    p = footer.paragraphs[0]
-                    p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
-                    run = p.add_run()
-                    run.add_picture(str(sig_image_path.absolute()), width=Inches(1.25))
+            footer = section.footer
+            if footer is not None:
+                for p in footer.paragraphs:
+                    p.text = ""
 
         normal = doc.styles["Normal"]
         normal.font.name = T["font"]; normal.font.size = Pt(T["body_pt"])
@@ -3259,16 +3162,6 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
         "<div class='pdf-container'>"
     ]
 
-    import base64
-    header_image2_b64 = ""
-    header_image2_path = Path("assets/header_image2.jpeg")
-    if header_image2_path.exists():
-        try:
-            with open(header_image2_path, "rb") as img_f:
-                header_image2_b64 = base64.b64encode(img_f.read()).decode("utf-8")
-        except Exception:
-            pass
-
     for p in pages:
         p_num = p.get("page_number", 1)
         pw = 595.0
@@ -3277,19 +3170,10 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
         if isinstance(dimensions, dict):
             pw = dimensions.get("width", 595.0)
             ph = dimensions.get("height", 842.0)
-        hy_cutoff = p.get("header_y_cutoff", 0.0)
+        hy_cutoff = max(86.4, p.get("header_y_cutoff", 0.0))
         fy_cutoff = p.get("footer_y_cutoff", ph)
 
         html_parts.append(f"<div class='pdf-page' id='page-{p_num}' style='width:{pw:.1f}pt; min-height:{ph:.1f}pt;'>")
-        if header_image2_b64:
-            img_tag = (
-                f'<img src="data:image/jpeg;base64,{header_image2_b64}" '
-                f'style="position:absolute !important; left:440.0pt !important; '
-                f'top:15.0pt !important; width:130.0pt !important; '
-                f'height:auto !important; z-index:100 !important; '
-                f'object-fit:contain !important;" />'
-            )
-            html_parts.append(img_tag)
 
         # 1. Render Vector Drawings in body region ONLY
         for d in p.get("drawings", []):
@@ -4031,116 +3915,20 @@ def convert_pdf_to_word(pdf_path, docx_path, theme_config: dict = None):
     if temp_pdf_path != pdf_p and os.path.exists(temp_pdf_path):
         _safe_remove(temp_pdf_path)
 
-    # 3. Post-process the generated Word document (signature injection and SNG replacement)
+    # 3. Post-process the generated Word document (header space and SNG replacement)
     try:
         doc_word = docx.Document(docx_p)
-        
-        # Inject signatures: Shivali (left) and Vinay (right) in a borderless 2-column footer table
-        # Use script-directory-relative paths so assets are always found regardless of CWD
-        _script_dir = Path(__file__).parent.resolve()
-        sig_vinay_path = _script_dir / "assets" / "dr_vinay_signature.png"
-        if not sig_vinay_path.exists():
-            sig_vinay_path = Path("assets/dr_vinay_signature.png")
 
-        sig_shivali_path = None
-        for cand in [
-            _script_dir / "assets" / "shivali_sign.jpeg",
-            _script_dir / "assets" / "shivali_sign.jpg",
-            _script_dir / "assets" / "dr_shivali_signature.jpg",
-            _script_dir / "assets" / "dr_shivali_signature.png",
-            Path("assets/shivali_sign.jpeg"),
-            Path("assets/shivali_sign.jpg"),
-            Path("assets/dr_shivali_signature.jpg"),
-        ]:
-            if cand.exists():
-                sig_shivali_path = cand
-                break
-
-        has_vinay = sig_vinay_path.exists()
-        has_shivali = sig_shivali_path is not None and sig_shivali_path.exists()
-        print(f"   [DBG] Vinay sig exists={has_vinay}  path={sig_vinay_path}")
-        print(f"   [DBG] Shivali sig exists={has_shivali}  path={sig_shivali_path}")
-
-        if has_vinay or has_shivali:
-            from docx.oxml.ns import qn as _qn
-            from docx.oxml import OxmlElement as _OxmlElement
-
-            def _remove_table_borders(tbl):
-                """Remove all visible borders from a docx table."""
-                tbl_pr = tbl._tbl.find(_qn("w:tblPr"))
-                if tbl_pr is None:
-                    tbl_pr = _OxmlElement("w:tblPr")
-                    tbl._tbl.insert(0, tbl_pr)
-                tbl_borders = _OxmlElement("w:tblBorders")
-                for side in ("top", "left", "bottom", "right", "insideH", "insideV"):
-                    border_el = _OxmlElement(f"w:{side}")
-                    border_el.set(_qn("w:val"), "none")
-                    border_el.set(_qn("w:sz"), "0")
-                    border_el.set(_qn("w:space"), "0")
-                    border_el.set(_qn("w:color"), "auto")
-                    tbl_borders.append(border_el)
-                tbl_pr.append(tbl_borders)
-
-            def _inject_sig_footer(footer):
-                """Clear footer and inject a 2-col table with Shivali (left) and Vinay (right)."""
-                # Remove all existing content from footer body
-                footer_body = footer._element
-                for child in list(footer_body):
-                    footer_body.remove(child)
-
-                # Re-add the required <w:sectPr> end marker that must stay at the end
-                # Actually, for footers we just use add_table on a fresh footer object
-                # Re-build footer by adding table via python-docx paragraph first
-                # (footer needs at least one paragraph after a table for valid OOXML)
-                tbl = footer.add_table(rows=1, cols=2, width=Inches(6.27))
-                _remove_table_borders(tbl)
-
-                # Left cell: Dr. Shivali signature
-                left_cell = tbl.cell(0, 0)
-                left_para = left_cell.paragraphs[0]
-                left_para.alignment = WD_ALIGN_PARAGRAPH.LEFT
-                if has_shivali:
-                    left_run = left_para.add_run()
-                    left_run.add_picture(str(sig_shivali_path), width=Inches(1.25))
-
-                # Right cell: Dr. Vinay signature
-                right_cell = tbl.cell(0, 1)
-                right_para = right_cell.paragraphs[0]
-                right_para.alignment = WD_ALIGN_PARAGRAPH.RIGHT
-                if has_vinay:
-                    right_run = right_para.add_run()
-                    right_run.add_picture(str(sig_vinay_path), width=Inches(1.25))
-
-                # Add a trailing empty paragraph (required by OOXML spec after a table in footer)
-                footer.add_paragraph()
-
-            # Strategy: write to section 0 default footer, then unlink ALL sections
-            # so every page inherits our custom footer
-            try:
-                _inject_sig_footer(doc_word.sections[0].footer)
-                print(f"   [+] Signatures written to section 0 footer.")
-            except Exception as _e0:
-                print(f"   [!] Failed to write section 0 footer: {_e0}")
-
-            # Unlink all sections from previous so they all use the section-0 footer content
-            for s_idx, section in enumerate(doc_word.sections):
-                try:
-                    # Access the sectPr element and remove titlePg / linked-to-previous flags
-                    sect_pr = section._sectPr
-                    # Remove w:footerReference elements that set "linked to previous"
-                    # by ensuring each section has its own footer reference pointing to our footer
-                    # The simplest approach: just unset the link by directly injecting into each
-                    footer = section.footer
-                    if footer.is_linked_to_previous:
-                        # Force unlink: add a footer reference for this section
-                        # python-docx does this automatically when we access & modify the footer
-                        # We do this by touching the footer element
-                        _ = footer._element  # access to ensure it's loaded
-                        print(f"   [DBG] Section {s_idx} footer is still linked.")
-                except Exception as _es:
-                    print(f"   [!] Section {s_idx} unlink error: {_es}")
-
-            print(f"   [+] Injected Shivali (left) and Vinay (right) signatures into Word footer.")
+        # Ensure at least 1.2 inch (86.4 pt) top margin for header space on every section
+        for s in doc_word.sections:
+            if s.top_margin < Inches(1.2):
+                s.top_margin = Inches(1.2)
+            if s.header:
+                for p in s.header.paragraphs:
+                    p.text = ""
+            if s.footer:
+                for p in s.footer.paragraphs:
+                    p.text = ""
 
         # Perform "SNG Gen's Lab pvt ltd" -> "Laboratory" substitution
         replace_sng_in_docx_obj(doc_word)

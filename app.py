@@ -302,7 +302,7 @@ if uploaded_file is not None:
                         # Step 4: Convert compiled PDF to Word (.docx)
                         if compiled_pdf_tmp.exists():
                             st.session_state.compiled_pdf_bytes = compiled_pdf_tmp.read_bytes()
-                            st.write("📝 **Step 4/4:** Reconstructing Word (.docx) with exact layout & signatures...")
+                            st.write("📝 **Step 4/4:** Reconstructing Word (.docx) with exact layout & styling...")
                             print(f"[*] [Step 4/4] Converting compiled PDF to Word (.docx) via pdf2docx...", flush=True)
                             docx_tmp = Path(tmp_dir) / "output.docx"
                             convert_pdf_via_pdf2docx(str(compiled_pdf_tmp), str(docx_tmp))
