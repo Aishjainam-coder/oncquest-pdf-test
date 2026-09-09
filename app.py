@@ -15,7 +15,6 @@ import tempfile
 import base64
 import json
 import io
-import time
 from pathlib import Path
 import streamlit as st
 import pymupdf as fitz  # PyMuPDF
@@ -27,8 +26,7 @@ from converter import (
     convert_html_to_docx,
     convert_pdf_to_word,
     convert_pdf_via_pdf2docx,
-    render_html_to_pdf_and_preview,
-    audit_and_heal_docx
+    render_html_to_pdf_and_preview
 )
 from extractor import extract_report_data
 
@@ -176,10 +174,6 @@ if "file_name" not in st.session_state:
     st.session_state.file_name = ""
 if "file_bytes" not in st.session_state:
     st.session_state.file_bytes = None
-if "audit_report" not in st.session_state:
-    st.session_state.audit_report = None
-if "conversion_time" not in st.session_state:
-    st.session_state.conversion_time = None
 
 # 1. Upload Section
 uploaded_file = st.file_uploader("📤 Choose ANY PDF report or extracted JSON file", type=["pdf", "json"], key="file_uploader")
@@ -197,8 +191,6 @@ if uploaded_file is not None:
         st.session_state.compiled_pdf_bytes = None
         st.session_state.docx_bytes = None
         st.session_state.extracted_data = None
-        st.session_state.audit_report = None
-        st.session_state.conversion_time = None
 
     # File Info Summary
     file_size_kb = len(file_bytes) / 1024.0
@@ -217,15 +209,7 @@ if uploaded_file is not None:
     with col_i2:
         st.info(f"⚖️ **Size:** `{file_size_kb:.1f} KB`")
     with col_i3:
-        conversion_time = st.session_state.get("conversion_time")
-        if conversion_time is not None:
-            if conversion_time < 60:
-                time_str = f"{conversion_time:.2f}s"
-            else:
-                time_str = f"{int(conversion_time // 60)}m {conversion_time % 60:.1f}s"
-            st.info(f"📑 **Type/Pages:** `{file_ext.upper()} | {page_count}`\n\n⏱️ **Time Taken:** `{time_str}`")
-        else:
-            st.info(f"📑 **Type/Pages:** `{file_ext.upper()} | {page_count}`")
+        st.info(f"📑 **Type/Pages:** `{file_ext.upper()} | {page_count}`")
 
     st.markdown("---")
 
@@ -234,7 +218,6 @@ if uploaded_file is not None:
 
     # Processing Workflow
     if btn_process or st.session_state.docx_bytes is None:
-        start_conversion_time = time.time()
         print(f"\n{'='*60}", flush=True)
         print(f"[*] Starting Document Processing: {uploaded_file.name}", flush=True)
         print(f"{'='*60}", flush=True)
@@ -269,10 +252,8 @@ if uploaded_file is not None:
                             print(f"[*] Converting compiled PDF to Word (.docx) via pdf2docx...", flush=True)
                             convert_pdf_via_pdf2docx(str(compiled_pdf_tmp), str(docx_tmp))
                             if docx_tmp.exists():
-                                audit_report = audit_and_heal_docx(str(docx_tmp), extracted_json=extracted_data, theme_config=theme_config)
-                                st.session_state.audit_report = audit_report
                                 st.session_state.docx_bytes = docx_tmp.read_bytes()
-                                print(f"[+] DOCX generation and audit successful ({len(st.session_state.docx_bytes)} bytes)!", flush=True)
+                                print(f"[+] DOCX generation successful ({len(st.session_state.docx_bytes)} bytes)!", flush=True)
                             else:
                                 st.session_state.docx_bytes = None
                         else:
@@ -318,35 +299,25 @@ if uploaded_file is not None:
                         compiled_pdf_tmp = Path(tmp_dir) / "compiled.pdf"
                         render_html_to_pdf_and_preview(html_tmp, compiled_pdf_tmp)
 
-                        # Step 4: Convert compiled PDF to Word (.docx) & Audit
+                        # Step 4: Convert compiled PDF to Word (.docx)
                         if compiled_pdf_tmp.exists():
                             st.session_state.compiled_pdf_bytes = compiled_pdf_tmp.read_bytes()
-                            st.write("📝 **Step 4/4:** Reconstructing Word (.docx) & verifying zero data loss...")
+                            st.write("📝 **Step 4/4:** Reconstructing Word (.docx) with exact layout & styling...")
                             print(f"[*] [Step 4/4] Converting compiled PDF to Word (.docx) via pdf2docx...", flush=True)
                             docx_tmp = Path(tmp_dir) / "output.docx"
                             convert_pdf_via_pdf2docx(str(compiled_pdf_tmp), str(docx_tmp))
                             if docx_tmp.exists():
-                                audit_report = audit_and_heal_docx(str(docx_tmp), original_pdf_path=str(pdf_input_path), extracted_json=extracted_data, theme_config=theme_config)
-                                st.session_state.audit_report = audit_report
                                 st.session_state.docx_bytes = docx_tmp.read_bytes()
-                                print(f"[+] DOCX generation and audit successful ({len(st.session_state.docx_bytes)} bytes)!", flush=True)
+                                print(f"[+] DOCX generation successful ({len(st.session_state.docx_bytes)} bytes)!", flush=True)
                             else:
                                 st.session_state.docx_bytes = None
                         else:
                             st.session_state.compiled_pdf_bytes = None
                             st.session_state.docx_bytes = None
 
-                elapsed_time = time.time() - start_conversion_time
-                st.session_state.conversion_time = elapsed_time
-                if elapsed_time < 60:
-                    time_display_str = f"{elapsed_time:.2f}s"
-                else:
-                    time_display_str = f"{int(elapsed_time // 60)}m {elapsed_time % 60:.1f}s"
-
-                status_box.update(label=f"✅ Conversion & Completeness Audit Completed Successfully in {time_display_str}!", state="complete", expanded=False)
-                print(f"[+] Pipeline Completed Successfully for {uploaded_file.name} in {time_display_str}!\n", flush=True)
-                st.success(f"✅ Converted to Word (.docx) with 100% Content & Tables Verified! (⚡ Completed in {time_display_str})")
-                st.rerun()
+                status_box.update(label="✅ Conversion Completed Successfully!", state="complete", expanded=False)
+                print(f"[+] Pipeline Completed Successfully for {uploaded_file.name}!\n", flush=True)
+                st.success("✅ Converted Extracted Content + theme.json → Word (.docx) successfully!")
 
             except Exception as e:
                 status_box.update(label=f"❌ Error during conversion: {e}", state="error", expanded=True)
@@ -362,9 +333,8 @@ if uploaded_file is not None:
         # Featured Direct Word Download Card
         col_w1, col_w2 = st.columns([2, 1])
         with col_w1:
-            time_badge = f" *(⚡ Generated in {st.session_state.conversion_time:.2f}s)*" if st.session_state.get("conversion_time") else ""
-            st.markdown(f"### 📝 Direct Word Document (.docx) Ready! {time_badge}")
-            st.markdown("Your document was styled using **`theme.json`** rules (colors, fonts, borders, tables) and converted directly into a Microsoft Word file with verified zero data loss.")
+            st.markdown("### 📝 Direct Word Document (.docx) Ready!")
+            st.markdown("Your document was styled using **`theme.json`** rules (colors, fonts, borders, tables) and converted directly into a Microsoft Word file.")
         with col_w2:
             st.download_button(
                 label="📥 Download Word Document (.docx)",

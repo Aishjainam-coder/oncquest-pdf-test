@@ -280,158 +280,6 @@ def replace_sng_in_docx_obj(doc):
             if footer is not None:
                 replace_in_xml_elements(footer._element)
 
-    # Also automatically highlight all test names in yellow
-    highlight_test_name_in_docx_obj(doc)
-
-
-def highlight_test_name_in_docx_obj(doc):
-    """
-    Highlights all test name occurrences in yellow across paragraphs, table cells,
-    headers, and footers in the Word document object.
-    Ensures text color is dark/black for contrast readability on yellow highlight.
-    """
-    import copy
-    import re
-    from docx.oxml import OxmlElement
-    from docx.oxml.ns import qn
-
-    def set_run_highlight_yellow(r_elem):
-        rPr = r_elem.find(qn('w:rPr'))
-        if rPr is None:
-            rPr = OxmlElement('w:rPr')
-            r_elem.insert(0, rPr)
-        
-        # Highlight yellow
-        hl = rPr.find(qn('w:highlight'))
-        if hl is None:
-            hl = OxmlElement('w:highlight')
-            rPr.append(hl)
-        hl.set(qn('w:val'), 'yellow')
-        
-        # Ensure text is black/dark so it is readable on yellow
-        color = rPr.find(qn('w:color'))
-        if color is not None:
-            c_val = (color.get(qn('w:val')) or "").lower()
-            if c_val in ('ffffff', 'fff', 'yellow', 'auto'):
-                color.set(qn('w:val'), '000000')
-
-    def highlight_test_name_in_p(p_elem, seen_eor=False):
-        runs = [r for r in p_elem if r.tag.endswith('}r')]
-        if not runs:
-            return 0
-
-        full_p_text = ""
-        run_spans = []
-        for r in runs:
-            t_elems = [t for t in r if t.tag.endswith('}t')]
-            r_text = "".join(t.text for t in t_elems if t.text)
-            start = len(full_p_text)
-            end = start + len(r_text)
-            full_p_text += r_text
-            run_spans.append((r, t_elems, r_text, start, end))
-
-        if not full_p_text.strip():
-            return 0
-
-        cleaned = full_p_text.strip()
-        count = 0
-
-        # 1. Standalone test name paragraph (e.g. Title Banner)
-        if not seen_eor and (cleaned.upper() == "TEST NAME" or is_test_name_text(cleaned)):
-            for r in runs:
-                set_run_highlight_yellow(r)
-                count += 1
-            return count
-
-        # 2. Target specific 'TEST NAME' or 'Test Name: <val>' within paragraph
-        target_spans = []
-        for m in re.finditer(r'\bTEST\s+NAME\b', full_p_text, re.IGNORECASE):
-            target_spans.append((m.start(), m.end(), m.group(0)))
-
-        m_meta = re.search(r'(?:Test\s+Name\s*:\s*)([^\r\n\t]+)', full_p_text, re.IGNORECASE)
-        if m_meta:
-            target_spans.append((m_meta.start(1), m_meta.end(1), m_meta.group(1)))
-
-        if not target_spans:
-            return 0
-
-        for m_start, m_end, m_text in target_spans:
-            for r, t_elems, r_text, r_start, r_end in run_spans:
-                if r_end <= m_start or r_start >= m_end:
-                    continue
-                
-                if r_start >= m_start and r_end <= m_end:
-                    set_run_highlight_yellow(r)
-                    count += 1
-                else:
-                    if m_text in r_text and len(t_elems) > 0:
-                        idx = r_text.find(m_text)
-                        before_text = r_text[:idx]
-                        after_text = r_text[idx + len(m_text):]
-                        
-                        t_elems[0].text = before_text
-                        
-                        rPr_orig = r.find(qn('w:rPr'))
-                        new_r = OxmlElement('w:r')
-                        if rPr_orig is not None:
-                            new_rPr = copy.deepcopy(rPr_orig)
-                        else:
-                            new_rPr = OxmlElement('w:rPr')
-                        new_r.append(new_rPr)
-                        
-                        hl = new_rPr.find(qn('w:highlight'))
-                        if hl is None:
-                            hl = OxmlElement('w:highlight')
-                            new_rPr.append(hl)
-                        hl.set(qn('w:val'), 'yellow')
-                        
-                        color = new_rPr.find(qn('w:color'))
-                        if color is not None:
-                            c_val = (color.get(qn('w:val')) or "").lower()
-                            if c_val in ('ffffff', 'fff', 'yellow', 'auto'):
-                                color.set(qn('w:val'), '000000')
-
-                        new_t = OxmlElement('w:t')
-                        new_t.text = m_text
-                        new_t.set(qn('xml:space'), 'preserve')
-                        new_r.append(new_t)
-                        
-                        p_elem.insert(p_elem.index(r) + 1, new_r)
-                        
-                        if after_text:
-                            after_r = OxmlElement('w:r')
-                            if rPr_orig is not None:
-                                after_r.append(copy.deepcopy(rPr_orig))
-                            after_t = OxmlElement('w:t')
-                            after_t.text = after_text
-                            after_t.set(qn('xml:space'), 'preserve')
-                            after_r.append(after_t)
-                            p_elem.insert(p_elem.index(new_r) + 1, after_r)
-                            
-                        count += 1
-
-        return count
-
-    seen_eor = False
-    for p in doc.element.iter():
-        if p.tag.endswith('}p'):
-            p_text = "".join(t.text for t in p.iter() if t.tag.endswith('}t') and t.text)
-            if is_end_of_report_text(p_text):
-                seen_eor = True
-            highlight_test_name_in_p(p, seen_eor=seen_eor)
-
-    for section in doc.sections:
-        for h in (section.header, section.first_page_header, section.even_page_header):
-            if h is not None:
-                for p in h._element.iter():
-                    if p.tag.endswith('}p'):
-                        highlight_test_name_in_p(p, seen_eor=False)
-        for f in (section.footer, section.first_page_footer, section.even_page_footer):
-            if f is not None:
-                for p in f._element.iter():
-                    if p.tag.endswith('}p'):
-                        highlight_test_name_in_p(p, seen_eor=False)
-
 
 from extractor import extract_report_data, detect_dynamic_header_footer_bounds
 
@@ -694,9 +542,9 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
         page_left_str = f"{page_left_val:.1f}pt"
         page_width_str = f"{page_width_val:.1f}pt"
 
-        # Reserve at least 1.2 cm (34.0 pt) blank space at the top of every page for header
-        hy_cutoff = max(34.0, page_bounds[page_num]["header_y_cutoff"])
-        fy_cutoff = min(842.0 - 14.2, page_bounds[page_num]["footer_y_cutoff"])
+        # Reserve at least 1.2 inches (86.4 pt) blank space at the top of every page for header
+        hy_cutoff = max(86.4, page_bounds[page_num]["header_y_cutoff"])
+        fy_cutoff = page_bounds[page_num]["footer_y_cutoff"]
 
         html_parts.append(f"<div class='pdf-page' id='page-{page_num+1}'>")
         page_html = page.get_text("html")
@@ -1309,7 +1157,7 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
 * {{ box-sizing: border-box; }}
 body {{ margin: 0; padding: 0; background-color: #f1f5f9; font-family: {font_family}; color: {text_color}; }}
 .pdf-container {{ display: flex; flex-direction: column; align-items: center; padding: 20px 0; }}
-.report-content {{ background: {bg_page}; width: 595.6pt; min-height: 842.0pt; padding: 34.0pt 35.5pt 14.2pt 35.5pt; margin-bottom: 20px; position: relative; box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-family: {font_family}; word-break: normal; overflow-wrap: break-word; }}
+.report-content {{ background: {bg_page}; width: 595.6pt; min-height: 842.0pt; padding: 86.4pt 35.5pt 35.5pt 35.5pt; margin-bottom: 20px; position: relative; box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-family: {font_family}; word-break: normal; overflow-wrap: break-word; }}
 .badge-danger {{ background: #dc2626; color: #ffffff; padding: 2px 6px; border-radius: 3px; font-weight: bold; display: inline-block; font-size: 8.5pt; }}
 .badge-warning {{ background: #d97706; color: #ffffff; padding: 2px 6px; border-radius: 3px; font-weight: bold; display: inline-block; font-size: 8.5pt; }}
 .badge-success {{ background: #16a34a; color: #ffffff; padding: 2px 6px; border-radius: 3px; font-weight: bold; display: inline-block; font-size: 8.5pt; }}
@@ -1452,9 +1300,9 @@ def get_merged_theme_config(theme_config: dict = None) -> dict:
             "paper_size": "A4",
             "width_pt": 595.6,
             "height_pt": 842.0,
-            "margins_pt": {"top": 34.0, "bottom": 14.2, "left": 36.0, "right": 36.0},
-            "header_distance_pt": 34.0,
-            "footer_distance_pt": 14.2
+            "margins_pt": {"top": 86.4, "bottom": 36.0, "left": 36.0, "right": 36.0},
+            "header_distance_pt": 18.0,
+            "footer_distance_pt": 18.0
         },
         "typography": {
             "primary_family": "Cambria, 'Caladea', 'Times New Roman', 'Tinos', 'Liberation Serif', serif",
@@ -1497,9 +1345,8 @@ def get_merged_theme_config(theme_config: dict = None) -> dict:
                 "logo_image_path": "",
                 "logo_width_pt": 540.0,
                 "logo_alignment": "center",
-                "height_cm": 1.2,
-                "height_in": 0.472,
-                "height_pt": 34.0,
+                "height_in": 1.2,
+                "height_pt": 86.4,
                 "show_metadata_table": True,
                 "metadata_table": {
                     "border_color": "#cbd5e1",
@@ -1894,12 +1741,10 @@ def _load_oncquest_theme(theme_config=None):
         "banner_space_after": float(word_spacing.get("banner_space_after_pt", 6.0)),
         
         # Margins & Dimensions configurations
-        "margin_top": float(doc_page.get("margins_pt", {}).get("top", 34.0)),
-        "margin_bottom": float(doc_page.get("margins_pt", {}).get("bottom", 14.2)),
+        "margin_top": float(doc_page.get("margins_pt", {}).get("top", 86.4)),
+        "margin_bottom": float(doc_page.get("margins_pt", {}).get("bottom", 36.0)),
         "margin_left": float(doc_page.get("margins_pt", {}).get("left", 36.0)),
         "margin_right": float(doc_page.get("margins_pt", {}).get("right", 36.0)),
-        "header_distance": float(doc_page.get("header_distance_pt", 34.0)),
-        "footer_distance": float(doc_page.get("footer_distance_pt", 14.2)),
         "paper_width": float(doc_page.get("width_pt", 595.6)),
         "paper_height": float(doc_page.get("height_pt", 842.0)),
         
@@ -1961,8 +1806,8 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
             tj["styles"]["footer"]["show_signatures"] = show_sig
 
     page_cfg = tj.get("page", {})
-    default_margin_top = float(page_cfg.get("margin_top", 34.0))
-    default_margin_bottom = float(page_cfg.get("margin_bottom", 14.2))
+    default_margin_top = float(page_cfg.get("margin_top", 86.4))
+    default_margin_bottom = float(page_cfg.get("margin_bottom", 36.0))
     default_margin_left = float(page_cfg.get("margin_left", 36.0))
     default_margin_right = float(page_cfg.get("margin_right", 36.0))
     default_width = float(page_cfg.get("width", 595.6))
@@ -2107,11 +1952,11 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
             
             header_style = theme_styles.get("header", {})
             footer_style = theme_styles.get("footer", {})
-            header_height = float(header_style.get("height_pt", 34.0))
-            footer_height = float(footer_style.get("height_pt", 14.2))
+            header_height = float(header_style.get("height_pt", 86.4))
+            footer_height = float(footer_style.get("height_pt", 40.0))
 
-            # Use theme-configured header/footer height for margins (at least 1.2 cm = 34.0 pt, 0.5 cm = 14.2 pt)
-            hy_cutoff = max(34.0, default_margin_top, header_height)
+            # Use theme-configured header/footer height for margins (at least 1.2 inches = 86.4 pt)
+            hy_cutoff = max(86.4, default_margin_top, header_height)
             fy_cutoff = min(height - default_margin_bottom, height - footer_height)
 
             if p_idx == 0:
@@ -2125,10 +1970,8 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
             section.bottom_margin = Pt(height - fy_cutoff)
             section.left_margin = Pt(default_margin_left)
             section.right_margin = Pt(default_margin_right)
-            section.header_distance = Pt(34.0)
-            section.footer_distance = Pt(14.2)
 
-            # Setup header space (clear paragraphs so 1.2 cm space remains clean)
+            # Setup header space (clear paragraphs so 1.2" space remains clean)
             header = section.header
             if header is not None:
                 header.is_linked_to_previous = False
@@ -2602,21 +2445,10 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
             out_p = Path(output_path)
             out_p.parent.mkdir(parents=True, exist_ok=True)
             doc.save(str(out_p))
-            audit_and_heal_docx(str(out_p), extracted_json=data, theme_config=theme_config)
             return None
         buf = io.BytesIO()
         doc.save(buf)
-        import tempfile
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".docx") as tmp_docx:
-            tmp_docx_p = tmp_docx.name
-        try:
-            with open(tmp_docx_p, "wb") as f_tmp:
-                f_tmp.write(buf.getvalue())
-            audit_and_heal_docx(tmp_docx_p, extracted_json=data, theme_config=theme_config)
-            with open(tmp_docx_p, "rb") as f_tmp:
-                return f_tmp.read()
-        finally:
-            _safe_remove(tmp_docx_p)
+        return buf.getvalue()
         
     else:
         T = _load_oncquest_theme(theme_config)
@@ -2967,12 +2799,10 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
 
         doc = Document()
         for section in doc.sections:
-            section.top_margin = Pt(max(34.0, T.get("margin_top", 34.0)))
-            section.bottom_margin = Pt(T.get("margin_bottom", 14.2))
+            section.top_margin = Pt(max(86.4, T.get("margin_top", 86.4)))
+            section.bottom_margin = Pt(T["margin_bottom"])
             section.left_margin = Pt(T["margin_left"])
             section.right_margin = Pt(T["margin_right"])
-            section.header_distance = Pt(T.get("header_distance", 34.0))
-            section.footer_distance = Pt(T.get("footer_distance", 14.2))
             section.page_width = Pt(T["paper_width"])
             section.page_height = Pt(T["paper_height"])
 
@@ -3340,8 +3170,8 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
         if isinstance(dimensions, dict):
             pw = dimensions.get("width", 595.0)
             ph = dimensions.get("height", 842.0)
-        hy_cutoff = max(34.0, p.get("header_y_cutoff", 0.0))
-        fy_cutoff = min(ph - 14.2, p.get("footer_y_cutoff", ph))
+        hy_cutoff = max(86.4, p.get("header_y_cutoff", 0.0))
+        fy_cutoff = p.get("footer_y_cutoff", ph)
 
         html_parts.append(f"<div class='pdf-page' id='page-{p_num}' style='width:{pw:.1f}pt; min-height:{ph:.1f}pt;'>")
 
@@ -3852,11 +3682,9 @@ def _safe_remove(path, retries=5, delay=0.3):
             return
 
 
-def convert_pdf_via_pdf2docx(pdf_path, docx_path, original_pdf_path=None, theme_config: dict = None):
+def convert_pdf_via_pdf2docx(pdf_path, docx_path):
     """
-    Directly converts a PDF file to Word (.docx) using pdf2docx Converter,
-    and runs the comprehensive audit and healing engine to ensure zero data loss,
-    AutoFit, dynamic row heights, and high-contrast color formatting.
+    Directly converts a PDF file to Word (.docx) using pdf2docx Converter.
     """
     if PDF2DocxConverter is None:
         print("[!] pdf2docx library is not installed. Install via: pip install pdf2docx")
@@ -3875,10 +3703,7 @@ def convert_pdf_via_pdf2docx(pdf_path, docx_path, original_pdf_path=None, theme_
                     cv_obj.close()
                 except Exception:
                     pass
-            
-            # Run audit and healing engine on the converted Word document
-            audit_and_heal_docx(docx_p, original_pdf_path=original_pdf_path or pdf_p, theme_config=theme_config)
-            print(f"   [+] pdf2docx conversion and audit completed successfully: {docx_p}")
+            print(f"   [+] pdf2docx conversion completed successfully: {docx_p}")
             return True
         except Exception as e:
             print(f"   [!] pdf2docx conversion error for {pdf_path}: {e}")
@@ -4094,13 +3919,10 @@ def convert_pdf_to_word(pdf_path, docx_path, theme_config: dict = None):
     try:
         doc_word = docx.Document(docx_p)
 
-        # Ensure 1.2 cm top margin & Header from Top, and 0.5 cm bottom margin & Footer from Bottom on every section
-        from docx.shared import Cm
+        # Ensure at least 1.2 inch (86.4 pt) top margin for header space on every section
         for s in doc_word.sections:
-            s.top_margin = Cm(1.2)
-            s.bottom_margin = Cm(0.5)
-            s.header_distance = Cm(1.2)
-            s.footer_distance = Cm(0.5)
+            if s.top_margin < Inches(1.2):
+                s.top_margin = Inches(1.2)
             if s.header:
                 for p in s.header.paragraphs:
                     p.text = ""
@@ -4115,12 +3937,6 @@ def convert_pdf_to_word(pdf_path, docx_path, theme_config: dict = None):
         print(f"   [+] Post-processed Word document successfully.")
     except Exception as e_word:
         print(f"   [!] Failed to post-process Word document: {e_word}")
-
-    # 4. Run automated audit and healing on the output Word document
-    try:
-        audit_and_heal_docx(docx_p, original_pdf_path=pdf_p, theme_config=theme_config)
-    except Exception as e_audit:
-        print(f"   [!] Audit notice for {docx_p}: {e_audit}")
 
     return True
 
@@ -4294,519 +4110,104 @@ def render_html_to_pdf_and_preview(html_path, output_pdf_path, preview_img_path=
     return output_pdf_path
 
 
-def audit_and_heal_docx(docx_path: str, original_pdf_path: str = None, extracted_json = None, theme_config: dict = None) -> dict:
+def validate_docx_conversion(extracted_data, docx_path):
     """
-    Universal Word (.docx) Audit, Quality, and Auto-Healing Engine.
-    Ensures zero data loss, AutoFit table widths, dynamic row heights (no text cutoff),
-    high-contrast font colors (no invisible text), merged cell preservation, and cantSplit settings.
-    Runs on every PDF and JSON conversion to Word.
+    Validates that the generated DOCX matches the extracted JSON data elements and tables.
+    Generates a clear validation report.
     """
     from docx import Document
-    from docx.oxml import OxmlElement
-    from docx.oxml.ns import qn
-    from docx.shared import Pt, RGBColor
-    from docx.enum.text import WD_ALIGN_PARAGRAPH
-    from docx.enum.table import WD_TABLE_ALIGNMENT
+    import json
+    
+    if isinstance(extracted_data, (str, Path)):
+        with open(extracted_data, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    else:
+        data = extracted_data
 
-    docx_p = Path(docx_path).absolute()
-    if not docx_p.exists():
-        return {"status": "ERROR", "message": f"Docx file not found: {docx_p}"}
+    # Parse output DOCX
+    doc = Document(docx_path)
+    
+    # Extract structural elements from JSON
+    extracted_elements = []
+    extracted_tables_count = 0
+    extracted_headings_count = 0
+    extracted_paras_count = 0
+    extracted_kvs_count = 0
 
-    doc = Document(str(docx_p))
+    pages = data.get("document", {}).get("pages", [])
+    for page in pages:
+        for el in page.get("elements", []):
+            el_type = el.get("type")
+            if el_type in ("heading", "subheading", "paragraph", "table", "key_value", "image"):
+                extracted_elements.append(el)
+                if el_type == "table":
+                    extracted_tables_count += 1
+                elif el_type in ("heading", "subheading"):
+                    extracted_headings_count += 1
+                elif el_type == "paragraph":
+                    extracted_paras_count += 1
+                elif el_type == "key_value":
+                    extracted_kvs_count += 1
 
-    metrics = {
-        "status": "PASS",
-        "fixed_heights_healed": 0,
-        "cant_split_applied": 0,
-        "tbl_headers_applied": 0,
-        "autofit_fixed": 0,
-        "color_contrast_fixes": 0,
-        "hidden_text_fixed": 0,
-        "recovered_tables_count": 0,
-        "recovered_text_count": 0,
-        "docx_tables_count": len(doc.tables),
-        "pdf_tables_count": 0,
-        "table_coverage_pct": 100.0,
-        "pdf_words_count": 0,
-        "docx_words_count": 0,
-        "word_coverage_pct": 100.0,
-        "checks": [],
-        "details": []
-    }
+    # Extract elements from DOCX
+    rendered_tables_count = len(doc.tables)
+    
+    # We want to check if the paragraphs contain the text of headings and paragraphs in JSON
+    missing_elements = []
+    
+    # Simple validation comparison
+    # Check tables (key_values are also rendered as tables)
+    tables_match = (rendered_tables_count >= (extracted_tables_count + extracted_kvs_count))
+    
+    # Check paragraphs text
+    docx_text = "\n".join([p.text for p in doc.paragraphs]).lower()
+    for table in doc.tables:
+        for row in table.rows:
+            for cell in row.cells:
+                docx_text += "\n" + cell.text.lower()
+                
+    # Also add headers/footers text
+    for section in doc.sections:
+        for header in [section.header, section.first_page_header, section.even_page_header]:
+            if header:
+                for p in header.paragraphs:
+                    docx_text += "\n" + p.text.lower()
+        for footer in [section.footer, section.first_page_footer, section.even_page_footer]:
+            if footer:
+                for p in footer.paragraphs:
+                    docx_text += "\n" + p.text.lower()
 
-    # Helper for luminance calculation (0.0 to 1.0)
-    def _calc_luminance(hex_str):
-        if not hex_str or not isinstance(hex_str, str):
-            return 1.0
-        h = hex_str.strip().lstrip("#")
-        if len(h) != 6:
-            return 1.0
-        try:
-            r = int(h[0:2], 16) / 255.0
-            g = int(h[2:4], 16) / 255.0
-            b = int(h[4:6], 16) / 255.0
-            return 0.299 * r + 0.587 * g + 0.114 * b
-        except Exception:
-            return 1.0
-
-    # 1. Determine printable page width per section
-    section_printable_widths = []
-    for s in doc.sections:
-        pw = s.page_width.pt
-        lm = s.left_margin.pt
-        rm = s.right_margin.pt
-        pw_printable = max(100.0, pw - lm - rm)
-        section_printable_widths.append(pw_printable)
-
-    default_printable_w = section_printable_widths[0] if section_printable_widths else 542.5
-
-    # 2. Audit and Heal All Tables
-    for t_idx, t in enumerate(doc.tables):
-        t.autofit = True
-        tblPr = t._tbl.tblPr
-        if tblPr is not None:
-            tblLayout = tblPr.find(qn("w:tblLayout"))
-            if tblLayout is not None:
-                tblLayout.set(qn("w:type"), "autofit")
-            else:
-                layout_elem = OxmlElement("w:tblLayout")
-                layout_elem.set(qn("w:type"), "autofit")
-                tblPr.append(layout_elem)
-
-        num_rows = len(t.rows)
-        for r_idx, r in enumerate(t.rows):
-            trPr = r._tr.get_or_add_trPr()
-
-            # A. Fix fixed row height (remove 'exact' or change to 'atLeast' to prevent clipping)
-            trHeight = trPr.find(qn("w:trHeight"))
-            if trHeight is not None:
-                h_rule = trHeight.get(qn("w:hRule"))
-                if h_rule == "exact":
-                    trHeight.set(qn("w:hRule"), "atLeast")
-                    metrics["fixed_heights_healed"] += 1
-
-            # B. Apply cantSplit to all rows to prevent awkward mid-row breaks
-            if trPr.find(qn("w:cantSplit")) is None:
-                cs = OxmlElement("w:cantSplit")
-                cs.set(qn("w:val"), "true")
-                trPr.append(cs)
-                metrics["cant_split_applied"] += 1
-
-            # C. Apply tblHeader to header row of multi-row tables
-            if r_idx == 0 and num_rows > 1:
-                if trPr.find(qn("w:tblHeader")) is None:
-                    th = OxmlElement("w:tblHeader")
-                    th.set(qn("w:val"), "true")
-                    trPr.append(th)
-                    metrics["tbl_headers_applied"] += 1
-
-            # D. Table Width AutoFit Check: Ensure row cell widths fit within printable width
-            row_cells = r.cells
-            if row_cells:
-                total_w = sum(c.width.pt for c in row_cells)
-                if total_w > (default_printable_w + 5.0):
-                    # Proportional scaling
-                    scale = default_printable_w / total_w
-                    for c in row_cells:
-                        new_w = c.width.pt * scale
-                        c.width = Pt(new_w)
-                        tcPr = c._tc.get_or_add_tcPr()
-                        tcW = tcPr.find(qn("w:tcW"))
-                        if tcW is not None:
-                            tcW.set(qn("w:w"), str(int(new_w * 20)))
-                            tcW.set(qn("w:type"), "dxa")
-                    metrics["autofit_fixed"] += 1
-
-            # E. Check and Heal Text / Background Color Contrast in Cells (No Invisible Text)
-            for c in row_cells:
-                tcPr = c._tc.get_or_add_tcPr()
-                shd = tcPr.find(qn("w:shd"))
-                cell_bg = shd.get(qn("w:fill")) if shd is not None else None
-                cell_bg_clean = (cell_bg or "").lstrip("#").lower()
-                if not cell_bg_clean or cell_bg_clean in ("auto", "none", "ffffff", "fff"):
-                    cell_is_dark = False
-                else:
-                    cell_is_dark = _calc_luminance(cell_bg_clean) < 0.45
-
-                for p in c.paragraphs:
-                    for run in p.runs:
-                        rPr = run._r.get_or_add_rPr()
-                        color = rPr.find(qn("w:color"))
-                        if color is not None:
-                            col_val = (color.get(qn("w:val")) or "").lstrip("#").lower()
-                            if col_val in ("ffffff", "fff") and not cell_is_dark:
-                                # White text on white/light background -> Invisible! Fix to black
-                                color.set(qn("w:val"), "000000")
-                                metrics["color_contrast_fixes"] += 1
-                                metrics["hidden_text_fixed"] += 1
-                            elif col_val in ("000000", "000") and cell_is_dark:
-                                # Black text on dark background -> Fix to white
-                                color.set(qn("w:val"), "FFFFFF")
-                                metrics["color_contrast_fixes"] += 1
-
-    # 3. Check and Heal Paragraphs outside tables
-    for p in doc.paragraphs:
-        pPr = p._p.get_or_add_pPr()
-        shd = pPr.find(qn("w:shd"))
-        p_bg = shd.get(qn("w:fill")) if shd is not None else None
-        p_bg_clean = (p_bg or "").lstrip("#").lower()
-        if not p_bg_clean or p_bg_clean in ("auto", "none", "ffffff", "fff"):
-            p_is_dark = False
-        else:
-            p_is_dark = _calc_luminance(p_bg_clean) < 0.45
-
-        for run in p.runs:
-            rPr = run._r.get_or_add_rPr()
-            color = rPr.find(qn("w:color"))
-            if color is not None:
-                col_val = (color.get(qn("w:val")) or "").lstrip("#").lower()
-                if col_val in ("ffffff", "fff") and not p_is_dark:
-                    color.set(qn("w:val"), "000000")
-                    metrics["color_contrast_fixes"] += 1
-                    metrics["hidden_text_fixed"] += 1
-                elif col_val in ("000000", "000") and p_is_dark:
-                    color.set(qn("w:val"), "FFFFFF")
-                    metrics["color_contrast_fixes"] += 1
-
-    # 4. Global text replacements for laboratory branding
-    replace_sng_in_docx_obj(doc)
-
-    # 5. Full Comparison against Original PDF / JSON
-    docx_text_all = ""
-    for p in doc.paragraphs:
-        docx_text_all += p.text + " "
-    for t in doc.tables:
-        for r in t.rows:
-            for c in r.cells:
-                docx_text_all += c.text + " "
-    for s in doc.sections:
-        for h in (s.header, s.first_page_header, s.even_page_header):
-            if h:
-                for p in h.paragraphs:
-                    docx_text_all += p.text + " "
-        for f in (s.footer, s.first_page_footer, s.even_page_footer):
-            if f:
-                for p in f.paragraphs:
-                    docx_text_all += p.text + " "
-
-    docx_words = [w.lower() for w in re.findall(r"\b\w+\b", docx_text_all) if len(w) > 1]
-    docx_words_set = set(docx_words)
-    docx_text_norm = re.sub(r"\s+", " ", docx_text_all).lower()
-
-    metrics["docx_words_count"] = len(docx_words)
-
-    if original_pdf_path and Path(original_pdf_path).exists() and fitz is not None:
-        try:
-            with fitz.open(str(original_pdf_path)) as doc_pdf:
-                pdf_tables = []
-                pdf_text_all = ""
-                for page_idx, page in enumerate(doc_pdf):
-                    pdf_text_all += page.get_text() + " "
-                    tabs = page.find_tables()
-                    for t in tabs.tables:
-                        extracted_table = t.extract()
-                        if extracted_table:
-                            clean_rows = [[replace_sng_gen_lab(str(c or "").strip()) for c in row] for row in extracted_table]
-                            clean_rows = [r for r in clean_rows if any(len(c) > 0 for c in r)]
-                            if len(clean_rows) >= 1 and len(clean_rows[0]) >= 1:
-                                pdf_tables.append({
-                                    "page": page_idx + 1,
-                                    "bbox": t.bbox,
-                                    "rows": clean_rows
-                                })
-
-                pdf_words = [w.lower() for w in re.findall(r"\b\w+\b", pdf_text_all) if len(w) > 1]
-                metrics["pdf_tables_count"] = len(pdf_tables)
-                metrics["pdf_words_count"] = len(pdf_words)
-
-                if pdf_words:
-                    matched_words = sum(1 for w in pdf_words if w in docx_words_set)
-                    metrics["word_coverage_pct"] = round((matched_words / len(pdf_words)) * 100.0, 1)
-
-                # Check if any PDF table is completely missing from Word
-                missing_tables = []
-                for pt in pdf_tables:
-                    cells_found = 0
-                    total_cells = 0
-                    for row in pt["rows"]:
-                        for cell_text in row:
-                            c_clean = re.sub(r"\s+", " ", cell_text.lower()).strip()
-                            if len(c_clean) > 2:
-                                total_cells += 1
-                                if c_clean in docx_text_norm:
-                                    cells_found += 1
-                    if total_cells >= 3 and (cells_found / total_cells) < 0.4:
-                        missing_tables.append(pt)
-
-                # Recover and reconstruct any missing tables
-                if missing_tables:
-                    for mt in missing_tables:
-                        rows = mt["rows"]
-                        if not rows:
-                            continue
-                        ncols = max(len(r) for r in rows)
-                        p_title = doc.add_paragraph()
-                        p_title.paragraph_format.space_before = Pt(8)
-                        p_title.paragraph_format.space_after = Pt(2)
-                        p_title.paragraph_format.keep_with_next = True
-                        r_t = p_title.add_run(f"Data Table (Source Page {mt['page']})")
-                        r_t.bold = True
-                        r_t.font.name = "Cambria"
-                        r_t.font.size = Pt(11)
-                        r_t.font.color.rgb = RGBColor(31, 73, 125)
-
-                        tbl_new = doc.add_table(rows=0, cols=ncols)
-                        tbl_new.alignment = WD_TABLE_ALIGNMENT.CENTER
-                        tbl_new.autofit = True
-                        tblPr = tbl_new._tbl.tblPr
-                        layout = OxmlElement("w:tblLayout")
-                        layout.set(qn("w:type"), "autofit")
-                        tblPr.append(layout)
-
-                        # Borders
-                        b = OxmlElement("w:tblBorders")
-                        for edge in ("top", "left", "bottom", "right", "insideH", "insideV"):
-                            e = OxmlElement(f"w:{edge}")
-                            e.set(qn("w:val"), "single")
-                            e.set(qn("w:sz"), "4")
-                            e.set(qn("w:space"), "0")
-                            e.set(qn("w:color"), "000000")
-                            b.append(e)
-                        tblPr.append(b)
-
-                        for r_idx, r_data in enumerate(rows):
-                            row_new = tbl_new.add_row()
-                            cs = OxmlElement("w:cantSplit")
-                            cs.set(qn("w:val"), "true")
-                            row_new._tr.get_or_add_trPr().append(cs)
-                            is_header = (r_idx == 0)
-                            if is_header:
-                                th = OxmlElement("w:tblHeader")
-                                th.set(qn("w:val"), "true")
-                                row_new._tr.get_or_add_trPr().append(th)
-
-                            for c_idx in range(ncols):
-                                val = str(r_data[c_idx] or "").strip() if c_idx < len(r_data) else ""
-                                cell = row_new.cells[c_idx]
-                                tcPr = cell._tc.get_or_add_tcPr()
-                                if is_header:
-                                    shd = OxmlElement("w:shd")
-                                    shd.set(qn("w:val"), "clear")
-                                    shd.set(qn("w:color"), "auto")
-                                    shd.set(qn("w:fill"), "1F497D")
-                                    tcPr.append(shd)
-                                p = cell.paragraphs[0]
-                                p.alignment = WD_ALIGN_PARAGRAPH.CENTER if (is_header or c_idx > 0) else WD_ALIGN_PARAGRAPH.LEFT
-                                r = p.add_run(val)
-                                r.font.name = "Cambria"
-                                r.font.size = Pt(9.5)
-                                if is_header:
-                                    r.bold = True
-                                    r.font.color.rgb = RGBColor(255, 255, 255)
-                                else:
-                                    r.font.color.rgb = RGBColor(0, 0, 0)
-                        metrics["recovered_tables_count"] += 1
-
-                metrics["table_coverage_pct"] = 100.0 if not missing_tables else round(((len(pdf_tables) - len(missing_tables)) / len(pdf_tables)) * 100.0, 1)
-        except Exception as e_pdf:
-            # Extract source tables for cell-level synchronization
-            if extracted_json is not None:
-                try:
-                    if isinstance(extracted_json, (str, Path)):
-                        with open(extracted_json, "r", encoding="utf-8") as f_j:
-                            json_data = json.load(f_j)
-                    else:
-                        json_data = extracted_json
-
-                    source_tables = []
-                    for p in json_data.get("document", {}).get("pages", []):
-                        for el in p.get("elements", []):
-                            if el.get("type") == "table" and el.get("columns") and el.get("rows"):
-                                cols = [c.get("name", "") if isinstance(c, dict) else str(c) for c in el.get("columns", [])]
-                                rows = el.get("rows", [])
-                                source_tables.append({"cols": cols, "rows": rows, "raw_el": el})
-
-                    # Synchronize and restore any missing cell values in Word tables
-                    for t in doc.tables:
-                        if len(t.rows) < 2:
-                            continue
-                        word_headers = [c.text.strip() for c in t.rows[0].cells]
-                        matched_st = None
-                        for st in source_tables:
-                            s_cols = st["cols"]
-                            if len(s_cols) == len(word_headers):
-                                match_score = sum(1 for w, s in zip(word_headers, s_cols) if w.lower() == s.lower() or (len(w) > 3 and w.lower() in s.lower()) or (len(s) > 3 and s.lower() in w.lower()))
-                                if match_score >= (len(word_headers) * 0.5):
-                                    matched_st = st
-                                    break
-                        if matched_st:
-                            s_rows = matched_st["rows"]
-                            s_cols = matched_st["cols"]
-                            for r_idx, word_row in enumerate(t.rows[1:]):
-                                if r_idx < len(s_rows):
-                                    s_row = s_rows[r_idx]
-                                    for c_idx, word_cell in enumerate(word_row.cells):
-                                        col_name = s_cols[c_idx] if c_idx < len(s_cols) else ""
-                                        if isinstance(s_row, dict):
-                                            expected_val = s_row.get(col_name, "")
-                                        elif isinstance(s_row, list) and c_idx < len(s_row):
-                                            expected_val = s_row[c_idx]
-                                        else:
-                                            expected_val = ""
-                                        curr_val = word_cell.text.strip()
-                                        exp_clean = str(expected_val).strip()
-                                        if exp_clean and (not curr_val or (len(curr_val) < len(exp_clean) * 0.7 and exp_clean not in curr_val)):
-                                            word_cell.text = exp_clean
-                                            for p in word_cell.paragraphs:
-                                                for run in p.runs:
-                                                    run.font.name = "Cambria"
-                                                    run.font.size = Pt(9.5)
-                                            metrics["recovered_text_count"] += 1
-                except Exception as e_sync:
-                    metrics["details"].append(f"Cell sync notice: {e_sync}")
-
-    elif extracted_json is not None:
-        try:
-            if isinstance(extracted_json, (str, Path)):
-                with open(extracted_json, "r", encoding="utf-8") as f_j:
-                    json_data = json.load(f_j)
-            else:
-                json_data = extracted_json
-
-            source_tables = []
-            json_tables = []
-            pages = json_data.get("document", {}).get("pages", [])
-            for p in pages:
-                for el in p.get("elements", []):
-                    if el.get("type") in ("table", "key_value"):
-                        json_tables.append(el)
-                    if el.get("type") == "table" and el.get("columns") and el.get("rows"):
-                        cols = [c.get("name", "") if isinstance(c, dict) else str(c) for c in el.get("columns", [])]
-                        rows = el.get("rows", [])
-                        source_tables.append({"cols": cols, "rows": rows, "raw_el": el})
-
-            metrics["pdf_tables_count"] = len(json_tables)
-            metrics["table_coverage_pct"] = 100.0
-
-            # Synchronize and restore any missing cell values in Word tables
-            for t in doc.tables:
-                if len(t.rows) < 2:
-                    continue
-                word_headers = [c.text.strip() for c in t.rows[0].cells]
-                matched_st = None
-                for st in source_tables:
-                    s_cols = st["cols"]
-                    if len(s_cols) == len(word_headers):
-                        match_score = sum(1 for w, s in zip(word_headers, s_cols) if w.lower() == s.lower() or (len(w) > 3 and w.lower() in s.lower()) or (len(s) > 3 and s.lower() in w.lower()))
-                        if match_score >= (len(word_headers) * 0.5):
-                            matched_st = st
-                            break
-                if matched_st:
-                    s_rows = matched_st["rows"]
-                    s_cols = matched_st["cols"]
-                    for r_idx, word_row in enumerate(t.rows[1:]):
-                        if r_idx < len(s_rows):
-                            s_row = s_rows[r_idx]
-                            for c_idx, word_cell in enumerate(word_row.cells):
-                                col_name = s_cols[c_idx] if c_idx < len(s_cols) else ""
-                                if isinstance(s_row, dict):
-                                    expected_val = s_row.get(col_name, "")
-                                elif isinstance(s_row, list) and c_idx < len(s_row):
-                                    expected_val = s_row[c_idx]
-                                else:
-                                    expected_val = ""
-                                curr_val = word_cell.text.strip()
-                                exp_clean = str(expected_val).strip()
-                                if exp_clean and (not curr_val or (len(curr_val) < len(exp_clean) * 0.7 and exp_clean not in curr_val)):
-                                    word_cell.text = exp_clean
-                                    for p in word_cell.paragraphs:
-                                        for run in p.runs:
-                                            run.font.name = "Cambria"
-                                            run.font.size = Pt(9.5)
-                                    metrics["recovered_text_count"] += 1
-        except Exception as e_json:
-            metrics["details"].append(f"JSON Comparison notice: {e_json}")
-
-    # 6. Save Healed Document
-    doc.save(str(docx_p))
-    metrics["docx_tables_count"] = len(doc.tables)
-
-    # 7. Construct Audit Checklist & Verification Report
-    metrics["checks"] = [
-        {
-            "name": "Tables Completeness & Count",
-            "status": "PASS",
-            "details": f"Word tables: {metrics['docx_tables_count']} | PDF/Source tables: {metrics['pdf_tables_count'] or metrics['docx_tables_count']} (Coverage: {metrics['table_coverage_pct']}%)"
-        },
-        {
-            "name": "Text Content & Hidden Text",
-            "status": "PASS",
-            "details": f"Word count: {metrics['docx_words_count']} words | Contrast & hidden text fixes: {metrics['color_contrast_fixes']} runs"
-        },
-        {
-            "name": "Table AutoFit & Width Bounds",
-            "status": "PASS",
-            "details": f"AutoFit applied to 100% of tables ({metrics['docx_tables_count']} tables) | Overflow widths adjusted: {metrics['autofit_fixed']}"
-        },
-        {
-            "name": "Dynamic Row Heights (No Clipping)",
-            "status": "PASS",
-            "details": f"Fixed exact row heights converted to dynamic: {metrics['fixed_heights_healed']} rows healed"
-        },
-        {
-            "name": "Page-Break & Header Settings",
-            "status": "PASS",
-            "details": f"cantSplit applied to {metrics['cant_split_applied']} rows | tblHeader applied to {metrics['tbl_headers_applied']} tables"
-        },
-        {
-            "name": "Merged Cells & Grid Alignment",
-            "status": "PASS",
-            "details": "Table grid structures, column widths, and cell spans verified"
-        }
-    ]
-
-    metrics["summary_text"] = (
-        f"[PASS] Full Document Audit Passed: {metrics['docx_tables_count']} tables verified, "
-        f"{metrics['fixed_heights_healed']} fixed row heights expanded, "
-        f"{metrics['autofit_fixed']} table widths fitted to margins, "
-        f"{metrics['color_contrast_fixes']} color contrast/invisible text fixed, "
-        f"{metrics['cant_split_applied']} row page-break rules enforced."
-    )
-
-    return metrics
-
-
-def validate_docx_conversion(extracted_data, docx_path, original_pdf_path: str = None, theme_config: dict = None):
-    """
-    Validates and heals that the generated DOCX matches the extracted data elements and tables.
-    Runs the comprehensive audit and healing engine.
-    """
-    audit_report = audit_and_heal_docx(
-        docx_path=docx_path,
-        original_pdf_path=original_pdf_path,
-        extracted_json=extracted_data,
-        theme_config=theme_config
-    )
-
+    docx_text_norm = re.sub(r'\s+', ' ', docx_text)
+    for el in extracted_elements:
+        el_type = el.get("type")
+        if el_type in ("heading", "subheading", "paragraph"):
+            txt = el.get("text", "").strip().lower()
+            txt_clean = re.sub(r'\s+', ' ', txt.lstrip('•-* \uf0b7').strip())
+            if txt_clean and txt_clean not in docx_text_norm:
+                missing_elements.append(el)
+                print(f"   [!] Missing element text: {repr(el.get('text'))}")
+                    
+    # Generate report
+    total_extracted = len(extracted_elements)
+    total_missing = len(missing_elements)
+    total_rendered = total_extracted - total_missing
+    
+    validation_passed = (total_missing == 0) and tables_match
+    status = "PASS" if validation_passed else "FAIL"
+    
     report = f"""
 ==================================================
-              DOCX AUDIT & VALIDATION REPORT
+              DOCX VALIDATION REPORT
 ==================================================
-DOCX TABLES:                {audit_report.get('docx_tables_count', 0)}
-PDF/SOURCE TABLES:          {audit_report.get('pdf_tables_count', 0)}
-TABLE COVERAGE:             {audit_report.get('table_coverage_pct', 100.0)}%
-DOCX WORD COUNT:            {audit_report.get('docx_words_count', 0)}
-WORD COVERAGE:              {audit_report.get('word_coverage_pct', 100.0)}%
-FIXED ROW HEIGHTS HEALED:   {audit_report.get('fixed_heights_healed', 0)} (No text clipping)
-AUTOFIT OVERFLOW ADJUSTED:  {audit_report.get('autofit_fixed', 0)} (Fitted to margins)
-COLOR CONTRAST FIXES:       {audit_report.get('color_contrast_fixes', 0)} (No invisible text)
-ROW CANTSPLIT APPLIED:      {audit_report.get('cant_split_applied', 0)} (No broken rows)
-REPEATING TABLE HEADERS:    {audit_report.get('tbl_headers_applied', 0)}
-RECOVERED TABLES:           {audit_report.get('recovered_tables_count', 0)}
-AUDIT STATUS:               {audit_report.get('status', 'PASS')}
-==================================================
-SUMMARY: {audit_report.get('summary_text', '')}
+CONTENT ELEMENTS EXTRACTED: {total_extracted}
+CONTENT ELEMENTS RENDERED:  {total_rendered}
+TABLES EXTRACTED:           {extracted_tables_count}
+TABLES RENDERED:            {rendered_tables_count - extracted_kvs_count if rendered_tables_count >= extracted_kvs_count else 0}
+KEY_VALUES EXTRACTED:       {extracted_kvs_count}
+KEY_VALUES RENDERED:        {min(extracted_kvs_count, rendered_tables_count)}
+MISSING ELEMENTS:           {total_missing}
+CONTENT VALIDATION:         {status}
 ==================================================
 """
     print(report)
-    return audit_report
+    return report
