@@ -15,6 +15,7 @@ import tempfile
 import base64
 import json
 import io
+import time
 from pathlib import Path
 import streamlit as st
 import pymupdf as fitz  # PyMuPDF
@@ -174,6 +175,10 @@ if "file_name" not in st.session_state:
     st.session_state.file_name = ""
 if "file_bytes" not in st.session_state:
     st.session_state.file_bytes = None
+if "time_taken" not in st.session_state:
+    st.session_state.time_taken = None
+if "step_times" not in st.session_state:
+    st.session_state.step_times = {}
 
 # 1. Upload Section
 uploaded_file = st.file_uploader("📤 Choose ANY PDF report or extracted JSON file", type=["pdf", "json"], key="file_uploader")
@@ -191,6 +196,8 @@ if uploaded_file is not None:
         st.session_state.compiled_pdf_bytes = None
         st.session_state.docx_bytes = None
         st.session_state.extracted_data = None
+        st.session_state.time_taken = None
+        st.session_state.step_times = {}
 
     # File Info Summary
     file_size_kb = len(file_bytes) / 1024.0
@@ -203,13 +210,24 @@ if uploaded_file is not None:
         except Exception:
             page_count = "Unknown"
 
-    col_i1, col_i2, col_i3 = st.columns(3)
-    with col_i1:
-        st.info(f"📄 **Filename:** `{uploaded_file.name}`")
-    with col_i2:
-        st.info(f"⚖️ **Size:** `{file_size_kb:.1f} KB`")
-    with col_i3:
-        st.info(f"📑 **Type/Pages:** `{file_ext.upper()} | {page_count}`")
+    if st.session_state.time_taken is not None:
+        col_i1, col_i2, col_i3, col_i4 = st.columns(4)
+        with col_i1:
+            st.info(f"📄 **Filename:** `{uploaded_file.name}`")
+        with col_i2:
+            st.info(f"⚖️ **Size:** `{file_size_kb:.1f} KB`")
+        with col_i3:
+            st.info(f"📑 **Type/Pages:** `{file_ext.upper()} | {page_count}`")
+        with col_i4:
+            st.success(f"⏱️ **Time Taken:** `{st.session_state.time_taken:.2f}s`")
+    else:
+        col_i1, col_i2, col_i3 = st.columns(3)
+        with col_i1:
+            st.info(f"📄 **Filename:** `{uploaded_file.name}`")
+        with col_i2:
+            st.info(f"⚖️ **Size:** `{file_size_kb:.1f} KB`")
+        with col_i3:
+            st.info(f"📑 **Type/Pages:** `{file_ext.upper()} | {page_count}`")
 
     st.markdown("---")
 
@@ -218,6 +236,8 @@ if uploaded_file is not None:
 
     # Processing Workflow
     if btn_process or st.session_state.docx_bytes is None:
+        start_time = time.perf_counter()
+        step_times = {}
         print(f"\n{'='*60}", flush=True)
         print(f"[*] Starting Document Processing: {uploaded_file.name}", flush=True)
         print(f"{'='*60}", flush=True)
@@ -226,31 +246,39 @@ if uploaded_file is not None:
             try:
                 if file_ext == ".json":
                     # Direct JSON Input -> Render Word (.docx) directly using theme.json
+                    t0 = time.perf_counter()
                     st.write("🔍 **Step 1/3:** Loading and parsing JSON structure...")
                     print(f"[*] [Step 1/3] Loading JSON structure for {uploaded_file.name}...", flush=True)
                     extracted_data = json.loads(file_bytes.decode("utf-8"))
                     st.session_state.extracted_data = extracted_data
+                    step_times["JSON Parsing"] = time.perf_counter() - t0
 
+                    t1 = time.perf_counter()
                     st.write("🎨 **Step 2/3:** Generating themed HTML layout from JSON...")
                     print(f"[*] [Step 2/3] Generating themed HTML template...", flush=True)
                     html_content = generate_dynamic_template_html(extracted_data, doc_title=uploaded_file.name, theme_config=theme_config)
                     html_content = html_content.replace("SN Genelab Pvt Ltd", "Laboratory")
                     st.session_state.html_content = html_content
+                    step_times["HTML Layout"] = time.perf_counter() - t1
 
                     with tempfile.TemporaryDirectory() as tmp_dir:
                         html_tmp = Path(tmp_dir) / "temp.html"
                         html_tmp.write_text(html_content, encoding="utf-8")
                         compiled_pdf_tmp = Path(tmp_dir) / "compiled.pdf"
 
+                        t2 = time.perf_counter()
                         st.write("🌐 **Step 3/3:** Compiling HTML to PDF and converting to Word (.docx)...")
                         print(f"[*] [Step 3/3] Compiling intermediate PDF via Playwright...", flush=True)
                         render_html_to_pdf_and_preview(html_tmp, compiled_pdf_tmp)
+                        step_times["PDF Compile"] = time.perf_counter() - t2
 
                         if compiled_pdf_tmp.exists():
                             st.session_state.compiled_pdf_bytes = compiled_pdf_tmp.read_bytes()
                             docx_tmp = Path(tmp_dir) / "output.docx"
                             print(f"[*] Converting compiled PDF to Word (.docx) via pdf2docx...", flush=True)
+                            t3 = time.perf_counter()
                             convert_pdf_via_pdf2docx(str(compiled_pdf_tmp), str(docx_tmp))
+                            step_times["DOCX Conversion"] = time.perf_counter() - t3
                             if docx_tmp.exists():
                                 st.session_state.docx_bytes = docx_tmp.read_bytes()
                                 print(f"[+] DOCX generation successful ({len(st.session_state.docx_bytes)} bytes)!", flush=True)
@@ -266,6 +294,7 @@ if uploaded_file is not None:
                         pdf_input_path.write_bytes(file_bytes)
 
                         # Step 1: Extract structured JSON from PDF
+                        t0 = time.perf_counter()
                         st.write("🔍 **Step 1/4:** Extracting text, tables, and styles from PDF...")
                         print(f"[*] [Step 1/4] Extracting text, tables, and styles from PDF...", flush=True)
                         try:
@@ -282,22 +311,27 @@ if uploaded_file is not None:
                             print(f"   [+] Extracted JSON saved to: {json_file_path}", flush=True)
                         except Exception as e_ext:
                             print(f"   [!] Note on JSON extraction: {e_ext}", flush=True)
+                        step_times["Data Extraction"] = time.perf_counter() - t0
 
                         # Step 2: Render Clean End Result HTML
+                        t1 = time.perf_counter()
                         st.write("🎨 **Step 2/4:** Rendering styled HTML document layout...")
                         print(f"[*] [Step 2/4] Rendering styled HTML document layout...", flush=True)
                         with fitz.open(str(pdf_input_path)) as doc_fitz:
                             html_content = render_exact_pdf_layout_html(doc_fitz, doc_title=uploaded_file.name, theme_config=theme_config)
                         html_content = html_content.replace("SN Genelab Pvt Ltd", "Laboratory")
                         st.session_state.html_content = html_content
+                        step_times["HTML Layout"] = time.perf_counter() - t1
 
                         # Step 3: Compile HTML to PDF via Playwright
+                        t2 = time.perf_counter()
                         st.write("🌐 **Step 3/4:** Compiling HTML to PDF preview via Chromium...")
                         print(f"[*] [Step 3/4] Compiling HTML to PDF preview via Chromium...", flush=True)
                         html_tmp = Path(tmp_dir) / "temp.html"
                         html_tmp.write_text(html_content, encoding="utf-8")
                         compiled_pdf_tmp = Path(tmp_dir) / "compiled.pdf"
                         render_html_to_pdf_and_preview(html_tmp, compiled_pdf_tmp)
+                        step_times["PDF Compile"] = time.perf_counter() - t2
 
                         # Step 4: Convert compiled PDF to Word (.docx)
                         if compiled_pdf_tmp.exists():
@@ -305,7 +339,9 @@ if uploaded_file is not None:
                             st.write("📝 **Step 4/4:** Reconstructing Word (.docx) with exact layout & styling...")
                             print(f"[*] [Step 4/4] Converting compiled PDF to Word (.docx) via pdf2docx...", flush=True)
                             docx_tmp = Path(tmp_dir) / "output.docx"
+                            t3 = time.perf_counter()
                             convert_pdf_via_pdf2docx(str(compiled_pdf_tmp), str(docx_tmp))
+                            step_times["DOCX Conversion"] = time.perf_counter() - t3
                             if docx_tmp.exists():
                                 st.session_state.docx_bytes = docx_tmp.read_bytes()
                                 print(f"[+] DOCX generation successful ({len(st.session_state.docx_bytes)} bytes)!", flush=True)
@@ -315,16 +351,21 @@ if uploaded_file is not None:
                             st.session_state.compiled_pdf_bytes = None
                             st.session_state.docx_bytes = None
 
-                status_box.update(label="✅ Conversion Completed Successfully!", state="complete", expanded=False)
-                print(f"[+] Pipeline Completed Successfully for {uploaded_file.name}!\n", flush=True)
-                st.success("✅ Converted Extracted Content + theme.json → Word (.docx) successfully!")
+                elapsed_total = time.perf_counter() - start_time
+                st.session_state.time_taken = elapsed_total
+                st.session_state.step_times = step_times
+
+                status_box.update(label=f"✅ Conversion Completed Successfully in {elapsed_total:.2f}s!", state="complete", expanded=False)
+                print(f"[+] Pipeline Completed Successfully for {uploaded_file.name} in {elapsed_total:.2f}s!\n", flush=True)
+                
+                breakdown_str = " | ".join([f"{k}: **{v:.2f}s**" for k, v in step_times.items()])
+                st.success(f"⏱️ **Total Time Taken:** `{elapsed_total:.2f} seconds` ({breakdown_str})")
+                st.rerun()
 
             except Exception as e:
                 status_box.update(label=f"❌ Error during conversion: {e}", state="error", expanded=True)
                 print(f"[!] Error converting document: {e}", flush=True)
                 st.error(f"Error converting document to Word: {e}")
-
-
 
     # 2. Direct Word Download & Results Section
     if st.session_state.docx_bytes:
@@ -334,7 +375,8 @@ if uploaded_file is not None:
         col_w1, col_w2 = st.columns([2, 1])
         with col_w1:
             st.markdown("### 📝 Direct Word Document (.docx) Ready!")
-            st.markdown("Your document was styled using **`theme.json`** rules (colors, fonts, borders, tables) and converted directly into a Microsoft Word file.")
+            time_display = f"⏱️ **Generated in `{st.session_state.time_taken:.2f}s`** &nbsp;|&nbsp; " if st.session_state.time_taken else ""
+            st.markdown(f"{time_display}Your document was styled using **`theme.json`** rules (colors, fonts, borders, tables) and converted directly into a Microsoft Word file.")
         with col_w2:
             st.download_button(
                 label="📥 Download Word Document (.docx)",

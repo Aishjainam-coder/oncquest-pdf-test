@@ -94,11 +94,21 @@ def replace_sng_gen_lab(text: str) -> str:
     return pattern.sub("Laboratory", text)
 
 
+KNOWN_EXACT_TEST_NAMES = [
+    r'Breast\s+and\s+Ovarian\s+(?:Cancer\s+)?Extended\s+Panel\s*[-–\u2013\u2014\ufffd]\s*Liquid\s+Biopsy\s+Assay',
+    r'(?:Liquidseq\s+Actionable|Brainseq)\s+Genomic\s+Profiling\s+Panel(?:\s*[-–\u2013\u2014\ufffd]\s*Advance)?',
+    r'Liquidseq\s+Comprehensive\s+Genomic\s+Profile\s*\([A-Z]+\)\s*Panel',
+    r'Liquidseq\s+Lung\s+Cancer\s+Panel',
+    r'Solidseq\s+Comprehensive\s+Panel(?:\s+On\s+(?:the\s+)?Illumina\s+[\w\s-]+\s+Platform)?',
+    r'Whole\s+Exome\s+Sequencing(?:\s+on\s+(?:the\s+)?Illumina\s+[\w\s-]+\s+Platform)?',
+]
+
+
 def is_test_name_text(text: str) -> bool:
     if not isinstance(text, str):
         return False
     cleaned = text.strip()
-    if len(cleaned) < 4 or len(cleaned) > 130:
+    if len(cleaned) < 4 or len(cleaned) > 150:
         return False
         
     exclude_prefixes = (
@@ -106,23 +116,20 @@ def is_test_name_text(text: str) -> bool:
         "key findings", "test results", "tier ", "case id", "sample type", 
         "name :", "date & time", "bill. loc", "ref. by", "report version",
         "qr code", "page ", "salient features", "clinical suspicion",
-        "dr.", "laboratory", "oncquest", "result summary", "methodology"
+        "dr.", "laboratory", "oncquest", "result summary", "methodology",
+        "test description", "extraction", "the performance", "analyze", "test name:"
     )
     cleaned_lower = cleaned.lower()
     for ex in exclude_prefixes:
         if cleaned_lower.startswith(ex):
             return False
             
-    patterns = [
-        r'^(?:Breast\s+and\s+Ovarian\s+Extended\s+Panel\s*[-–]\s*Liquid\s+Biopsy\s+Assay)$',
-        r'^(?:(?:Liquidseq\s+Actionable|Brainseq)\s+Genomic\s+Profiling\s+Panel(?:\s*[-–]\s*Advance)?)$',
-        r'^(?:Whole\s+Exome\s+Sequencing(?:\s+on\s+(?:the\s+)?Illumina\s+[\w\s-]+\s+Platform)?)$',
-        r'^[\w\s/&,–\-\(\)\.\+]+?(?:Genomic\s+Profiling\s+Panel|Extended\s+Panel|Profiling\s+Panel|Biopsy\s+Assay|Exome\s+Sequencing|Sequencing\s+Panel|Cancer\s+Panel|Gene\s+Panel|Profiling\s+Assay|Sequencing\s+Assay|Biopsy\s+Panel|NGS\s+Panel)(?:\s*[-–]\s*Advance)?(?:\s*\([^)]*\))?(?:\s+on\s+(?:the\s+)?Illumina\s+[\w\s-]+\s+Platform)?$',
-        r'^(?:[A-Z\s]{4,}\s+PANEL(?:\s*[-–]\s*ADVANCE)?(?:\s*\([^)]*\))?)$',
-    ]
-    for pat in patterns:
-        if re.match(pat, cleaned, re.IGNORECASE):
+    for pat in KNOWN_EXACT_TEST_NAMES:
+        if re.match(f'^(?:{pat})$', cleaned, re.IGNORECASE):
             return True
+            
+    if re.match(r'^(?:[A-Z\s]{4,}\s+PANEL(?:\s*[-–]\s*ADVANCE)?(?:\s*\([^)]*\))?)$', cleaned, re.IGNORECASE):
+        return True
             
     return False
 
@@ -141,16 +148,27 @@ def replace_test_name_in_html(html: str) -> str:
     pre = html[:m.start()] if m else html
     post = html[m.start():] if m else ""
 
-    title_regex = re.compile(
-        r'(>[^<]*?)((?:'
-        r'Breast\s+and\s+Ovarian\s+Extended\s+Panel\s*[-–]\s*Liquid\s+Biopsy\s+Assay|'
-        r'(?:Liquidseq\s+Actionable|Brainseq)\s+Genomic\s+Profiling\s+Panel(?:\s*[-–]\s*Advance)?|'
-        r'Whole\s+Exome\s+Sequencing(?:\s+on\s+(?:the\s+)?Illumina\s+[\w\s-]+\s+Platform)?|'
-        r'[\w\s/&,–\-\(\)\.\+]+?(?:Genomic\s+Profiling\s+Panel|Extended\s+Panel|Profiling\s+Panel|Biopsy\s+Assay|Exome\s+Sequencing|Sequencing\s+Panel|Cancer\s+Panel|Gene\s+Panel|Profiling\s+Assay|Sequencing\s+Assay|Biopsy\s+Panel|NGS\s+Panel)(?:\s*[-–]\s*Advance)?(?:\s*\([^)]*\))?(?:\s+on\s+(?:the\s+)?Illumina\s+[\w\s-]+\s+Platform)?'
-        r'))([^<]*?<)',
-        flags=re.IGNORECASE
-    )
-    pre = title_regex.sub(lambda match_obj: match_obj.group(1) + 'TEST NAME' + match_obj.group(3), pre)
+    highlight_span = '<span style="background-color: #ffff00; color: #000000; font-weight: bold; padding: 1px 4px; border-radius: 2px;">TEST NAME</span>'
+
+    # Step 1: Replace known test titles with TEST NAME in text nodes
+    exact_pat = re.compile(r'|'.join(KNOWN_EXACT_TEST_NAMES), re.IGNORECASE)
+    def _sub_exact_titles(match):
+        text = match.group(0)
+        if 'background-color' in text:
+            return text
+        return exact_pat.sub("TEST NAME", text)
+
+    pre = re.sub(r'>[^<]+<', _sub_exact_titles, pre)
+
+    # Step 2: Highlight ONLY the exact phrase 'TEST NAME' (avoiding label 'Test Name:')
+    test_name_pattern = re.compile(r'\bTEST(?:&#xa0;|&nbsp;|\s)+NAME\b(?!\s*[:=])', re.IGNORECASE)
+    def _wrap_test_name_only(match):
+        text = match.group(0)
+        if 'background-color' in text:
+            return text
+        return test_name_pattern.sub(highlight_span, text)
+
+    pre = re.sub(r'>[^<]+<', _wrap_test_name_only, pre)
 
     # Clear subtitle line
     pre = re.sub(
@@ -232,6 +250,190 @@ def replace_sng_in_structure(obj):
     return obj
 
 
+def highlight_test_name_in_docx_obj(doc):
+    """
+    Highlights all test name occurrences in yellow across paragraphs, table cells,
+    headers, and footers in the Word document object.
+    Only the test name itself ('TEST NAME' or matched test name) is highlighted in yellow,
+    so that people editing in Word can immediately see what needs to be changed.
+    """
+    import copy
+    import re
+    from docx.oxml import OxmlElement
+    from docx.oxml.ns import qn
+
+    def set_run_highlight_yellow(r_elem):
+        rPr = r_elem.find(qn('w:rPr'))
+        if rPr is None:
+            rPr = OxmlElement('w:rPr')
+            r_elem.insert(0, rPr)
+        hl = rPr.find(qn('w:highlight'))
+        if hl is None:
+            hl = OxmlElement('w:highlight')
+            rPr.append(hl)
+        hl.set(qn('w:val'), 'yellow')
+        
+        # Ensure black text for high contrast on yellow
+        color = rPr.find(qn('w:color'))
+        if color is not None:
+            color.set(qn('w:val'), '000000')
+
+    def remove_run_highlight(r_elem):
+        rPr = r_elem.find(qn('w:rPr'))
+        if rPr is not None:
+            hl = rPr.find(qn('w:highlight'))
+            if hl is not None:
+                rPr.remove(hl)
+
+    test_name_pattern = re.compile(
+        r'(?:\bTEST\s+NAME\b(?!\s*[:=])|' + '|'.join(KNOWN_EXACT_TEST_NAMES) + r')',
+        re.IGNORECASE
+    )
+
+    def highlight_in_paragraph(p_elem, seen_eor=False):
+        if seen_eor:
+            return
+        
+        r_elements = [c for c in p_elem if c.tag.endswith('}r')]
+        if not r_elements:
+            return
+        
+        full_text = "".join("".join(t.text for t in r.iter() if t.tag.endswith('}t') and t.text) for r in r_elements)
+        if not full_text:
+            return
+        
+        # If whole paragraph is strictly TEST NAME or a standalone test title
+        cleaned_full = full_text.strip()
+        if cleaned_full.upper() == "TEST NAME" or is_test_name_text(cleaned_full):
+            # Remove any top border on this paragraph
+            pPr = p_elem.find(qn('w:pPr'))
+            if pPr is not None:
+                pBdr = pPr.find(qn('w:pBdr'))
+                if pBdr is not None:
+                    top_b = pBdr.find(qn('w:top'))
+                    if top_b is not None:
+                        pBdr.remove(top_b)
+            # Also remove bottom border from preceding sibling paragraph or table
+            parent = p_elem.getparent()
+            if parent is not None:
+                idx = parent.index(p_elem)
+                if idx > 0:
+                    prev = parent[idx - 1]
+                    if prev.tag.endswith('}p'):
+                        prev_pPr = prev.find(qn('w:pPr'))
+                        if prev_pPr is not None:
+                            prev_pBdr = prev_pPr.find(qn('w:pBdr'))
+                            if prev_pBdr is not None:
+                                prev_bot = prev_pBdr.find(qn('w:bottom'))
+                                if prev_bot is not None:
+                                    prev_pBdr.remove(prev_bot)
+                    elif prev.tag.endswith('}tbl'):
+                        tblPr = prev.find(qn('w:tblPr'))
+                        if tblPr is not None:
+                            tblBdr = tblPr.find(qn('w:tblBorders'))
+                            if tblBdr is not None:
+                                prev_bot = tblBdr.find(qn('w:bottom'))
+                                if prev_bot is not None:
+                                    tblBdr.remove(prev_bot)
+
+            for r in r_elements:
+                set_run_highlight_yellow(r)
+            if cleaned_full.upper() != "TEST NAME":
+                t_elems = [t for t in p_elem.iter() if t.tag.endswith('}t')]
+                if t_elems:
+                    t_elems[0].text = "TEST NAME"
+                    t_elems[0].set(qn('xml:space'), 'preserve')
+                    for t in t_elems[1:]:
+                        t.text = ""
+            return
+
+        # Otherwise check individual runs and isolate only the test name
+        for r in list(r_elements):
+            t_elems = [t for t in r if t.tag.endswith('}t')]
+            if not t_elems:
+                continue
+            r_text = "".join(t.text for t in t_elems if t.text)
+            if not r_text:
+                continue
+            
+            match = test_name_pattern.search(r_text)
+            if match:
+                start, end = match.span()
+                matched_str = "TEST NAME"
+                before_text = r_text[:start]
+                after_text = r_text[end:]
+                
+                # Clone original rPr BEFORE modifying anything
+                rPr_elem = r.find(qn('w:rPr'))
+                rPr_copy_before = copy.deepcopy(rPr_elem) if rPr_elem is not None else None
+                rPr_copy_after = copy.deepcopy(rPr_elem) if rPr_elem is not None else None
+                
+                if before_text:
+                    t_elems[0].text = before_text
+                    for t in t_elems[1:]:
+                        t.text = ""
+                    remove_run_highlight(r)
+                    
+                    # New run for highlighted TEST NAME only
+                    new_r = OxmlElement('w:r')
+                    if rPr_elem is not None:
+                        new_r.append(copy.deepcopy(rPr_elem))
+                    set_run_highlight_yellow(new_r)
+                    new_t = OxmlElement('w:t')
+                    new_t.text = matched_str
+                    new_t.set(qn('xml:space'), 'preserve')
+                    new_r.append(new_t)
+                    
+                    p_elem.insert(p_elem.index(r) + 1, new_r)
+                    
+                    if after_text:
+                        after_r = OxmlElement('w:r')
+                        if rPr_copy_after is not None:
+                            after_r.append(rPr_copy_after)
+                        remove_run_highlight(after_r)
+                        after_t = OxmlElement('w:t')
+                        after_t.text = after_text
+                        after_t.set(qn('xml:space'), 'preserve')
+                        after_r.append(after_t)
+                        p_elem.insert(p_elem.index(new_r) + 1, after_r)
+                else:
+                    t_elems[0].text = matched_str
+                    for t in t_elems[1:]:
+                        t.text = ""
+                    set_run_highlight_yellow(r)
+                    
+                    if after_text:
+                        after_r = OxmlElement('w:r')
+                        if rPr_copy_after is not None:
+                            after_r.append(rPr_copy_after)
+                        remove_run_highlight(after_r)
+                        after_t = OxmlElement('w:t')
+                        after_t.text = after_text
+                        after_t.set(qn('xml:space'), 'preserve')
+                        after_r.append(after_t)
+                        p_elem.insert(p_elem.index(r) + 1, after_r)
+
+    seen_eor = False
+    for p in doc.element.iter():
+        if p.tag.endswith('}p'):
+            p_text = "".join(t.text for t in p.iter() if t.tag.endswith('}t') and t.text)
+            if is_end_of_report_text(p_text):
+                seen_eor = True
+            highlight_in_paragraph(p, seen_eor=seen_eor)
+
+    for section in doc.sections:
+        for h in (section.header, section.first_page_header, section.even_page_header):
+            if h is not None:
+                for p in h._element.iter():
+                    if p.tag.endswith('}p'):
+                        highlight_in_paragraph(p, seen_eor=False)
+        for f in (section.footer, section.first_page_footer, section.even_page_footer):
+            if f is not None:
+                for p in f._element.iter():
+                    if p.tag.endswith('}p'):
+                        highlight_in_paragraph(p, seen_eor=False)
+
+
 def replace_sng_in_docx_obj(doc):
     import re
     pattern = re.compile(
@@ -279,6 +481,9 @@ def replace_sng_in_docx_obj(doc):
         for footer in [section.footer, section.first_page_footer, section.even_page_footer]:
             if footer is not None:
                 replace_in_xml_elements(footer._element)
+
+    # Highlight all test names in yellow in Word DOCX
+    highlight_test_name_in_docx_obj(doc)
 
 
 from extractor import extract_report_data, detect_dynamic_header_footer_bounds
@@ -542,8 +747,8 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
         page_left_str = f"{page_left_val:.1f}pt"
         page_width_str = f"{page_width_val:.1f}pt"
 
-        # Reserve at least 1.2 inches (86.4 pt) blank space at the top of every page for header
-        hy_cutoff = max(86.4, page_bounds[page_num]["header_y_cutoff"])
+        # Reserve at least 0.5 inches (36.0 pt) blank space at the top of every page for header
+        hy_cutoff = max(36.0, page_bounds[page_num]["header_y_cutoff"])
         fy_cutoff = page_bounds[page_num]["footer_y_cutoff"]
 
         html_parts.append(f"<div class='pdf-page' id='page-{page_num+1}'>")
@@ -671,6 +876,31 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
                     )
 
         # 2. Extract Vector Drawings in body region ONLY
+        # Pre-scan test name positions on this page to remove decorative/separator lines right above test names
+        test_name_y_ranges = []
+        try:
+            p_dict = page.get_text('dict')
+            for b in p_dict.get('blocks', []):
+                if 'lines' in b:
+                    for l in b['lines']:
+                        line_text = "".join(s.get("text", "") for s in l.get("spans", [])).strip()
+                        line_text_clean = line_text.replace('\xa0', ' ').strip()
+                        if (line_text_clean.upper() == "TEST NAME" or 
+                            re.match(r'^\s*TEST\s+NAME\s*$', line_text_clean, re.IGNORECASE) or 
+                            is_test_name_text(line_text_clean) or
+                            is_subtitle_text(line_text_clean)):
+                            test_name_y_ranges.append((l['bbox'][1], l['bbox'][3]))
+                        else:
+                            for s in l.get('spans', []):
+                                st = s.get('text', '').replace('\xa0', ' ').strip()
+                                if (st.upper() == "TEST NAME" or 
+                                    re.match(r'^\s*TEST\s+NAME\s*$', st, re.IGNORECASE) or 
+                                    is_test_name_text(st) or
+                                    is_subtitle_text(st)):
+                                    test_name_y_ranges.append((s['bbox'][1], s['bbox'][3]))
+        except Exception:
+            pass
+
         vector_html_divs = []
         try:
             drawings = page.get_drawings()
@@ -698,6 +928,10 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
                         continue
 
                 if any(abs(ry0 - hy0_r) < 5.0 for hy0_r, _ in header_y_ranges):
+                    continue
+
+                # Filter out horizontal line segments immediately above, touching, or below TEST NAME / subtitle
+                if rh <= 2.5 and any((ty0 - 25.0) <= ry0 <= (ty1 + 26.0) for ty0, ty1 in test_name_y_ranges):
                     continue
 
                 fill_col = get_css_color(d.get('fill'))
@@ -1157,7 +1391,7 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
 * {{ box-sizing: border-box; }}
 body {{ margin: 0; padding: 0; background-color: #f1f5f9; font-family: {font_family}; color: {text_color}; }}
 .pdf-container {{ display: flex; flex-direction: column; align-items: center; padding: 20px 0; }}
-.report-content {{ background: {bg_page}; width: 595.6pt; min-height: 842.0pt; padding: 86.4pt 35.5pt 35.5pt 35.5pt; margin-bottom: 20px; position: relative; box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-family: {font_family}; word-break: normal; overflow-wrap: break-word; }}
+.report-content {{ background: {bg_page}; width: 595.6pt; min-height: 842.0pt; padding: 36.0pt 35.5pt 35.5pt 35.5pt; margin-bottom: 20px; position: relative; box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-family: {font_family}; word-break: normal; overflow-wrap: break-word; }}
 .badge-danger {{ background: #dc2626; color: #ffffff; padding: 2px 6px; border-radius: 3px; font-weight: bold; display: inline-block; font-size: 8.5pt; }}
 .badge-warning {{ background: #d97706; color: #ffffff; padding: 2px 6px; border-radius: 3px; font-weight: bold; display: inline-block; font-size: 8.5pt; }}
 .badge-success {{ background: #16a34a; color: #ffffff; padding: 2px 6px; border-radius: 3px; font-weight: bold; display: inline-block; font-size: 8.5pt; }}
@@ -1300,7 +1534,7 @@ def get_merged_theme_config(theme_config: dict = None) -> dict:
             "paper_size": "A4",
             "width_pt": 595.6,
             "height_pt": 842.0,
-            "margins_pt": {"top": 86.4, "bottom": 36.0, "left": 36.0, "right": 36.0},
+            "margins_pt": {"top": 36.0, "bottom": 36.0, "left": 36.0, "right": 36.0},
             "header_distance_pt": 18.0,
             "footer_distance_pt": 18.0
         },
@@ -1345,8 +1579,8 @@ def get_merged_theme_config(theme_config: dict = None) -> dict:
                 "logo_image_path": "",
                 "logo_width_pt": 540.0,
                 "logo_alignment": "center",
-                "height_in": 1.2,
-                "height_pt": 86.4,
+                "height_in": 0.5,
+                "height_pt": 36.0,
                 "show_metadata_table": True,
                 "metadata_table": {
                     "border_color": "#cbd5e1",
@@ -1741,7 +1975,7 @@ def _load_oncquest_theme(theme_config=None):
         "banner_space_after": float(word_spacing.get("banner_space_after_pt", 6.0)),
         
         # Margins & Dimensions configurations
-        "margin_top": float(doc_page.get("margins_pt", {}).get("top", 86.4)),
+        "margin_top": float(doc_page.get("margins_pt", {}).get("top", 36.0)),
         "margin_bottom": float(doc_page.get("margins_pt", {}).get("bottom", 36.0)),
         "margin_left": float(doc_page.get("margins_pt", {}).get("left", 36.0)),
         "margin_right": float(doc_page.get("margins_pt", {}).get("right", 36.0)),
@@ -1806,7 +2040,7 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
             tj["styles"]["footer"]["show_signatures"] = show_sig
 
     page_cfg = tj.get("page", {})
-    default_margin_top = float(page_cfg.get("margin_top", 86.4))
+    default_margin_top = float(page_cfg.get("margin_top", 36.0))
     default_margin_bottom = float(page_cfg.get("margin_bottom", 36.0))
     default_margin_left = float(page_cfg.get("margin_left", 36.0))
     default_margin_right = float(page_cfg.get("margin_right", 36.0))
@@ -1844,11 +2078,13 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
             n.set(qn("w:w"), str(val)); n.set(qn("w:type"), "dxa"); m.append(n)
         tcPr.append(m)
 
-    def table_borders(table, color, sz=4):
+    def table_borders(table, color, sz=4, exclude_edges=()):
         tblPr = table._tbl.tblPr
         b = OxmlElement("w:tblBorders")
         color = color.lstrip("#")
         for edge in ("top", "left", "bottom", "right", "insideH", "insideV"):
+            if edge in exclude_edges:
+                continue
             e = OxmlElement(f"w:{edge}")
             e.set(qn("w:val"), "single"); e.set(qn("w:sz"), str(sz))
             e.set(qn("w:space"), "0"); e.set(qn("w:color"), color); b.append(e)
@@ -1952,11 +2188,11 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
             
             header_style = theme_styles.get("header", {})
             footer_style = theme_styles.get("footer", {})
-            header_height = float(header_style.get("height_pt", 86.4))
+            header_height = float(header_style.get("height_pt", 36.0))
             footer_height = float(footer_style.get("height_pt", 40.0))
 
-            # Use theme-configured header/footer height for margins (at least 1.2 inches = 86.4 pt)
-            hy_cutoff = max(86.4, default_margin_top, header_height)
+            # Use theme-configured header/footer height for margins (at least 0.5 inches = 36.0 pt)
+            hy_cutoff = max(36.0, default_margin_top, header_height)
             fy_cutoff = min(height - default_margin_bottom, height - footer_height)
 
             if p_idx == 0:
@@ -2044,7 +2280,7 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
             deduped_body_elements = deduplicate_elements(raw_body_elements)
             body_elements = sorted(deduped_body_elements, key=get_element_y)
             preceding_el = None
-            for el in body_elements:
+            for el_idx, el in enumerate(body_elements):
                 el_text_check = str(el.get("text", "")) + str(el.get("title", "")) + str(el.get("data", ""))
                 if is_end_of_report_text(el_text_check):
                     seen_eor_docx = True
@@ -2193,8 +2429,18 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
                     tbl.allow_autofit = False
                     border_color = "#000000" # Force all borders to black
                     
+                    # If next element is TEST NAME heading, omit bottom border so no line appears above TEST NAME
+                    next_is_test_name = False
+                    if el_idx + 1 < len(body_elements):
+                        next_el = body_elements[el_idx + 1]
+                        next_txt = _clean_text(next_el.get("text", "")).replace('\xa0', ' ').strip()
+                        if next_el.get("type") in ("heading", "subheading") and (
+                            next_txt.upper() == "TEST NAME" or is_test_name_text(next_txt)
+                        ):
+                            next_is_test_name = True
+
                     b_sz = int(resolved_style.get("border_width", 0.25) * 8)
-                    table_borders(tbl, border_color, sz=max(1, b_sz))
+                    table_borders(tbl, border_color, sz=max(1, b_sz), exclude_edges=("bottom",) if next_is_test_name else ())
                     
                     col_widths = [Inches(1.0), Inches(2.2), Inches(1.0), Inches(2.2)]
                     items = list(kv_data.items())
@@ -2254,9 +2500,19 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
                     tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
                     tbl.allow_autofit = False
                     
+                    # If preceding element is TEST NAME, omit top border so no line appears below TEST NAME
+                    prev_is_test_name = False
+                    if el_idx > 0:
+                        prev_el = body_elements[el_idx - 1]
+                        prev_txt = _clean_text(prev_el.get("text", "")).replace('\xa0', ' ').strip()
+                        if prev_el.get("type") in ("heading", "subheading") and (
+                            prev_txt.upper() == "TEST NAME" or is_test_name_text(prev_txt)
+                        ):
+                            prev_is_test_name = True
+
                     border_color = "#000000" # Force all borders to black
                     b_sz = int(resolved_style.get("border_width", 0.5) * 8)
-                    table_borders(tbl, border_color, sz=max(1, b_sz))
+                    table_borders(tbl, border_color, sz=max(1, b_sz), exclude_edges=("top",) if prev_is_test_name else ())
                     
                     header_names = []
                     col_widths = []
@@ -2799,7 +3055,7 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
 
         doc = Document()
         for section in doc.sections:
-            section.top_margin = Pt(max(86.4, T.get("margin_top", 86.4)))
+            section.top_margin = Pt(max(36.0, T.get("margin_top", 36.0)))
             section.bottom_margin = Pt(T["margin_bottom"])
             section.left_margin = Pt(T["margin_left"])
             section.right_margin = Pt(T["margin_right"])
@@ -3170,10 +3426,23 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
         if isinstance(dimensions, dict):
             pw = dimensions.get("width", 595.0)
             ph = dimensions.get("height", 842.0)
-        hy_cutoff = max(86.4, p.get("header_y_cutoff", 0.0))
+        hy_cutoff = max(36.0, p.get("header_y_cutoff", 0.0))
         fy_cutoff = p.get("footer_y_cutoff", ph)
 
         html_parts.append(f"<div class='pdf-page' id='page-{p_num}' style='width:{pw:.1f}pt; min-height:{ph:.1f}pt;'>")
+
+        # Pre-scan test name positions on this page
+        p_test_name_y_ranges = []
+        for tb in p.get("text_blocks", []):
+            for tbln in tb.get("lines", []):
+                t_str = "".join(ts.get("text", "") for ts in tbln.get("spans", [])).replace('\xa0', ' ').strip()
+                if (t_str.upper() == "TEST NAME" or 
+                    re.match(r'^\s*TEST\s+NAME\s*$', t_str, re.IGNORECASE) or 
+                    is_test_name_text(t_str) or
+                    is_subtitle_text(t_str)):
+                    l_bb = tbln.get("bbox")
+                    if l_bb and len(l_bb) >= 4:
+                        p_test_name_y_ranges.append((l_bb[1], l_bb[3]))
 
         # 1. Render Vector Drawings in body region ONLY
         for d in p.get("drawings", []):
@@ -3185,6 +3454,11 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
                 continue
             w = max(0.5, x1 - x0)
             h = max(0.5, y1 - y0)
+            
+            # Skip horizontal lines immediately above, touching, or below TEST NAME / subtitle
+            if h <= 2.5 and any((ty0 - 25.0) <= y0 <= (ty1 + 26.0) for ty0, ty1 in p_test_name_y_ranges):
+                continue
+
             fill_col = d.get("fill_color")
             stroke_col = d.get("stroke_color")
 
@@ -3919,10 +4193,10 @@ def convert_pdf_to_word(pdf_path, docx_path, theme_config: dict = None):
     try:
         doc_word = docx.Document(docx_p)
 
-        # Ensure at least 1.2 inch (86.4 pt) top margin for header space on every section
+        # Ensure at least 0.5 inch (36.0 pt) top margin for header space on every section
         for s in doc_word.sections:
-            if s.top_margin < Inches(1.2):
-                s.top_margin = Inches(1.2)
+            if s.top_margin < Inches(0.5):
+                s.top_margin = Inches(0.5)
             if s.header:
                 for p in s.header.paragraphs:
                     p.text = ""

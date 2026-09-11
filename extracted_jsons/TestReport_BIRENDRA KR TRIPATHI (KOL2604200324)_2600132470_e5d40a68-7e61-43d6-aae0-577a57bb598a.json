@@ -120,12 +120,12 @@
               "x1": 425.88,
               "y1": 236.52
             },
-            "text": "TEST NAME",
+            "text": "NGS Hereditary Cancer Panel on the Illumina Novaseq X NGS Platform",
             "style_override": {
               "font_size": 14.0,
               "font_family": "Cambria",
               "bold": true,
-              "text_color": "#008080",
+              "text_color": "#1f497d",
               "alignment": "center"
             }
           },
@@ -232,7 +232,7 @@
               "font_size": 10.0,
               "font_family": "Cambria",
               "bold": true,
-              "text_color": "#008080",
+              "text_color": "#1f497d",
               "alignment": "left"
             }
           },
@@ -847,7 +847,7 @@
               "font_size": 10.0,
               "font_family": "Cambria",
               "bold": true,
-              "text_color": "#008080",
+              "text_color": "#1f497d",
               "alignment": "left"
             }
           },
@@ -10516,7 +10516,7 @@
     {
       "type": "banner",
       "section_type": "banner",
-      "title": "TEST NAME",
+      "title": "NGS Hereditary Cancer Panel on the Illumina Novaseq X NGS Platform",
       "page": 1,
       "bbox": [
         169.49,
@@ -12294,7 +12294,7 @@
     {
       "type": "banner",
       "section_type": "banner",
-      "title": "TEST NAME",
+      "title": "NGS Hereditary Cancer Panel on the Illumina Novaseq X NGS Platform",
       "page": 1,
       "bbox": [
         169.49,
@@ -30077,7 +30077,7 @@
   "content_sections": [
     {
       "page": 1,
-      "title": "TEST NAME",
+      "title": "NGS Hereditary Cancer Panel on the Illumina Novaseq X NGS Platform",
       "type": "box",
       "bbox": [
         169.49,
@@ -30194,7 +30194,7 @@
   "all_boxes_and_sections": [
     {
       "page": 1,
-      "title": "TEST NAME",
+      "title": "NGS Hereditary Cancer Panel on the Illumina Novaseq X NGS Platform",
       "type": "box",
       "bbox": [
         169.49,
@@ -31413,7 +31413,7 @@
         {
           "page": 1,
           "type": "box",
-          "title": "TEST NAME",
+          "title": "NGS Hereditary Cancer Panel on the Illumina Novaseq X NGS Platform",
           "text": [
             "Sample Description: Sample quality is optimum for the test."
           ],
@@ -31558,7 +31558,7 @@
       "boxes_and_sections": [
         {
           "page": 1,
-          "title": "TEST NAME",
+          "title": "NGS Hereditary Cancer Panel on the Illumina Novaseq X NGS Platform",
           "type": "box",
           "bbox": [
             169.49,
@@ -31835,12 +31835,12 @@
             236.52
           ],
           "type": "heading",
-          "text": "TEST NAME",
+          "text": "NGS Hereditary Cancer Panel on the Illumina Novaseq X NGS Platform",
           "max_font_size": 14.0,
           "is_bold": true,
           "italic": false,
           "font": "Cambria",
-          "color": "#008080",
+          "color": "#1f497d",
           "lines": [
             {
               "bbox": [
@@ -31972,7 +31972,7 @@
           "is_bold": true,
           "italic": false,
           "font": "Cambria",
-          "color": "#008080",
+          "color": "#1f497d",
           "lines": [
             {
               "bbox": [
@@ -33760,7 +33760,7 @@
           "is_bold": true,
           "italic": false,
           "font": "Cambria",
-          "color": "#008080",
+          "color": "#1f497d",
           "lines": [
             {
               "bbox": [
@@ -43799,7 +43799,7 @@
           "is_bold": true,
           "italic": false,
           "font": "Cambria",
-          "color": "#008080",
+          "color": "#1f497d",
           "lines": [
             {
               "bbox": [

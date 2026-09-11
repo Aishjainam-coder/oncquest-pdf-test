@@ -2,7 +2,7 @@
   "page": {
     "width": 595.28,
     "height": 841.89,
-    "margin_top": 86.4,
+    "margin_top": 36.0,
     "margin_bottom": 36.0,
     "margin_left": 36.0,
     "margin_right": 36.0,
@@ -61,7 +61,7 @@
       "max_width_pt": 450.0
     },
     "header": {
-      "height_pt": 86.4,
+      "height_pt": 36.0,
       "show_logo": false,
       "logo_image_path": "",
       "logo_width_pt": 540.0,
@@ -89,7 +89,7 @@
     "width_pt": 595.28,
     "height_pt": 841.89,
     "margins_pt": {
-      "top": 86.4,
+      "top": 36.0,
       "bottom": 36.0,
       "left": 36.0,
       "right": 36.0
@@ -144,8 +144,8 @@
       "logo_image_path": "",
       "logo_width_pt": 540.0,
       "logo_alignment": "center",
-      "height_in": 1.2,
-      "height_pt": 86.4,
+      "height_in": 0.5,
+      "height_pt": 36.0,
       "show_metadata_table": true,
       "metadata_table": {
         "border_color": "#cbd5e1",

@@ -31,11 +31,21 @@ for p in pdf_paths:
 
 print(f"[+] Found {len(unique_pdfs)} unique PDF files to scan.")
 
+KNOWN_EXACT_TEST_NAMES = [
+    r'Breast\s+and\s+Ovarian\s+(?:Cancer\s+)?Extended\s+Panel\s*[-–\u2013\u2014\ufffd]\s*Liquid\s+Biopsy\s+Assay',
+    r'(?:Liquidseq\s+Actionable|Brainseq)\s+Genomic\s+Profiling\s+Panel(?:\s*[-–\u2013\u2014\ufffd]\s*Advance)?',
+    r'Liquidseq\s+Comprehensive\s+Genomic\s+Profile\s*\([A-Z]+\)\s*Panel',
+    r'Liquidseq\s+Lung\s+Cancer\s+Panel',
+    r'Solidseq\s+Comprehensive\s+Panel(?:\s+On\s+(?:the\s+)?Illumina\s+[\w\s-]+\s+Platform)?',
+    r'Whole\s+Exome\s+Sequencing(?:\s+on\s+(?:the\s+)?Illumina\s+[\w\s-]+\s+Platform)?',
+]
+
+
 def is_test_name_text(text: str) -> bool:
     if not isinstance(text, str):
         return False
     cleaned = text.strip()
-    if len(cleaned) < 4 or len(cleaned) > 130:
+    if len(cleaned) < 4 or len(cleaned) > 150:
         return False
         
     exclude_prefixes = (
@@ -43,23 +53,20 @@ def is_test_name_text(text: str) -> bool:
         "key findings", "test results", "tier ", "case id", "sample type", 
         "name :", "date & time", "bill. loc", "ref. by", "report version",
         "qr code", "page ", "salient features", "clinical suspicion",
-        "dr.", "laboratory", "oncquest", "result summary", "methodology"
+        "dr.", "laboratory", "oncquest", "result summary", "methodology",
+        "test description", "extraction", "the performance", "analyze", "test name:"
     )
     cleaned_lower = cleaned.lower()
     for ex in exclude_prefixes:
         if cleaned_lower.startswith(ex):
             return False
             
-    patterns = [
-        r'^(?:Breast\s+and\s+Ovarian\s+Extended\s+Panel\s*[-–]\s*Liquid\s+Biopsy\s+Assay)$',
-        r'^(?:(?:Liquidseq\s+Actionable|Brainseq)\s+Genomic\s+Profiling\s+Panel(?:\s*[-–]\s*Advance)?)$',
-        r'^(?:Whole\s+Exome\s+Sequencing(?:\s+on\s+(?:the\s+)?Illumina\s+[\w\s-]+\s+Platform)?)$',
-        r'^[\w\s/&,–\-\(\)\.\+]+?(?:Genomic\s+Profiling\s+Panel|Extended\s+Panel|Profiling\s+Panel|Biopsy\s+Assay|Exome\s+Sequencing|Sequencing\s+Panel|Cancer\s+Panel|Gene\s+Panel|Profiling\s+Assay|Sequencing\s+Assay|Biopsy\s+Panel|NGS\s+Panel)(?:\s*[-–]\s*Advance)?(?:\s*\([^)]*\))?(?:\s+on\s+(?:the\s+)?Illumina\s+[\w\s-]+\s+Platform)?$',
-        r'^(?:[A-Z\s]{4,}\s+PANEL(?:\s*[-–]\s*ADVANCE)?(?:\s*\([^)]*\))?)$',
-    ]
-    for pat in patterns:
-        if re.match(pat, cleaned, re.IGNORECASE):
+    for pat in KNOWN_EXACT_TEST_NAMES:
+        if re.match(f'^(?:{pat})$', cleaned, re.IGNORECASE):
             return True
+            
+    if re.match(r'^(?:[A-Z\s]{4,}\s+PANEL(?:\s*[-–]\s*ADVANCE)?(?:\s*\([^)]*\))?)$', cleaned, re.IGNORECASE):
+        return True
             
     return False
 
@@ -275,21 +282,33 @@ for pdf_path in unique_pdfs:
             page.add_redact_annot(r)
         page.apply_redactions(graphics=0)
         
-        # Insert replacement
+        # Insert replacement with yellow highlight background
         for rect, text, font_path, size, color_rgb, align in text_insertions:
+            # Calculate tight bounding box for text to prevent overflowing onto adjacent lines
+            font_obj = fitz.Font(fontfile=font_path)
+            tw = font_obj.text_length(text, fontsize=size)
+            th = size * 1.15
+            cy = (rect.y0 + rect.y1) / 2.0
+            if align == 1:  # centered
+                cx = (rect.x0 + rect.x1) / 2.0
+                hl_rect = fitz.Rect(cx - tw / 2.0 - 2, cy - th / 2.0 - 1, cx + tw / 2.0 + 2, cy + th / 2.0 + 1)
+            else:  # left-aligned
+                hl_rect = fitz.Rect(rect.x0 - 2, cy - th / 2.0 - 1, rect.x0 + tw + 2, cy + th / 2.0 + 1)
+                
+            page.draw_rect(hl_rect, color=(1, 1, 0), fill=(1, 1, 0))
             ret = page.insert_textbox(
                 rect,
                 text,
                 fontname="custom-font",
                 fontfile=font_path,
                 fontsize=size,
-                color=color_rgb,
+                color=(0, 0, 0),
                 align=align
             )
             if ret < 0:
                 print(f"  [Warning] Textbox insertion returned overflow: {ret}")
             else:
-                print(f"  [Text] Successfully inserted: '{text}'")
+                print(f"  [Text] Successfully inserted: '{text}' (yellow highlighted)")
                 
         # Save to a temporary file first
         tmp_path = pdf_path.with_suffix(".tmp")

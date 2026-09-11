@@ -45,11 +45,21 @@ def replace_sng_in_structure(obj):
     return obj
 
 
+KNOWN_EXACT_TEST_NAMES = [
+    r'Breast\s+and\s+Ovarian\s+(?:Cancer\s+)?Extended\s+Panel\s*[-–\u2013\u2014\ufffd]\s*Liquid\s+Biopsy\s+Assay',
+    r'(?:Liquidseq\s+Actionable|Brainseq)\s+Genomic\s+Profiling\s+Panel(?:\s*[-–\u2013\u2014\ufffd]\s*Advance)?',
+    r'Liquidseq\s+Comprehensive\s+Genomic\s+Profile\s*\([A-Z]+\)\s*Panel',
+    r'Liquidseq\s+Lung\s+Cancer\s+Panel',
+    r'Solidseq\s+Comprehensive\s+Panel(?:\s+On\s+(?:the\s+)?Illumina\s+[\w\s-]+\s+Platform)?',
+    r'Whole\s+Exome\s+Sequencing(?:\s+on\s+(?:the\s+)?Illumina\s+[\w\s-]+\s+Platform)?',
+]
+
+
 def is_test_name_text(text: str) -> bool:
     if not isinstance(text, str):
         return False
     cleaned = text.strip()
-    if len(cleaned) < 4 or len(cleaned) > 130:
+    if len(cleaned) < 4 or len(cleaned) > 150:
         return False
         
     exclude_prefixes = (
@@ -57,23 +67,20 @@ def is_test_name_text(text: str) -> bool:
         "key findings", "test results", "tier ", "case id", "sample type", 
         "name :", "date & time", "bill. loc", "ref. by", "report version",
         "qr code", "page ", "salient features", "clinical suspicion",
-        "dr.", "laboratory", "oncquest", "result summary", "methodology"
+        "dr.", "laboratory", "oncquest", "result summary", "methodology",
+        "test description", "extraction", "the performance", "analyze", "test name:"
     )
     cleaned_lower = cleaned.lower()
     for ex in exclude_prefixes:
         if cleaned_lower.startswith(ex):
             return False
             
-    patterns = [
-        r'^(?:Breast\s+and\s+Ovarian\s+Extended\s+Panel\s*[-–]\s*Liquid\s+Biopsy\s+Assay)$',
-        r'^(?:(?:Liquidseq\s+Actionable|Brainseq)\s+Genomic\s+Profiling\s+Panel(?:\s*[-–]\s*Advance)?)$',
-        r'^(?:Whole\s+Exome\s+Sequencing(?:\s+on\s+(?:the\s+)?Illumina\s+[\w\s-]+\s+Platform)?)$',
-        r'^[\w\s/&,–\-\(\)\.\+]+?(?:Genomic\s+Profiling\s+Panel|Extended\s+Panel|Profiling\s+Panel|Biopsy\s+Assay|Exome\s+Sequencing|Sequencing\s+Panel|Cancer\s+Panel|Gene\s+Panel|Profiling\s+Assay|Sequencing\s+Assay|Biopsy\s+Panel|NGS\s+Panel)(?:\s*[-–]\s*Advance)?(?:\s*\([^)]*\))?(?:\s+on\s+(?:the\s+)?Illumina\s+[\w\s-]+\s+Platform)?$',
-        r'^(?:[A-Z\s]{4,}\s+PANEL(?:\s*[-–]\s*ADVANCE)?(?:\s*\([^)]*\))?)$',
-    ]
-    for pat in patterns:
-        if re.match(pat, cleaned, re.IGNORECASE):
+    for pat in KNOWN_EXACT_TEST_NAMES:
+        if re.match(f'^(?:{pat})$', cleaned, re.IGNORECASE):
             return True
+            
+    if re.match(r'^(?:[A-Z\s]{4,}\s+PANEL(?:\s*[-–]\s*ADVANCE)?(?:\s*\([^)]*\))?)$', cleaned, re.IGNORECASE):
+        return True
             
     return False
 
