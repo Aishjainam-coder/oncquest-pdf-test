@@ -130,7 +130,7 @@
             }
           },
           {
-            "type": "paragraph",
+            "type": "heading",
             "bbox": {
               "x": 41.1,
               "y": 251.1,
@@ -146,7 +146,8 @@
             "style_override": {
               "font_size": 10.0,
               "font_family": "Cambria",
-              "text_color": "#ffffff",
+              "bold": true,
+              "text_color": "#1f497d",
               "alignment": "left"
             }
           },
@@ -684,27 +685,6 @@
               {
                 "type": "paragraph",
                 "bbox": {
-                  "x": 488.8,
-                  "y": 768.56,
-                  "width": 37.17,
-                  "height": 12.21,
-                  "unit": "pt",
-                  "x0": 488.8,
-                  "y0": 768.56,
-                  "x1": 525.97,
-                  "y1": 780.77
-                },
-                "text": "MC-7414",
-                "style_override": {
-                  "font_size": 10.0,
-                  "font_family": "Calibri",
-                  "text_color": "#000000",
-                  "alignment": "left"
-                }
-              },
-              {
-                "type": "paragraph",
-                "bbox": {
                   "x": 40.85,
                   "y": 745.19,
                   "width": 397.02,
@@ -740,6 +720,27 @@
                 "text": "DM (Medical Genetics),  MD, DNB (Pediatrics)  Senior Genetic Consultant",
                 "style_override": {
                   "font_size": 8.0,
+                  "font_family": "Calibri",
+                  "text_color": "#000000",
+                  "alignment": "left"
+                }
+              },
+              {
+                "type": "paragraph",
+                "bbox": {
+                  "x": 488.8,
+                  "y": 768.56,
+                  "width": 37.17,
+                  "height": 12.21,
+                  "unit": "pt",
+                  "x0": 488.8,
+                  "y0": 768.56,
+                  "x1": 525.97,
+                  "y1": 780.77
+                },
+                "text": "MC-7414",
+                "style_override": {
+                  "font_size": 10.0,
                   "font_family": "Calibri",
                   "text_color": "#000000",
                   "alignment": "left"
@@ -1313,27 +1314,6 @@
               {
                 "type": "paragraph",
                 "bbox": {
-                  "x": 488.8,
-                  "y": 768.56,
-                  "width": 37.17,
-                  "height": 12.21,
-                  "unit": "pt",
-                  "x0": 488.8,
-                  "y0": 768.56,
-                  "x1": 525.97,
-                  "y1": 780.77
-                },
-                "text": "MC-7414",
-                "style_override": {
-                  "font_size": 10.0,
-                  "font_family": "Calibri",
-                  "text_color": "#000000",
-                  "alignment": "left"
-                }
-              },
-              {
-                "type": "paragraph",
-                "bbox": {
                   "x": 40.85,
                   "y": 745.19,
                   "width": 397.02,
@@ -1369,6 +1349,27 @@
                 "text": "DM (Medical Genetics),  MD, DNB (Pediatrics)  Senior Genetic Consultant",
                 "style_override": {
                   "font_size": 8.0,
+                  "font_family": "Calibri",
+                  "text_color": "#000000",
+                  "alignment": "left"
+                }
+              },
+              {
+                "type": "paragraph",
+                "bbox": {
+                  "x": 488.8,
+                  "y": 768.56,
+                  "width": 37.17,
+                  "height": 12.21,
+                  "unit": "pt",
+                  "x0": 488.8,
+                  "y0": 768.56,
+                  "x1": 525.97,
+                  "y1": 780.77
+                },
+                "text": "MC-7414",
+                "style_override": {
+                  "font_size": 10.0,
                   "font_family": "Calibri",
                   "text_color": "#000000",
                   "alignment": "left"
@@ -1459,7 +1460,7 @@
             ]
           },
           {
-            "type": "paragraph",
+            "type": "heading",
             "bbox": {
               "x": 35.45,
               "y": 204.2,
@@ -1475,7 +1476,8 @@
             "style_override": {
               "font_size": 10.0,
               "font_family": "Cambria",
-              "text_color": "#000000",
+              "bold": true,
+              "text_color": "#1f497d",
               "alignment": "left"
             }
           },
@@ -1693,27 +1695,6 @@
               {
                 "type": "paragraph",
                 "bbox": {
-                  "x": 488.8,
-                  "y": 768.56,
-                  "width": 37.17,
-                  "height": 12.21,
-                  "unit": "pt",
-                  "x0": 488.8,
-                  "y0": 768.56,
-                  "x1": 525.97,
-                  "y1": 780.77
-                },
-                "text": "MC-7414",
-                "style_override": {
-                  "font_size": 10.0,
-                  "font_family": "Calibri",
-                  "text_color": "#000000",
-                  "alignment": "left"
-                }
-              },
-              {
-                "type": "paragraph",
-                "bbox": {
                   "x": 40.85,
                   "y": 745.19,
                   "width": 397.02,
@@ -1749,6 +1730,27 @@
                 "text": "DM (Medical Genetics),  MD, DNB (Pediatrics)  Senior Genetic Consultant",
                 "style_override": {
                   "font_size": 8.0,
+                  "font_family": "Calibri",
+                  "text_color": "#000000",
+                  "alignment": "left"
+                }
+              },
+              {
+                "type": "paragraph",
+                "bbox": {
+                  "x": 488.8,
+                  "y": 768.56,
+                  "width": 37.17,
+                  "height": 12.21,
+                  "unit": "pt",
+                  "x0": 488.8,
+                  "y0": 768.56,
+                  "x1": 525.97,
+                  "y1": 780.77
+                },
+                "text": "MC-7414",
+                "style_override": {
+                  "font_size": 10.0,
                   "font_family": "Calibri",
                   "text_color": "#000000",
                   "alignment": "left"
@@ -2275,27 +2277,6 @@
               {
                 "type": "paragraph",
                 "bbox": {
-                  "x": 488.8,
-                  "y": 768.56,
-                  "width": 37.17,
-                  "height": 12.21,
-                  "unit": "pt",
-                  "x0": 488.8,
-                  "y0": 768.56,
-                  "x1": 525.97,
-                  "y1": 780.77
-                },
-                "text": "MC-7414",
-                "style_override": {
-                  "font_size": 10.0,
-                  "font_family": "Calibri",
-                  "text_color": "#000000",
-                  "alignment": "left"
-                }
-              },
-              {
-                "type": "paragraph",
-                "bbox": {
                   "x": 40.85,
                   "y": 745.19,
                   "width": 397.02,
@@ -2331,6 +2312,27 @@
                 "text": "DM (Medical Genetics),  MD, DNB (Pediatrics)  Senior Genetic Consultant",
                 "style_override": {
                   "font_size": 8.0,
+                  "font_family": "Calibri",
+                  "text_color": "#000000",
+                  "alignment": "left"
+                }
+              },
+              {
+                "type": "paragraph",
+                "bbox": {
+                  "x": 488.8,
+                  "y": 768.56,
+                  "width": 37.17,
+                  "height": 12.21,
+                  "unit": "pt",
+                  "x0": 488.8,
+                  "y0": 768.56,
+                  "x1": 525.97,
+                  "y1": 780.77
+                },
+                "text": "MC-7414",
+                "style_override": {
+                  "font_size": 10.0,
                   "font_family": "Calibri",
                   "text_color": "#000000",
                   "alignment": "left"
@@ -3846,27 +3848,6 @@
               {
                 "type": "paragraph",
                 "bbox": {
-                  "x": 488.8,
-                  "y": 768.56,
-                  "width": 37.17,
-                  "height": 12.21,
-                  "unit": "pt",
-                  "x0": 488.8,
-                  "y0": 768.56,
-                  "x1": 525.97,
-                  "y1": 780.77
-                },
-                "text": "MC-7414",
-                "style_override": {
-                  "font_size": 10.0,
-                  "font_family": "Calibri",
-                  "text_color": "#000000",
-                  "alignment": "left"
-                }
-              },
-              {
-                "type": "paragraph",
-                "bbox": {
                   "x": 40.85,
                   "y": 745.19,
                   "width": 397.02,
@@ -3902,6 +3883,27 @@
                 "text": "DM (Medical Genetics),  MD, DNB (Pediatrics)  Senior Genetic Consultant",
                 "style_override": {
                   "font_size": 8.0,
+                  "font_family": "Calibri",
+                  "text_color": "#000000",
+                  "alignment": "left"
+                }
+              },
+              {
+                "type": "paragraph",
+                "bbox": {
+                  "x": 488.8,
+                  "y": 768.56,
+                  "width": 37.17,
+                  "height": 12.21,
+                  "unit": "pt",
+                  "x0": 488.8,
+                  "y0": 768.56,
+                  "x1": 525.97,
+                  "y1": 780.77
+                },
+                "text": "MC-7414",
+                "style_override": {
+                  "font_size": 10.0,
                   "font_family": "Calibri",
                   "text_color": "#000000",
                   "alignment": "left"
@@ -6432,27 +6434,6 @@
               {
                 "type": "paragraph",
                 "bbox": {
-                  "x": 488.8,
-                  "y": 768.56,
-                  "width": 37.17,
-                  "height": 12.21,
-                  "unit": "pt",
-                  "x0": 488.8,
-                  "y0": 768.56,
-                  "x1": 525.97,
-                  "y1": 780.77
-                },
-                "text": "MC-7414",
-                "style_override": {
-                  "font_size": 10.0,
-                  "font_family": "Calibri",
-                  "text_color": "#000000",
-                  "alignment": "left"
-                }
-              },
-              {
-                "type": "paragraph",
-                "bbox": {
                   "x": 40.85,
                   "y": 745.19,
                   "width": 397.02,
@@ -6488,6 +6469,27 @@
                 "text": "DM (Medical Genetics),  MD, DNB (Pediatrics)  Senior Genetic Consultant",
                 "style_override": {
                   "font_size": 8.0,
+                  "font_family": "Calibri",
+                  "text_color": "#000000",
+                  "alignment": "left"
+                }
+              },
+              {
+                "type": "paragraph",
+                "bbox": {
+                  "x": 488.8,
+                  "y": 768.56,
+                  "width": 37.17,
+                  "height": 12.21,
+                  "unit": "pt",
+                  "x0": 488.8,
+                  "y0": 768.56,
+                  "x1": 525.97,
+                  "y1": 780.77
+                },
+                "text": "MC-7414",
+                "style_override": {
+                  "font_size": 10.0,
                   "font_family": "Calibri",
                   "text_color": "#000000",
                   "alignment": "left"
@@ -9128,27 +9130,6 @@
               {
                 "type": "paragraph",
                 "bbox": {
-                  "x": 488.8,
-                  "y": 768.56,
-                  "width": 37.17,
-                  "height": 12.21,
-                  "unit": "pt",
-                  "x0": 488.8,
-                  "y0": 768.56,
-                  "x1": 525.97,
-                  "y1": 780.77
-                },
-                "text": "MC-7414",
-                "style_override": {
-                  "font_size": 10.0,
-                  "font_family": "Calibri",
-                  "text_color": "#000000",
-                  "alignment": "left"
-                }
-              },
-              {
-                "type": "paragraph",
-                "bbox": {
                   "x": 40.85,
                   "y": 745.19,
                   "width": 397.02,
@@ -9184,6 +9165,27 @@
                 "text": "DM (Medical Genetics),  MD, DNB (Pediatrics)  Senior Genetic Consultant",
                 "style_override": {
                   "font_size": 8.0,
+                  "font_family": "Calibri",
+                  "text_color": "#000000",
+                  "alignment": "left"
+                }
+              },
+              {
+                "type": "paragraph",
+                "bbox": {
+                  "x": 488.8,
+                  "y": 768.56,
+                  "width": 37.17,
+                  "height": 12.21,
+                  "unit": "pt",
+                  "x0": 488.8,
+                  "y0": 768.56,
+                  "x1": 525.97,
+                  "y1": 780.77
+                },
+                "text": "MC-7414",
+                "style_override": {
+                  "font_size": 10.0,
                   "font_family": "Calibri",
                   "text_color": "#000000",
                   "alignment": "left"
@@ -10272,6 +10274,69 @@
             "height": 157
           },
           {
+            "type": "paragraph",
+            "bbox": {
+              "x": 40.85,
+              "y": 745.19,
+              "width": 397.02,
+              "height": 34.44,
+              "unit": "pt",
+              "x0": 40.85,
+              "y0": 745.19,
+              "x1": 437.87,
+              "y1": 779.63
+            },
+            "text": "Dr.Nirmal A. Vaniawala Dr. Salil Vaniawala Dr. Parag Tamhankar MD (Path. & Bact.) M.Sc Ph.D.(Human Genetics) Consulting Geneticist",
+            "style_override": {
+              "font_size": 10.0,
+              "font_family": "Calibri",
+              "text_color": "#000000",
+              "alignment": "left"
+            }
+          },
+          {
+            "type": "paragraph",
+            "bbox": {
+              "x": 352.51,
+              "y": 757.65,
+              "width": 84.65,
+              "height": 29.3,
+              "unit": "pt",
+              "x0": 352.51,
+              "y0": 757.65,
+              "x1": 437.16,
+              "y1": 786.95
+            },
+            "text": "DM (Medical Genetics),  MD, DNB (Pediatrics)  Senior Genetic Consultant",
+            "style_override": {
+              "font_size": 8.0,
+              "font_family": "Calibri",
+              "text_color": "#000000",
+              "alignment": "left"
+            }
+          },
+          {
+            "type": "paragraph",
+            "bbox": {
+              "x": 488.8,
+              "y": 768.56,
+              "width": 37.17,
+              "height": 12.21,
+              "unit": "pt",
+              "x0": 488.8,
+              "y0": 768.56,
+              "x1": 525.97,
+              "y1": 780.77
+            },
+            "text": "MC-7414",
+            "style_override": {
+              "font_size": 10.0,
+              "font_family": "Calibri",
+              "text_color": "#000000",
+              "alignment": "left"
+            }
+          },
+          {
             "type": "footer",
             "bbox": {
               "x": 0,
@@ -10391,70 +10456,6 @@
                   }
                 ],
                 "cell_styles": []
-              },
-              {
-                "type": "paragraph",
-                "bbox": {
-                  "x": 488.8,
-                  "y": 768.56,
-                  "width": 37.17,
-                  "height": 12.21,
-                  "unit": "pt",
-                  "x0": 488.8,
-                  "y0": 768.56,
-                  "x1": 525.97,
-                  "y1": 780.77
-                },
-                "text": "MC-7414",
-                "style_override": {
-                  "font_size": 10.0,
-                  "font_family": "Calibri",
-                  "text_color": "#000000",
-                  "alignment": "left"
-                }
-              },
-              {
-                "type": "paragraph",
-                "bbox": {
-                  "x": 40.85,
-                  "y": 745.19,
-                  "width": 397.02,
-                  "height": 34.44,
-                  "unit": "pt",
-                  "x0": 40.85,
-                  "y0": 745.19,
-                  "x1": 437.87,
-                  "y1": 779.63
-                },
-                "text": "Dr.Nirmal A. Vaniawala Dr. Salil Vaniawala Dr. Parag Tamhankar MD (Path. & Bact.) M.Sc Ph.D.(Human Genetics) Consulting Geneticist",
-                "role": "signature_block",
-                "style_override": {
-                  "font_size": 10.0,
-                  "font_family": "Calibri",
-                  "text_color": "#000000",
-                  "alignment": "left"
-                }
-              },
-              {
-                "type": "paragraph",
-                "bbox": {
-                  "x": 352.51,
-                  "y": 757.65,
-                  "width": 84.65,
-                  "height": 29.3,
-                  "unit": "pt",
-                  "x0": 352.51,
-                  "y0": 757.65,
-                  "x1": 437.16,
-                  "y1": 786.95
-                },
-                "text": "DM (Medical Genetics),  MD, DNB (Pediatrics)  Senior Genetic Consultant",
-                "style_override": {
-                  "font_size": 8.0,
-                  "font_family": "Calibri",
-                  "text_color": "#000000",
-                  "alignment": "left"
-                }
               }
             ]
           }
@@ -10516,18 +10517,20 @@
     {
       "type": "banner",
       "section_type": "banner",
-      "title": "NGS Hereditary Cancer Panel on the Illumina Novaseq X NGS Platform",
+      "title": "Clinical Indication:",
       "page": 1,
       "bbox": [
-        169.49,
-        203.7,
-        425.88,
-        236.52
+        41.1,
+        251.1,
+        120.86,
+        262.82
       ],
       "content_text": [
+        "Birendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion.",
         "Sample Description: Sample quality is optimum for the test."
       ],
       "paragraphs": [
+        "Birendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion.",
         "Sample Description: Sample quality is optimum for the test."
       ]
     },
@@ -10547,18 +10550,14 @@
         "Variant Interpretation & Clinical correlation:",
         "MSH2 :Deletion Exon 3-6; The submitted sample shows Heterozygous deletion of exon 3-6 of gene MSH2 on chromosome 2. A 6.4kb deletion detected on cytoband 2p21 (?_47,410,089-47,416,441_?). This variant is absent in our internal database.",
         "Based on above evidence, this variant (MSH2:Deletion Exon 3-6) is classified as  Pathogenic  variant.",
-        "MSH2 Gene Phenotype Description : Lynch syndrome-1 (LYNCH1), also known as hereditary nonpolyposis colorectal cancer (HNPCC1), is caused by heterozygous mutation in the mismatch repair gene MSH2 (609309) on chromosome 2p21-p16. Lynch syndrome (LYNCH), also called hereditary nonpolyposis colorectal cancer, is defined as an autosomal dominant predisposition to a spectrum of cancers, primarily of the colorectum and endometrium, which exhibit impaired DNA mismatch repair (MMR) activity (summary by Lynch et al., 2015).",
-        "Clinical Indication:",
-        "Birendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion."
+        "MSH2 Gene Phenotype Description : Lynch syndrome-1 (LYNCH1), also known as hereditary nonpolyposis colorectal cancer (HNPCC1), is caused by heterozygous mutation in the mismatch repair gene MSH2 (609309) on chromosome 2p21-p16. Lynch syndrome (LYNCH), also called hereditary nonpolyposis colorectal cancer, is defined as an autosomal dominant predisposition to a spectrum of cancers, primarily of the colorectum and endometrium, which exhibit impaired DNA mismatch repair (MMR) activity (summary by Lynch et al., 2015)."
       ],
       "paragraphs": [
         "*Genetic test results are reported based on the recommendations of American College of Medical Genetics",
         "Variant Interpretation & Clinical correlation:",
         "MSH2 :Deletion Exon 3-6; The submitted sample shows Heterozygous deletion of exon 3-6 of gene MSH2 on chromosome 2. A 6.4kb deletion detected on cytoband 2p21 (?_47,410,089-47,416,441_?). This variant is absent in our internal database.",
         "Based on above evidence, this variant (MSH2:Deletion Exon 3-6) is classified as  Pathogenic  variant.",
-        "MSH2 Gene Phenotype Description : Lynch syndrome-1 (LYNCH1), also known as hereditary nonpolyposis colorectal cancer (HNPCC1), is caused by heterozygous mutation in the mismatch repair gene MSH2 (609309) on chromosome 2p21-p16. Lynch syndrome (LYNCH), also called hereditary nonpolyposis colorectal cancer, is defined as an autosomal dominant predisposition to a spectrum of cancers, primarily of the colorectum and endometrium, which exhibit impaired DNA mismatch repair (MMR) activity (summary by Lynch et al., 2015).",
-        "Clinical Indication:",
-        "Birendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion."
+        "MSH2 Gene Phenotype Description : Lynch syndrome-1 (LYNCH1), also known as hereditary nonpolyposis colorectal cancer (HNPCC1), is caused by heterozygous mutation in the mismatch repair gene MSH2 (609309) on chromosome 2p21-p16. Lynch syndrome (LYNCH), also called hereditary nonpolyposis colorectal cancer, is defined as an autosomal dominant predisposition to a spectrum of cancers, primarily of the colorectum and endometrium, which exhibit impaired DNA mismatch repair (MMR) activity (summary by Lynch et al., 2015)."
       ]
     },
     {
@@ -10776,9 +10775,9 @@
       "height": 157
     },
     {
-      "type": "box",
-      "section_type": "box",
-      "title": "General Content / Notes",
+      "type": "banner",
+      "section_type": "banner",
+      "title": " This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study.",
       "page": 3,
       "bbox": [
         35.45,
@@ -10787,11 +10786,9 @@
         336.46
       ],
       "content_text": [
-        " This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study.",
         "Limitations/Disclaimer:  It should be noted that this test does not sequence all bases in a human genome, not all variants have been identified or interpreted, and this report is limited only to variants with evidence for causing or contributing to disease/clinical details provided to SN Gene Lab Pvt Ltd.  Testing has been performed assuming that the sample received belongs to the above named individual and any stated relationships between individuals are accepted as true.  Test results are interpreted in the context of clinical findings, family history and other laboratory data. Only variations in genes potentially related to the proband's medical condition are reported. Rare polymorphisms may lead to false negative or positive results. Misinterpretation of results may occur if the information provided is inaccurate or incomplete. The results should be interpreted in the context of the patient’s medical evaluation, family history and racial/ethnic background. Please note that variant classification and/or interpretation may change over time if more information available. Re-interpretation of multi gene next generation sequencing data is recommended on an annual basis and may be requested by a medical provider.  The sensitivity of this assay to detect large deletions/duplications of more than 10 bp or copy number variations (CNV) is 70-75%. The CNVs detected with this assay have to be confirmed by alternate method such as MLPA & Microarray.  Due to inherent technology limitations, coverage is not uniform across all regions. Hence pathogenic variants present in areas of insufficient coverage as well as those variants which currently do not co-relate with the provided phenotype may not be analyzed/ reported. Additionally, it may not be possible to fully resolve certain details about variants, such as mosaicism, phasing, or mapping ambiguity.  Triplet repeat expansions, translocations, large deletion or duplications and chromosomal rearrangements events are currently not reliably detected by next generation sequencing.  This assay is not meant to interrogate most promoter regions, deep intronic regions, or other regulatory elements, other gene rearrangements like inversion or translocation and does not detect single or multi-exon deletions or duplications.  Incidental or secondary findings (if any) that meet the ACMG guidelines can be given upon request.  Genes with pseudogenes, paralog genes and genes with low complexity may have decreased sensitivity and specificity of variant detection and interpretation due to inability of the data and analysis tools to unambiguously determine the"
       ],
       "paragraphs": [
-        " This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study.",
         "Limitations/Disclaimer:  It should be noted that this test does not sequence all bases in a human genome, not all variants have been identified or interpreted, and this report is limited only to variants with evidence for causing or contributing to disease/clinical details provided to SN Gene Lab Pvt Ltd.  Testing has been performed assuming that the sample received belongs to the above named individual and any stated relationships between individuals are accepted as true.  Test results are interpreted in the context of clinical findings, family history and other laboratory data. Only variations in genes potentially related to the proband's medical condition are reported. Rare polymorphisms may lead to false negative or positive results. Misinterpretation of results may occur if the information provided is inaccurate or incomplete. The results should be interpreted in the context of the patient’s medical evaluation, family history and racial/ethnic background. Please note that variant classification and/or interpretation may change over time if more information available. Re-interpretation of multi gene next generation sequencing data is recommended on an annual basis and may be requested by a medical provider.  The sensitivity of this assay to detect large deletions/duplications of more than 10 bp or copy number variations (CNV) is 70-75%. The CNVs detected with this assay have to be confirmed by alternate method such as MLPA & Microarray.  Due to inherent technology limitations, coverage is not uniform across all regions. Hence pathogenic variants present in areas of insufficient coverage as well as those variants which currently do not co-relate with the provided phenotype may not be analyzed/ reported. Additionally, it may not be possible to fully resolve certain details about variants, such as mosaicism, phasing, or mapping ambiguity.  Triplet repeat expansions, translocations, large deletion or duplications and chromosomal rearrangements events are currently not reliably detected by next generation sequencing.  This assay is not meant to interrogate most promoter regions, deep intronic regions, or other regulatory elements, other gene rearrangements like inversion or translocation and does not detect single or multi-exon deletions or duplications.  Incidental or secondary findings (if any) that meet the ACMG guidelines can be given upon request.  Genes with pseudogenes, paralog genes and genes with low complexity may have decreased sensitivity and specificity of variant detection and interpretation due to inability of the data and analysis tools to unambiguously determine the"
       ]
     },
@@ -12219,10 +12216,16 @@
         419.48
       ],
       "content_text": [
-        "------------------ End Of Report ------------------"
+        "------------------ End Of Report ------------------",
+        "Dr.Nirmal A. Vaniawala Dr. Salil Vaniawala Dr. Parag Tamhankar MD (Path. & Bact.) M.Sc Ph.D.(Human Genetics) Consulting Geneticist",
+        "DM (Medical Genetics),  MD, DNB (Pediatrics)  Senior Genetic Consultant",
+        "MC-7414"
       ],
       "paragraphs": [
-        "------------------ End Of Report ------------------"
+        "------------------ End Of Report ------------------",
+        "Dr.Nirmal A. Vaniawala Dr. Salil Vaniawala Dr. Parag Tamhankar MD (Path. & Bact.) M.Sc Ph.D.(Human Genetics) Consulting Geneticist",
+        "DM (Medical Genetics),  MD, DNB (Pediatrics)  Senior Genetic Consultant",
+        "MC-7414"
       ]
     },
     {
@@ -12294,18 +12297,20 @@
     {
       "type": "banner",
       "section_type": "banner",
-      "title": "NGS Hereditary Cancer Panel on the Illumina Novaseq X NGS Platform",
+      "title": "Clinical Indication:",
       "page": 1,
       "bbox": [
-        169.49,
-        203.7,
-        425.88,
-        236.52
+        41.1,
+        251.1,
+        120.86,
+        262.82
       ],
       "content_text": [
+        "Birendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion.",
         "Sample Description: Sample quality is optimum for the test."
       ],
       "paragraphs": [
+        "Birendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion.",
         "Sample Description: Sample quality is optimum for the test."
       ]
     },
@@ -12325,18 +12330,14 @@
         "Variant Interpretation & Clinical correlation:",
         "MSH2 :Deletion Exon 3-6; The submitted sample shows Heterozygous deletion of exon 3-6 of gene MSH2 on chromosome 2. A 6.4kb deletion detected on cytoband 2p21 (?_47,410,089-47,416,441_?). This variant is absent in our internal database.",
         "Based on above evidence, this variant (MSH2:Deletion Exon 3-6) is classified as  Pathogenic  variant.",
-        "MSH2 Gene Phenotype Description : Lynch syndrome-1 (LYNCH1), also known as hereditary nonpolyposis colorectal cancer (HNPCC1), is caused by heterozygous mutation in the mismatch repair gene MSH2 (609309) on chromosome 2p21-p16. Lynch syndrome (LYNCH), also called hereditary nonpolyposis colorectal cancer, is defined as an autosomal dominant predisposition to a spectrum of cancers, primarily of the colorectum and endometrium, which exhibit impaired DNA mismatch repair (MMR) activity (summary by Lynch et al., 2015).",
-        "Clinical Indication:",
-        "Birendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion."
+        "MSH2 Gene Phenotype Description : Lynch syndrome-1 (LYNCH1), also known as hereditary nonpolyposis colorectal cancer (HNPCC1), is caused by heterozygous mutation in the mismatch repair gene MSH2 (609309) on chromosome 2p21-p16. Lynch syndrome (LYNCH), also called hereditary nonpolyposis colorectal cancer, is defined as an autosomal dominant predisposition to a spectrum of cancers, primarily of the colorectum and endometrium, which exhibit impaired DNA mismatch repair (MMR) activity (summary by Lynch et al., 2015)."
       ],
       "paragraphs": [
         "*Genetic test results are reported based on the recommendations of American College of Medical Genetics",
         "Variant Interpretation & Clinical correlation:",
         "MSH2 :Deletion Exon 3-6; The submitted sample shows Heterozygous deletion of exon 3-6 of gene MSH2 on chromosome 2. A 6.4kb deletion detected on cytoband 2p21 (?_47,410,089-47,416,441_?). This variant is absent in our internal database.",
         "Based on above evidence, this variant (MSH2:Deletion Exon 3-6) is classified as  Pathogenic  variant.",
-        "MSH2 Gene Phenotype Description : Lynch syndrome-1 (LYNCH1), also known as hereditary nonpolyposis colorectal cancer (HNPCC1), is caused by heterozygous mutation in the mismatch repair gene MSH2 (609309) on chromosome 2p21-p16. Lynch syndrome (LYNCH), also called hereditary nonpolyposis colorectal cancer, is defined as an autosomal dominant predisposition to a spectrum of cancers, primarily of the colorectum and endometrium, which exhibit impaired DNA mismatch repair (MMR) activity (summary by Lynch et al., 2015).",
-        "Clinical Indication:",
-        "Birendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion."
+        "MSH2 Gene Phenotype Description : Lynch syndrome-1 (LYNCH1), also known as hereditary nonpolyposis colorectal cancer (HNPCC1), is caused by heterozygous mutation in the mismatch repair gene MSH2 (609309) on chromosome 2p21-p16. Lynch syndrome (LYNCH), also called hereditary nonpolyposis colorectal cancer, is defined as an autosomal dominant predisposition to a spectrum of cancers, primarily of the colorectum and endometrium, which exhibit impaired DNA mismatch repair (MMR) activity (summary by Lynch et al., 2015)."
       ]
     },
     {
@@ -12554,9 +12555,9 @@
       "height": 157
     },
     {
-      "type": "box",
-      "section_type": "box",
-      "title": "General Content / Notes",
+      "type": "banner",
+      "section_type": "banner",
+      "title": " This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study.",
       "page": 3,
       "bbox": [
         35.45,
@@ -12565,11 +12566,9 @@
         336.46
       ],
       "content_text": [
-        " This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study.",
         "Limitations/Disclaimer:  It should be noted that this test does not sequence all bases in a human genome, not all variants have been identified or interpreted, and this report is limited only to variants with evidence for causing or contributing to disease/clinical details provided to SN Gene Lab Pvt Ltd.  Testing has been performed assuming that the sample received belongs to the above named individual and any stated relationships between individuals are accepted as true.  Test results are interpreted in the context of clinical findings, family history and other laboratory data. Only variations in genes potentially related to the proband's medical condition are reported. Rare polymorphisms may lead to false negative or positive results. Misinterpretation of results may occur if the information provided is inaccurate or incomplete. The results should be interpreted in the context of the patient’s medical evaluation, family history and racial/ethnic background. Please note that variant classification and/or interpretation may change over time if more information available. Re-interpretation of multi gene next generation sequencing data is recommended on an annual basis and may be requested by a medical provider.  The sensitivity of this assay to detect large deletions/duplications of more than 10 bp or copy number variations (CNV) is 70-75%. The CNVs detected with this assay have to be confirmed by alternate method such as MLPA & Microarray.  Due to inherent technology limitations, coverage is not uniform across all regions. Hence pathogenic variants present in areas of insufficient coverage as well as those variants which currently do not co-relate with the provided phenotype may not be analyzed/ reported. Additionally, it may not be possible to fully resolve certain details about variants, such as mosaicism, phasing, or mapping ambiguity.  Triplet repeat expansions, translocations, large deletion or duplications and chromosomal rearrangements events are currently not reliably detected by next generation sequencing.  This assay is not meant to interrogate most promoter regions, deep intronic regions, or other regulatory elements, other gene rearrangements like inversion or translocation and does not detect single or multi-exon deletions or duplications.  Incidental or secondary findings (if any) that meet the ACMG guidelines can be given upon request.  Genes with pseudogenes, paralog genes and genes with low complexity may have decreased sensitivity and specificity of variant detection and interpretation due to inability of the data and analysis tools to unambiguously determine the"
       ],
       "paragraphs": [
-        " This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study.",
         "Limitations/Disclaimer:  It should be noted that this test does not sequence all bases in a human genome, not all variants have been identified or interpreted, and this report is limited only to variants with evidence for causing or contributing to disease/clinical details provided to SN Gene Lab Pvt Ltd.  Testing has been performed assuming that the sample received belongs to the above named individual and any stated relationships between individuals are accepted as true.  Test results are interpreted in the context of clinical findings, family history and other laboratory data. Only variations in genes potentially related to the proband's medical condition are reported. Rare polymorphisms may lead to false negative or positive results. Misinterpretation of results may occur if the information provided is inaccurate or incomplete. The results should be interpreted in the context of the patient’s medical evaluation, family history and racial/ethnic background. Please note that variant classification and/or interpretation may change over time if more information available. Re-interpretation of multi gene next generation sequencing data is recommended on an annual basis and may be requested by a medical provider.  The sensitivity of this assay to detect large deletions/duplications of more than 10 bp or copy number variations (CNV) is 70-75%. The CNVs detected with this assay have to be confirmed by alternate method such as MLPA & Microarray.  Due to inherent technology limitations, coverage is not uniform across all regions. Hence pathogenic variants present in areas of insufficient coverage as well as those variants which currently do not co-relate with the provided phenotype may not be analyzed/ reported. Additionally, it may not be possible to fully resolve certain details about variants, such as mosaicism, phasing, or mapping ambiguity.  Triplet repeat expansions, translocations, large deletion or duplications and chromosomal rearrangements events are currently not reliably detected by next generation sequencing.  This assay is not meant to interrogate most promoter regions, deep intronic regions, or other regulatory elements, other gene rearrangements like inversion or translocation and does not detect single or multi-exon deletions or duplications.  Incidental or secondary findings (if any) that meet the ACMG guidelines can be given upon request.  Genes with pseudogenes, paralog genes and genes with low complexity may have decreased sensitivity and specificity of variant detection and interpretation due to inability of the data and analysis tools to unambiguously determine the"
       ]
     },
@@ -13997,10 +13996,16 @@
         419.48
       ],
       "content_text": [
-        "------------------ End Of Report ------------------"
+        "------------------ End Of Report ------------------",
+        "Dr.Nirmal A. Vaniawala Dr. Salil Vaniawala Dr. Parag Tamhankar MD (Path. & Bact.) M.Sc Ph.D.(Human Genetics) Consulting Geneticist",
+        "DM (Medical Genetics),  MD, DNB (Pediatrics)  Senior Genetic Consultant",
+        "MC-7414"
       ],
       "paragraphs": [
-        "------------------ End Of Report ------------------"
+        "------------------ End Of Report ------------------",
+        "Dr.Nirmal A. Vaniawala Dr. Salil Vaniawala Dr. Parag Tamhankar MD (Path. & Bact.) M.Sc Ph.D.(Human Genetics) Consulting Geneticist",
+        "DM (Medical Genetics),  MD, DNB (Pediatrics)  Senior Genetic Consultant",
+        "MC-7414"
       ]
     },
     {
@@ -30077,15 +30082,16 @@
   "content_sections": [
     {
       "page": 1,
-      "title": "NGS Hereditary Cancer Panel on the Illumina Novaseq X NGS Platform",
+      "title": "Clinical Indication:",
       "type": "box",
       "bbox": [
-        169.49,
-        203.7,
-        425.88,
-        236.52
+        41.1,
+        251.1,
+        120.86,
+        262.82
       ],
       "content_text": [
+        "Birendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion.",
         "Sample Description: Sample quality is optimum for the test."
       ]
     },
@@ -30104,9 +30110,7 @@
         "Variant Interpretation & Clinical correlation:",
         "MSH2 :Deletion Exon 3-6; The submitted sample shows Heterozygous deletion of exon 3-6 of gene MSH2 on chromosome 2. A 6.4kb deletion detected on cytoband 2p21 (?_47,410,089-47,416,441_?). This variant is absent in our internal database.",
         "Based on above evidence, this variant (MSH2:Deletion Exon 3-6) is classified as  Pathogenic  variant.",
-        "MSH2 Gene Phenotype Description : Lynch syndrome-1 (LYNCH1), also known as hereditary nonpolyposis colorectal cancer (HNPCC1), is caused by heterozygous mutation in the mismatch repair gene MSH2 (609309) on chromosome 2p21-p16. Lynch syndrome (LYNCH), also called hereditary nonpolyposis colorectal cancer, is defined as an autosomal dominant predisposition to a spectrum of cancers, primarily of the colorectum and endometrium, which exhibit impaired DNA mismatch repair (MMR) activity (summary by Lynch et al., 2015).",
-        "Clinical Indication:",
-        "Birendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion."
+        "MSH2 Gene Phenotype Description : Lynch syndrome-1 (LYNCH1), also known as hereditary nonpolyposis colorectal cancer (HNPCC1), is caused by heterozygous mutation in the mismatch repair gene MSH2 (609309) on chromosome 2p21-p16. Lynch syndrome (LYNCH), also called hereditary nonpolyposis colorectal cancer, is defined as an autosomal dominant predisposition to a spectrum of cancers, primarily of the colorectum and endometrium, which exhibit impaired DNA mismatch repair (MMR) activity (summary by Lynch et al., 2015)."
       ]
     },
     {
@@ -30129,7 +30133,7 @@
     },
     {
       "page": 3,
-      "title": "General Content / Notes",
+      "title": " This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study.",
       "type": "box",
       "bbox": [
         35.45,
@@ -30138,7 +30142,6 @@
         336.46
       ],
       "content_text": [
-        " This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study.",
         "Limitations/Disclaimer:  It should be noted that this test does not sequence all bases in a human genome, not all variants have been identified or interpreted, and this report is limited only to variants with evidence for causing or contributing to disease/clinical details provided to SN Gene Lab Pvt Ltd.  Testing has been performed assuming that the sample received belongs to the above named individual and any stated relationships between individuals are accepted as true.  Test results are interpreted in the context of clinical findings, family history and other laboratory data. Only variations in genes potentially related to the proband's medical condition are reported. Rare polymorphisms may lead to false negative or positive results. Misinterpretation of results may occur if the information provided is inaccurate or incomplete. The results should be interpreted in the context of the patient’s medical evaluation, family history and racial/ethnic background. Please note that variant classification and/or interpretation may change over time if more information available. Re-interpretation of multi gene next generation sequencing data is recommended on an annual basis and may be requested by a medical provider.  The sensitivity of this assay to detect large deletions/duplications of more than 10 bp or copy number variations (CNV) is 70-75%. The CNVs detected with this assay have to be confirmed by alternate method such as MLPA & Microarray.  Due to inherent technology limitations, coverage is not uniform across all regions. Hence pathogenic variants present in areas of insufficient coverage as well as those variants which currently do not co-relate with the provided phenotype may not be analyzed/ reported. Additionally, it may not be possible to fully resolve certain details about variants, such as mosaicism, phasing, or mapping ambiguity.  Triplet repeat expansions, translocations, large deletion or duplications and chromosomal rearrangements events are currently not reliably detected by next generation sequencing.  This assay is not meant to interrogate most promoter regions, deep intronic regions, or other regulatory elements, other gene rearrangements like inversion or translocation and does not detect single or multi-exon deletions or duplications.  Incidental or secondary findings (if any) that meet the ACMG guidelines can be given upon request.  Genes with pseudogenes, paralog genes and genes with low complexity may have decreased sensitivity and specificity of variant detection and interpretation due to inability of the data and analysis tools to unambiguously determine the"
       ]
     },
@@ -30187,22 +30190,26 @@
         419.48
       ],
       "content_text": [
-        "------------------ End Of Report ------------------"
+        "------------------ End Of Report ------------------",
+        "Dr.Nirmal A. Vaniawala Dr. Salil Vaniawala Dr. Parag Tamhankar MD (Path. & Bact.) M.Sc Ph.D.(Human Genetics) Consulting Geneticist",
+        "DM (Medical Genetics),  MD, DNB (Pediatrics)  Senior Genetic Consultant",
+        "MC-7414"
       ]
     }
   ],
   "all_boxes_and_sections": [
     {
       "page": 1,
-      "title": "NGS Hereditary Cancer Panel on the Illumina Novaseq X NGS Platform",
+      "title": "Clinical Indication:",
       "type": "box",
       "bbox": [
-        169.49,
-        203.7,
-        425.88,
-        236.52
+        41.1,
+        251.1,
+        120.86,
+        262.82
       ],
       "content_text": [
+        "Birendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion.",
         "Sample Description: Sample quality is optimum for the test."
       ]
     },
@@ -30221,9 +30228,7 @@
         "Variant Interpretation & Clinical correlation:",
         "MSH2 :Deletion Exon 3-6; The submitted sample shows Heterozygous deletion of exon 3-6 of gene MSH2 on chromosome 2. A 6.4kb deletion detected on cytoband 2p21 (?_47,410,089-47,416,441_?). This variant is absent in our internal database.",
         "Based on above evidence, this variant (MSH2:Deletion Exon 3-6) is classified as  Pathogenic  variant.",
-        "MSH2 Gene Phenotype Description : Lynch syndrome-1 (LYNCH1), also known as hereditary nonpolyposis colorectal cancer (HNPCC1), is caused by heterozygous mutation in the mismatch repair gene MSH2 (609309) on chromosome 2p21-p16. Lynch syndrome (LYNCH), also called hereditary nonpolyposis colorectal cancer, is defined as an autosomal dominant predisposition to a spectrum of cancers, primarily of the colorectum and endometrium, which exhibit impaired DNA mismatch repair (MMR) activity (summary by Lynch et al., 2015).",
-        "Clinical Indication:",
-        "Birendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion."
+        "MSH2 Gene Phenotype Description : Lynch syndrome-1 (LYNCH1), also known as hereditary nonpolyposis colorectal cancer (HNPCC1), is caused by heterozygous mutation in the mismatch repair gene MSH2 (609309) on chromosome 2p21-p16. Lynch syndrome (LYNCH), also called hereditary nonpolyposis colorectal cancer, is defined as an autosomal dominant predisposition to a spectrum of cancers, primarily of the colorectum and endometrium, which exhibit impaired DNA mismatch repair (MMR) activity (summary by Lynch et al., 2015)."
       ]
     },
     {
@@ -30246,7 +30251,7 @@
     },
     {
       "page": 3,
-      "title": "General Content / Notes",
+      "title": " This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study.",
       "type": "box",
       "bbox": [
         35.45,
@@ -30255,7 +30260,6 @@
         336.46
       ],
       "content_text": [
-        " This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study.",
         "Limitations/Disclaimer:  It should be noted that this test does not sequence all bases in a human genome, not all variants have been identified or interpreted, and this report is limited only to variants with evidence for causing or contributing to disease/clinical details provided to SN Gene Lab Pvt Ltd.  Testing has been performed assuming that the sample received belongs to the above named individual and any stated relationships between individuals are accepted as true.  Test results are interpreted in the context of clinical findings, family history and other laboratory data. Only variations in genes potentially related to the proband's medical condition are reported. Rare polymorphisms may lead to false negative or positive results. Misinterpretation of results may occur if the information provided is inaccurate or incomplete. The results should be interpreted in the context of the patient’s medical evaluation, family history and racial/ethnic background. Please note that variant classification and/or interpretation may change over time if more information available. Re-interpretation of multi gene next generation sequencing data is recommended on an annual basis and may be requested by a medical provider.  The sensitivity of this assay to detect large deletions/duplications of more than 10 bp or copy number variations (CNV) is 70-75%. The CNVs detected with this assay have to be confirmed by alternate method such as MLPA & Microarray.  Due to inherent technology limitations, coverage is not uniform across all regions. Hence pathogenic variants present in areas of insufficient coverage as well as those variants which currently do not co-relate with the provided phenotype may not be analyzed/ reported. Additionally, it may not be possible to fully resolve certain details about variants, such as mosaicism, phasing, or mapping ambiguity.  Triplet repeat expansions, translocations, large deletion or duplications and chromosomal rearrangements events are currently not reliably detected by next generation sequencing.  This assay is not meant to interrogate most promoter regions, deep intronic regions, or other regulatory elements, other gene rearrangements like inversion or translocation and does not detect single or multi-exon deletions or duplications.  Incidental or secondary findings (if any) that meet the ACMG guidelines can be given upon request.  Genes with pseudogenes, paralog genes and genes with low complexity may have decreased sensitivity and specificity of variant detection and interpretation due to inability of the data and analysis tools to unambiguously determine the"
       ]
     },
@@ -30304,7 +30308,10 @@
         419.48
       ],
       "content_text": [
-        "------------------ End Of Report ------------------"
+        "------------------ End Of Report ------------------",
+        "Dr.Nirmal A. Vaniawala Dr. Salil Vaniawala Dr. Parag Tamhankar MD (Path. & Bact.) M.Sc Ph.D.(Human Genetics) Consulting Geneticist",
+        "DM (Medical Genetics),  MD, DNB (Pediatrics)  Senior Genetic Consultant",
+        "MC-7414"
       ]
     }
   ],
@@ -31412,23 +31419,6 @@
       "content": [
         {
           "page": 1,
-          "type": "box",
-          "title": "NGS Hereditary Cancer Panel on the Illumina Novaseq X NGS Platform",
-          "text": [
-            "Sample Description: Sample quality is optimum for the test."
-          ],
-          "content_text": [
-            "Sample Description: Sample quality is optimum for the test."
-          ],
-          "bbox": [
-            169.49,
-            203.7,
-            425.88,
-            236.52
-          ]
-        },
-        {
-          "page": 1,
           "type": "key_value",
           "pairs": {
             "Sample Description": "Sample quality is optimum for the test.",
@@ -31443,6 +31433,25 @@
         },
         {
           "page": 1,
+          "type": "banner",
+          "title": "Clinical Indication:",
+          "text": [
+            "Birendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion.",
+            "Sample Description: Sample quality is optimum for the test."
+          ],
+          "content_text": [
+            "Birendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion.",
+            "Sample Description: Sample quality is optimum for the test."
+          ],
+          "bbox": [
+            41.1,
+            251.1,
+            120.86,
+            262.82
+          ]
+        },
+        {
+          "page": 1,
           "type": "box",
           "title": "Key Findings:",
           "text": [
@@ -31450,18 +31459,14 @@
             "Variant Interpretation & Clinical correlation:",
             "MSH2 :Deletion Exon 3-6; The submitted sample shows Heterozygous deletion of exon 3-6 of gene MSH2 on chromosome 2. A 6.4kb deletion detected on cytoband 2p21 (?_47,410,089-47,416,441_?). This variant is absent in our internal database.",
             "Based on above evidence, this variant (MSH2:Deletion Exon 3-6) is classified as  Pathogenic  variant.",
-            "MSH2 Gene Phenotype Description : Lynch syndrome-1 (LYNCH1), also known as hereditary nonpolyposis colorectal cancer (HNPCC1), is caused by heterozygous mutation in the mismatch repair gene MSH2 (609309) on chromosome 2p21-p16. Lynch syndrome (LYNCH), also called hereditary nonpolyposis colorectal cancer, is defined as an autosomal dominant predisposition to a spectrum of cancers, primarily of the colorectum and endometrium, which exhibit impaired DNA mismatch repair (MMR) activity (summary by Lynch et al., 2015).",
-            "Clinical Indication:",
-            "Birendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion."
+            "MSH2 Gene Phenotype Description : Lynch syndrome-1 (LYNCH1), also known as hereditary nonpolyposis colorectal cancer (HNPCC1), is caused by heterozygous mutation in the mismatch repair gene MSH2 (609309) on chromosome 2p21-p16. Lynch syndrome (LYNCH), also called hereditary nonpolyposis colorectal cancer, is defined as an autosomal dominant predisposition to a spectrum of cancers, primarily of the colorectum and endometrium, which exhibit impaired DNA mismatch repair (MMR) activity (summary by Lynch et al., 2015)."
           ],
           "content_text": [
             "*Genetic test results are reported based on the recommendations of American College of Medical Genetics",
             "Variant Interpretation & Clinical correlation:",
             "MSH2 :Deletion Exon 3-6; The submitted sample shows Heterozygous deletion of exon 3-6 of gene MSH2 on chromosome 2. A 6.4kb deletion detected on cytoband 2p21 (?_47,410,089-47,416,441_?). This variant is absent in our internal database.",
             "Based on above evidence, this variant (MSH2:Deletion Exon 3-6) is classified as  Pathogenic  variant.",
-            "MSH2 Gene Phenotype Description : Lynch syndrome-1 (LYNCH1), also known as hereditary nonpolyposis colorectal cancer (HNPCC1), is caused by heterozygous mutation in the mismatch repair gene MSH2 (609309) on chromosome 2p21-p16. Lynch syndrome (LYNCH), also called hereditary nonpolyposis colorectal cancer, is defined as an autosomal dominant predisposition to a spectrum of cancers, primarily of the colorectum and endometrium, which exhibit impaired DNA mismatch repair (MMR) activity (summary by Lynch et al., 2015).",
-            "Clinical Indication:",
-            "Birendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion."
+            "MSH2 Gene Phenotype Description : Lynch syndrome-1 (LYNCH1), also known as hereditary nonpolyposis colorectal cancer (HNPCC1), is caused by heterozygous mutation in the mismatch repair gene MSH2 (609309) on chromosome 2p21-p16. Lynch syndrome (LYNCH), also called hereditary nonpolyposis colorectal cancer, is defined as an autosomal dominant predisposition to a spectrum of cancers, primarily of the colorectum and endometrium, which exhibit impaired DNA mismatch repair (MMR) activity (summary by Lynch et al., 2015)."
           ],
           "bbox": [
             35.45,
@@ -31558,15 +31563,16 @@
       "boxes_and_sections": [
         {
           "page": 1,
-          "title": "NGS Hereditary Cancer Panel on the Illumina Novaseq X NGS Platform",
+          "title": "Clinical Indication:",
           "type": "box",
           "bbox": [
-            169.49,
-            203.7,
-            425.88,
-            236.52
+            41.1,
+            251.1,
+            120.86,
+            262.82
           ],
           "content_text": [
+            "Birendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion.",
             "Sample Description: Sample quality is optimum for the test."
           ]
         },
@@ -31585,9 +31591,7 @@
             "Variant Interpretation & Clinical correlation:",
             "MSH2 :Deletion Exon 3-6; The submitted sample shows Heterozygous deletion of exon 3-6 of gene MSH2 on chromosome 2. A 6.4kb deletion detected on cytoband 2p21 (?_47,410,089-47,416,441_?). This variant is absent in our internal database.",
             "Based on above evidence, this variant (MSH2:Deletion Exon 3-6) is classified as  Pathogenic  variant.",
-            "MSH2 Gene Phenotype Description : Lynch syndrome-1 (LYNCH1), also known as hereditary nonpolyposis colorectal cancer (HNPCC1), is caused by heterozygous mutation in the mismatch repair gene MSH2 (609309) on chromosome 2p21-p16. Lynch syndrome (LYNCH), also called hereditary nonpolyposis colorectal cancer, is defined as an autosomal dominant predisposition to a spectrum of cancers, primarily of the colorectum and endometrium, which exhibit impaired DNA mismatch repair (MMR) activity (summary by Lynch et al., 2015).",
-            "Clinical Indication:",
-            "Birendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion."
+            "MSH2 Gene Phenotype Description : Lynch syndrome-1 (LYNCH1), also known as hereditary nonpolyposis colorectal cancer (HNPCC1), is caused by heterozygous mutation in the mismatch repair gene MSH2 (609309) on chromosome 2p21-p16. Lynch syndrome (LYNCH), also called hereditary nonpolyposis colorectal cancer, is defined as an autosomal dominant predisposition to a spectrum of cancers, primarily of the colorectum and endometrium, which exhibit impaired DNA mismatch repair (MMR) activity (summary by Lynch et al., 2015)."
           ]
         }
       ],
@@ -31895,6 +31899,90 @@
         {
           "page": 1,
           "bbox": [
+            41.1,
+            251.1,
+            120.86,
+            262.82
+          ],
+          "type": "heading",
+          "text": "Clinical Indication:",
+          "max_font_size": 10.0,
+          "is_bold": true,
+          "italic": false,
+          "font": "Cambria",
+          "color": "#1f497d",
+          "lines": [
+            {
+              "bbox": [
+                41.1,
+                251.1,
+                120.86,
+                262.82
+              ],
+              "spans": [
+                {
+                  "text": "Clinical Indication:",
+                  "font": "Cambria",
+                  "size": 10.0,
+                  "color": "#1f497d",
+                  "bold": true,
+                  "italic": false,
+                  "bbox": [
+                    41.1,
+                    251.1,
+                    120.86,
+                    262.82
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "page": 1,
+          "bbox": [
+            41.1,
+            266.45,
+            424.2,
+            278.17
+          ],
+          "type": "paragraph",
+          "text": "Birendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion.",
+          "max_font_size": 10.0,
+          "is_bold": false,
+          "italic": false,
+          "font": "Cambria",
+          "color": "#000000",
+          "lines": [
+            {
+              "bbox": [
+                41.1,
+                266.45,
+                424.2,
+                278.17
+              ],
+              "spans": [
+                {
+                  "text": "Birendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion.",
+                  "font": "Cambria",
+                  "size": 10.0,
+                  "color": "#000000",
+                  "bold": false,
+                  "italic": false,
+                  "bbox": [
+                    41.1,
+                    266.45,
+                    424.2,
+                    278.17
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "page": 1,
+          "bbox": [
             35.45,
             302.68,
             200.26,
@@ -31952,6 +32040,48 @@
                     315.9,
                     200.26,
                     327.62
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "page": 1,
+          "bbox": [
+            121.2,
+            354.43,
+            474.14,
+            370.83
+          ],
+          "type": "heading",
+          "text": "Pathogenic deletion identified in relation to phenotype",
+          "max_font_size": 14.0,
+          "is_bold": true,
+          "italic": false,
+          "font": "Cambria",
+          "color": "#ffffff",
+          "lines": [
+            {
+              "bbox": [
+                121.2,
+                354.43,
+                474.14,
+                370.83
+              ],
+              "spans": [
+                {
+                  "text": "Pathogenic deletion identified in relation to phenotype",
+                  "font": "Cambria,Bold",
+                  "size": 14.0,
+                  "color": "#ffffff",
+                  "bold": true,
+                  "italic": false,
+                  "bbox": [
+                    121.2,
+                    354.43,
+                    474.14,
+                    370.83
                   ]
                 }
               ]
@@ -33245,135 +33375,9 @@
               ]
             }
           ]
-        },
-        {
-          "page": 1,
-          "bbox": [
-            41.1,
-            251.1,
-            120.86,
-            262.82
-          ],
-          "type": "paragraph",
-          "text": "Clinical Indication:",
-          "max_font_size": 10.0,
-          "is_bold": false,
-          "italic": false,
-          "font": "Cambria",
-          "color": "#ffffff",
-          "lines": [
-            {
-              "bbox": [
-                41.1,
-                251.1,
-                120.86,
-                262.82
-              ],
-              "spans": [
-                {
-                  "text": "Clinical Indication:",
-                  "font": "Cambria",
-                  "size": 10.0,
-                  "color": "#ffffff",
-                  "bold": false,
-                  "italic": false,
-                  "bbox": [
-                    41.1,
-                    251.1,
-                    120.86,
-                    262.82
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "page": 1,
-          "bbox": [
-            41.1,
-            266.45,
-            424.2,
-            278.17
-          ],
-          "type": "paragraph",
-          "text": "Birendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion.",
-          "max_font_size": 10.0,
-          "is_bold": false,
-          "italic": false,
-          "font": "Cambria",
-          "color": "#000000",
-          "lines": [
-            {
-              "bbox": [
-                41.1,
-                266.45,
-                424.2,
-                278.17
-              ],
-              "spans": [
-                {
-                  "text": "Birendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion.",
-                  "font": "Cambria",
-                  "size": 10.0,
-                  "color": "#000000",
-                  "bold": false,
-                  "italic": false,
-                  "bbox": [
-                    41.1,
-                    266.45,
-                    424.2,
-                    278.17
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "page": 1,
-          "bbox": [
-            121.2,
-            354.43,
-            474.14,
-            370.83
-          ],
-          "type": "heading",
-          "text": "Pathogenic deletion identified in relation to phenotype",
-          "max_font_size": 14.0,
-          "is_bold": true,
-          "italic": false,
-          "font": "Cambria",
-          "color": "#ffffff",
-          "lines": [
-            {
-              "bbox": [
-                121.2,
-                354.43,
-                474.14,
-                370.83
-              ],
-              "spans": [
-                {
-                  "text": "Pathogenic deletion identified in relation to phenotype",
-                  "font": "Cambria,Bold",
-                  "size": 14.0,
-                  "color": "#ffffff",
-                  "bold": true,
-                  "italic": false,
-                  "bbox": [
-                    121.2,
-                    354.43,
-                    474.14,
-                    370.83
-                  ]
-                }
-              ]
-            }
-          ]
         }
       ],
-      "page_text": "NGS Hereditary Cancer Panel on the Illumina Novaseq X NGS Platform\nSample Description: Sample quality is optimum for the test.\nKey Findings:\n*Genetic test results are reported based on the recommendations of American College of Medical Genetics\nVariant Interpretation & Clinical correlation:\nMSH2 :Deletion Exon 3-6; The submitted sample shows Heterozygous deletion of exon 3-6 of gene MSH2 on chromosome 2. A 6.4kb deletion detected on cytoband 2p21 (?_47,410,089-47,416,441_?). This variant is absent in our internal database.\nBased on above evidence, this variant (MSH2:Deletion Exon 3-6) is classified as  Pathogenic  variant.\nMSH2 Gene Phenotype Description : Lynch syndrome-1 (LYNCH1), also known as hereditary nonpolyposis colorectal cancer (HNPCC1), is caused by heterozygous mutation in the mismatch repair gene MSH2 (609309) on chromosome 2p21-p16. Lynch syndrome (LYNCH), also called hereditary nonpolyposis colorectal cancer, is defined as an autosomal dominant predisposition to a spectrum of cancers, primarily of the colorectum and endometrium, which exhibit impaired DNA mismatch repair (MMR) activity (summary by Lynch et al., 2015).\nClinical Indication:\nBirendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion.\nPathogenic deletion identified in relation to phenotype"
+      "page_text": "NGS Hereditary Cancer Panel on the Illumina Novaseq X NGS Platform\nClinical Indication:\nBirendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion.\nSample Description: Sample quality is optimum for the test.\nPathogenic deletion identified in relation to phenotype\nKey Findings:\n*Genetic test results are reported based on the recommendations of American College of Medical Genetics\nVariant Interpretation & Clinical correlation:\nMSH2 :Deletion Exon 3-6; The submitted sample shows Heterozygous deletion of exon 3-6 of gene MSH2 on chromosome 2. A 6.4kb deletion detected on cytoband 2p21 (?_47,410,089-47,416,441_?). This variant is absent in our internal database.\nBased on above evidence, this variant (MSH2:Deletion Exon 3-6) is classified as  Pathogenic  variant.\nMSH2 Gene Phenotype Description : Lynch syndrome-1 (LYNCH1), also known as hereditary nonpolyposis colorectal cancer (HNPCC1), is caused by heterozygous mutation in the mismatch repair gene MSH2 (609309) on chromosome 2p21-p16. Lynch syndrome (LYNCH), also called hereditary nonpolyposis colorectal cancer, is defined as an autosomal dominant predisposition to a spectrum of cancers, primarily of the colorectum and endometrium, which exhibit impaired DNA mismatch repair (MMR) activity (summary by Lynch et al., 2015)."
     },
     {
       "page_number": 2,
@@ -37026,14 +37030,12 @@
       "content": [
         {
           "page": 3,
-          "type": "box",
-          "title": "General Content / Notes",
+          "type": "banner",
+          "title": " This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study.",
           "text": [
-            " This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study.",
             "Limitations/Disclaimer:  It should be noted that this test does not sequence all bases in a human genome, not all variants have been identified or interpreted, and this report is limited only to variants with evidence for causing or contributing to disease/clinical details provided to SN Gene Lab Pvt Ltd.  Testing has been performed assuming that the sample received belongs to the above named individual and any stated relationships between individuals are accepted as true.  Test results are interpreted in the context of clinical findings, family history and other laboratory data. Only variations in genes potentially related to the proband's medical condition are reported. Rare polymorphisms may lead to false negative or positive results. Misinterpretation of results may occur if the information provided is inaccurate or incomplete. The results should be interpreted in the context of the patient’s medical evaluation, family history and racial/ethnic background. Please note that variant classification and/or interpretation may change over time if more information available. Re-interpretation of multi gene next generation sequencing data is recommended on an annual basis and may be requested by a medical provider.  The sensitivity of this assay to detect large deletions/duplications of more than 10 bp or copy number variations (CNV) is 70-75%. The CNVs detected with this assay have to be confirmed by alternate method such as MLPA & Microarray.  Due to inherent technology limitations, coverage is not uniform across all regions. Hence pathogenic variants present in areas of insufficient coverage as well as those variants which currently do not co-relate with the provided phenotype may not be analyzed/ reported. Additionally, it may not be possible to fully resolve certain details about variants, such as mosaicism, phasing, or mapping ambiguity.  Triplet repeat expansions, translocations, large deletion or duplications and chromosomal rearrangements events are currently not reliably detected by next generation sequencing.  This assay is not meant to interrogate most promoter regions, deep intronic regions, or other regulatory elements, other gene rearrangements like inversion or translocation and does not detect single or multi-exon deletions or duplications.  Incidental or secondary findings (if any) that meet the ACMG guidelines can be given upon request.  Genes with pseudogenes, paralog genes and genes with low complexity may have decreased sensitivity and specificity of variant detection and interpretation due to inability of the data and analysis tools to unambiguously determine the"
           ],
           "content_text": [
-            " This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study.",
             "Limitations/Disclaimer:  It should be noted that this test does not sequence all bases in a human genome, not all variants have been identified or interpreted, and this report is limited only to variants with evidence for causing or contributing to disease/clinical details provided to SN Gene Lab Pvt Ltd.  Testing has been performed assuming that the sample received belongs to the above named individual and any stated relationships between individuals are accepted as true.  Test results are interpreted in the context of clinical findings, family history and other laboratory data. Only variations in genes potentially related to the proband's medical condition are reported. Rare polymorphisms may lead to false negative or positive results. Misinterpretation of results may occur if the information provided is inaccurate or incomplete. The results should be interpreted in the context of the patient’s medical evaluation, family history and racial/ethnic background. Please note that variant classification and/or interpretation may change over time if more information available. Re-interpretation of multi gene next generation sequencing data is recommended on an annual basis and may be requested by a medical provider.  The sensitivity of this assay to detect large deletions/duplications of more than 10 bp or copy number variations (CNV) is 70-75%. The CNVs detected with this assay have to be confirmed by alternate method such as MLPA & Microarray.  Due to inherent technology limitations, coverage is not uniform across all regions. Hence pathogenic variants present in areas of insufficient coverage as well as those variants which currently do not co-relate with the provided phenotype may not be analyzed/ reported. Additionally, it may not be possible to fully resolve certain details about variants, such as mosaicism, phasing, or mapping ambiguity.  Triplet repeat expansions, translocations, large deletion or duplications and chromosomal rearrangements events are currently not reliably detected by next generation sequencing.  This assay is not meant to interrogate most promoter regions, deep intronic regions, or other regulatory elements, other gene rearrangements like inversion or translocation and does not detect single or multi-exon deletions or duplications.  Incidental or secondary findings (if any) that meet the ACMG guidelines can be given upon request.  Genes with pseudogenes, paralog genes and genes with low complexity may have decreased sensitivity and specificity of variant detection and interpretation due to inability of the data and analysis tools to unambiguously determine the"
           ],
           "bbox": [
@@ -37100,7 +37102,7 @@
       "boxes_and_sections": [
         {
           "page": 3,
-          "title": "General Content / Notes",
+          "title": " This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study.",
           "type": "box",
           "bbox": [
             35.45,
@@ -37109,7 +37111,6 @@
             336.46
           ],
           "content_text": [
-            " This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study.",
             "Limitations/Disclaimer:  It should be noted that this test does not sequence all bases in a human genome, not all variants have been identified or interpreted, and this report is limited only to variants with evidence for causing or contributing to disease/clinical details provided to SN Gene Lab Pvt Ltd.  Testing has been performed assuming that the sample received belongs to the above named individual and any stated relationships between individuals are accepted as true.  Test results are interpreted in the context of clinical findings, family history and other laboratory data. Only variations in genes potentially related to the proband's medical condition are reported. Rare polymorphisms may lead to false negative or positive results. Misinterpretation of results may occur if the information provided is inaccurate or incomplete. The results should be interpreted in the context of the patient’s medical evaluation, family history and racial/ethnic background. Please note that variant classification and/or interpretation may change over time if more information available. Re-interpretation of multi gene next generation sequencing data is recommended on an annual basis and may be requested by a medical provider.  The sensitivity of this assay to detect large deletions/duplications of more than 10 bp or copy number variations (CNV) is 70-75%. The CNVs detected with this assay have to be confirmed by alternate method such as MLPA & Microarray.  Due to inherent technology limitations, coverage is not uniform across all regions. Hence pathogenic variants present in areas of insufficient coverage as well as those variants which currently do not co-relate with the provided phenotype may not be analyzed/ reported. Additionally, it may not be possible to fully resolve certain details about variants, such as mosaicism, phasing, or mapping ambiguity.  Triplet repeat expansions, translocations, large deletion or duplications and chromosomal rearrangements events are currently not reliably detected by next generation sequencing.  This assay is not meant to interrogate most promoter regions, deep intronic regions, or other regulatory elements, other gene rearrangements like inversion or translocation and does not detect single or multi-exon deletions or duplications.  Incidental or secondary findings (if any) that meet the ACMG guidelines can be given upon request.  Genes with pseudogenes, paralog genes and genes with low complexity may have decreased sensitivity and specificity of variant detection and interpretation due to inability of the data and analysis tools to unambiguously determine the"
           ]
         }
@@ -37194,13 +37195,13 @@
             559.93,
             336.46
           ],
-          "type": "paragraph",
+          "type": "heading",
           "text": " This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study.",
           "max_font_size": 10.0,
-          "is_bold": false,
+          "is_bold": true,
           "italic": false,
           "font": "Cambria",
-          "color": "#000000",
+          "color": "#1f497d",
           "lines": [
             {
               "bbox": [
@@ -37286,8 +37287,8 @@
                   "text": "Haplotype caller has been used to identify variants which are relevant to the clinical indication.",
                   "font": "Cambria",
                   "size": 10.0,
-                  "color": "#000000",
-                  "bold": false,
+                  "color": "#1f497d",
+                  "bold": true,
                   "italic": false,
                   "bbox": [
                     53.45,
@@ -50148,10 +50149,16 @@
           "type": "box",
           "title": "General Content / Notes",
           "text": [
-            "------------------ End Of Report ------------------"
+            "------------------ End Of Report ------------------",
+            "Dr.Nirmal A. Vaniawala Dr. Salil Vaniawala Dr. Parag Tamhankar MD (Path. & Bact.) M.Sc Ph.D.(Human Genetics) Consulting Geneticist",
+            "DM (Medical Genetics),  MD, DNB (Pediatrics)  Senior Genetic Consultant",
+            "MC-7414"
           ],
           "content_text": [
-            "------------------ End Of Report ------------------"
+            "------------------ End Of Report ------------------",
+            "Dr.Nirmal A. Vaniawala Dr. Salil Vaniawala Dr. Parag Tamhankar MD (Path. & Bact.) M.Sc Ph.D.(Human Genetics) Consulting Geneticist",
+            "DM (Medical Genetics),  MD, DNB (Pediatrics)  Senior Genetic Consultant",
+            "MC-7414"
           ],
           "bbox": [
             211.66,
@@ -50226,7 +50233,10 @@
             419.48
           ],
           "content_text": [
-            "------------------ End Of Report ------------------"
+            "------------------ End Of Report ------------------",
+            "Dr.Nirmal A. Vaniawala Dr. Salil Vaniawala Dr. Parag Tamhankar MD (Path. & Bact.) M.Sc Ph.D.(Human Genetics) Consulting Geneticist",
+            "DM (Medical Genetics),  MD, DNB (Pediatrics)  Senior Genetic Consultant",
+            "MC-7414"
           ]
         }
       ],
@@ -51368,10 +51378,304 @@
               ]
             }
           ]
+        },
+        {
+          "page": 8,
+          "bbox": [
+            40.85,
+            745.19,
+            437.87,
+            779.63
+          ],
+          "type": "paragraph",
+          "text": "Dr.Nirmal A. Vaniawala Dr. Salil Vaniawala Dr. Parag Tamhankar MD (Path. & Bact.) M.Sc Ph.D.(Human Genetics) Consulting Geneticist",
+          "max_font_size": 10.0,
+          "is_bold": false,
+          "italic": false,
+          "font": "Calibri",
+          "color": "#000000",
+          "lines": [
+            {
+              "bbox": [
+                40.85,
+                745.19,
+                134.95,
+                757.4
+              ],
+              "spans": [
+                {
+                  "text": "Dr.Nirmal A. Vaniawala",
+                  "font": "Calibri",
+                  "size": 10.0,
+                  "color": "#222222",
+                  "bold": false,
+                  "italic": false,
+                  "bbox": [
+                    40.85,
+                    745.19,
+                    134.95,
+                    757.4
+                  ]
+                }
+              ]
+            },
+            {
+              "bbox": [
+                175.5,
+                745.19,
+                250.25,
+                757.4
+              ],
+              "spans": [
+                {
+                  "text": "Dr. Salil Vaniawala",
+                  "font": "Calibri",
+                  "size": 10.0,
+                  "color": "#000000",
+                  "bold": false,
+                  "italic": false,
+                  "bbox": [
+                    175.5,
+                    745.19,
+                    250.25,
+                    757.4
+                  ]
+                }
+              ]
+            },
+            {
+              "bbox": [
+                352.51,
+                745.19,
+                437.87,
+                757.4
+              ],
+              "spans": [
+                {
+                  "text": "Dr. Parag Tamhankar",
+                  "font": "Calibri",
+                  "size": 10.0,
+                  "color": "#222222",
+                  "bold": false,
+                  "italic": false,
+                  "bbox": [
+                    352.51,
+                    745.19,
+                    437.87,
+                    757.4
+                  ]
+                }
+              ]
+            },
+            {
+              "bbox": [
+                40.85,
+                757.65,
+                109.03,
+                768.64
+              ],
+              "spans": [
+                {
+                  "text": "MD (Path. & Bact.)",
+                  "font": "Calibri",
+                  "size": 9.0,
+                  "color": "#000000",
+                  "bold": false,
+                  "italic": false,
+                  "bbox": [
+                    40.85,
+                    757.65,
+                    109.03,
+                    768.64
+                  ]
+                }
+              ]
+            },
+            {
+              "bbox": [
+                175.5,
+                757.65,
+                321.35,
+                768.64
+              ],
+              "spans": [
+                {
+                  "text": "M.Sc Ph.D.(Human Genetics) Consulting",
+                  "font": "Calibri",
+                  "size": 9.0,
+                  "color": "#000000",
+                  "bold": false,
+                  "italic": false,
+                  "bbox": [
+                    175.5,
+                    757.65,
+                    321.35,
+                    768.64
+                  ]
+                }
+              ]
+            },
+            {
+              "bbox": [
+                175.5,
+                768.64,
+                212.29,
+                779.63
+              ],
+              "spans": [
+                {
+                  "text": "Geneticist",
+                  "font": "Calibri",
+                  "size": 9.0,
+                  "color": "#000000",
+                  "bold": false,
+                  "italic": false,
+                  "bbox": [
+                    175.5,
+                    768.64,
+                    212.29,
+                    779.63
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "page": 8,
+          "bbox": [
+            352.51,
+            757.65,
+            437.16,
+            786.95
+          ],
+          "type": "paragraph",
+          "text": "DM (Medical Genetics),  MD, DNB (Pediatrics)  Senior Genetic Consultant",
+          "max_font_size": 8.0,
+          "is_bold": false,
+          "italic": false,
+          "font": "Calibri",
+          "color": "#000000",
+          "lines": [
+            {
+              "bbox": [
+                352.51,
+                757.65,
+                430.69,
+                767.42
+              ],
+              "spans": [
+                {
+                  "text": "DM (Medical Genetics), ",
+                  "font": "Calibri",
+                  "size": 8.0,
+                  "color": "#000000",
+                  "bold": false,
+                  "italic": false,
+                  "bbox": [
+                    352.51,
+                    757.65,
+                    430.69,
+                    767.42
+                  ]
+                }
+              ]
+            },
+            {
+              "bbox": [
+                352.51,
+                767.42,
+                422.78,
+                777.18
+              ],
+              "spans": [
+                {
+                  "text": "MD, DNB (Pediatrics) ",
+                  "font": "Calibri",
+                  "size": 8.0,
+                  "color": "#000000",
+                  "bold": false,
+                  "italic": false,
+                  "bbox": [
+                    352.51,
+                    767.42,
+                    422.78,
+                    777.18
+                  ]
+                }
+              ]
+            },
+            {
+              "bbox": [
+                352.51,
+                777.18,
+                437.16,
+                786.95
+              ],
+              "spans": [
+                {
+                  "text": "Senior Genetic Consultant",
+                  "font": "Calibri",
+                  "size": 8.0,
+                  "color": "#000000",
+                  "bold": false,
+                  "italic": false,
+                  "bbox": [
+                    352.51,
+                    777.18,
+                    437.16,
+                    786.95
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "page": 8,
+          "bbox": [
+            488.8,
+            768.56,
+            525.97,
+            780.77
+          ],
+          "type": "paragraph",
+          "text": "MC-7414",
+          "max_font_size": 10.0,
+          "is_bold": false,
+          "italic": false,
+          "font": "Calibri",
+          "color": "#000000",
+          "lines": [
+            {
+              "bbox": [
+                488.8,
+                768.56,
+                525.97,
+                780.77
+              ],
+              "spans": [
+                {
+                  "text": "MC-7414",
+                  "font": "Calibri",
+                  "size": 10.0,
+                  "color": "#000000",
+                  "bold": false,
+                  "italic": false,
+                  "bbox": [
+                    488.8,
+                    768.56,
+                    525.97,
+                    780.77
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ],
-      "page_text": "------------------ End Of Report ------------------"
+      "page_text": "------------------ End Of Report ------------------\nDr.Nirmal A. Vaniawala Dr. Salil Vaniawala Dr. Parag Tamhankar MD (Path. & Bact.) M.Sc Ph.D.(Human Genetics) Consulting Geneticist\nDM (Medical Genetics),  MD, DNB (Pediatrics)  Senior Genetic Consultant\nMC-7414"
     }
   ],
-  "raw_full_text": "NGS Hereditary Cancer Panel on the Illumina Novaseq X NGS Platform\nSample Description: Sample quality is optimum for the test.\nKey Findings:\n*Genetic test results are reported based on the recommendations of American College of Medical Genetics\nVariant Interpretation & Clinical correlation:\nMSH2 :Deletion Exon 3-6; The submitted sample shows Heterozygous deletion of exon 3-6 of gene MSH2 on chromosome 2. A 6.4kb deletion detected on cytoband 2p21 (?_47,410,089-47,416,441_?). This variant is absent in our internal database.\nBased on above evidence, this variant (MSH2:Deletion Exon 3-6) is classified as  Pathogenic  variant.\nMSH2 Gene Phenotype Description : Lynch syndrome-1 (LYNCH1), also known as hereditary nonpolyposis colorectal cancer (HNPCC1), is caused by heterozygous mutation in the mismatch repair gene MSH2 (609309) on chromosome 2p21-p16. Lynch syndrome (LYNCH), also called hereditary nonpolyposis colorectal cancer, is defined as an autosomal dominant predisposition to a spectrum of cancers, primarily of the colorectum and endometrium, which exhibit impaired DNA mismatch repair (MMR) activity (summary by Lynch et al., 2015).\nClinical Indication:\nBirendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion.\nPathogenic deletion identified in relation to phenotype\nAdditional Findings :\n*Genetic test results are reported based on the recommendations of American College of Medical Genetics\nHBB Gene Phenotype Description : Direct sequencing of specific regions of genomic DNA became feasible with the invention of the polymerase chain reaction (PCR) which permits amplification of specific regions of DNA. Recently, human mitochondrial DNA was amplified and directly sequenced. Using a thermostable DNA polymerase of T. aquaticus (Saiki, R.K. et al., manuscript in preparation) in the PCR, we have applied a combination of PCR and direct sequence analysis of the amplified product to a human single- copy gene. We studied the genomic DNA of five patients with beta-thalassaemia whose mutant alleles were uncharacterized, and found two previously undescribed mutations, along with three known alleles. One new allele is a frameshift at codons 106-107 and the other is an A-C transversion at the cap site (+1) of the beta-globin gene. This latter is the first natural mutation observed at the cap site and it occurs in a gene which is poorly expressed.\nCase Specific Recommendations: 1. Segregation analysis of the variant by Sanger /Exome sequencing/ MLPA is recommended.\nRecommendations  Genetic counseling is advised for interpretation on the consequences of the variant(s).  We recommend confirming the presence of these variants by Sanger Sequencing/ MLPA.  Segregation analysis of the variant by Sanger /Exome sequencing/ MLPA is recommended.  The significance/classification of the variants might change based on parental and family members genetic testing.  For questions about this report, or for assistance in locating nearby genetic counseling services, please contact the Laboratory:  contact@sngenelab.com .  If results obtained do not match the clinical findings, additional testing should be considered as per referring clinician's recommendation.\nMethodology:  Next Generation Sequencing: DNA extracted from Blood, Saliva, Amniotic fluid, CVS or any other standard source is used for targeted capture-based Library preparation. Targeted capture provides an efficient and sensitive means for sequencing specific genomic regions in a high-throughput manner. The libraries were sequenced to mean >85-100x coverage on Illumina Novaseq X sequencing platform with Paired End 2x150 chemistry.  We follow the Illumina DRAGEN Bio-IT Platform for identification of variants in the sample. The sequences obtained are assembled and aligned to reference sequences based on NCBI RefSeq transcripts and human genome build (GRCh38). Page 2 of 8\n This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study.\nLimitations/Disclaimer:  It should be noted that this test does not sequence all bases in a human genome, not all variants have been identified or interpreted, and this report is limited only to variants with evidence for causing or contributing to disease/clinical details provided to SN Gene Lab Pvt Ltd.  Testing has been performed assuming that the sample received belongs to the above named individual and any stated relationships between individuals are accepted as true.  Test results are interpreted in the context of clinical findings, family history and other laboratory data. Only variations in genes potentially related to the proband's medical condition are reported. Rare polymorphisms may lead to false negative or positive results. Misinterpretation of results may occur if the information provided is inaccurate or incomplete. The results should be interpreted in the context of the patient’s medical evaluation, family history and racial/ethnic background. Please note that variant classification and/or interpretation may change over time if more information available. Re-interpretation of multi gene next generation sequencing data is recommended on an annual basis and may be requested by a medical provider.  The sensitivity of this assay to detect large deletions/duplications of more than 10 bp or copy number variations (CNV) is 70-75%. The CNVs detected with this assay have to be confirmed by alternate method such as MLPA & Microarray.  Due to inherent technology limitations, coverage is not uniform across all regions. Hence pathogenic variants present in areas of insufficient coverage as well as those variants which currently do not co-relate with the provided phenotype may not be analyzed/ reported. Additionally, it may not be possible to fully resolve certain details about variants, such as mosaicism, phasing, or mapping ambiguity.  Triplet repeat expansions, translocations, large deletion or duplications and chromosomal rearrangements events are currently not reliably detected by next generation sequencing.  This assay is not meant to interrogate most promoter regions, deep intronic regions, or other regulatory elements, other gene rearrangements like inversion or translocation and does not detect single or multi-exon deletions or duplications.  Incidental or secondary findings (if any) that meet the ACMG guidelines can be given upon request.  Genes with pseudogenes, paralog genes and genes with low complexity may have decreased sensitivity and specificity of variant detection and interpretation due to inability of the data and analysis tools to unambiguously determine the\norigin of the sequence data in such regions.  Sequence and copy number variants are reported according to the Human Genome Variation Society (HGVS).  The transcript used for clinical reporting generally represents the canonical transcript, which is usually the longest coding transcript with strong/multiple supporting evidence. However, clinically relevant variants annotated in alternate complete coding transcripts could also be reported.\nReferences : 1. Richards S, Aziz N, Bale S, et al. Standards and guidelines for the interpretation of sequence variants: a joint consensus recommendation of the American College of Medical Genetics and Genomics and the Association for Molecular Pathology, Genetics in Medicine, 2015 May;17(5):405-24\n2. Kalia S.S. et al., Recommendations for reporting of secondary findings in clinical exome and genome sequencing, 2016 update(ACMG SF v2.0): a policy statement of the American College of Medical Genetics and Genomics. Genet Med., 19(2):249-255, 2017.\n3. Meyer, L.R., et al., The UCSC Genome Browser database: extensions and updates 2013. Nucleic Acids Res, 2013. 41(D1): p.D64-9.\n4. McKenna, A., et al., The Genome Analysis Toolkit: a MapReduce framework for analyzing next-generation DNA sequencing data. Genome Res, 2010. 20(9): p. 1297-303\n5. 1000 Genomes Project Consortium et al., A global reference for human genetic variation. Nature, 526(7571): 68-74, 2015.\n6. Lek M. et al., Analysis of protein-coding genetic variation in 60,706 humans. Nature, 536(7616):285-91, 2016.\n7. McLaren, W., et al., Deriving the consequences of genomic variants with the Ensembl API and SNP Effect Predictor. Bioinformatics, 2010. 26(16): p. 2069-70.\nAppendix 2: COVERAGE SUMMARY\n\n\n------------------ End Of Report ------------------"
+  "raw_full_text": "NGS Hereditary Cancer Panel on the Illumina Novaseq X NGS Platform\nClinical Indication:\nBirendra Tripathi diagnosed case of adenocarcinoma of ascending colon with brain lesion.\nSample Description: Sample quality is optimum for the test.\nPathogenic deletion identified in relation to phenotype\nKey Findings:\n*Genetic test results are reported based on the recommendations of American College of Medical Genetics\nVariant Interpretation & Clinical correlation:\nMSH2 :Deletion Exon 3-6; The submitted sample shows Heterozygous deletion of exon 3-6 of gene MSH2 on chromosome 2. A 6.4kb deletion detected on cytoband 2p21 (?_47,410,089-47,416,441_?). This variant is absent in our internal database.\nBased on above evidence, this variant (MSH2:Deletion Exon 3-6) is classified as  Pathogenic  variant.\nMSH2 Gene Phenotype Description : Lynch syndrome-1 (LYNCH1), also known as hereditary nonpolyposis colorectal cancer (HNPCC1), is caused by heterozygous mutation in the mismatch repair gene MSH2 (609309) on chromosome 2p21-p16. Lynch syndrome (LYNCH), also called hereditary nonpolyposis colorectal cancer, is defined as an autosomal dominant predisposition to a spectrum of cancers, primarily of the colorectum and endometrium, which exhibit impaired DNA mismatch repair (MMR) activity (summary by Lynch et al., 2015).\nAdditional Findings :\n*Genetic test results are reported based on the recommendations of American College of Medical Genetics\nHBB Gene Phenotype Description : Direct sequencing of specific regions of genomic DNA became feasible with the invention of the polymerase chain reaction (PCR) which permits amplification of specific regions of DNA. Recently, human mitochondrial DNA was amplified and directly sequenced. Using a thermostable DNA polymerase of T. aquaticus (Saiki, R.K. et al., manuscript in preparation) in the PCR, we have applied a combination of PCR and direct sequence analysis of the amplified product to a human single- copy gene. We studied the genomic DNA of five patients with beta-thalassaemia whose mutant alleles were uncharacterized, and found two previously undescribed mutations, along with three known alleles. One new allele is a frameshift at codons 106-107 and the other is an A-C transversion at the cap site (+1) of the beta-globin gene. This latter is the first natural mutation observed at the cap site and it occurs in a gene which is poorly expressed.\nCase Specific Recommendations: 1. Segregation analysis of the variant by Sanger /Exome sequencing/ MLPA is recommended.\nRecommendations  Genetic counseling is advised for interpretation on the consequences of the variant(s).  We recommend confirming the presence of these variants by Sanger Sequencing/ MLPA.  Segregation analysis of the variant by Sanger /Exome sequencing/ MLPA is recommended.  The significance/classification of the variants might change based on parental and family members genetic testing.  For questions about this report, or for assistance in locating nearby genetic counseling services, please contact the Laboratory:  contact@sngenelab.com .  If results obtained do not match the clinical findings, additional testing should be considered as per referring clinician's recommendation.\nMethodology:  Next Generation Sequencing: DNA extracted from Blood, Saliva, Amniotic fluid, CVS or any other standard source is used for targeted capture-based Library preparation. Targeted capture provides an efficient and sensitive means for sequencing specific genomic regions in a high-throughput manner. The libraries were sequenced to mean >85-100x coverage on Illumina Novaseq X sequencing platform with Paired End 2x150 chemistry.  We follow the Illumina DRAGEN Bio-IT Platform for identification of variants in the sample. The sequences obtained are assembled and aligned to reference sequences based on NCBI RefSeq transcripts and human genome build (GRCh38). Page 2 of 8\n This assay (Whole exome sequencing) covers 20321 genes including 37 mitochondria genes.  Haplotype caller has been used to identify variants which are relevant to the clinical indication.  In addition to SNVs and small Indels, copy number variants (CNVs) are detected from targeted sequence data using the commercially available algorithm. This algorithm detects rare CNVs based on comparison of the read-depths of the test data with the matched aggregate reference dataset.  Clinically relevant mutations were annotated using published variants in literature, Commercial datasets and a set of diseases databases. Common variants are filtered based on allele frequency in 1000Genome, ExAC, gnomAD, dbSNP & SN Genelab's internal database.  Non-synonymous variants effect is calculated using multiple algorithms such as PolyPhen-2, SIFT, MutationTaster2.  Based on annotations data, ACMG rules-based classification performed for classification of variants identified through next generation sequencing study.\nLimitations/Disclaimer:  It should be noted that this test does not sequence all bases in a human genome, not all variants have been identified or interpreted, and this report is limited only to variants with evidence for causing or contributing to disease/clinical details provided to SN Gene Lab Pvt Ltd.  Testing has been performed assuming that the sample received belongs to the above named individual and any stated relationships between individuals are accepted as true.  Test results are interpreted in the context of clinical findings, family history and other laboratory data. Only variations in genes potentially related to the proband's medical condition are reported. Rare polymorphisms may lead to false negative or positive results. Misinterpretation of results may occur if the information provided is inaccurate or incomplete. The results should be interpreted in the context of the patient’s medical evaluation, family history and racial/ethnic background. Please note that variant classification and/or interpretation may change over time if more information available. Re-interpretation of multi gene next generation sequencing data is recommended on an annual basis and may be requested by a medical provider.  The sensitivity of this assay to detect large deletions/duplications of more than 10 bp or copy number variations (CNV) is 70-75%. The CNVs detected with this assay have to be confirmed by alternate method such as MLPA & Microarray.  Due to inherent technology limitations, coverage is not uniform across all regions. Hence pathogenic variants present in areas of insufficient coverage as well as those variants which currently do not co-relate with the provided phenotype may not be analyzed/ reported. Additionally, it may not be possible to fully resolve certain details about variants, such as mosaicism, phasing, or mapping ambiguity.  Triplet repeat expansions, translocations, large deletion or duplications and chromosomal rearrangements events are currently not reliably detected by next generation sequencing.  This assay is not meant to interrogate most promoter regions, deep intronic regions, or other regulatory elements, other gene rearrangements like inversion or translocation and does not detect single or multi-exon deletions or duplications.  Incidental or secondary findings (if any) that meet the ACMG guidelines can be given upon request.  Genes with pseudogenes, paralog genes and genes with low complexity may have decreased sensitivity and specificity of variant detection and interpretation due to inability of the data and analysis tools to unambiguously determine the\norigin of the sequence data in such regions.  Sequence and copy number variants are reported according to the Human Genome Variation Society (HGVS).  The transcript used for clinical reporting generally represents the canonical transcript, which is usually the longest coding transcript with strong/multiple supporting evidence. However, clinically relevant variants annotated in alternate complete coding transcripts could also be reported.\nReferences : 1. Richards S, Aziz N, Bale S, et al. Standards and guidelines for the interpretation of sequence variants: a joint consensus recommendation of the American College of Medical Genetics and Genomics and the Association for Molecular Pathology, Genetics in Medicine, 2015 May;17(5):405-24\n2. Kalia S.S. et al., Recommendations for reporting of secondary findings in clinical exome and genome sequencing, 2016 update(ACMG SF v2.0): a policy statement of the American College of Medical Genetics and Genomics. Genet Med., 19(2):249-255, 2017.\n3. Meyer, L.R., et al., The UCSC Genome Browser database: extensions and updates 2013. Nucleic Acids Res, 2013. 41(D1): p.D64-9.\n4. McKenna, A., et al., The Genome Analysis Toolkit: a MapReduce framework for analyzing next-generation DNA sequencing data. Genome Res, 2010. 20(9): p. 1297-303\n5. 1000 Genomes Project Consortium et al., A global reference for human genetic variation. Nature, 526(7571): 68-74, 2015.\n6. Lek M. et al., Analysis of protein-coding genetic variation in 60,706 humans. Nature, 536(7616):285-91, 2016.\n7. McLaren, W., et al., Deriving the consequences of genomic variants with the Ensembl API and SNP Effect Predictor. Bioinformatics, 2010. 26(16): p. 2069-70.\nAppendix 2: COVERAGE SUMMARY\n\n\n------------------ End Of Report ------------------\nDr.Nirmal A. Vaniawala Dr. Salil Vaniawala Dr. Parag Tamhankar MD (Path. & Bact.) M.Sc Ph.D.(Human Genetics) Consulting Geneticist\nDM (Medical Genetics),  MD, DNB (Pediatrics)  Senior Genetic Consultant\nMC-7414"
 }

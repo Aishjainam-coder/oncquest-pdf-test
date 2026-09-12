@@ -884,7 +884,13 @@ def extract_report_data(pdf_path: str, auto_save_docx: bool = False) -> dict:
         # 2. Parse text blocks outside tables and strictly inside body region ONLY
         page_blocks = []
         body_text_lines = []
-        for block in text_page_dict.get("blocks", []):
+        raw_blocks = text_page_dict.get("blocks", [])
+        # Sort blocks by visual reading order: top-to-bottom (y0 quantized), left-to-right (x0)
+        sorted_blocks = sorted(
+            [b for b in raw_blocks if "bbox" in b and "lines" in b],
+            key=lambda b: (round(b["bbox"][1] / 4.0) * 4.0, b["bbox"][0])
+        )
+        for block in sorted_blocks:
             if "lines" in block:
                 b_bbox = [round(c, 2) for c in block["bbox"]]
                 if is_inside_table_bbox(b_bbox, table_bboxes):
@@ -928,6 +934,12 @@ def extract_report_data(pdf_path: str, auto_save_docx: bool = False) -> dict:
                                 span_color = f"#{r:02x}{g:02x}{b_val:02x}"
                                 colors_in_block.append(span_color_dec)
                             
+                            is_span_bold = bool(span.get("flags", 0) & 2 or "bold" in span_font.lower())
+                            if "clinical indication" in span.get("text", "").lower():
+                                span_color = "#1f497d"
+                                is_span_bold = True
+                                is_bold = True
+
                             sizes_in_block.append(span_size)
                             if span_font:
                                 fonts_in_block.append(span_font)
@@ -937,7 +949,7 @@ def extract_report_data(pdf_path: str, auto_save_docx: bool = False) -> dict:
                                 "font": span_font,
                                 "size": round(span_size, 2),
                                 "color": span_color,
-                                "bold": bool(span.get("flags", 0) & 2 or "bold" in span_font.lower()),
+                                "bold": is_span_bold,
                                 "italic": bool(span.get("flags", 0) & 1 or "italic" in span_font.lower()),
                                 "bbox": [round(c, 2) for c in span.get("bbox", [0, 0, 0, 0])]
                             })
@@ -968,6 +980,11 @@ def extract_report_data(pdf_path: str, auto_save_docx: bool = False) -> dict:
                 elif sem_type in ("heading", "subheading") and not seen_eor_ext:
                     text_color = "#1f497d"
                 
+                if "clinical indication" in clean_b_text.lower():
+                    text_color = "#1f497d"
+                    is_bold = True
+                    sem_type = "heading"
+                
                 # Dominant font name
                 dom_font = clean_font_name(font_name)
                 if fonts_in_block:
@@ -985,6 +1002,9 @@ def extract_report_data(pdf_path: str, auto_save_docx: bool = False) -> dict:
                     style_override["italic"] = True
                 if text_color:
                     style_override["text_color"] = text_color
+                if "clinical indication" in clean_b_text.lower():
+                    style_override["text_color"] = "#1f497d"
+                    style_override["bold"] = True
                 style_override["alignment"] = detect_alignment(b_bbox, rect.width)
 
                 if re.search(r'end\s+of\s+report', clean_b_text, re.I):
@@ -1062,17 +1082,18 @@ def extract_report_data(pdf_path: str, auto_save_docx: bool = False) -> dict:
                                 })
                     continue
 
-                is_hd_cand = (max_size >= 11.5 or (is_bold and len(clean_b_text) < 70)) and not clean_b_text.endswith(('.', ',', ';', '?'))
+                is_hd_cand = ("clinical indication" in clean_b_text.lower() or 
+                              ((max_size >= 11.5 or (is_bold and len(clean_b_text) < 70)) and not clean_b_text.endswith(('.', ',', ';', '?'))))
                 block_obj = {
                     "page": page_num + 1,
                     "bbox": b_bbox,
                     "type": "heading" if is_hd_cand else "paragraph",
                     "text": clean_b_text,
                     "max_font_size": round(max_size, 2),
-                    "is_bold": is_bold,
+                    "is_bold": is_bold or ("clinical indication" in clean_b_text.lower()),
                     "italic": is_italic,
                     "font": dom_font,
-                    "color": text_color,
+                    "color": "#1f497d" if "clinical indication" in clean_b_text.lower() else text_color,
                     "lines": lines_data
                 }
                 page_blocks.append(block_obj)
@@ -1160,10 +1181,11 @@ def extract_report_data(pdf_path: str, auto_save_docx: bool = False) -> dict:
         for b in page_blocks:
             t = b["text"]
             is_heading_candidate = (
-                (b["max_font_size"] >= 11.5 or (b["is_bold"] and len(t) < 70)) and
+                "clinical indication" in t.lower() or
+                ((b["max_font_size"] >= 11.5 or (b["is_bold"] and len(t) < 70)) and
                 not t.endswith(('.', ',', ';', '?')) and
                 not any(verb in f" {t.lower()} " for verb in [' is ', ' are ', ' was ', ' were ', ' should ']) and
-                len(t) < 90
+                len(t) < 90)
             )
 
             if is_heading_candidate:

@@ -628,6 +628,14 @@ def replace_teal_and_green_text_colors(html_str, prim_col, neg_col, pos_col):
         span_text = match.group(2)
 
         clean_t = re.sub(r'<[^>]+>', '', span_text).strip().lower()
+        if "clinical indication" in clean_t:
+            updated_style = re.sub(r'color:\s*[^;"]+', f'color:{prim_col}', span_style, flags=re.IGNORECASE)
+            if 'font-weight' not in updated_style.lower():
+                updated_style += '; font-weight: bold'
+            else:
+                updated_style = re.sub(r'font-weight:\s*[^;"]+', 'font-weight: bold', updated_style, flags=re.IGNORECASE)
+            return f'<span style="{updated_style}">{span_text}</span>'
+
         if clean_t in _RES_NEG_KEYWORDS or any(kw in clean_t for kw in ("not detected", "no clinically significant")):
             return full_span
 
@@ -931,7 +939,8 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
                     continue
 
                 # Filter out horizontal line segments immediately above, touching, or below TEST NAME / subtitle
-                if rh <= 2.5 and any((ty0 - 25.0) <= ry0 <= (ty1 + 26.0) for ty0, ty1 in test_name_y_ranges):
+                # The decorative underline under test name is narrow/centered (rw < 400.0) and directly adjacent (within 4.0pt)
+                if rh <= 2.5 and rw < 400.0 and any(abs(ry0 - ty1) <= 4.0 or abs(ry0 - ty0) <= 4.0 for ty0, ty1 in test_name_y_ranges):
                     continue
 
                 fill_col = get_css_color(d.get('fill'))
@@ -970,6 +979,9 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
                         # Check if this vector box is a result banner or a section heading/table header banner
                         box_rect = fitz.Rect(rx0, ry0, rx1, ry1)
                         box_text = page.get_text('text', clip=box_rect).strip()
+                        if "clinical indication" in box_text.lower():
+                            # Leave Clinical Indication box interior white/transparent so text is crisp and clean
+                            continue
                         banner_cls = check_result_banner_classification(box_text)
                         
                         if banner_cls == "positive":
@@ -1048,6 +1060,22 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
         cleaned = re.sub(r'<p\s+[^>]*>.*?</p>', filter_hdr_ftr_and_table_p, cleaned, flags=re.DOTALL)
         cleaned = replace_teal_and_green_text_colors(cleaned, primary_color, result_negative_color, result_positive_color)
 
+        # Enforce Oncquest blue (#1f497d) and bold on any Clinical Indication text
+        def _fix_ci_span(m):
+            tag_open = m.group(1)
+            content = m.group(2)
+            if "color:" in tag_open:
+                tag_open = re.sub(r'color:\s*[^;"]+', f'color:{primary_color}', tag_open, flags=re.I)
+            else:
+                tag_open = tag_open.rstrip('>') + f'; color:{primary_color};>'
+            if "font-weight:" in tag_open:
+                tag_open = re.sub(r'font-weight:\s*[^;"]+', 'font-weight:bold', tag_open, flags=re.I)
+            else:
+                tag_open = tag_open.rstrip('>') + '; font-weight:bold;>'
+            return f"{tag_open}{content}</span>"
+
+        cleaned = re.sub(r'(<span\s+[^>]*>)([^<]*?Clinical\s+Indication[^<]*?)</span>', _fix_ci_span, cleaned, flags=re.I)
+
         # 5. Extract exact images in body region ONLY
         exact_image_html_divs = []
         try:
@@ -1089,6 +1117,26 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
             pass
 
         section_overlays = get_page_section_overlays(page, page_left_str, page_width_str, hy_cutoff, fy_cutoff)
+
+        # Guarantee top border for Clinical Indication box so it is 100% enclosed on all 4 sides
+        try:
+            ci_rects = page.search_for("Clinical Indication")
+            for cir in ci_rects:
+                ci_top = cir.y0
+                has_top_border = any(
+                    (abs(float(m.group(1)) - ci_top) <= 5.0 and float(m.group(2)) >= 400.0)
+                    for v in vector_html_divs
+                    for m in [re.search(r'top:([0-9.]+)pt;.*width:([0-9.]+)pt', v)]
+                    if m
+                )
+                if not has_top_border:
+                    box_left = 29.8
+                    box_width = 535.8
+                    vector_html_divs.append(
+                        f"<div style='position:absolute; left:{box_left:.1f}pt; top:{ci_top - 1.5:.1f}pt; width:{box_width:.1f}pt; height:1.0pt; background-color:#000000; z-index:2; pointer-events:none;'></div>"
+                    )
+        except Exception:
+            pass
 
         html_parts.append(cleaned)
         html_parts.extend(vector_html_divs)
@@ -1249,11 +1297,51 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
             elif el_type in ("paragraph", "header", "footer") and show_sections:
                 txt = el.get("text", "").strip()
                 if txt:
-                    if txt.startswith(('•', '-', '*', '\uf0b7')) and not seen_eor:
+                    txt_low = txt.lower()
+                    if "clinical indication" in txt_low and not seen_eor:
+                        m_ci = re.match(r'^(clinical\s+indication\s*:?)(.*)$', txt, re.IGNORECASE | re.DOTALL)
+                        if m_ci:
+                            lbl_part = m_ci.group(1).strip()
+                            val_part = m_ci.group(2).strip()
+                            val_html = f'<p style="margin-top: 2pt; margin-bottom: 0; line-height: 1.3; color: #000000; font-family: {font_fam_val}; font-size: {font_sz_val}pt;">{val_part}</p>' if val_part else ''
+                            elements_html.append(
+                                f'<div style="border: 1px solid #000000; padding: 6px 10px; margin: 8pt 0; background: #ffffff; width: 100%; box-sizing: border-box;">'
+                                f'<p style="margin-bottom: 2pt; line-height: 1.3;"><strong style="color: {primary_color}; font-family: {font_fam_val}; font-size: {font_sz_val}pt;">{lbl_part}</strong></p>'
+                                f'{val_html}'
+                                f'</div>'
+                            )
+                        else:
+                            elements_html.append(
+                                f'<div style="border: 1px solid #000000; padding: 6px 10px; margin: 8pt 0; background: #ffffff; width: 100%; box-sizing: border-box;">'
+                                f'<p style="{inline_style} color: {primary_color}; font-weight: bold; margin-bottom: 0; line-height: 1.3;">{txt}</p>'
+                                f'</div>'
+                            )
+                    elif txt.startswith(('•', '-', '*', '\uf0b7')) and not seen_eor:
                         txt_val = txt.lstrip('•-* \uf0b7').strip()
                         elements_html.append(f'<li style="{inline_style} margin-left: 15pt; margin-bottom: 4pt;">{txt_val}</li>')
                     else:
                         elements_html.append(f'<p style="{inline_style} margin-bottom: 6pt; line-height: 1.3;">{txt}</p>')
+            elif el_type == "box" and show_sections:
+                b_title = el.get("title", "").strip()
+                b_texts = el.get("content_text", []) or el.get("text", [])
+                if isinstance(b_texts, str):
+                    b_texts = [b_texts]
+                box_lines_html = []
+                for bt in b_texts:
+                    bt_s = str(bt).strip()
+                    if not bt_s:
+                        continue
+                    if "clinical indication" in bt_s.lower():
+                        box_lines_html.append(f'<p style="margin-bottom: 3pt;"><strong style="color: {primary_color};">{bt_s}</strong></p>')
+                    else:
+                        box_lines_html.append(f'<p style="margin-bottom: 3pt; color: #000000;">{bt_s}</p>')
+                title_html = f'<div style="font-weight: bold; color: {primary_color}; margin-bottom: 4pt;">{b_title}</div>' if b_title else ""
+                elements_html.append(
+                    f'<div style="border: 1px solid #000000; padding: 6px 10px; margin: 8pt 0; background: #ffffff; width: 100%; box-sizing: border-box;">'
+                    f'{title_html}'
+                    f'{"".join(box_lines_html)}'
+                    f'</div>'
+                )
             elif el_type == "key_value":
                 kv_data = el.get("data", {})
                 if kv_data:
@@ -2414,7 +2502,10 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
                     run.font.name = resolved_style.get("font_family", "Cambria")
                     run.font.size = Pt(resolved_style.get("font_size", 10.0))
                     color_val = resolved_style.get("text_color") or colors_cfg.get("text_primary", "#000000")
-                    if str(color_val).lower() in ("#ffffff", "#fff"):
+                    if "clinical indication" in txt.lower():
+                        color_val = colors_cfg.get("primary", "#1f497d")
+                        run.bold = True
+                    elif str(color_val).lower() in ("#ffffff", "#fff"):
                         color_val = colors_cfg.get("text_primary", "#000000")
                     run.font.color.rgb = rgb(color_val)
                     preceding_el = el
@@ -2500,19 +2591,9 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
                     tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
                     tbl.allow_autofit = False
                     
-                    # If preceding element is TEST NAME, omit top border so no line appears below TEST NAME
-                    prev_is_test_name = False
-                    if el_idx > 0:
-                        prev_el = body_elements[el_idx - 1]
-                        prev_txt = _clean_text(prev_el.get("text", "")).replace('\xa0', ' ').strip()
-                        if prev_el.get("type") in ("heading", "subheading") and (
-                            prev_txt.upper() == "TEST NAME" or is_test_name_text(prev_txt)
-                        ):
-                            prev_is_test_name = True
-
                     border_color = "#000000" # Force all borders to black
                     b_sz = int(resolved_style.get("border_width", 0.5) * 8)
-                    table_borders(tbl, border_color, sz=max(1, b_sz), exclude_edges=("top",) if prev_is_test_name else ())
+                    table_borders(tbl, border_color, sz=max(1, b_sz))
                     
                     header_names = []
                     col_widths = []
@@ -2656,6 +2737,75 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
                             w_pt = col_widths[i]
                             if w_pt is not None:
                                 row.cells[i].width = Inches(float(w_pt) / 72.0)
+
+                    p_space = doc.add_paragraph()
+                    p_space.paragraph_format.space_before = Pt(0)
+                    p_space.paragraph_format.space_after = Pt(6)
+                    p_space.paragraph_format.line_spacing = Pt(1)
+                    r = p_space.add_run(); r.font.size = Pt(1)
+                    preceding_el = el
+
+                elif el_type == "box":
+                    b_title = _clean_text(el.get("title", "")).strip()
+                    b_texts = el.get("content_text", []) or el.get("text", [])
+                    if isinstance(b_texts, str):
+                        b_texts = [b_texts]
+                    
+                    tbl = doc.add_table(rows=1, cols=1)
+                    tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
+                    tbl.allow_autofit = False
+                    table_borders(tbl, "#000000", sz=4)
+                    cell = tbl.rows[0].cells[0]
+                    cell_margins(cell, t=80, b=80, l=120, r=120)
+                    cell.width = Inches(6.8)
+                    
+                    p_box = cell.paragraphs[0]
+                    p_box.paragraph_format.space_before = Pt(0)
+                    p_box.paragraph_format.space_after = Pt(2)
+                    
+                    if b_title:
+                        rt = p_box.add_run(b_title)
+                        rt.bold = True
+                        rt.font.name = resolved_style.get("font_family", "Cambria")
+                        rt.font.size = Pt(10.0)
+                        rt.font.color.rgb = rgb(colors_cfg.get("primary", "#1f497d") if not seen_eor_docx else "#000000")
+                        
+                    for b_idx, bt in enumerate(b_texts):
+                        bt_s = _clean_text(bt).strip()
+                        if not bt_s:
+                            continue
+                        if b_title or b_idx > 0:
+                            p_box = cell.add_paragraph()
+                            p_box.paragraph_format.space_before = Pt(2)
+                            p_box.paragraph_format.space_after = Pt(2)
+                        
+                        m_ci = re.match(r'^(clinical\s+indication\s*:?)(.*)$', bt_s, re.IGNORECASE | re.DOTALL)
+                        if m_ci:
+                            r_lbl = p_box.add_run(m_ci.group(1).strip() + " ")
+                            r_lbl.bold = True
+                            r_lbl.font.name = resolved_style.get("font_family", "Cambria")
+                            r_lbl.font.size = Pt(10.0)
+                            r_lbl.font.color.rgb = rgb(colors_cfg.get("primary", "#1f497d"))
+                            
+                            val_part = m_ci.group(2).strip()
+                            if val_part:
+                                r_val = p_box.add_run(val_part)
+                                r_val.bold = False
+                                r_val.font.name = resolved_style.get("font_family", "Cambria")
+                                r_val.font.size = Pt(10.0)
+                                r_val.font.color.rgb = rgb(colors_cfg.get("text_primary", "#000000"))
+                        elif "clinical indication" in bt_s.lower():
+                            r_ci = p_box.add_run(bt_s)
+                            r_ci.bold = True
+                            r_ci.font.name = resolved_style.get("font_family", "Cambria")
+                            r_ci.font.size = Pt(10.0)
+                            r_ci.font.color.rgb = rgb(colors_cfg.get("primary", "#1f497d"))
+                        else:
+                            r_bt = p_box.add_run(bt_s)
+                            r_bt.bold = False
+                            r_bt.font.name = resolved_style.get("font_family", "Cambria")
+                            r_bt.font.size = Pt(10.0)
+                            r_bt.font.color.rgb = rgb(colors_cfg.get("text_primary", "#000000"))
 
                     p_space = doc.add_paragraph()
                     p_space.paragraph_format.space_before = Pt(0)
@@ -3455,8 +3605,8 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
             w = max(0.5, x1 - x0)
             h = max(0.5, y1 - y0)
             
-            # Skip horizontal lines immediately above, touching, or below TEST NAME / subtitle
-            if h <= 2.5 and any((ty0 - 25.0) <= y0 <= (ty1 + 26.0) for ty0, ty1 in p_test_name_y_ranges):
+            # Skip horizontal decorative lines immediately above, touching, or below TEST NAME / subtitle
+            if h <= 2.5 and w < 400.0 and any(abs(y0 - ty1) <= 4.0 or abs(y0 - ty0) <= 4.0 for ty0, ty1 in p_test_name_y_ranges):
                 continue
 
             fill_col = d.get("fill_color")
@@ -3474,6 +3624,21 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
                 html_parts.append(
                     f"<div class='vector-box' style='left:{x0:.2f}pt; top:{y0:.2f}pt; width:{w:.2f}pt; height:{h:.2f}pt; border:{stroke_w}px solid #000000;'></div>"
                 )
+
+        # Guarantee top border for Clinical Indication box
+        for tb in p.get("text_blocks", []):
+            if "clinical indication" in tb.get("text", "").lower():
+                tb_bb = tb.get("bbox")
+                if tb_bb and len(tb_bb) >= 4:
+                    ci_top = tb_bb[1]
+                    has_top_border = any(
+                        (abs(d.get("bbox", [0, 0, 0, 0])[1] - ci_top) <= 5.0 and (d.get("bbox", [0, 0, 0, 0])[2] - d.get("bbox", [0, 0, 0, 0])[0]) >= 400.0)
+                        for d in p.get("drawings", [])
+                    )
+                    if not has_top_border:
+                        html_parts.append(
+                            f"<div class='vector-box' style='left:29.80pt; top:{ci_top - 1.5:.2f}pt; width:535.80pt; height:1.00pt; border:1px solid #000000;'></div>"
+                        )
 
         # 2. Render Images in body region ONLY
         for img in p.get("images", []):
@@ -3517,9 +3682,12 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
                         font_family_val = get_font_family(font_name)
                         size = s.get("size", 10.0)
                         color = s.get("color", "#000000")
-                        if color.lower() in ("#ffffff", "#fff"):
-                            color = primary_color
                         is_bold = s.get("bold") or ("bold" in font_name.lower())
+                        if "clinical indication" in clean_t.lower():
+                            color = primary_color
+                            is_bold = True
+                        elif color.lower() in ("#ffffff", "#fff"):
+                            color = primary_color
                         is_italic = s.get("italic") or ("italic" in font_name.lower())
 
                         font_wt = "bold" if is_bold else "normal"
@@ -3547,9 +3715,12 @@ def render_json_file_to_html(json_path, output_path: str = None, theme_config: d
                 font_family_val = get_font_family(font_name)
                 size = b.get("max_font_size") or b.get("size") or 10.0
                 color = b.get("color", "#000000")
-                if color.lower() in ("#ffffff", "#fff"):
-                    color = primary_color
                 is_bold = b.get("is_bold") or b.get("bold") or ("bold" in font_name.lower())
+                if "clinical indication" in clean_t.lower():
+                    color = primary_color
+                    is_bold = True
+                elif color.lower() in ("#ffffff", "#fff"):
+                    color = primary_color
                 is_italic = b.get("is_italic") or b.get("italic") or ("italic" in font_name.lower())
 
                 font_wt = "bold" if is_bold else "normal"
