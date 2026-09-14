@@ -13,10 +13,29 @@ import io
 import json
 import base64
 import re
+import time
 from pathlib import Path
 from PIL import Image
 import pymupdf as fitz  # PyMuPDF
 import logging
+
+def format_time_duration(seconds: float) -> str:
+    """Format seconds into readable minutes and seconds (e.g. '16m 16.14s' or '12.45s')."""
+    if seconds is None:
+        return "0.00s"
+    try:
+        seconds = float(seconds)
+    except Exception:
+        return str(seconds)
+    total_secs = int(seconds)
+    hours = total_secs // 3600
+    mins = (total_secs % 3600) // 60
+    rem_secs = seconds % 60
+    if hours > 0:
+        return f"{hours}h {mins}m {rem_secs:.2f}s"
+    if mins > 0:
+        return f"{mins}m {rem_secs:.2f}s"
+    return f"{rem_secs:.2f}s"
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger("UniversalPDFConverter")
@@ -4251,9 +4270,11 @@ def convert_pdf_full_pipeline(pdf_path, output_dir=None, theme_config: dict = No
     print(f"\n==================================================")
     print(f"[*] Executing PDF->HTML->PDF->DOCX Pipeline for: {pdf_path.name}")
     print(f"==================================================")
+    t_start_all = time.perf_counter()
 
     # Step 1: PDF -> JSON
     print(f"\n[Step 1/4] Extracting PDF to JSON...")
+    t0 = time.perf_counter()
     extracted_data = extract_report_data(str(pdf_path))
     if extracted_data:
         # Redact patient details and signature images directly in JSON
@@ -4268,36 +4289,49 @@ def convert_pdf_full_pipeline(pdf_path, output_dir=None, theme_config: dict = No
         with open(json_path, "w", encoding="utf-8") as f_json:
             f_json.write(json_str)
         print(f"   [+] Redacted JSON saved: {json_path}")
+    dur_step1 = time.perf_counter() - t0
+    print(f"   [⏱️] Step 1 Time: {format_time_duration(dur_step1)}")
 
     # Step 2: JSON -> HTML (themed)
     print(f"\n[Step 2/4] Rendering JSON to themed HTML...")
+    t1 = time.perf_counter()
     html_content = generate_dynamic_template_html(extracted_data, doc_title=f"{stem}.pdf", theme_config=theme_config)
     html_content = html_content.replace("SN Genelab Pvt Ltd", "Laboratory")
     html_path = output_dir / f"{stem}.html"
     html_path.write_text(html_content, encoding="utf-8")
     print(f"   [+] HTML saved: {html_path}")
+    dur_step2 = time.perf_counter() - t1
+    print(f"   [⏱️] Step 2 Time: {format_time_duration(dur_step2)}")
 
     # Step 3: HTML -> Compiled PDF
     print(f"\n[Step 3/4] Compiling HTML to PDF...")
+    t2 = time.perf_counter()
     compiled_pdf_path = output_dir / f"{stem}_compiled.pdf"
     render_html_to_pdf_and_preview(html_path, compiled_pdf_path)
+    dur_step3 = time.perf_counter() - t2
     if compiled_pdf_path.exists():
         print(f"   [+] Compiled PDF saved: {compiled_pdf_path}")
+        print(f"   [⏱️] Step 3 Time: {format_time_duration(dur_step3)}")
     else:
         print(f"   [!] Failed to compile HTML to PDF")
         return None
 
     # Step 4: Compiled PDF -> Word (.docx) via pdf2docx
     print(f"\n[Step 4/4] Converting compiled PDF to Word (.docx) via pdf2docx...")
+    t3 = time.perf_counter()
     out_docx = output_dir / f"{stem}_report.docx"
     success = convert_pdf_via_pdf2docx(str(compiled_pdf_path), str(out_docx))
+    dur_step4 = time.perf_counter() - t3
     if success:
         print(f"   [+] Word (.docx) generated: {out_docx}")
+        print(f"   [⏱️] Step 4 Time: {format_time_duration(dur_step4)}")
     else:
         print(f"   [!] pdf2docx conversion failed")
         return None
 
+    total_pipeline_time = time.perf_counter() - t_start_all
     print(f"\n[+] Pipeline Completed Successfully! Final Word doc: {out_docx}")
+    print(f"[⏱️] Total Time Taken: {format_time_duration(total_pipeline_time)} (Step 1: {format_time_duration(dur_step1)} | Step 2: {format_time_duration(dur_step2)} | Step 3: {format_time_duration(dur_step3)} | Step 4: {format_time_duration(dur_step4)})")
     print(f"==================================================\n")
     return out_docx
 
