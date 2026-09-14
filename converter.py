@@ -14,6 +14,7 @@ import json
 import base64
 import re
 import time
+import tempfile
 from pathlib import Path
 from PIL import Image
 import pymupdf as fitz  # PyMuPDF
@@ -89,7 +90,25 @@ def _launch_playwright_chromium(p):
 def is_end_of_report_text(text: str) -> bool:
     if not isinstance(text, str):
         return False
-    return bool(re.search(r'end\s+of\s+report', text, re.IGNORECASE))
+    return bool(re.search(r'end\s+of\s+(?:the\s+)?report', text, re.IGNORECASE))
+
+
+def find_eor_page_index(doc) -> int:
+    """
+    Returns 0-based page index where 'End of Report' is located in a PyMuPDF document,
+    or -1 if not found.
+    """
+    pattern = re.compile(r'end\s+of\s+(?:the\s+)?report', re.IGNORECASE)
+    for idx in range(len(doc)):
+        try:
+            page = doc[idx]
+            text = page.get_text("text")
+            norm_text = re.sub(r'\s+', ' ', text)
+            if pattern.search(norm_text):
+                return idx
+        except Exception:
+            pass
+    return -1
 
 
 def replace_sng_gen_lab(text: str) -> str:
@@ -680,11 +699,13 @@ def replace_teal_and_green_text_colors(html_str, prim_col, neg_col, pos_col):
     return res
 
 
-def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", theme_config: dict = None) -> str:
+def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", theme_config: dict = None, max_page_idx: int = None) -> str:
     """
     Renders an HTML document where body elements stay in their exact visual positions,
     while original header and footer content is completely excluded dynamically.
-    Applies user-selected theme typography, primary colors, table header styling, and cell borders.
+    Applies user-selected theme typography, primary colors, table header styling, and cell borders
+    to pages up to 'End of Report'. For pages after 'End of Report', theme styling is omitted
+    and original fonts and colors are preserved.
     """
     cfg = get_merged_theme_config(theme_config)
     colors_cfg = cfg.get("colors", {})
@@ -711,6 +732,7 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
 
     # Detect dynamic header and footer bounds per page
     page_bounds = detect_dynamic_header_footer_bounds(doc)
+    eor_page_idx = find_eor_page_index(doc)
 
     html_parts = [
         "<!DOCTYPE html>",
@@ -746,8 +768,10 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
         body {{ margin: 0; padding: 0; background-color: var(--color-bg-container); font-family: var(--font-primary); color: var(--text-primary); }}
         .pdf-container {{ display: flex; flex-direction: column; align-items: center; padding: 20px 0; }}
         .pdf-page {{ background: var(--color-bg-page); width: 595.6pt; min-height: 842.0pt; margin-bottom: 20px; position: relative; overflow: visible; box-shadow: 0 4px 12px rgba(0,0,0,0.3); page-break-after: always; font-family: var(--font-primary); }}
+        .pdf-page.unthemed {{ font-family: inherit !important; }}
         div[id^='page'] {{ position: relative !important; width: 595.6pt !important; min-height: 842.0pt !important; overflow: visible !important; }}
-        div[id^='page'] p {{ position: absolute !important; margin: 0 !important; padding: 0 !important; white-space: normal !important; word-break: normal !important; overflow-wrap: break-word !important; max-width: 100% !important; z-index: 10 !important; font-family: var(--font-primary) !important; line-height: 1.2 !important; overflow: visible !important; }}
+        div.themed[id^='page'] p {{ position: absolute !important; margin: 0 !important; padding: 0 !important; white-space: normal !important; word-break: normal !important; overflow-wrap: break-word !important; max-width: 100% !important; z-index: 10 !important; font-family: var(--font-primary) !important; line-height: 1.2 !important; overflow: visible !important; }}
+        div.unthemed[id^='page'] p {{ position: absolute !important; margin: 0 !important; padding: 0 !important; white-space: normal !important; word-break: normal !important; overflow-wrap: break-word !important; max-width: 100% !important; z-index: 10 !important; line-height: 1.2 !important; overflow: visible !important; }}
         div[id^='page'] span {{ word-break: normal !important; overflow-wrap: break-word !important; }}
         .black-banner-span {{ color: #ffffff !important; display: block !important; width: 100% !important; text-align: center !important; padding: 4px 0 !important; line-height: 1.2 !important; font-weight: bold !important; font-size: 13.0pt !important; font-family: var(--font-primary) !important; border-radius: 0px !important; white-space: normal !important; margin: 0 !important; background-color: var(--color-banner-dark) !important; box-sizing: border-box !important; z-index: 15 !important; }}
         .label-bar-span {{ color: #ffffff !important; display: inline-block !important; padding: 2px 6px !important; line-height: 1.2 !important; border-radius: 2px !important; font-family: var(--font-primary) !important; word-break: break-word !important; margin: 0 !important; background-color: var(--color-primary) !important; z-index: 15 !important; }}
@@ -769,331 +793,343 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
     ]
 
     for page_num in range(len(doc)):
+        if max_page_idx is not None and page_num > max_page_idx:
+            break
         page = doc[page_num]
+        is_after_eor = (eor_page_idx >= 0 and page_num > eor_page_idx)
+
         page_left_val, page_width_val = _get_page_bounds(page, fallback_left, fallback_width)
         page_left_str = f"{page_left_val:.1f}pt"
         page_width_str = f"{page_width_val:.1f}pt"
 
         # Reserve at least 0.5 inches (36.0 pt) blank space at the top of every page for header
         hy_cutoff = max(36.0, page_bounds[page_num]["header_y_cutoff"])
-        fy_cutoff = page_bounds[page_num]["footer_y_cutoff"]
+        fy_cutoff = min(page_bounds[page_num]["footer_y_cutoff"], 690.0)
 
-        html_parts.append(f"<div class='pdf-page' id='page-{page_num+1}'>")
+        page_class = "pdf-page unthemed" if is_after_eor else "pdf-page themed"
+        html_parts.append(f"<div class='{page_class}' id='page-{page_num+1}'>")
         page_html = page.get_text("html")
 
-        # 1. Extract PyMuPDF table headers & grid coordinates in body region ONLY
-        tabs = page.find_tables()
+        # 1. Extract PyMuPDF table headers & grid coordinates in body region ONLY (for themed pages)
         table_header_html_divs = []
         table_grid_html_divs = []
         header_y_ranges = []
         kept_table_bboxes = []
 
-        for tab in tabs.tables:
-            if hasattr(tab, 'bbox'):
-                tx0, ty0, tx1, ty1 = tab.bbox
-                t_mid = (ty0 + ty1) / 2.0
-                if t_mid < hy_cutoff or t_mid > fy_cutoff:
-                    continue
-                kept_table_bboxes.append(tab.bbox)
+        if not is_after_eor:
+            tabs = page.find_tables()
+            for tab in tabs.tables:
+                if hasattr(tab, 'bbox'):
+                    tx0, ty0, tx1, ty1 = tab.bbox
+                    t_mid = (ty0 + ty1) / 2.0
+                    if t_mid < hy_cutoff or t_mid > fy_cutoff:
+                        continue
+                    kept_table_bboxes.append(tab.bbox)
 
-            valid_cells = [c for c in tab.cells if c]
-            if valid_cells:
-                min_y0 = min(c[1] for c in valid_cells)
-                candidate_header_cells = [c for c in valid_cells if abs(c[1] - min_y0) < 3.0]
-                candidate_header_cells.sort(key=lambda c: c[0])
+                valid_cells = [c for c in tab.cells if c]
+                if valid_cells:
+                    min_y0 = min(c[1] for c in valid_cells)
+                    candidate_header_cells = [c for c in valid_cells if abs(c[1] - min_y0) < 3.0]
+                    candidate_header_cells.sort(key=lambda c: c[0])
 
-                _HEADER_KW_SET = {
-                    'tier', 'gene', 'variant', 'exon', 'coverage', 'vaf', 'assay', 'biomarker',
-                    'result', 'interpretation', 'therapy', 'therapies', 'fda', 'nccn', 'ema',
-                    'esmo', 'trials', 'clinical trials', 'diagnostic', 'prognostic', 'description',
-                    'dna', 'rna', 'unstable', 'loci', 'method', 'specimen', 'mutation', 'classification',
-                    'test name', 'parameter', 'value', 'units', 'reference range', 'findings', 'comment',
-                    'indication', 'biomarker description', 'clinical significance', 'therapeutic implications',
-                    'variant classification', 'allele frequency', 'copy number', 'status', 'drugs',
-                    'drug', 'sensitivity', 'resistance', 'pathogenicity', 'acmg', 'amp'
-                }
-                _NON_HEADER_VALS = {'x', '✓', '✓✓', 'i', 'ii', 'iii', 'iv', 'i/ii', 'ii/iii'}
+                    _HEADER_KW_SET = {
+                        'tier', 'gene', 'variant', 'exon', 'coverage', 'vaf', 'assay', 'biomarker',
+                        'result', 'interpretation', 'therapy', 'therapies', 'fda', 'nccn', 'ema',
+                        'esmo', 'trials', 'clinical trials', 'diagnostic', 'prognostic', 'description',
+                        'dna', 'rna', 'unstable', 'loci', 'method', 'specimen', 'mutation', 'classification',
+                        'test name', 'parameter', 'value', 'units', 'reference range', 'findings', 'comment',
+                        'indication', 'biomarker description', 'clinical significance', 'therapeutic implications',
+                        'variant classification', 'allele frequency', 'copy number', 'status', 'drugs',
+                        'drug', 'sensitivity', 'resistance', 'pathogenicity', 'acmg', 'amp'
+                    }
+                    _NON_HEADER_VALS = {'x', '✓', '✓✓', 'i', 'ii', 'iii', 'iv', 'i/ii', 'ii/iii'}
 
-                row_raw_texts = [page.get_text('text', clip=fitz.Rect(c)).strip().replace('\n', ' ') for c in candidate_header_cells]
-                non_empty_texts = [t for t in row_raw_texts if t.strip()]
+                    row_raw_texts = [page.get_text('text', clip=fitz.Rect(c)).strip().replace('\n', ' ') for c in candidate_header_cells]
+                    non_empty_texts = [t for t in row_raw_texts if t.strip()]
 
-                def _cell_matches_header_kw(t_str: str) -> bool:
-                    t_clean = re.sub(r'[^a-zA-Z0-9\s]', ' ', t_str).strip().lower()
-                    t_words = t_clean.split()
-                    if t_clean in _HEADER_KW_SET:
-                        return True
-                    for kw in _HEADER_KW_SET:
-                        if ' ' in kw and kw in t_clean:
+                    def _cell_matches_header_kw(t_str: str) -> bool:
+                        t_clean = re.sub(r'[^a-zA-Z0-9\s]', ' ', t_str).strip().lower()
+                        t_words = t_clean.split()
+                        if t_clean in _HEADER_KW_SET:
                             return True
-                        elif ' ' not in kw and kw in t_words:
-                            return True
-                    return False
+                        for kw in _HEADER_KW_SET:
+                            if ' ' in kw and kw in t_clean:
+                                return True
+                            elif ' ' not in kw and kw in t_words:
+                                return True
+                        return False
 
-                has_non_header_val = any(t.lower().strip() in _NON_HEADER_VALS for t in row_raw_texts)
-                has_header_kw = any(_cell_matches_header_kw(t) for t in non_empty_texts)
-                is_all_short = (
-                    len(non_empty_texts) >= 2
-                    and all(len(t) <= 45 and len(t.split()) <= 6 and not re.search(r'[.!?]\s+[A-Za-z]', t) for t in non_empty_texts)
-                )
-                is_real_header = len(candidate_header_cells) >= 2 and is_all_short and (not has_non_header_val) and has_header_kw
-
-                if is_real_header:
-                    header_cells = candidate_header_cells
-                    hy0 = min(c[1] for c in header_cells)
-                    hy1 = max(c[3] for c in header_cells)
-                    header_y_ranges.append((hy0 - 3.0, hy1 + 3.0))
-
-                    hdr_min_x0 = min(hc[0] for hc in header_cells)
-                    for c in header_cells:
-                        x0, y0, x1, y1 = c
-                        w = x1 - x0
-                        h = max(24.0, y1 - y0)
-                        rect = fitz.Rect(x0, y0, x1, y1)
-                        raw_text = page.get_text('text', clip=rect).strip()
-                        formatted_text = raw_text.replace('\n', ' ').strip()
-                        if "/" in formatted_text and " " not in formatted_text:
-                            formatted_text = formatted_text.replace("/", "/ ")
-                        # Directional borders: every header cell draws top/right/bottom;
-                        # only the leftmost header cell also draws left border.
-                        hdr_border_left = ("border-left:0.75pt solid #000000;"
-                                           if abs(x0 - hdr_min_x0) < 4.0 else "")
-                        hdr_border_style = (
-                            f"border-top:0.75pt solid #000000;"
-                            f"{hdr_border_left}"
-                            f"border-right:0.75pt solid #000000;"
-                            f"border-bottom:0.75pt solid #000000;"
-                        )
-                        table_header_html_divs.append(
-                            f"<div class='table-header-cell' "
-                            f"style='left:{x0:.1f}pt;top:{y0:.1f}pt;"
-                            f"width:{w:.1f}pt;height:{h:.1f}pt;{hdr_border_style}'>"
-                            f"{formatted_text}</div>"
-                        )
-
-            # Compute min x0 and min body-row y0 for this table to determine outer edges
-            body_cells = [
-                c for c in tab.cells
-                if c and not any(hy0_r <= c[1] <= hy1_r for hy0_r, hy1_r in header_y_ranges)
-            ]
-            tab_min_x0 = min(c[0] for c in body_cells) if body_cells else None
-            tab_min_y0 = min(c[1] for c in body_cells) if body_cells else None
-            has_header_above = len(header_y_ranges) > 0
-
-            for cell in tab.cells:
-                if cell:
-                    cx0, cy0, cx1, cy1 = cell
-                    cw = cx1 - cx0
-                    ch = cy1 - cy0
-                    if any(hy0_r <= cy0 <= hy1_r for hy0_r, hy1_r in header_y_ranges):
-                        continue
-                    # Build directional borders to avoid double-thick lines at shared edges:
-                    # Every cell draws its right and bottom borders.
-                    # Leftmost column also draws left border; topmost body row draws top border only if no header row exists above.
-                    border_right  = "border-right:0.75pt solid #000000;"
-                    border_bottom = "border-bottom:0.75pt solid #000000;"
-                    border_left   = ("border-left:0.75pt solid #000000;"
-                                     if tab_min_x0 is not None and abs(cx0 - tab_min_x0) < 4.0 else "")
-                    border_top    = ("border-top:0.75pt solid #000000;"
-                                     if (not has_header_above and tab_min_y0 is not None and abs(cy0 - tab_min_y0) < 4.0) else "")
-                    cell_border_style = border_top + border_left + border_right + border_bottom
-                    table_grid_html_divs.append(
-                        f"<div class='table-grid-cell' "
-                        f"style='left:{cx0:.1f}pt;top:{cy0:.1f}pt;"
-                        f"width:{cw:.1f}pt;height:{ch:.1f}pt;{cell_border_style}'></div>"
+                    has_non_header_val = any(t.lower().strip() in _NON_HEADER_VALS for t in row_raw_texts)
+                    has_header_kw = any(_cell_matches_header_kw(t) for t in non_empty_texts)
+                    is_all_short = (
+                        len(non_empty_texts) >= 2
+                        and all(len(t) <= 45 and len(t.split()) <= 6 and not re.search(r'[.!?]\s+[A-Za-z]', t) for t in non_empty_texts)
                     )
+                    is_real_header = len(candidate_header_cells) >= 2 and is_all_short and (not has_non_header_val) and has_header_kw
 
-        # 2. Extract Vector Drawings in body region ONLY
-        # Pre-scan test name positions on this page to remove decorative/separator lines right above test names
-        test_name_y_ranges = []
-        try:
-            p_dict = page.get_text('dict')
-            for b in p_dict.get('blocks', []):
-                if 'lines' in b:
-                    for l in b['lines']:
-                        line_text = "".join(s.get("text", "") for s in l.get("spans", [])).strip()
-                        line_text_clean = line_text.replace('\xa0', ' ').strip()
-                        if (line_text_clean.upper() == "TEST NAME" or 
-                            re.match(r'^\s*TEST\s+NAME\s*$', line_text_clean, re.IGNORECASE) or 
-                            is_test_name_text(line_text_clean) or
-                            is_subtitle_text(line_text_clean)):
-                            test_name_y_ranges.append((l['bbox'][1], l['bbox'][3]))
-                        else:
-                            for s in l.get('spans', []):
-                                st = s.get('text', '').replace('\xa0', ' ').strip()
-                                if (st.upper() == "TEST NAME" or 
-                                    re.match(r'^\s*TEST\s+NAME\s*$', st, re.IGNORECASE) or 
-                                    is_test_name_text(st) or
-                                    is_subtitle_text(st)):
-                                    test_name_y_ranges.append((s['bbox'][1], s['bbox'][3]))
-        except Exception:
-            pass
+                    if is_real_header:
+                        header_cells = candidate_header_cells
+                        hy0 = min(c[1] for c in header_cells)
+                        hy1 = max(c[3] for c in header_cells)
+                        header_y_ranges.append((hy0 - 3.0, hy1 + 3.0))
 
-        vector_html_divs = []
-        try:
-            drawings = page.get_drawings()
-            for d in drawings:
-                rect = d.get('rect')
-                if not rect:
-                    continue
-                rx0, ry0, rx1, ry1 = rect.x0, rect.y0, rect.x1, rect.y1
-                rw, rh = rx1 - rx0, ry1 - ry0
-                
-                # Skip tiny points and full page borders
-                if rw < 1.0 and rh < 1.0:
-                    continue
-                if rw > 550 and rh > 800:
-                    continue
+                        hdr_min_x0 = min(hc[0] for hc in header_cells)
+                        for c in header_cells:
+                            x0, y0, x1, y1 = c
+                            w = x1 - x0
+                            h = max(24.0, y1 - y0)
+                            rect = fitz.Rect(x0, y0, x1, y1)
+                            raw_text = page.get_text('text', clip=rect).strip()
+                            formatted_text = raw_text.replace('\n', ' ').strip()
+                            if "/" in formatted_text and " " not in formatted_text:
+                                formatted_text = formatted_text.replace("/", "/ ")
+                            # Directional borders: every header cell draws top/right/bottom;
+                            # only the leftmost header cell also draws left border.
+                            hdr_border_left = ("border-left:0.75pt solid #000000;"
+                                               if abs(x0 - hdr_min_x0) < 4.0 else "")
+                            hdr_border_style = (
+                                f"border-top:0.75pt solid #000000;"
+                                f"{hdr_border_left}"
+                                f"border-right:0.75pt solid #000000;"
+                                f"border-bottom:0.75pt solid #000000;"
+                            )
+                            table_header_html_divs.append(
+                                f"<div class='table-header-cell' "
+                                f"style='left:{x0:.1f}pt;top:{y0:.1f}pt;"
+                                f"width:{w:.1f}pt;height:{h:.1f}pt;{hdr_border_style}'>"
+                                f"{formatted_text}</div>"
+                            )
 
-                # Exclude vector lines/drawings in header or footer regions, unless they are part of kept tables
-                is_table_vector = False
-                for tx0, ty0, tx1, ty1 in kept_table_bboxes:
-                    if (tx0 - 2.0) <= rx0 <= rx1 <= (tx1 + 2.0) and (ty0 - 2.0) <= ry0 <= ry1 <= (ty1 + 2.0):
-                        is_table_vector = True
-                        break
-                if not is_table_vector:
-                    if ry0 < hy_cutoff or ry1 > fy_cutoff:
-                        continue
-
-                if any(abs(ry0 - hy0_r) < 5.0 for hy0_r, _ in header_y_ranges):
-                    continue
-
-                # Filter out horizontal line segments immediately above, touching, or below TEST NAME / subtitle
-                # The decorative underline under test name is narrow/centered (rw < 400.0) and directly adjacent (within 4.0pt)
-                if rh <= 2.5 and rw < 400.0 and any(abs(ry0 - ty1) <= 4.0 or abs(ry0 - ty0) <= 4.0 for ty0, ty1 in test_name_y_ranges):
-                    continue
-
-                fill_col = get_css_color(d.get('fill'))
-                stroke_col = get_css_color(d.get('color'))
-                stroke_w = d.get('width') or 1.0
-                stroke_w = max(1.0, stroke_w)
-
-                if rh <= 1.5:  # Horizontal line segment
-                    bg_color = "#000000"
-                    vector_html_divs.append(
-                        f"<div style='position:absolute; left:{rx0:.1f}pt; top:{ry0:.1f}pt; width:{rw:.1f}pt; height:{stroke_w:.1f}pt; background-color:{bg_color}; z-index:2; pointer-events:none;'></div>"
-                    )
-                elif rw <= 1.5:  # Vertical line segment
-                    bg_color = "#000000"
-                    vector_html_divs.append(
-                        f"<div style='position:absolute; left:{rx0:.1f}pt; top:{ry0:.1f}pt; width:{stroke_w:.1f}pt; height:{rh:.1f}pt; background-color:{bg_color}; z-index:2; pointer-events:none;'></div>"
-                    )
-                else:  # Rectangle box
-                    # Skip decorative small squares before headings on the left
-                    if fill_col and rx0 < 45.0 and rw < 20.0 and rh < 25.0:
-                        continue
-
-                    # Skip small heading background fill boxes (width < 350 pt), but preserve full-width banners
-                    if fill_col and rh < 25.0 and 40.0 < rw < 350.0:
-                        continue
-
-                    style_parts = [
-                        "position:absolute;",
-                        f"left:{rx0:.1f}pt;",
-                        f"top:{ry0:.1f}pt;",
-                        f"width:{rw:.1f}pt;",
-                        f"height:{rh:.1f}pt;",
-                        "pointer-events:none;"
+                    # Compute min x0 and min body-row y0 for this table to determine outer edges
+                    body_cells = [
+                        c for c in tab.cells
+                        if c and not any(hy0_r <= c[1] <= hy1_r for hy0_r, hy1_r in header_y_ranges)
                     ]
-                    if fill_col:
-                        # Check if this vector box is a result banner or a section heading/table header banner
-                        box_rect = fitz.Rect(rx0, ry0, rx1, ry1)
-                        box_text = page.get_text('text', clip=box_rect).strip()
-                        if "clinical indication" in box_text.lower():
-                            # Leave Clinical Indication box interior white/transparent so text is crisp and clean
+                    tab_min_x0 = min(c[0] for c in body_cells) if body_cells else None
+                    tab_min_y0 = min(c[1] for c in body_cells) if body_cells else None
+                    has_header_above = len(header_y_ranges) > 0
+
+                    for cell in tab.cells:
+                        if cell:
+                            cx0, cy0, cx1, cy1 = cell
+                            cw = cx1 - cx0
+                            ch = cy1 - cy0
+                            if any(hy0_r <= cy0 <= hy1_r for hy0_r, hy1_r in header_y_ranges):
+                                continue
+                            border_right  = "border-right:0.75pt solid #000000;"
+                            border_bottom = "border-bottom:0.75pt solid #000000;"
+                            border_left   = ("border-left:0.75pt solid #000000;"
+                                             if tab_min_x0 is not None and abs(cx0 - tab_min_x0) < 4.0 else "")
+                            border_top    = ("border-top:0.75pt solid #000000;"
+                                             if (not has_header_above and tab_min_y0 is not None and abs(cy0 - tab_min_y0) < 4.0) else "")
+                            cell_border_style = border_top + border_left + border_right + border_bottom
+                            table_grid_html_divs.append(
+                                f"<div class='table-grid-cell' "
+                                f"style='left:{cx0:.1f}pt;top:{cy0:.1f}pt;"
+                                f"width:{cw:.1f}pt;height:{ch:.1f}pt;{cell_border_style}'></div>"
+                            )
+
+        # 2. Extract Vector Drawings in body region ONLY (for themed pages)
+        vector_html_divs = []
+        if not is_after_eor:
+            test_name_y_ranges = []
+            try:
+                p_dict = page.get_text('dict')
+                for b in p_dict.get('blocks', []):
+                    if 'lines' in b:
+                        for l in b['lines']:
+                            line_text = "".join(s.get("text", "") for s in l.get("spans", [])).strip()
+                            line_text_clean = line_text.replace('\xa0', ' ').strip()
+                            if (line_text_clean.upper() == "TEST NAME" or 
+                                re.match(r'^\s*TEST\s+NAME\s*$', line_text_clean, re.IGNORECASE) or 
+                                is_test_name_text(line_text_clean) or
+                                is_subtitle_text(line_text_clean)):
+                                test_name_y_ranges.append((l['bbox'][1], l['bbox'][3]))
+                            else:
+                                for s in l.get('spans', []):
+                                    st = s.get('text', '').replace('\xa0', ' ').strip()
+                                    if (st.upper() == "TEST NAME" or 
+                                        re.match(r'^\s*TEST\s+NAME\s*$', st, re.IGNORECASE) or 
+                                        is_test_name_text(st) or
+                                        is_subtitle_text(st)):
+                                        test_name_y_ranges.append((s['bbox'][1], s['bbox'][3]))
+            except Exception:
+                pass
+
+            try:
+                drawings = page.get_drawings()
+                for d in drawings:
+                    rect = d.get('rect')
+                    if not rect:
+                        continue
+                    rx0, ry0, rx1, ry1 = rect.x0, rect.y0, rect.x1, rect.y1
+                    rw, rh = rx1 - rx0, ry1 - ry0
+                    
+                    # Skip tiny points and full page borders
+                    if rw < 1.0 and rh < 1.0:
+                        continue
+                    if rw > 550 and rh > 800:
+                        continue
+
+                    # Exclude vector lines/drawings in header or footer regions, unless they are part of kept tables
+                    is_table_vector = False
+                    for tx0, ty0, tx1, ty1 in kept_table_bboxes:
+                        if (tx0 - 2.0) <= rx0 <= rx1 <= (tx1 + 2.0) and (ty0 - 2.0) <= ry0 <= ry1 <= (ty1 + 2.0):
+                            is_table_vector = True
+                            break
+                    if not is_table_vector:
+                        if ry0 < hy_cutoff or ry1 > fy_cutoff:
                             continue
-                        banner_cls = check_result_banner_classification(box_text)
-                        
-                        if banner_cls == "positive":
-                            final_fill = result_positive_color
-                        elif banner_cls == "negative":
-                            final_fill = result_negative_color
-                        elif is_teal_or_green_color(d.get('fill')) or is_teal_or_green_color(fill_col):
-                            # Replace all teal/green section header banners with Oncquest primary blue (#1f497d)
-                            final_fill = primary_color
+
+                    if any(abs(ry0 - hy0_r) < 5.0 for hy0_r, _ in header_y_ranges):
+                        continue
+
+                    # Filter out horizontal line segments immediately above, touching, or below TEST NAME / subtitle
+                    if rh <= 2.5 and rw < 400.0 and any(abs(ry0 - ty1) <= 4.0 or abs(ry0 - ty0) <= 4.0 for ty0, ty1 in test_name_y_ranges):
+                        continue
+
+                    fill_col = get_css_color(d.get('fill'))
+                    stroke_col = get_css_color(d.get('color'))
+                    stroke_w = d.get('width') or 1.0
+                    stroke_w = max(1.0, stroke_w)
+
+                    if rh <= 1.5:  # Horizontal line segment
+                        bg_color = "#000000"
+                        vector_html_divs.append(
+                            f"<div style='position:absolute; left:{rx0:.1f}pt; top:{ry0:.1f}pt; width:{rw:.1f}pt; height:{stroke_w:.1f}pt; background-color:{bg_color}; z-index:2; pointer-events:none;'></div>"
+                        )
+                    elif rw <= 1.5:  # Vertical line segment
+                        bg_color = "#000000"
+                        vector_html_divs.append(
+                            f"<div style='position:absolute; left:{rx0:.1f}pt; top:{ry0:.1f}pt; width:{stroke_w:.1f}pt; height:{rh:.1f}pt; background-color:{bg_color}; z-index:2; pointer-events:none;'></div>"
+                        )
+                    else:  # Rectangle box
+                        if fill_col and rx0 < 45.0 and rw < 20.0 and rh < 25.0:
+                            continue
+
+                        if fill_col and rh < 25.0 and 40.0 < rw < 350.0:
+                            continue
+
+                        style_parts = [
+                            "position:absolute;",
+                            f"left:{rx0:.1f}pt;",
+                            f"top:{ry0:.1f}pt;",
+                            f"width:{rw:.1f}pt;",
+                            f"height:{rh:.1f}pt;",
+                            "pointer-events:none;"
+                        ]
+                        if fill_col:
+                            box_rect = fitz.Rect(rx0, ry0, rx1, ry1)
+                            box_text = page.get_text('text', clip=box_rect).strip()
+                            if "clinical indication" in box_text.lower():
+                                continue
+                            banner_cls = check_result_banner_classification(box_text)
+                            
+                            if banner_cls == "positive":
+                                final_fill = result_positive_color
+                            elif banner_cls == "negative":
+                                final_fill = result_negative_color
+                            elif is_teal_or_green_color(d.get('fill')) or is_teal_or_green_color(fill_col):
+                                final_fill = primary_color
+                            else:
+                                final_fill = fill_col
+
+                            style_parts.append(f"background-color:{final_fill};")
+                            style_parts.append("z-index:1;")
                         else:
-                            final_fill = fill_col
+                            style_parts.append("background-color:transparent;")
+                            style_parts.append("z-index:2;")
 
-                        style_parts.append(f"background-color:{final_fill};")
-                        style_parts.append("z-index:1;")
-                    else:
-                        style_parts.append("background-color:transparent;")
-                        style_parts.append("z-index:2;")
+                        if stroke_col:
+                            style_parts.append(f"border:{stroke_w:.1f}pt solid #000000;")
+                        elif not fill_col:
+                            style_parts.append(f"border:1.0pt solid #000000;")
 
-                    if stroke_col:
-                        # Force stroke borders to black
-                        style_parts.append(f"border:{stroke_w:.1f}pt solid #000000;")
-                    elif not fill_col:
-                        style_parts.append(f"border:1.0pt solid #000000;")
-
-                    vector_html_divs.append(
-                        f"<div style='{' '.join(style_parts)}'></div>"
-                    )
-        except Exception:
-            pass
+                        vector_html_divs.append(
+                            f"<div style='{' '.join(style_parts)}'></div>"
+                        )
+            except Exception:
+                pass
 
         # 3. Clean raw HTML & suppress raw <p> tags inside header/footer regions or table headers
         cleaned = page_html
         cleaned = re.sub(r'<img\s+[^>]*>', '', cleaned)
-        
-        m_eor = re.search(r'end\s+of\s+report', cleaned, re.IGNORECASE)
-        if m_eor:
-            eor_idx = m_eor.start()
-            pre = cleaned[:eor_idx]
-            post = cleaned[eor_idx:]
-            pre = re.sub(r'font-family:[^;"]+', f'font-family: {font_family}', pre)
-            cleaned = pre + post
-        else:
-            cleaned = re.sub(r'font-family:[^;"]+', f'font-family: {font_family}', cleaned)
 
-        # HIDE raw <p> tags that fall inside header/footer regions or table headers
-        def filter_hdr_ftr_and_table_p(match):
-            p_tag = match.group(0)
-            text_val = re.sub(r'<[^>]+>', '', p_tag).strip()
-            if is_end_of_report_text(text_val):
-                return p_tag
-            
-            # Filter out standalone page numbering
-            if re.match(r'^Page\s+\d+\s+of\s+\d+$', text_val, re.IGNORECASE):
-                return ""
-
-            top_m = re.search(r'top:\s*([\d.]+)pt', p_tag)
-            left_m = re.search(r'left:\s*([\d.]+)pt', p_tag)
-            if top_m:
-                y_val = float(top_m.group(1))
-                x_val = float(left_m.group(1)) if left_m else 0.0
-
-                # Suppress raw paragraph text inside table header ranges (since table_header_html_divs already renders header text cleanly)
-                if any(hy0_r <= y_val <= hy1_r for hy0_r, hy1_r in header_y_ranges):
+        if is_after_eor:
+            # HIDE raw <p> tags that fall inside header/footer regions
+            def filter_hdr_ftr_p(match):
+                p_tag = match.group(0)
+                text_val = re.sub(r'<[^>]+>', '', p_tag).strip()
+                if re.match(r'^Page\s+\d+(\s+of\s+\d+)?$', text_val, re.IGNORECASE):
                     return ""
-
-                is_inside_table = False
-                for tx0, ty0, tx1, ty1 in kept_table_bboxes:
-                    if (tx0 - 5.0) <= x_val <= (tx1 + 5.0) and (ty0 - 5.0) <= y_val <= (ty1 + 5.0):
-                        is_inside_table = True
-                        break
-                if not is_inside_table:
+                top_m = re.search(r'top:\s*([\d.]+)pt', p_tag)
+                if top_m:
+                    y_val = float(top_m.group(1))
                     if y_val < hy_cutoff or y_val > fy_cutoff:
                         return ""
-            return p_tag
+                return p_tag
 
-        cleaned = re.sub(r'<p\s+[^>]*>.*?</p>', filter_hdr_ftr_and_table_p, cleaned, flags=re.DOTALL)
-        cleaned = replace_teal_and_green_text_colors(cleaned, primary_color, result_negative_color, result_positive_color)
-
-        # Enforce Oncquest blue (#1f497d) and bold on any Clinical Indication text
-        def _fix_ci_span(m):
-            tag_open = m.group(1)
-            content = m.group(2)
-            if "color:" in tag_open:
-                tag_open = re.sub(r'color:\s*[^;"]+', f'color:{primary_color}', tag_open, flags=re.I)
+            cleaned = re.sub(r'<p\s+[^>]*>.*?</p>', filter_hdr_ftr_p, cleaned, flags=re.DOTALL)
+        else:
+            m_eor = re.search(r'end\s+of\s+report', cleaned, re.IGNORECASE)
+            if m_eor:
+                eor_idx = m_eor.start()
+                pre = cleaned[:eor_idx]
+                post = cleaned[eor_idx:]
+                pre = re.sub(r'font-family:[^;"]+', f'font-family: {font_family}', pre)
+                cleaned = pre + post
             else:
-                tag_open = tag_open.rstrip('>') + f'; color:{primary_color};>'
-            if "font-weight:" in tag_open:
-                tag_open = re.sub(r'font-weight:\s*[^;"]+', 'font-weight:bold', tag_open, flags=re.I)
-            else:
-                tag_open = tag_open.rstrip('>') + '; font-weight:bold;>'
-            return f"{tag_open}{content}</span>"
+                cleaned = re.sub(r'font-family:[^;"]+', f'font-family: {font_family}', cleaned)
 
-        cleaned = re.sub(r'(<span\s+[^>]*>)([^<]*?Clinical\s+Indication[^<]*?)</span>', _fix_ci_span, cleaned, flags=re.I)
+            # HIDE raw <p> tags that fall inside header/footer regions or table headers
+            def filter_hdr_ftr_and_table_p(match):
+                p_tag = match.group(0)
+                text_val = re.sub(r'<[^>]+>', '', p_tag).strip()
+                if is_end_of_report_text(text_val):
+                    return p_tag
+                
+                # Filter out standalone page numbering
+                if re.match(r'^Page\s+\d+\s+of\s+\d+$', text_val, re.IGNORECASE):
+                    return ""
+
+                top_m = re.search(r'top:\s*([\d.]+)pt', p_tag)
+                left_m = re.search(r'left:\s*([\d.]+)pt', p_tag)
+                if top_m:
+                    y_val = float(top_m.group(1))
+                    x_val = float(left_m.group(1)) if left_m else 0.0
+
+                    # Suppress raw paragraph text inside table header ranges (since table_header_html_divs already renders header text cleanly)
+                    if any(hy0_r <= y_val <= hy1_r for hy0_r, hy1_r in header_y_ranges):
+                        return ""
+
+                    is_inside_table = False
+                    for tx0, ty0, tx1, ty1 in kept_table_bboxes:
+                        if (tx0 - 5.0) <= x_val <= (tx1 + 5.0) and (ty0 - 5.0) <= y_val <= (ty1 + 5.0):
+                            is_inside_table = True
+                            break
+                    if not is_inside_table:
+                        if y_val < hy_cutoff or y_val > fy_cutoff:
+                            return ""
+                return p_tag
+
+            cleaned = re.sub(r'<p\s+[^>]*>.*?</p>', filter_hdr_ftr_and_table_p, cleaned, flags=re.DOTALL)
+            cleaned = replace_teal_and_green_text_colors(cleaned, primary_color, result_negative_color, result_positive_color)
+
+            # Enforce Oncquest blue (#1f497d) and bold on any Clinical Indication text
+            def _fix_ci_span(m):
+                tag_open = m.group(1)
+                content = m.group(2)
+                if "color:" in tag_open:
+                    tag_open = re.sub(r'color:\s*[^;"]+', f'color:{primary_color}', tag_open, flags=re.I)
+                else:
+                    tag_open = tag_open.rstrip('>') + f'; color:{primary_color};>'
+                if "font-weight:" in tag_open:
+                    tag_open = re.sub(r'font-weight:\s*[^;"]+', 'font-weight:bold', tag_open, flags=re.I)
+                else:
+                    tag_open = tag_open.rstrip('>') + '; font-weight:bold;>'
+                return f"{tag_open}{content}</span>"
+
+            cleaned = re.sub(r'(<span\s+[^>]*>)([^<]*?Clinical\s+Indication[^<]*?)</span>', _fix_ci_span, cleaned, flags=re.I)
 
         # 5. Extract exact images in body region ONLY
         exact_image_html_divs = []
@@ -1135,27 +1171,28 @@ def render_exact_pdf_layout_html(doc, doc_title: str = "Uploaded Document", them
         except Exception:
             pass
 
-        section_overlays = get_page_section_overlays(page, page_left_str, page_width_str, hy_cutoff, fy_cutoff)
+        section_overlays = get_page_section_overlays(page, page_left_str, page_width_str, hy_cutoff, fy_cutoff) if not is_after_eor else []
 
-        # Guarantee top border for Clinical Indication box so it is 100% enclosed on all 4 sides
-        try:
-            ci_rects = page.search_for("Clinical Indication")
-            for cir in ci_rects:
-                ci_top = cir.y0
-                has_top_border = any(
-                    (abs(float(m.group(1)) - ci_top) <= 5.0 and float(m.group(2)) >= 400.0)
-                    for v in vector_html_divs
-                    for m in [re.search(r'top:([0-9.]+)pt;.*width:([0-9.]+)pt', v)]
-                    if m
-                )
-                if not has_top_border:
-                    box_left = 29.8
-                    box_width = 535.8
-                    vector_html_divs.append(
-                        f"<div style='position:absolute; left:{box_left:.1f}pt; top:{ci_top - 1.5:.1f}pt; width:{box_width:.1f}pt; height:1.0pt; background-color:#000000; z-index:2; pointer-events:none;'></div>"
+        if not is_after_eor:
+            # Guarantee top border for Clinical Indication box so it is 100% enclosed on all 4 sides
+            try:
+                ci_rects = page.search_for("Clinical Indication")
+                for cir in ci_rects:
+                    ci_top = cir.y0
+                    has_top_border = any(
+                        (abs(float(m.group(1)) - ci_top) <= 5.0 and float(m.group(2)) >= 400.0)
+                        for v in vector_html_divs
+                        for m in [re.search(r'top:([0-9.]+)pt;.*width:([0-9.]+)pt', v)]
+                        if m
                     )
-        except Exception:
-            pass
+                    if not has_top_border:
+                        box_left = 29.8
+                        box_width = 535.8
+                        vector_html_divs.append(
+                            f"<div style='position:absolute; left:{box_left:.1f}pt; top:{ci_top - 1.5:.1f}pt; width:{box_width:.1f}pt; height:1.0pt; background-color:#000000; z-index:2; pointer-events:none;'></div>"
+                        )
+            except Exception:
+                pass
 
         html_parts.append(cleaned)
         html_parts.extend(vector_html_divs)
@@ -1252,7 +1289,7 @@ def generate_dynamic_template_html(data: dict, doc_title: str = "Uploaded Docume
                 seen_eor = True
 
             el_type = el.get("type")
-            if not seen_eor and el_type in ("header", "footer"):
+            if el_type in ("header", "footer"):
                 continue
                 
             style_override = el.get("style_override", {})
@@ -2383,7 +2420,7 @@ def convert_json_to_docx(data: dict, output_path: str = None, theme_config: dict
             # Flatten nested header/footer content into the body list first,
             # then filter out any remaining header/footer wrappers.
             flattened = flatten_header_footer_content(page_data.get("elements", []))
-            raw_body_elements = [el for el in flattened if seen_eor_docx or el.get("type") not in ("header", "footer")]
+            raw_body_elements = [el for el in flattened if el.get("type") not in ("header", "footer")]
             deduped_body_elements = deduplicate_elements(raw_body_elements)
             body_elements = sorted(deduped_body_elements, key=get_element_y)
             preceding_el = None
@@ -4307,7 +4344,7 @@ def convert_pdf_full_pipeline(pdf_path, output_dir=None, theme_config: dict = No
     print(f"\n[Step 3/4] Compiling HTML to PDF...")
     t2 = time.perf_counter()
     compiled_pdf_path = output_dir / f"{stem}_compiled.pdf"
-    render_html_to_pdf_and_preview(html_path, compiled_pdf_path)
+    compile_pdf_with_eor_split(str(pdf_path), html_content, compiled_pdf_path, doc_title=f"{stem}.pdf", theme_config=theme_config)
     dur_step3 = time.perf_counter() - t2
     if compiled_pdf_path.exists():
         print(f"   [+] Compiled PDF saved: {compiled_pdf_path}")
@@ -4585,6 +4622,112 @@ def render_html_to_pdf_and_preview(html_path, output_pdf_path, preview_img_path=
             print(f"   [+] Playwright compiled PDF successfully: {output_pdf_path}", flush=True)
     except Exception as err:
         print(f"   [!] HTML to PDF rendering error: {err}", flush=True)
+
+    return output_pdf_path
+
+
+def compile_pdf_with_eor_split(
+    input_pdf_path: str,
+    full_html_content: str,
+    output_pdf_path,
+    doc_title: str = "Uploaded Document",
+    theme_config: dict = None
+) -> Path:
+    """
+    Compiles final target PDF respecting the 'End of Report' split rule:
+    - Pages up to and including 'End of Report' are compiled with full Oncquest theme.
+    - Pages after 'End of Report' are taken directly from the original input PDF, with
+      header and footer regions cleanly redacted via PyMuPDF. No Oncquest theme is applied,
+      preserving 100% of the original vector graphics, layout, fonts, and colors.
+    - Both parts are merged into output_pdf_path.
+    """
+    output_pdf_path = Path(output_pdf_path)
+    output_pdf_path.parent.mkdir(parents=True, exist_ok=True)
+
+    input_pdf_path = Path(input_pdf_path).resolve()
+    if not input_pdf_path.exists():
+        with tempfile.TemporaryDirectory() as tmp_d:
+            html_tmp = Path(tmp_d) / "temp.html"
+            html_tmp.write_text(full_html_content, encoding="utf-8")
+            render_html_to_pdf_and_preview(html_tmp, output_pdf_path)
+        return output_pdf_path
+
+    with fitz.open(str(input_pdf_path)) as doc_in:
+        total_pages = len(doc_in)
+        eor_page_idx = find_eor_page_index(doc_in)
+        has_post_eor_pages = (0 <= eor_page_idx < total_pages - 1)
+
+        if not has_post_eor_pages:
+            with tempfile.TemporaryDirectory() as tmp_d:
+                html_tmp = Path(tmp_d) / "temp.html"
+                html_tmp.write_text(full_html_content, encoding="utf-8")
+                render_html_to_pdf_and_preview(html_tmp, output_pdf_path)
+            return output_pdf_path
+
+        print(f"[*] Post-EOR split detected: Page 1 to {eor_page_idx + 1} themed; Pages {eor_page_idx + 2} to {total_pages} unthemed (original PDF layout)", flush=True)
+
+        with tempfile.TemporaryDirectory() as tmp_d:
+            # 1. Compile themed HTML for pages 0 .. eor_page_idx
+            themed_html = render_exact_pdf_layout_html(
+                doc_in,
+                doc_title=doc_title,
+                theme_config=theme_config,
+                max_page_idx=eor_page_idx
+            )
+            themed_html = themed_html.replace("SN Genelab Pvt Ltd", "Laboratory")
+
+            themed_html_tmp = Path(tmp_d) / "themed.html"
+            themed_html_tmp.write_text(themed_html, encoding="utf-8")
+            themed_pdf_tmp = Path(tmp_d) / "themed.pdf"
+            render_html_to_pdf_and_preview(themed_html_tmp, themed_pdf_tmp)
+
+            if not themed_pdf_tmp.exists() or themed_pdf_tmp.stat().st_size == 0:
+                print("   [!] Themed PDF generation failed, falling back to full HTML compile", flush=True)
+                full_html_tmp = Path(tmp_d) / "full.html"
+                full_html_tmp.write_text(full_html_content, encoding="utf-8")
+                render_html_to_pdf_and_preview(full_html_tmp, output_pdf_path)
+                return output_pdf_path
+
+            # 2. Extract original PDF pages after EOR and redact header/footer regions
+            print(f"   [+] Extracting {total_pages - 1 - eor_page_idx} post-EOR pages directly from input PDF...", flush=True)
+            page_bounds = detect_dynamic_header_footer_bounds(doc_in)
+            unthemed_doc = fitz.open()
+
+            for p_idx in range(eor_page_idx + 1, total_pages):
+                unthemed_doc.insert_pdf(doc_in, from_page=p_idx, to_page=p_idx)
+                p_target = unthemed_doc[-1]
+
+                bounds = page_bounds.get(p_idx, {})
+                hy_cutoff = max(36.0, bounds.get("header_y_cutoff", 180.0))
+                fy_cutoff = min(bounds.get("footer_y_cutoff", 700.0), 690.0)
+
+                W = p_target.rect.width
+                H = p_target.rect.height
+
+                rect_hdr = fitz.Rect(0, 0, W, hy_cutoff)
+                rect_ftr = fitz.Rect(0, fy_cutoff, W, H)
+
+                p_target.add_redact_annot(rect_hdr, fill=(1, 1, 1))
+                p_target.add_redact_annot(rect_ftr, fill=(1, 1, 1))
+                p_target.apply_redactions(images=2, graphics=1, text=0)
+                p_target.draw_rect(rect_hdr, color=(1, 1, 1), fill=(1, 1, 1), overlay=True)
+                p_target.draw_rect(rect_ftr, color=(1, 1, 1), fill=(1, 1, 1), overlay=True)
+
+                # Standalone page number redaction near bottom
+                p_nums = p_target.search_for("Page ")
+                for pn_rect in p_nums:
+                    if pn_rect.y0 > 670.0:
+                        p_target.add_redact_annot(pn_rect, fill=(1, 1, 1))
+                        p_target.apply_redactions(images=2, graphics=1, text=0)
+                        p_target.draw_rect(pn_rect, color=(1, 1, 1), fill=(1, 1, 1), overlay=True)
+
+            # 3. Merge themed pages + unthemed redacted original pages
+            final_doc = fitz.open(str(themed_pdf_tmp))
+            final_doc.insert_pdf(unthemed_doc)
+            final_doc.save(str(output_pdf_path))
+            final_doc.close()
+            unthemed_doc.close()
+            print(f"   [+] Compiled PDF with EOR split saved: {output_pdf_path} (Total {total_pages} pages)", flush=True)
 
     return output_pdf_path
 

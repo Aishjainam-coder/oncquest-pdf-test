@@ -27,7 +27,8 @@ from converter import (
     convert_html_to_docx,
     convert_pdf_to_word,
     convert_pdf_via_pdf2docx,
-    render_html_to_pdf_and_preview
+    render_html_to_pdf_and_preview,
+    compile_pdf_with_eor_split
 )
 from extractor import extract_report_data
 
@@ -362,15 +363,19 @@ if uploaded_file is not None:
                         step_times["🎨 Step 2: HTML Layout"] = dur_step2
                         step2_ph.write(f"🎨 **Step 2/4:** Rendering styled HTML document layout — ⏱️ **{format_time_duration(dur_step2)}**")
 
-                        # Step 3: Compile HTML to PDF via Playwright
+                        # Step 3: Compile HTML to PDF via Playwright & EOR Split
                         t2 = time.perf_counter()
                         step3_ph = st.empty()
                         step3_ph.write("🌐 **Step 3/4:** Compiling HTML to PDF preview via Chromium... ⏳ *(processing)*")
-                        print(f"[*] [Step 3/4] Compiling HTML to PDF preview via Chromium...", flush=True)
-                        html_tmp = Path(tmp_dir) / "temp.html"
-                        html_tmp.write_text(html_content, encoding="utf-8")
+                        print(f"[*] [Step 3/4] Compiling HTML to PDF preview via Chromium with EOR split...", flush=True)
                         compiled_pdf_tmp = Path(tmp_dir) / "compiled.pdf"
-                        render_html_to_pdf_and_preview(html_tmp, compiled_pdf_tmp)
+                        compile_pdf_with_eor_split(
+                            str(pdf_input_path),
+                            html_content,
+                            compiled_pdf_tmp,
+                            doc_title=uploaded_file.name,
+                            theme_config=theme_config
+                        )
                         dur_step3 = time.perf_counter() - t2
                         step_times["🌐 Step 3: PDF Compile"] = dur_step3
                         step3_ph.write(f"🌐 **Step 3/4:** Compiling HTML to PDF preview via Chromium — ⏱️ **{format_time_duration(dur_step3)}**")
